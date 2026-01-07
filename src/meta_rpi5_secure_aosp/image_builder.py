@@ -4,37 +4,62 @@ import subprocess
 from datetime import datetime
 
 class ImageBuilder:
-    def __init__(self, version, target_product, output_dir):
-        self.version = version
-        self.date = datetime.now().strftime("%Y%m%d")
-        self.target = target_product.replace("aosp_", "")
-        self.img_name = f"{self.version}-{self.date}-{self.target}.img"
-        self.img_path = os.path.join(output_dir, self.img_name)
-        self.output_dir = output_dir
+    def __init__(self, image_data: dict):
+        self.validate(image_data)
+        self._image_data = image_data
+        date_time = datetime.now().strftime("%Y%m%d%H%M")
+        img_name = f"{image_data['image_name']}-{date_time}.img"
+        self._img_path = os.path.join(image_data['output_dir'], img_name)
 
-        # Partition sizes in MiB
-        self.boot_size = 128
-        self.system_size = 3072
-        self.vendor_size = 384
-        self.metadata_size = 16
-        self.extended_size = self.system_size + self.vendor_size + self.metadata_size + 4
-        self.img_size_bytes = 15360000000  # ~15GB
+    def validate(self, image_data: dict):
+        if 'image_name' not in image_data:
+            raise Exception("image_name is not specified")
+        if 'output_dir' not in image_data:
+            raise Exception("output_dir is not specified")
+        if 'partition_scheme' not in image_data:
+            raise Exception("partition_scheme is not specified")
+        if 'sdcard_size' not in image_data:
+            raise Exception("sdcard_size is not specified")
+        if 'partitions' not in image_data:
+            raise Exception("partitions is not specified")
 
     def run_cmd(self, cmd):
         print(f"Running: {' '.join(cmd)}")
         subprocess.run(cmd, check=True)
 
     def create_image_file(self):
-        if os.path.exists(self.img_path):
-            raise FileExistsError(f"{self.img_path} already exists!")
-        print(f"Creating image file {self.img_path}...")
-        self.run_cmd(["sudo", "fallocate", "-l", str(self.img_size_bytes), self.img_path])
+        if os.path.exists(self._img_path):
+            raise FileExistsError(f"{self._img_path} already exists!")
+        print(f"Creating image file {self._img_path}...")
+        img_size_bytes = int(self._image_data['sdcard_size']) * 1024 * 1024
+        self.run_cmd(["sudo", "fallocate", "-l", str(img_size_bytes), self._img_path])
         self.run_cmd(["sync"])
 
     def create_partitions(self):
         print("Creating partitions using parted...")
         # Create partition table
-        self.run_cmd(["sudo", "parted", "--script", self.img_path, "mklabel", "msdos"])
+        self.run_cmd(["sudo", "parted", "--script", self._img_path, "mklabel", self._image_data['partition_scheme']])
+
+        partition_number = 1
+        partition_start = 1
+        for partition_info in self._image_data['partitions']:
+            part_name = partition_info['name']
+            part_format = partition_info['format']
+            if 'size' in partition_info:
+                part_size = partition_info['size']
+            else:
+                part_size = int(self._image_data['sdcard_size']) - partition_start
+
+            self.add_partition(name=part_name,
+                               fs_type=part_format,
+                               start=partition_start,
+                               end=part_size,
+                               partition_number=partition_number)
+
+            # increment for partition number
+            partition_number += 1
+            # Compute the start of next partition
+            partition_start += part_size
 
         # Boot partition
         self.add_partition("primary", "fat32", "1MiB", f"{self.boot_size+1}MiB")
@@ -55,16 +80,16 @@ class ImageBuilder:
         # Userdata partition (primary)
         self.add_partition("primary", "ext4", f"{end_ext}MiB", "100%")
 
-    def add_partition(self, part_type, fs_type, start, end):
-        cmd = ["sudo", "parted", "--script", self.img_path, "mkpart", part_type]
-        if fs_type:
-            cmd.append(fs_type)
-        cmd += [start, end]
+    def add_partition(self, name, fs_type, start, end, partition_number):
+        # Create partition
+        cmd = ["sudo", "parted", "--script", self._img_path, "mkpart", name, fs_type, start, end]
         self.run_cmd(cmd)
+        # Assign name explicitly (important for AVB)
+        self.run_cmd(["sudo", "parted", "--script", self._img_path, "name", partition_number, name])
 
     def map_loop_device(self):
         print("Mapping loop device...")
-        result = subprocess.run(["sudo", "kpartx", "-av", self.img_path], capture_output=True, text=True, check=True)
+        result = subprocess.run(["sudo", "kpartx", "-av", self._img_path], capture_output=True, text=True, check=True)
         loopdev = None
         for line in result.stdout.splitlines():
             if "add map" in line:
@@ -87,7 +112,7 @@ class ImageBuilder:
         print("Cleaning up loop device...")
         self.run_cmd(["sudo", "kpartx", "-d", f"/dev/{loopdev}"])
         self.run_cmd(["sudo", "losetup", "-d", f"/dev/{loopdev}"])
-        self.run_cmd(["sudo", "chown", f"{os.getenv('USER')}:{os.getenv('USER')}", self.img_path])
+        self.run_cmd(["sudo", "chown", f"{os.getenv('USER')}:{os.getenv('USER')}", self._img_path])
 
     def build_image(self):
         self.create_image_file()
@@ -99,8 +124,3 @@ class ImageBuilder:
         self.create_filesystem(loopdev, "p7", "metadata")
         self.create_filesystem(loopdev, "p3", "userdata")
         self.cleanup(loopdev)
-
-
-if __name__ == "__main__":
-    builder = ImageBuilder("RaspberryVanillaAOSP16", os.getenv("TARGET_PRODUCT", "aosp_rpi"), os.getenv("ANDROID_PRODUCT_OUT", "/path/to/output"))
-    builder.build_image()

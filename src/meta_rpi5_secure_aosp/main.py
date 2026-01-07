@@ -15,7 +15,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-import image_builder
+from image_builder import ImageBuilder
 
 def get_default_workspace() -> Path:
     if getattr(sys, "frozen", False):
@@ -112,7 +112,7 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
 
                 if (aosp_dir / ".repo").exists():
                     progress.add_task("Syncing AOSP", total=None)
-                    run(f"{repo_cmd} sync -j 4", cwd=aosp_dir)
+                    run(f"{repo_cmd} sync -j $(nproc)", cwd=aosp_dir)
                 else:
                     aosp_dir.mkdir(parents=True, exist_ok=True)
                     progress.add_task("repo init", total=None)
@@ -130,7 +130,7 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
                          cwd=manifest_dir)
 
                     progress.add_task("Final repo sync", total=None)
-                    run(f"{repo_cmd} sync -j 4", cwd=aosp_dir)
+                    run(f"{repo_cmd} sync -j $(nproc)", cwd=aosp_dir)
 
         console.print("[green]Sync completed[/]\n")
 
@@ -167,56 +167,49 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
         # boot - 128MB
         # system - 3072MB
         # vendor - 512MB
-        # metadata - 16MB
+        # vbmeta - 16MB
         # userdata - remaining
         # image size - 24576MB (24GB)
-        image_date = {
+        image_data = {
+            "output_dir": sdcard_dir,
+            "image_name": "rpi5-aosp",
             "partition_scheme": "gpt",
             "sdcard_size": "24576",
             "partitions" : [
                 {
-                    "type": "primary",
                     "name": "boot",
                     "size": "128",
                     "format": "fat32",
                     "flags": "boot",
-                    "img": aosp_dir + "/out/target/product/rpi5/boot.img"
+                    "img": str(aosp_dir / "out/target/product/rpi5/boot.img")
                 },
                 {
-                    "type": "primary",
                     "name": "system",
                     "size": "3072",
                     "format": "ext4",
-                    "img": aosp_dir + "/out/target/product/rpi5/system.img"
+                    "img": str(aosp_dir / "out/target/product/rpi5/system.img")
                 },
                 {
-                    "type": "primary",
                     "name": "vendor",
                     "size": "512",
                     "format": "ext4",
-                    "img": aosp_dir + "/out/target/product/rpi5/vendor.img"
+                    "img": str(aosp_dir / "out/target/product/rpi5/vendor.img")
                 },
+                # {
+                #     "name": "vbmeta",
+                #     "size": "16",
+                #     "format": "ext4"
+                # },
                 {
-                    "type": "primary",
-                    "name": "vbmeta",
-                    "size": "16",
-                    "format": "ext4"
-                },
-                {
-                    "type": "primary",
-                    "name": "metadata",
-                    "size": "16",
-                    "format": "ext4"
-                },
-                {
-                    "type": "primary",
                     "name": "userdata",
                     "size": "",             # All remaining space to be used for userdata
                     "format": "ext4"
                 },
             ]
         }
-        console.print(f"[bold green]Image ready in:[/] {sdcard_dir}\n")
+        image_builder = ImageBuilder(image_data)
+        image_path = image_builder.build_image()
+        console.print(f"[bold green]Image ready in:[/] {image_path}\n")
 
     console.print("[bold green]All requested stages completed successfully![/]")
 
