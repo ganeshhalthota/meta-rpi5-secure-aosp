@@ -855,3 +855,83 @@ rm -f rpi5-aosp/out/target/product/rpi5/RaspberryVanillaAOSP16-2* ; python3 /opt
 cd rpi5-aosp/out/target/product/rpi5/
 tar czf RaspberryVanillaAOSP16-20251213-rpi.img.tgz RaspberryVanillaAOSP16-20251213-rpi.img 
 cd ../../../
+/opt/run_src.sh --help
+/opt/run_src.sh -s sdcard
+/opt/run_src.sh --help
+/opt/run_src.sh -s sync
+/opt/run_src.sh --help
+/opt/run_src.sh -s build -c uboot
+ls
+ls -al
+/opt/run_src.sh --help
+/opt/run_src.sh -s sdcard
+/opt/run_src.sh --help
+/opt/run_src.sh -s sdcard
+ll
+/opt/run_src.sh -h
+/opt/run_src.sh --help
+/opt/run_src.sh --s sdcard
+/opt/run_src.sh -s sdcard
+ll
+/opt/run_src.sh 
+/opt/run_src.sh --help
+/opt/run_src.sh -
+/opt/run_src.sh --help
+/opt/run_src.sh -s sdcard
+git s
+/opt/run_src.sh -s sdcard
+ls -lh /workspace/rpi5-aosp/out/target/product/rpi5/*.img 2>/dev/null | grep -E "(boot|system|vendor)\.img" || echo "Image files not found in expected location"
+/opt/run_src.sh -s sdcard
+kpartx -l
+kpartx -a
+kpartx -l /workspace/sdcard/rpi5-aosp-202601221316.img
+ls /dev/loop*
+mount
+losetup -h
+losetup -f
+sudo losetup -f
+kpartx -l /workspace/sdcard/rpi5-aosp-202601221316.img
+/opt/run_src.sh -s sdcard
+losetup -a
+losetup -a | grep rpi
+sudo losetup -d /dev/loop7
+sudo losetup -d /dev/loop9
+losetup -a
+sudo kpartx -d /dev/loop9
+sudo losetup -d /dev/loop9
+sudo kpartx -d /dev/loop7
+losetup -a
+/opt/run_src.sh -s sdcard
+git s
+ll
+/opt/run_src.sh -h
+/opt/run_src.sh --help
+/opt/run_src.sh 
+cp -rp /opt/resources/* .
+/opt/run_src.sh 
+ll
+/opt/run_src.sh 
+ll wo
+cp /opt/resources/* .
+cp -r /opt/resources/* .
+l
+ll
+/opt/run_src.sh 
+ll
+ll u-boot/
+git clone https://android.googlesource.com/platform/manifest
+ll
+/opt/run_src.sh --help
+/opt/run_src.sh -s sync -c aosp
+rm -rf rpi5-aosp/
+/opt/run_src.sh -s sync -c aosp
+git clone "ssh://review-android.quicinc.com:29418/qnx/build"
+echo $HOME
+ls -al ~/.ssh/
+git clone "ssh://review-android.quicinc.com:29418/qnx/build"
+/opt/run_src.sh -s sync -c aosp
+rm -rf rpi5-aosp/
+/opt/run_src.sh -s sync -c aosp
+rm -rf rpi5-aosp/
+/opt/run_src.sh -s sync -c aosp
+ll

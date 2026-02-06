@@ -41,44 +41,40 @@ class ImageBuilder:
         self.run_cmd(["sudo", "parted", "--script", self._img_path, "mklabel", self._image_data['partition_scheme']])
 
         partition_number = 1
-        partition_start = 1
+        partition_start = 1  # Start at 1MiB
         for partition_info in self._image_data['partitions']:
             part_name = partition_info['name']
             part_format = partition_info['format']
-            if 'size' in partition_info:
-                part_size = partition_info['size']
+
+            # Calculate partition size
+            if 'size' in partition_info and partition_info['size']:
+                part_size = int(partition_info['size'])
+                partition_end = partition_start + part_size
             else:
-                part_size = int(self._image_data['sdcard_size']) - partition_start
+                # Use remaining space (100%)
+                partition_end = "100%"
+
+            # Format start and end for parted command
+            start_str = f"{partition_start}MiB"
+            end_str = f"{partition_end}MiB" if isinstance(partition_end, int) else partition_end
+
+            print(f"  Creating partition {partition_number}: {part_name} ({start_str} -> {end_str})")
 
             self.add_partition(name=part_name,
                                fs_type=part_format,
-                               start=partition_start,
-                               end=part_size,
-                               partition_number=partition_number)
+                               start=start_str,
+                               end=end_str,
+                               partition_number=str(partition_number))
+
+            # Set boot flag if specified
+            if 'flags' in partition_info and partition_info['flags']:
+                self.run_cmd(["sudo", "parted", "--script", self._img_path, "set", str(partition_number), partition_info['flags'], "on"])
 
             # increment for partition number
             partition_number += 1
-            # Compute the start of next partition
-            partition_start += part_size
-
-        # Boot partition
-        self.add_partition("primary", "fat32", "1MiB", f"{self.boot_size+1}MiB")
-
-        # Extended partition
-        start_ext = self.boot_size + 1
-        end_ext = start_ext + self.extended_size
-        self.add_partition("extended", "", f"{start_ext}MiB", f"{end_ext}MiB")
-
-        # Logical partitions inside extended
-        current_start = start_ext
-        self.add_partition("logical", "ext4", f"{current_start}MiB", f"{current_start+self.system_size}MiB")
-        current_start += self.system_size
-        self.add_partition("logical", "ext4", f"{current_start}MiB", f"{current_start+self.vendor_size}MiB")
-        current_start += self.vendor_size
-        self.add_partition("logical", "ext4", f"{current_start}MiB", f"{current_start+self.metadata_size}MiB")
-
-        # Userdata partition (primary)
-        self.add_partition("primary", "ext4", f"{end_ext}MiB", "100%")
+            # Compute the start of next partition (only if we have a fixed size)
+            if isinstance(partition_end, int):
+                partition_start = partition_end
 
     def add_partition(self, name, fs_type, start, end, partition_number):
         # Create partition
@@ -89,20 +85,41 @@ class ImageBuilder:
 
     def map_loop_device(self):
         print("Mapping loop device...")
-        result = subprocess.run(["sudo", "kpartx", "-av", self._img_path], capture_output=True, text=True, check=True)
-        loopdev = None
-        for line in result.stdout.splitlines():
-            if "add map" in line:
-                loopdev = line.split()[-1].replace("p1", "")
-                break
+
+        # Step 1: Find a free loop device
+        result = subprocess.run(["sudo", "losetup", "-f"], capture_output=True, text=True, check=True)
+        loopdev = result.stdout.strip()
         if not loopdev:
-            raise RuntimeError("Unable to find loop device!")
-        print(f"Image mounted as /dev/{loopdev}")
-        return loopdev
+            raise RuntimeError("Unable to find free loop device!")
+        print(f"  Found free loop device: {loopdev}")
+
+        # Step 2: Attach the image to the loop device
+        print(f"  Attaching {self._img_path} to {loopdev}...")
+        self.run_cmd(["sudo", "losetup", loopdev, self._img_path])
+
+        # Step 3: Map the partitions using kpartx
+        print(f"  Mapping partitions with kpartx...")
+        result = subprocess.run(["sudo", "kpartx", "-av", loopdev], capture_output=True, text=True, check=True)
+        print(f"  kpartx output:\n{result.stdout}")
+
+        # Extract the mapper device name (e.g., loop0 from /dev/loop0)
+        mapper_name = os.path.basename(loopdev)
+        print(f"  Partitions mapped as /dev/mapper/{mapper_name}pX")
+
+        return mapper_name
 
     def copy_partition(self, loopdev, partition, src_img):
         print(f"Copying {src_img} to {partition}...")
-        self.run_cmd(["sudo", "dd", f"if={src_img}", f"of=/dev/mapper/{loopdev}{partition}", "bs=1M"])
+        # Check if source image exists
+        if not os.path.exists(src_img):
+            raise FileNotFoundError(f"Source image not found: {src_img}")
+
+        # Get source image size
+        src_size = os.path.getsize(src_img)
+        print(f"  Source image size: {src_size / (1024*1024):.2f} MiB")
+
+        # Use dd with conv=notrunc to avoid issues with partition size
+        self.run_cmd(["sudo", "dd", f"if={src_img}", f"of=/dev/mapper/{loopdev}{partition}", "bs=1M", "conv=notrunc"])
 
     def create_filesystem(self, loopdev, partition, label):
         print(f"Creating filesystem on {partition} with label {label}...")
@@ -110,17 +127,66 @@ class ImageBuilder:
 
     def cleanup(self, loopdev):
         print("Cleaning up loop device...")
+
+        # Step 1: Remove partition mappings
+        print(f"  Removing partition mappings...")
         self.run_cmd(["sudo", "kpartx", "-d", f"/dev/{loopdev}"])
+
+        # Step 2: Detach the loop device
+        print(f"  Detaching loop device /dev/{loopdev}...")
         self.run_cmd(["sudo", "losetup", "-d", f"/dev/{loopdev}"])
-        self.run_cmd(["sudo", "chown", f"{os.getenv('USER')}:{os.getenv('USER')}", self._img_path])
+
+        # Step 3: Change ownership of the image file
+        print(f"  Changing ownership of {self._img_path}...")
+        # Get the actual user (not root) - try multiple methods
+        import pwd
+        try:
+            # Try SUDO_USER first (when running with sudo)
+            username = os.getenv('SUDO_USER')
+            if not username:
+                # Fall back to USER environment variable
+                username = os.getenv('USER')
+            if not username:
+                # Fall back to current effective user
+                username = pwd.getpwuid(os.getuid()).pw_name
+
+            if username and username != 'root':
+                self.run_cmd(["sudo", "chown", f"{username}:{username}", self._img_path])
+                print(f"  Changed ownership to {username}:{username}")
+            else:
+                print(f"  Skipping ownership change (running as root or user not detected)")
+        except Exception as e:
+            print(f"  Warning: Could not change ownership: {e}")
+
+        print("  Cleanup completed successfully!")
 
     def build_image(self):
         self.create_image_file()
         self.create_partitions()
         loopdev = self.map_loop_device()
-        self.copy_partition(loopdev, "p1", os.path.join(self.output_dir, "boot.img"))
-        self.copy_partition(loopdev, "p5", os.path.join(self.output_dir, "system.img"))
-        self.copy_partition(loopdev, "p6", os.path.join(self.output_dir, "vendor.img"))
-        self.create_filesystem(loopdev, "p7", "metadata")
-        self.create_filesystem(loopdev, "p3", "userdata")
+
+        try:
+            # Process each partition
+            partition_number = 1
+            for partition_info in self._image_data['partitions']:
+                part_name = partition_info['name']
+                partition_dev = f"p{partition_number}"
+
+                # If there's an image file to copy, copy it
+                if 'img' in partition_info and partition_info['img']:
+                    self.copy_partition(loopdev, partition_dev, partition_info['img'])
+                # Otherwise, create an empty filesystem
+                elif partition_info['format'] in ['ext4', 'ext3', 'ext2']:
+                    self.create_filesystem(loopdev, partition_dev, part_name)
+                elif partition_info['format'] == 'fat32':
+                    self.run_cmd(["sudo", "mkfs.vfat", "-F", "32", "-n", part_name.upper(), f"/dev/mapper/{loopdev}{partition_dev}"])
+
+                partition_number += 1
+        except Exception as e:
+            print(f"Error during image building: {e}")
+            print("Attempting cleanup...")
+            self.cleanup(loopdev)
+            raise
+
         self.cleanup(loopdev)
+        return self._img_path

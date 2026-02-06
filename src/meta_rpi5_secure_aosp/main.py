@@ -112,11 +112,11 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
 
                 if (aosp_dir / ".repo").exists():
                     progress.add_task("Syncing AOSP", total=None)
-                    run(f"{repo_cmd} sync -j $(nproc)", cwd=aosp_dir)
+                    run(f"{repo_cmd} sync -j 8 --no-tags --optimized-fetch --current-branch", cwd=aosp_dir)
                 else:
                     aosp_dir.mkdir(parents=True, exist_ok=True)
                     progress.add_task("repo init", total=None)
-                    run(f"{repo_cmd} init -u https://android.googlesource.com/platform/manifest -b android-16.0.0_r4 --depth=1", cwd=aosp_dir)
+                    run(f"{repo_cmd} init -u https://android.googlesource.com/platform/manifest -b android-16.0.0_r4 --depth=1 --no-tags --current-branch --repo-branch aosp/stable --no-repo-verify", cwd=aosp_dir)
 
                     manifest_dir = aosp_dir / ".repo" / "local_manifests"
                     manifest_dir.mkdir(parents=True, exist_ok=True)
@@ -130,7 +130,7 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
                          cwd=manifest_dir)
 
                     progress.add_task("Final repo sync", total=None)
-                    run(f"{repo_cmd} sync -j $(nproc)", cwd=aosp_dir)
+                    run(f"{repo_cmd} sync -j 8 --no-tags --optimized-fetch --current-branch", cwd=aosp_dir)
 
         console.print("[green]Sync completed[/]\n")
 
@@ -163,13 +163,12 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
         sdcard_dir.mkdir(exist_ok=True)
 
         # define the partitions and sizes
-        # MBR partition scheme
-        # boot - 128MB
-        # system - 3072MB
-        # vendor - 512MB
-        # vbmeta - 16MB
-        # userdata - remaining
         # image size - 24576MB (24GB)
+        # GPT partition scheme
+        # boot - 256MB (boot.img is 128M, giving extra space for safety)
+        # system - 4096MB (system.img is 3.0G, giving extra space)
+        # vendor - 512MB (vendor.img is 384M, giving extra space)
+        # userdata - remaining
         image_data = {
             "output_dir": sdcard_dir,
             "image_name": "rpi5-aosp",
@@ -178,14 +177,14 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
             "partitions" : [
                 {
                     "name": "boot",
-                    "size": "128",
+                    "size": "256",
                     "format": "fat32",
                     "flags": "boot",
                     "img": str(aosp_dir / "out/target/product/rpi5/boot.img")
                 },
                 {
                     "name": "system",
-                    "size": "3072",
+                    "size": "4096",
                     "format": "ext4",
                     "img": str(aosp_dir / "out/target/product/rpi5/system.img")
                 },
@@ -195,11 +194,6 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
                     "format": "ext4",
                     "img": str(aosp_dir / "out/target/product/rpi5/vendor.img")
                 },
-                # {
-                #     "name": "vbmeta",
-                #     "size": "16",
-                #     "format": "ext4"
-                # },
                 {
                     "name": "userdata",
                     "size": "",             # All remaining space to be used for userdata
