@@ -42,7 +42,7 @@ RUN apt-get update && apt-get install -y tree bash-completion strace vim
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo && chmod +x /usr/local/bin/repo
 
 # Add default user with empty password and passwordless sudo
-RUN useradd --password U6aMy0wojraho --shell /bin/bash -u 4186280 $HOSTUSER && \
+RUN useradd --password U6aMy0wojraho --shell /bin/bash -u 1000 $HOSTUSER && \
     usermod -aG sudo $HOSTUSER && \
     usermod -aG users $HOSTUSER && \
     echo "$HOSTUSER ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers
