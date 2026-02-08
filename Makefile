@@ -1,4 +1,4 @@
-.PHONY: help shell sync build sdcard all clean clean-all
+.PHONY: help shell sync build sign sign-aosp sdcard all clean clean-all
 
 # Default target
 help:
@@ -12,8 +12,12 @@ help:
 	@echo "  make build              - Build U-Boot and AOSP"
 	@echo "  make build-uboot        - Build only U-Boot"
 	@echo "  make build-aosp         - Build only AOSP"
+	@echo "  make sign               - Sign AOSP images with AVB"
+	@echo "  make sign-aosp          - Sign only AOSP images"
 	@echo "  make sdcard             - Generate SD card image"
+	@echo "  make sdcard-signed      - Generate SD card image with signed images"
 	@echo "  make all                - Run all stages (sync + build + sdcard)"
+	@echo "  make all-signed         - Run all stages with signing (sync + build + sign + sdcard)"
 	@echo "  make clean              - Remove generated images"
 	@echo "  make clean-all          - Remove all build artifacts and workspace"
 	@echo ""
@@ -45,12 +49,25 @@ build-uboot:
 build-aosp:
 	@./docker_run.sh /opt/run_src.sh --stage build --code aosp
 
+# Signing stages
+sign:
+	@./docker_run.sh /opt/run_src.sh --stage sign
+
+sign-aosp:
+	@./docker_run.sh /opt/run_src.sh --stage sign --code aosp
+
 # SD card image generation
 sdcard:
 	@./docker_run.sh /opt/run_src.sh --stage sdcard
 
+sdcard-signed: sign
+	@./docker_run.sh /opt/run_src.sh --stage sdcard
+
 # Run all stages
 all:
+	@./docker_run.sh /opt/run_src.sh --stage all
+
+all-signed:
 	@./docker_run.sh /opt/run_src.sh --stage all
 
 # Custom command

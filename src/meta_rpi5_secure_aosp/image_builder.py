@@ -4,9 +4,10 @@ import subprocess
 from datetime import datetime
 
 class ImageBuilder:
-    def __init__(self, image_data: dict):
+    def __init__(self, image_data: dict, compress: bool = False):
         self.validate(image_data)
         self._image_data = image_data
+        self._compress = compress
         date_time = datetime.now().strftime("%Y%m%d%H%M")
         img_name = f"{image_data['image_name']}-{date_time}.img"
         self._img_path = os.path.join(image_data['output_dir'], img_name)
@@ -121,6 +122,46 @@ class ImageBuilder:
         # Use dd with conv=notrunc to avoid issues with partition size
         self.run_cmd(["sudo", "dd", f"if={src_img}", f"of=/dev/mapper/{loopdev}{partition}", "bs=1M", "conv=notrunc"])
 
+    def copy_extra_files(self, loopdev, partition_number, extra_files):
+        print(f"Copying extra files to partition {partition_number}...")
+
+        # Create a temporary mount point
+        import tempfile
+        mount_point = tempfile.mkdtemp()
+        print(f"  Created temporary mount point: {mount_point}")
+
+        try:
+            # Mount the partition
+            self.run_cmd(["sudo", "mount", f"/dev/mapper/{loopdev}p{partition_number}", mount_point])
+
+            # Copy each extra file
+            for file_info in extra_files:
+                if "src" in file_info and os.path.exists(file_info["src"]):
+                    # Copy from existing file
+                    dst_path = os.path.join(mount_point, file_info["dst"])
+                    print(f"  Copying {file_info['src']} to {dst_path}")
+                    self.run_cmd(["sudo", "cp", file_info["src"], dst_path])
+                elif "content" in file_info:
+                    # Create file with specified content
+                    dst_path = os.path.join(mount_point, file_info["src"])
+                    print(f"  Creating file {dst_path}")
+                    with tempfile.NamedTemporaryFile(mode="w", delete=False) as temp_file:
+                        temp_file.write(file_info["content"])
+                        temp_path = temp_file.name
+
+                    self.run_cmd(["sudo", "cp", temp_path, dst_path])
+                    os.unlink(temp_path)
+
+            # Sync to ensure all writes are flushed
+            self.run_cmd(["sudo", "sync"])
+        finally:
+            # Unmount the partition
+            self.run_cmd(["sudo", "umount", mount_point])
+
+            # Remove the temporary mount point
+            os.rmdir(mount_point)
+            print("  Removed temporary mount point")
+
     def create_filesystem(self, loopdev, partition, label):
         print(f"Creating filesystem on {partition} with label {label}...")
         self.run_cmd(["sudo", "mkfs.ext4", f"/dev/mapper/{loopdev}{partition}", "-I", "512", "-L", label])
@@ -160,6 +201,10 @@ class ImageBuilder:
 
         print("  Cleanup completed successfully!")
 
+    def compress_image(self):
+        print("Compressing image to zip")
+        self.run_cmd(["zip", self._img_path + ".zip", self._img_path])
+
     def build_image(self):
         self.create_image_file()
         self.create_partitions()
@@ -181,6 +226,10 @@ class ImageBuilder:
                 elif partition_info['format'] == 'fat32':
                     self.run_cmd(["sudo", "mkfs.vfat", "-F", "32", "-n", part_name.upper(), f"/dev/mapper/{loopdev}{partition_dev}"])
 
+                # If there are extra files to copy to this partition
+                if 'extra_files' in partition_info and partition_info['extra_files']:
+                    self.copy_extra_files(loopdev, partition_number, partition_info['extra_files'])
+
                 partition_number += 1
         except Exception as e:
             print(f"Error during image building: {e}")
@@ -189,4 +238,9 @@ class ImageBuilder:
             raise
 
         self.cleanup(loopdev)
+
+        if self._compress:
+            print(f"Compressing image to zip file")
+            self.compress_image()
+
         return self._img_path
