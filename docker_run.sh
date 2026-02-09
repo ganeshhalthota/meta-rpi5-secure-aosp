@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -ex
+set -e
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 CONTAINER_NAME="rpi_build"
@@ -37,7 +37,7 @@ Commands:
   Otherwise, runs the command inside the container.
 
 Examples:
-  $0 --shell                                    # Interactive shell
+  $0 --shell                                   # Interactive shell
   $0 /opt/run_src.sh --stage sync --code aosp  # Run build directly
   $0 python3 /opt/src/meta_rpi5_secure_aosp/main.py --help
 
@@ -72,36 +72,36 @@ function cleanup_container() {
 }
 
 function setup_container() {
-    local WORK_DIR=$(realpath work)
+    local work_dir=$(realpath work)
 
-    if [[ ! -d "${WORK_DIR}" ]]; then
-        mkdir -p "$WORK_DIR"
+    if [[ ! -d "${work_dir}" ]]; then
+        mkdir -p "$work_dir"
         # Copy resources to work directory
-        cp -rp resources/* ${WORK_DIR}/
+        cp -rp resources/* ${work_dir}/
     fi
 
     # Get current user info
-    local HOST_UID=$(id -u)
-    local HOST_GID=$(id -g)
-    local HOST_USER=$(id -un)
+    local host_uid=$(id -u)
+    local host_gid=$(id -g)
+    local host_user=$(id -un)
 
     log_info "Starting container: ${CONTAINER_NAME}"
-    log_info "  Workspace: ${WORK_DIR}"
-    log_info "  User: ${HOST_USER} (UID=${HOST_UID}, GID=${HOST_GID})"
+    log_info "  Workspace: ${work_dir}"
+    log_info "  User: ${host_user} (UID=${host_uid}, GID=${host_gid})"
 
     docker run -d \
         --name "${CONTAINER_NAME}" \
         --rm \
-        -v "${SCRIPT_DIR}/docker/home":"/home/${HOST_USER}" \
+        -v "${SCRIPT_DIR}/docker/home":"/home/${host_user}" \
         -v "${SCRIPT_DIR}":/opt \
-        -v "${WORK_DIR}":/workspace \
+        -v "${work_dir}":/workspace \
         -v /etc/gitconfig:/etc/gitconfig:ro \
         -w /workspace \
         --privileged \
-        -e "HOST_UID=${HOST_UID}" \
-        -e "HOST_GID=${HOST_GID}" \
-        -e "HOST_USER=${HOST_USER}" \
-        -e "SUDO_USER=${HOST_USER}" \
+        -e "HOST_UID=${host_uid}" \
+        -e "HOST_GID=${host_gid}" \
+        -e "HOST_USER=${host_user}" \
+        -e "SUDO_USER=${host_user}" \
         "${IMAGE_NAME}" \
         sleep infinity > /dev/null
 
@@ -109,7 +109,7 @@ function setup_container() {
     log_info "Setting up Python environment..."
 
     # Then run setup as the user
-    docker exec -u "${HOST_USER}" "${CONTAINER_NAME}" bash -c '
+    docker exec -u "${host_user}" "${CONTAINER_NAME}" bash -c '
         mkdir -p /workspace/.cache /workspace/.go
         if [ ! -d /workspace/.venv ]; then
             echo "Creating virtual environment..."
@@ -128,14 +128,14 @@ function setup_container() {
 
 function run_command() {
     local cmd="$@"
-    local HOST_USER=$(id -un)
+    local host_user=$(id -un)
 
     if [ -z "$cmd" ]; then
         log_info "Starting interactive shell..."
-        docker exec -it -u "${HOST_USER}" "${CONTAINER_NAME}" /bin/bash
+        docker exec -it -u "${host_user}" "${CONTAINER_NAME}" /bin/bash
     else
         log_info "Executing: $cmd"
-        docker exec -it -u "${HOST_USER}" "${CONTAINER_NAME}" bash -c "$cmd"
+        docker exec -it -u "${host_user}" "${CONTAINER_NAME}" bash -c "$cmd"
     fi
 }
 

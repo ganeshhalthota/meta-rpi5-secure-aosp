@@ -133,7 +133,7 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
                 else:
                     aosp_dir.mkdir(parents=True, exist_ok=True)
                     progress.add_task("repo init", total=None)
-                    run(f"{repo_cmd} init -u https://android.googlesource.com/platform/manifest -b android-16.0.0_r4 --depth=1 --no-tags --current-branch --repo-branch aosp/stable --no-repo-verify", cwd=aosp_dir)
+                    run(f"{repo_cmd} init -u https://android.googlesource.com/platform/manifest -b android-16.0.0_r4 --depth=1 --no-tags --current-branch", cwd=aosp_dir)
 
                     manifest_dir = aosp_dir / ".repo" / "local_manifests"
                     manifest_dir.mkdir(parents=True, exist_ok=True)
