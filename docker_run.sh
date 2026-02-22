@@ -52,25 +52,6 @@ Examples:
 EOF
 }
 
-function generate_bins() {
-    log_info "Building PyInstaller binary..."
-    pushd "$SCRIPT_DIR" > /dev/null
-    # cleanup
-    rm -rf build/ dist/
-    # From project root
-    if [ ! -d ".venv" ]; then
-        log_error "Virtual environment not found. Please run 'python3 -m venv .venv' first."
-        exit 1
-    fi
-    source .venv/bin/activate
-    poetry run pyinstaller --onefile \
-        --name rpi5-build \
-        src/meta_rpi5_secure_aosp/main.py
-    deactivate
-    popd > /dev/null
-    log_info "Binary built successfully: dist/rpi5-build"
-}
-
 function check_and_build_image() {
     if ! docker images -q "$IMAGE_NAME" | grep -q .; then
         log_info "Docker image $IMAGE_NAME not found. Building..."
@@ -160,16 +141,11 @@ function run_command() {
 }
 
 # Parse arguments
-BUILD_BINARY=false
 INTERACTIVE=false
 COMMAND_ARGS=()
 
 while [[ $# -gt 0 ]]; do
     case $1 in
-        --build-binary)
-            BUILD_BINARY=true
-            shift
-            ;;
         --shell)
             INTERACTIVE=true
             shift
@@ -180,11 +156,6 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
-
-# Main execution
-if [ "$BUILD_BINARY" = true ]; then
-    generate_bins
-fi
 
 # Ensure docker image is available
 check_and_build_image
