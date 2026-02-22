@@ -1,0 +1,35 @@
+image_name: rpi5-uboot-aosp-signed
+partition_scheme: gpt
+sdcard_size: "24576"
+enable_signing: true
+partitions:
+  - name: vbmeta
+    size: "4"
+    format: raw
+    img: out/target/product/rpi5/vbmeta.img
+  - name: boot
+    size: "256"
+    format: fat32
+    flags: boot
+    img: out/target/product/rpi5/boot.img
+    extra_files:
+      - src: u-boot/u-boot.bin
+        dst: u-boot.bin
+      - src: config.txt
+        content: |
+          # Raspberry Pi 5 boot configuration
+          # Load U-Boot
+          kernel=u-boot.bin
+          # GPU memory
+          gpu_mem=256
+  - name: system
+    size: "4096"
+    format: ext4
+    img: out/target/product/rpi5/system.img
+  - name: vendor
+    size: "512"
+    format: ext4
+    img: out/target/product/rpi5/vendor.img
+  - name: userdata
+    size: ""
+    format: ext4

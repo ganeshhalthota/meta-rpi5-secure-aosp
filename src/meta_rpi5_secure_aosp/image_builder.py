@@ -79,7 +79,10 @@ class ImageBuilder:
 
     def add_partition(self, name, fs_type, start, end, partition_number):
         # Create partition
-        cmd = ["sudo", "parted", "--script", self._img_path, "mkpart", name, fs_type, start, end]
+        cmd = ["sudo", "parted", "--script", self._img_path, "mkpart", name]
+        if fs_type and fs_type.lower() != 'raw':
+            cmd.append(fs_type)
+        cmd.extend([start, end])
         self.run_cmd(cmd)
         # Assign name explicitly (important for AVB)
         self.run_cmd(["sudo", "parted", "--script", self._img_path, "name", partition_number, name])

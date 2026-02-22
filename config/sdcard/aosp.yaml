@@ -1,0 +1,21 @@
+image_name: rpi5-aosp
+partition_scheme: gpt
+sdcard_size: "24576"
+enable_signing: false
+partitions:
+  - name: boot
+    size: "256"
+    format: fat32
+    flags: boot
+    img: out/target/product/rpi5/boot.img
+  - name: system
+    size: "4096"
+    format: ext4
+    img: out/target/product/rpi5/system.img
+  - name: vendor
+    size: "512"
+    format: ext4
+    img: out/target/product/rpi5/vendor.img
+  - name: userdata
+    size: ""
+    format: ext4

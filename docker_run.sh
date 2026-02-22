@@ -3,7 +3,15 @@ set -e
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 CONTAINER_NAME="rpi_build"
-IMAGE_NAME="rpi:22.04"
+DOCKERFILE="docker/Dockerfile_22.04"
+
+if [ ! -f "$SCRIPT_DIR/$DOCKERFILE" ]; then
+    log_error "Dockerfile not found at $SCRIPT_DIR/$DOCKERFILE"
+    exit 1
+fi
+
+DOCKERFILE_SHA=$(sha256sum "$SCRIPT_DIR/$DOCKERFILE" | awk '{print $1}')
+IMAGE_NAME="rpi5-${DOCKERFILE_SHA}"
 
 # Colors for output
 RED='\033[0;31m'
@@ -25,7 +33,7 @@ function log_error() {
 
 function show_usage() {
     cat << EOF
-Usage: $0 [OPTIONS] [COMMAND] [ARGS...]
+Usage: $0 [OPTIONS] [ARGS...]
 
 Options:
   --build-binary    Build PyInstaller binary before running
@@ -34,12 +42,12 @@ Options:
 
 Commands:
   If no command is provided, starts an interactive shell.
-  Otherwise, runs the command inside the container.
+  If args are provided, they are passed directly to the python builder application.
 
 Examples:
   $0 --shell                                   # Interactive shell
-  $0 /opt/run_src.sh --stage sync --code aosp  # Run build directly
-  $0 python3 /opt/src/meta_rpi5_secure_aosp/main.py --help
+  $0 --stage sync --code aosp                  # Pass args to python app directly
+  $0 --help                                    # Pass --help to python app directly
 
 EOF
 }
@@ -61,6 +69,21 @@ function generate_bins() {
     deactivate
     popd > /dev/null
     log_info "Binary built successfully: dist/rpi5-build"
+}
+
+function check_and_build_image() {
+    if ! docker images -q "$IMAGE_NAME" | grep -q .; then
+        log_info "Docker image $IMAGE_NAME not found. Building..."
+        local host_user=$(id -un)
+        if ! docker build --build-arg HOSTUSER="$host_user" -t "$IMAGE_NAME" -f "$SCRIPT_DIR/$DOCKERFILE" "$SCRIPT_DIR/docker"; then
+             log_error "Failed to build docker image."
+             exit 1
+        fi
+        log_info "Docker image built successfully."
+        docker system prune --volumes -f > /dev/null 2>&1 || true
+    else
+        log_info "Using existing docker image: $IMAGE_NAME"
+    fi
 }
 
 function cleanup_container() {
@@ -130,12 +153,16 @@ function run_command() {
     local cmd="$@"
     local host_user=$(id -un)
 
-    if [ -z "$cmd" ]; then
+    if [ -z "$cmd" ] && [ "$INTERACTIVE" = true ]; then
+        log_info "Starting interactive shell..."
+        docker exec -it -u "${host_user}" "${CONTAINER_NAME}" /bin/bash
+    elif [ -z "$cmd" ]; then
         log_info "Starting interactive shell..."
         docker exec -it -u "${host_user}" "${CONTAINER_NAME}" /bin/bash
     else
-        log_info "Executing: $cmd"
-        docker exec -it -u "${host_user}" "${CONTAINER_NAME}" bash -c "$cmd"
+        log_info "Executing python builder application with args: $cmd"
+        # We invoke run_src.sh to handle virtual environment activation inside the container
+        docker exec -it -u "${host_user}" "${CONTAINER_NAME}" bash -c "/opt/run_src.sh $cmd"
     fi
 }
 
@@ -154,10 +181,6 @@ while [[ $# -gt 0 ]]; do
             INTERACTIVE=true
             shift
             ;;
-        --help|-h)
-            show_usage
-            exit 0
-            ;;
         *)
             COMMAND_ARGS+=("$1")
             shift
@@ -169,6 +192,9 @@ done
 if [ "$BUILD_BINARY" = true ]; then
     generate_bins
 fi
+
+# Ensure docker image is available
+check_and_build_image
 
 # Cleanup any existing container
 cleanup_container

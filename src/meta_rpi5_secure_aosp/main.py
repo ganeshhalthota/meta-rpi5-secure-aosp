@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 import click
+import yaml
 from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
@@ -35,10 +36,10 @@ console = Console()
 )
 @click.option(
     "--stage", "-s",
-    type=click.Choice(["all", "sync", "build", "sign", "sdcard"], case_sensitive=False),
+    type=click.Choice(["all", "sync", "build", "sdcard"], case_sensitive=False),
     default="all",
     show_default=True,
-    help="High-level stage: all, sync, build, sign, sdcard"
+    help="High-level stage: all, sync, build, sdcard"
 )
 @click.option(
     "--code", "-c",
@@ -55,12 +56,19 @@ console = Console()
               type=click.Path(exists=True, dir_okay=False, path_type=Path),
               default=lambda: Path(click.get_current_context().params["workspace"]) / "avb" / "avb_private_key.pem",
               show_default="workspace/avb/avb_private_key.pem")
-def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) -> None:
+@click.option("--sdcard-config",
+                type=click.Path(exists=True, dir_okay=False, path_type=Path),
+                required=True,
+                help="Path to the sdcard configuration yaml file")
+def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path, sdcard_config: Path) -> None:
     """RPi5 Secure AOSP Builder - flexible stage + code selection"""
 
     uboot_dir   = workspace / "u-boot"
     aosp_dir    = workspace / "rpi5-aosp"
     sdcard_dir  = workspace / "sdcard"
+
+    with open(sdcard_config, "r") as f:
+        sdcard_data = yaml.safe_load(f)
 
     # Resolve which code paths are active
     do_uboot = code in {"all", "uboot"}
@@ -69,23 +77,11 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
     # Resolve which stages are active
     do_sync   = stage in {"all", "sync"}
     do_build  = stage in {"all", "build"}
-    do_sign   = stage in {"all", "sign"}
     do_sdcard = stage in {"all", "sdcard"}
-
-    # Define partition configuration - sizes in MB
-    partition_config = {
-        "boot": {"size": "256", "format": "fat32", "flags": "boot"},
-        "system": {"size": "4096", "format": "ext4"},
-        "vendor": {"size": "512", "format": "ext4"},
-        "vbmeta": {"size": "4", "format": "raw"},
-        "userdata": {"size": "", "format": "ext4"}  # Empty size means use remaining space
-    }
-
-    # Convert MB to bytes for signing
-    partition_sizes_bytes = {
-        name: int(config["size"]) * 1024 * 1024 if config["size"] else 0
-        for name, config in partition_config.items()
-    }
+    
+    # Signing is controlled by the sdcard config file and the stage
+    signing_enabled_by_config = sdcard_data.get("enable_signing", False)
+    do_sign = signing_enabled_by_config and stage in {"all", "sdcard"}
 
     console.print(Panel.fit(
         f"[bold magenta]RPi5 Secure AOSP Builder[/]\n"
@@ -94,9 +90,14 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
         f"[dim]Code      :[/] {code} -> U-Boot={'Yes' if do_uboot else 'No'}, AOSP={'Yes' if do_aosp else 'No'}\n"
         f"[dim]Config    :[/] {config}\n"
         f"[dim]AVB Key   :[/] {avb_key}\n"
+        f"[dim]SD Card   :[/] {sdcard_config}\n"
+        f"[dim]Signing   :[/] {'Enabled' if signing_enabled_by_config else 'Disabled'} (by config)\n"
         f"[dim]Actions   :[/] {'Sync, ' if do_sync else ''}{'Build, ' if do_build else ''}{'Sign, ' if do_sign else ''}{'SD Card' if do_sdcard else ''}",
         border_style="magenta"
     ))
+
+    if stage in {"all", "sdcard"} and not signing_enabled_by_config and sdcard_data.get("enable_signing") is not None:
+        console.print("[yellow]Warning: Signing is disabled in the sdcard configuration. Signing will be skipped.[/yellow]")
 
     def run(cmd: str, cwd: Path, silent: bool = False) -> None:
         if not silent:
@@ -177,6 +178,14 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
     # ------------------------------------------------------------------
     if do_sign:
         console.print("[bold blue]Stage: Signing images with AVB[/]")
+        with open(sdcard_config, "r") as f:
+            sdcard_data = yaml.safe_load(f)
+        
+        partition_config = {p["name"]: p for p in sdcard_data["partitions"]}
+        partition_sizes_bytes = {
+            name: int(config["size"]) * 1024 * 1024 if config.get("size") else 0
+            for name, config in partition_config.items()
+        }
 
         # Look for avbtool in AOSP build output first, then in PATH
         avbtool_path = aosp_dir / "out/host/linux-x86/bin/avbtool"
@@ -224,7 +233,10 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
                 partition_size = subprocess.check_output(partition_size_cmd, shell=True, text=True, cwd=workspace).strip()
                 console.print(f"   Using file size for {partition_name}: {partition_size} bytes")
 
-            run(f"{avbtool_cmd} add_hash_footer --image {img} \
+            # Create the signed image copy first to avoid modifying the original image
+            shutil.copy2(img, signed_img)
+
+            run(f"{avbtool_cmd} add_hash_footer --image {signed_img} \
                 --partition_name {partition_name} \
                 --partition_size {partition_size} \
                 --key {avb_key} \
@@ -232,9 +244,7 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
                 --output_vbmeta_image {img.parent / vbmeta_img_name}",
                 cwd=workspace)
 
-            # Replace original with signed version
-            shutil.copy2(img, img.with_suffix(".unsigned.img"))  # Backup original
-            run(f"{avbtool_cmd} append_vbmeta_image --image {img} \
+            run(f"{avbtool_cmd} append_vbmeta_image --image {signed_img} \
                 --partition_size {partition_size} \
                 --vbmeta_image {img.parent / vbmeta_img_name}",
                 cwd=workspace)
@@ -263,95 +273,27 @@ def main(workspace: Path, stage: str, code: str, config: Path, avb_key: Path) ->
         console.print("[bold blue]Stage: Generating sdcard image[/]")
         sdcard_dir.mkdir(exist_ok=True)
 
-        # define the partitions and sizes
-        # image size - 24576MB (24GB)
-        # GPT partition scheme
-        # vbmeta - 4MB (if signing is enabled)
-        # boot - 256MB (boot.img is 128M + u-boot.bin, giving extra space for safety)
-        # system - 4096MB (system.img is 3.0G, giving extra space)
-        # vendor - 512MB (vendor.img is 384M, giving extra space)
-        # userdata - remaining
+        with open(sdcard_config, 'r') as f:
+            image_data = yaml.safe_load(f)
 
-        # Check if signed images exist and use them if available
-        boot_img = str(aosp_dir / "out/target/product/rpi5/boot.img")
-        system_img = str(aosp_dir / "out/target/product/rpi5/system.img")
-        vendor_img = str(aosp_dir / "out/target/product/rpi5/vendor.img")
-        vbmeta_img = None
+        # Make paths in image_data absolute
+        image_data["output_dir"] = sdcard_dir
+        for part in image_data["partitions"]:
+            if "img" in part:
+                # Use signed image if it exists and signing is enabled
+                img_path = aosp_dir / part["img"]
+                signed_path = img_path.with_suffix(".signed.img")
+                if signing_enabled_by_config and signed_path.exists():
+                    part["img"] = signed_path
+                    console.print(f"   Using signed image for {part['name']}: {signed_path.name}")
+                else:
+                    part["img"] = img_path
+            if "extra_files" in part:
+                for extra_file in part["extra_files"]:
+                    if "src" in extra_file and not extra_file.get("content"):
+                        extra_file["src"] = workspace / extra_file["src"]
 
-        # Use signed images if they exist
-        if do_sign or (do_aosp and Path(boot_img).exists()):
-            console.print("Using signed images for SD card creation")
-            # Check for combined vbmeta image
-            combined_vbmeta = aosp_dir / "out/target/product/rpi5/vbmeta.img"
-            if combined_vbmeta.exists():
-                vbmeta_img = str(combined_vbmeta)
-                console.print(f"Found combined vbmeta image: {vbmeta_img}")
-            else:
-                # Look for individual vbmeta images
-                boot_vbmeta = aosp_dir / "out/target/product/rpi5/vbmeta_boot.img"
-                if boot_vbmeta.exists():
-                    vbmeta_img = str(boot_vbmeta)
-                    console.print(f"Using boot vbmeta image: {vbmeta_img}")
-
-        # Define partitions list
-        partitions = []
-
-        # Add vbmeta partition if signing is enabled and vbmeta image exists
-        if do_sign and vbmeta_img:
-            partitions.append({
-                "name": "vbmeta",
-                "size": partition_config["vbmeta"]["size"],
-                "format": partition_config["vbmeta"]["format"],
-                "img": vbmeta_img
-            })
-            console.print("Added vbmeta partition to SD card image")
-
-        # Add standard partitions
-        partitions.extend([
-            {
-                "name": "boot",
-                "size": partition_config["boot"]["size"],
-                "format": partition_config["boot"]["format"],
-                "flags": partition_config["boot"]["flags"],
-                "img": boot_img,
-                "extra_files": [
-                    {
-                        "src": str(uboot_dir / "u-boot.bin"),
-                        "dst": "u-boot.bin"
-                    },
-                    {
-                        "src": "config.txt",
-                        "content": "# Raspberry Pi 5 boot configuration\n\n# Load U-Boot\nkernel=u-boot.bin\n\n# GPU memory\ngpu_mem=256\n"
-                    }
-                ]
-            },
-            {
-                "name": "system",
-                "size": partition_config["system"]["size"],
-                "format": partition_config["system"]["format"],
-                "img": system_img
-            },
-            {
-                "name": "vendor",
-                "size": partition_config["vendor"]["size"],
-                "format": partition_config["vendor"]["format"],
-                "img": vendor_img
-            },
-            {
-                "name": "userdata",
-                "size": partition_config["userdata"]["size"],
-                "format": partition_config["userdata"]["format"]
-            },
-        ])
-
-        image_data = {
-            "output_dir": sdcard_dir,
-            "image_name": "rpi5-aosp",
-            "partition_scheme": "gpt",
-            "sdcard_size": "24576",
-            "partitions": partitions
-        }
-        image_builder = ImageBuilder(image_data=image_data, compress=True)
+        image_builder = ImageBuilder(image_data=image_data)
         image_path = image_builder.build_image()
         console.print(f"[bold green]Image ready in:[/] {image_path}\n")
 
