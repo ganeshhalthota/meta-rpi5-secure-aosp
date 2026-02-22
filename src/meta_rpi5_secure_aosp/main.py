@@ -16,7 +16,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from image_builder import ImageBuilder
+from meta_rpi5_secure_aosp.image_builder import ImageBuilder
 
 def get_default_workspace() -> Path:
     if getattr(sys, "frozen", False):

@@ -67,3 +67,39 @@ graph TD
 ```
 
 This modular design separates the high-level build orchestration from the low-level image creation details, making the code easier to understand, maintain, and extend.
+
+### Container & Workspace Architecture
+
+#### File Structure
+
+```text
+.
+├── docker_run.sh             # Main Docker wrapper script & Entrypoint
+├── run_src.sh                # Container entrypoint for Python builder
+├── src/
+│   └── meta_rpi5_secure_aosp/
+│       ├── main.py           # Python builder
+│       └── image_builder.py  # SD card image builder
+└── work/                     # Workspace (mounted in container)
+    ├── .venv/                # Python virtual environment
+    ├── .cache/               # Build caches
+    ├── u-boot/               # U-Boot source
+    ├── rpi5-aosp/            # AOSP source
+    └── sdcard/               # Generated images
+```
+
+#### How It Works
+
+1. **`docker_run.sh`**:
+   - Computes the SHA256 hash of the Dockerfile.
+   - Checks if an image with `rpi5-<sha256>` exists. If not, it builds it.
+   - Cleans up any existing containers running for the workspace.
+   - Creates a new container with proper mounts and privileges.
+   - Sets up Python virtual environment if it doesn't already exist.
+   - Executes the python app through `run_src.sh` or starts an interactive shell.
+   - Automatically cleans up on exit.
+
+2. **`run_src.sh`**:
+   - Sets up environment variables.
+   - Activates Python virtual environment.
+   - Executes the Python builder with arguments.

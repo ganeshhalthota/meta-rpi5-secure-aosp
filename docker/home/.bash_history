@@ -935,3 +935,24 @@ rm -rf rpi5-aosp/
 rm -rf rpi5-aosp/
 /opt/run_src.sh -s sync -c aosp
 ll
+poetry config virtualenvs.in-project true
+ls -al ~/.config/pypoetry/config.toml 
+cat ~/.config/pypoetry/config.toml 
+ll
+cd ../
+ll
+rm -rf work/.venv/
+poetry install
+ll
+poetry install
+ls -al .venv/
+cat ~/.config/pypoetry/config.toml 
+poetry install
+ll
+poetry install
+poetry add yaml
+poetry run rpi5-build --help
+./run_src.sh --help
+git s
+git d
+git s

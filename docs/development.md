@@ -1,4 +1,4 @@
-# RPi5 Secure AOSP Builder - Docker Workflow
+# RPi5 Secure AOSP Builder - Development Guide
 
 This document describes the Docker-based workflow for building AOSP for Raspberry Pi 5.
 
@@ -59,42 +59,6 @@ rm -rf work/                              # Remove entire workspace (WARNING: de
 ./docker_run.sh --help
 ./docker_run.sh --build-binary            # Build PyInstaller binary
 ```
-
-## Architecture
-
-### File Structure
-
-```
-.
-├── docker_run.sh             # Main Docker wrapper script & Entrypoint
-├── run_src.sh                # Container entrypoint for Python builder
-├── src/
-│   └── meta_rpi5_secure_aosp/
-│       ├── main.py           # Python builder
-│       └── image_builder.py  # SD card image builder
-└── work/                     # Workspace (mounted in container)
-    ├── .venv/                # Python virtual environment
-    ├── .cache/               # Build caches
-    ├── u-boot/               # U-Boot source
-    ├── rpi5-aosp/            # AOSP source
-    └── sdcard/               # Generated images
-```
-
-### How It Works
-
-1. **docker_run.sh**:
-   - Computes the SHA256 hash of the Dockerfile.
-   - Checks if an image with `rpi5-<sha256>` exists. If not, it builds it.
-   - Cleans up any existing containers running for the workspace.
-   - Creates a new container with proper mounts and privileges.
-   - Sets up Python virtual environment if it doesn't already exist.
-   - Executes the python app through `run_src.sh` or starts an interactive shell.
-   - Automatically cleans up on exit.
-
-2. **run_src.sh**:
-   - Sets up environment variables.
-   - Activates Python virtual environment.
-   - Executes the Python builder with arguments.
 
 ## Environment Variables
 

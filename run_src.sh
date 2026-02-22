@@ -11,13 +11,5 @@ export XDG_CACHE_HOME=/opt/work/.cache
 export GOPATH=/opt/work/.go
 export GOCACHE=/opt/work/.cache/go-build
 
-# Activate virtual environment
-if [ -f /opt/.venv/bin/activate ]; then
-    source /opt/.venv/bin/activate
-else
-    echo "Error: Virtual environment not found at /opt/.venv"
-    exit 1
-fi
-
 # Run the builder with all passed arguments
-exec python3 /opt/src/meta_rpi5_secure_aosp/main.py -w /opt/work/ "$@"
+poetry run rpi5-build -w /opt/work/ "$@"

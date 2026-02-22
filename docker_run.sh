@@ -120,11 +120,7 @@ function setup_container() {
         --name "${CONTAINER_NAME}" \
         --rm \
         -v "${SCRIPT_DIR}/docker/home":"/home/${host_user}" \
-        -v "${SCRIPT_DIR}":/opt:ro \
-        -v "${SCRIPT_DIR}/poetry.lock":/opt/poetry.lock:rw \
-        -v "${SCRIPT_DIR}/pyproject.toml":/opt/pyproject.toml:rw \
-        -v "${work_dir}":/opt/work:rw \
-        -v "${SCRIPT_DIR}/.venv":/opt/.venv:rw \
+        -v "${SCRIPT_DIR}":/opt:rw \
         -v /etc/gitconfig:/etc/gitconfig:ro \
         -w /opt/work \
         --privileged \
@@ -141,9 +137,6 @@ function setup_container() {
     # Then run setup as the user
     docker exec -u "${host_user}" "${CONTAINER_NAME}" bash -c '
         mkdir -p /opt/work/.cache /opt/work/.go
-        cd /opt
-        poetry config virtualenvs.in-project true
-        poetry install --quiet
     '
 
     log_info "Container ready!"
@@ -155,14 +148,14 @@ function run_command() {
 
     if [ -z "$cmd" ] && [ "$INTERACTIVE" = true ]; then
         log_info "Starting interactive shell..."
-        docker exec -it -u "${host_user}" "${CONTAINER_NAME}" /bin/bash
+        docker exec -it -w /opt -u "${host_user}" "${CONTAINER_NAME}" /bin/bash
     elif [ -z "$cmd" ]; then
         log_info "Starting interactive shell..."
-        docker exec -it -u "${host_user}" "${CONTAINER_NAME}" /bin/bash
+        docker exec -it -w /opt -u "${host_user}" "${CONTAINER_NAME}" /bin/bash
     else
         log_info "Executing python builder application with args: $cmd"
         # We invoke run_src.sh to handle virtual environment activation inside the container
-        docker exec -it -u "${host_user}" "${CONTAINER_NAME}" bash -c "/opt/run_src.sh $cmd"
+        docker exec -it -w /opt -u "${host_user}" "${CONTAINER_NAME}" bash -c "/opt/run_src.sh $cmd"
     fi
 }
 
