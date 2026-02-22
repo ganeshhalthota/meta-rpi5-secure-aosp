@@ -1,4 +1,4 @@
-ARG VERSION=22.04
+ARG VERSION=24.04
 FROM ubuntu:${VERSION}
 
 ARG HOSTUSER
@@ -40,6 +40,10 @@ RUN apt-get update && apt-get install -y tree bash-completion strace vim
 
 # Add repo tool
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo && chmod +x /usr/local/bin/repo
+
+# Install Poetry
+ENV POETRY_HOME=/usr/local
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # Clean-Up
 RUN apt-get autoremove -y && apt-get clean && \

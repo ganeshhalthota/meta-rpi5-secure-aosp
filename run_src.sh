@@ -7,17 +7,17 @@
 set -e
 
 # Setup environment variables
-export XDG_CACHE_HOME=/workspace/.cache
-export GOPATH=/workspace/.go
-export GOCACHE=/workspace/.cache/go-build
+export XDG_CACHE_HOME=/opt/work/.cache
+export GOPATH=/opt/work/.go
+export GOCACHE=/opt/work/.cache/go-build
 
 # Activate virtual environment
-if [ -f /workspace/.venv/bin/activate ]; then
-    source /workspace/.venv/bin/activate
+if [ -f /opt/.venv/bin/activate ]; then
+    source /opt/.venv/bin/activate
 else
-    echo "Error: Virtual environment not found at /workspace/.venv"
+    echo "Error: Virtual environment not found at /opt/.venv"
     exit 1
 fi
 
 # Run the builder with all passed arguments
-exec python3 /opt/src/meta_rpi5_secure_aosp/main.py -w /workspace/ "$@"
+exec python3 /opt/src/meta_rpi5_secure_aosp/main.py -w /opt/work/ "$@"

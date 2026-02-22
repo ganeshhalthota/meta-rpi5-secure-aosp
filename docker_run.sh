@@ -3,7 +3,7 @@ set -e
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 CONTAINER_NAME="rpi_build"
-DOCKERFILE="docker/Dockerfile_22.04"
+DOCKERFILE="docker/Dockerfile_24.04"
 
 if [ ! -f "$SCRIPT_DIR/$DOCKERFILE" ]; then
     log_error "Dockerfile not found at $SCRIPT_DIR/$DOCKERFILE"
@@ -112,14 +112,21 @@ function setup_container() {
     log_info "  Workspace: ${work_dir}"
     log_info "  User: ${host_user} (UID=${host_uid}, GID=${host_gid})"
 
+    # Ensure poetry.lock, pyproject.toml, and .venv exist so docker doesn't map them as root directories
+    touch "$SCRIPT_DIR/poetry.lock" "$SCRIPT_DIR/pyproject.toml"
+    mkdir -p "$SCRIPT_DIR/.venv"
+
     docker run -d \
         --name "${CONTAINER_NAME}" \
         --rm \
         -v "${SCRIPT_DIR}/docker/home":"/home/${host_user}" \
-        -v "${SCRIPT_DIR}":/opt \
-        -v "${work_dir}":/workspace \
+        -v "${SCRIPT_DIR}":/opt:ro \
+        -v "${SCRIPT_DIR}/poetry.lock":/opt/poetry.lock:rw \
+        -v "${SCRIPT_DIR}/pyproject.toml":/opt/pyproject.toml:rw \
+        -v "${work_dir}":/opt/work:rw \
+        -v "${SCRIPT_DIR}/.venv":/opt/.venv:rw \
         -v /etc/gitconfig:/etc/gitconfig:ro \
-        -w /workspace \
+        -w /opt/work \
         --privileged \
         -e "HOST_UID=${host_uid}" \
         -e "HOST_GID=${host_gid}" \
@@ -129,21 +136,14 @@ function setup_container() {
         sleep infinity > /dev/null
 
     # Set up environment inside container
-    log_info "Setting up Python environment..."
+    log_info "Setting up Python environment with Poetry..."
 
     # Then run setup as the user
     docker exec -u "${host_user}" "${CONTAINER_NAME}" bash -c '
-        mkdir -p /workspace/.cache /workspace/.go
-        if [ ! -d /workspace/.venv ]; then
-            echo "Creating virtual environment..."
-            python3 -m venv /workspace/.venv
-            source /workspace/.venv/bin/activate
-            pip install --quiet --upgrade pip
-            pip install --quiet click rich tqdm psutil xmltodict
-            echo "Virtual environment created successfully"
-        else
-            echo "Virtual environment already exists"
-        fi
+        mkdir -p /opt/work/.cache /opt/work/.go
+        cd /opt
+        poetry config virtualenvs.in-project true
+        poetry install --quiet
     '
 
     log_info "Container ready!"
