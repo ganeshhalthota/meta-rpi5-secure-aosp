@@ -1,21 +1,35 @@
 image_name: rpi5-aosp
-partition_scheme: gpt
-sdcard_size: "24576"
-enable_signing: false
+partition_scheme: mbr
+sdcard_size: "14648"
 partitions:
-  - name: boot
-    size: "256"
+  - name: boot        # p1 — RPi firmware + kernel + ramdisk (mkimg: 128M, FAT32, bootable)
+    partition_number: 1
+    size: "128"
     format: fat32
     flags: boot
     img: out/target/product/rpi5/boot.img
-  - name: system
-    size: "4096"
+
+  # p2 is auto-inserted as the MBR extended partition covering p5/p6/p7
+
+  - name: userdata    # p3 — /data  (fstab: mmcblk0p3) — fills remaining space
+    partition_number: 3
+    format: ext4
+
+  # p4 is an auto-inserted 1 MiB empty placeholder (MBR requires 4 primary slots before logical)
+
+  - name: system      # p5 — /system  (fstab: mmcblk0p5)
+    partition_number: 5
+    size: "3072"
     format: ext4
     img: out/target/product/rpi5/system.img
-  - name: vendor
-    size: "512"
+
+  - name: vendor      # p6 — /vendor  (fstab: mmcblk0p6)
+    partition_number: 6
+    size: "384"
     format: ext4
     img: out/target/product/rpi5/vendor.img
-  - name: userdata
-    size: ""
+
+  - name: metadata    # p7 — /metadata  (fstab: mmcblk0p7)
+    partition_number: 7
+    size: "16"
     format: ext4

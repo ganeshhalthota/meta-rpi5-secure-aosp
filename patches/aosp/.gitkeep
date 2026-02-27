@@ -1,0 +1,9 @@
+# Place AOSP patches here, organised by project subdirectory.
+#
+# Example layout:
+#   patches/aosp/device_brcm_rpi5/0001-car-config.patch
+#   patches/aosp/kernel_rpi/0001-driver-fix.patch
+#
+# Each subdirectory name must match the corresponding project path
+# inside rpi5-aosp/ (i.e. the repo checkout directory).
+# Patches within each subdirectory are applied in alphabetical order.

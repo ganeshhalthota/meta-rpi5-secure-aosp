@@ -14,17 +14,17 @@ RUN apt-get update && apt-get install -y \
  git libglib2.0-dev python3-dev python3 python3-pip python-is-python3 pigz \
  fastboot bison flex swig cpanminus shellcheck \
  liblocal-lib-perl libxml-simple-perl uuid-dev \
- zlib1g-dev binutils-aarch64-linux-gnu rsync dotnet-sdk-8.0
+ zlib1g-dev binutils-aarch64-linux-gnu rsync dotnet-sdk-8.0 gosu
 
 # AOSP build requirements
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
  aspnetcore-runtime-8.0 pv zlib1g dotnet-runtime-8.0 \
  git-core gnupg flex bison build-essential zip curl zlib1g-dev libc6-dev-i386 \
  x11proto-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc \
  unzip fontconfig dosfstools e2fsprogs fdisk kpartx mtools rsync sudo
 
 # uboot build requirements
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
   gcc gcc-aarch64-linux-gnu bc bison build-essential coccinelle \
   device-tree-compiler dfu-util efitools flex gdisk graphviz imagemagick \
   libgnutls28-dev libguestfs-tools libncurses-dev \
@@ -42,17 +42,26 @@ RUN apt-get update && apt-get install -y tree bash-completion strace vim
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo && chmod +x /usr/local/bin/repo
 
 # Install Poetry
-ENV POETRY_HOME=/usr/local
-RUN curl -sSL https://install.python-poetry.org | python3 -
+ENV POETRY_HOME=/opt/poetry
+RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python3.12 - && \
+    cd /opt/poetry/bin && \
+    ln -s /opt/poetry/bin/poetry /usr/local/bin/poetry && \
+    chmod 755 /opt/poetry/bin/poetry
 
-# Clean-Up
-RUN apt-get autoremove -y && apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Create a script to create the user
+RUN echo '#!/bin/bash\n\
+groupadd -g $GROUP_ID $USERNAME\n\
+useradd -m -u $USER_ID -g $GROUP_ID -s /bin/bash $USERNAME\n\
+echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers\n\
+\n\
+# Create necessary directories with proper permissions\n\
+mkdir -p /home/$USERNAME/.local/bin /home/$USERNAME/.local/share\n\
+chown -R $USERNAME:$GROUP_ID /home/$USERNAME/.local\n\
+\n\
+exec gosu $USERNAME "$@"' > /usr/local/bin/entrypoint.sh && \
+    chmod +x /usr/local/bin/entrypoint.sh
 
-# Add default user with empty password and passwordless sudo
-# Ubuntu 24.04 images have a default 'ubuntu' user with UID 1000, so we delete it first to avoid collision.
-RUN userdel -r ubuntu || true
-RUN useradd --password U6aMy0wojraho --shell /bin/bash -u 1000 $HOSTUSER && \
-    usermod -aG sudo $HOSTUSER && \
-    usermod -aG users $HOSTUSER && \
-    echo "$HOSTUSER ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers
+WORKDIR /app
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["/bin/bash"]

@@ -1,6 +1,6 @@
 [user]
-	name = ghalthot
-	email = ghalthot@qti.qualcomm.com
+	name = Ganesh Halthota
+	email = ganesh.rvec@gmail.com
 [pull]
 	rebase = true
 [alias]
@@ -24,25 +24,6 @@
 	editor = vim
 [color]
 	ui = auto
-[http]
-	cookiefile = /usr2/ghalthot/.gitcookies
-	postBuffer = 1048576000
-	maxRequestBuffer = 1048576000
-	lowSpeedLimit = 0
-	lowSpeedTime = 999999
-[pack]
-	windowMemory = 100m
-	SizeLimit = 100m
-	threads = 1
-	window = 0
-[url "ssh://git-android-blr.quicinc.com:29418/"]
-	insteadOf = git://git-android.quicinc.com/
-	insteadOf = git://git.quicinc.com/
-	insteadOf = git://review-android.quicinc.com/
-[url "ssh://git-android-blr.quicinc.com:29418/tools/repo"]
-	insteadOf = https://android.googlesource.com/tools/repo
-[http "https://chipmaster2.qti.qualcomm.com"]
-	followRedirects = true
 [credential]
 	helper = store --file ~/.git-credentials
 [init]

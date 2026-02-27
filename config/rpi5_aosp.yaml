@@ -1,0 +1,20 @@
+# RPi5 Secure AOSP Build Configuration
+
+aosp:
+  tag: android-16.0.0_r4
+  manifest_url: https://android.googlesource.com/platform/manifest
+  local_manifests:
+    - url: https://raw.githubusercontent.com/ganeshhalthota/android_local_manifest/android-16.0.0_r4/manifest_brcm_rpi.xml
+      filename: manifest_brcm_rpi.xml
+    - url: https://raw.githubusercontent.com/ganeshhalthota/android_local_manifest/android-16.0.0_r4/remove_projects.xml
+      filename: remove_projects.xml
+
+avb:
+  private_key: avb/avb_private_key.pem
+  public_key: avb/avb_public_key.bin
+  algorithm: SHA256_RSA4096
+
+sdcard:
+  config: sdcard/aosp.yaml
+  sign_config: sdcard/aosp_signed.yaml
+  enable_signing: false

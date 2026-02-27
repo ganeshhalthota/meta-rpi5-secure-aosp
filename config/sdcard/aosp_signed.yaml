@@ -1,25 +1,36 @@
 image_name: rpi5-aosp-signed
 partition_scheme: gpt
 sdcard_size: "24576"
-enable_signing: true
 partitions:
-  - name: vbmeta
+  - name: vbmeta      # p1 — Android Verified Boot metadata
     size: "4"
     format: raw
     img: out/target/product/rpi5/vbmeta.img
-  - name: boot
+
+  - name: boot        # p2 — RPi firmware + kernel + ramdisk
     size: "256"
     format: fat32
     flags: boot
     img: out/target/product/rpi5/boot.img
-  - name: system
+
+  - name: userdata    # p3 — /data  (fstab: mmcblk0p3)
+    size: "16384"
+    format: ext4
+
+  - name: cache       # p4 — placeholder to push system/vendor/metadata to p5/p6/p7
+    size: "256"
+    format: ext4
+
+  - name: system      # p5 — /system  (fstab: mmcblk0p5)
     size: "4096"
     format: ext4
     img: out/target/product/rpi5/system.img
-  - name: vendor
+
+  - name: vendor      # p6 — /vendor  (fstab: mmcblk0p6)
     size: "512"
     format: ext4
     img: out/target/product/rpi5/vendor.img
-  - name: userdata
-    size: ""
+
+  - name: metadata    # p7 — /metadata  (fstab: mmcblk0p7)
+    size: "16"
     format: ext4
