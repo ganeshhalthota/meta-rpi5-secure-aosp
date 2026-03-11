@@ -1,45 +1,45 @@
 image_name: rpi5-uboot-aosp
-partition_scheme: gpt
-sdcard_size: "24576"
+partition_scheme: mbr
+sdcard_size: "14648"
 partitions:
-  - name: boot        # p1 — RPi firmware + U-Boot + kernel + ramdisk
-    size: "256"
+  - name: boot        # p1 — RPi firmware + U-Boot + Android kernel + ramdisk
+    partition_number: 1
+    size: "128"
     format: fat32
     flags: boot
     img: out/target/product/rpi5/boot.img
     extra_files:
+      # U-Boot binary (built by build stage)
       - src: u-boot/u-boot.bin
         dst: u-boot.bin
-      - src: config.txt
-        content: |
-          # Raspberry Pi 5 boot configuration
-          # Load U-Boot
-          kernel=u-boot.bin
-          # GPU memory
-          gpu_mem=256
+      # U-Boot boot script (compiled from config/uboot/boot.cmd by build stage)
+      - src: u-boot/boot.scr
+        dst: boot.scr
+      # Override config.txt: tell RPi firmware to load u-boot.bin instead of Image
+      - src: config/uboot/config.txt
+        dst: config.txt
 
-  - name: misc        # p2 — Android misc (bootloader communication)
-    size: "4"
-    format: raw
+  # p2 is auto-inserted as the MBR extended partition covering p5/p6/p7
 
-  - name: userdata    # p3 — /data  (fstab: mmcblk0p3)
-    size: "16384"
+  - name: userdata    # p3 — /data  (fstab: mmcblk0p3) — fills remaining space
+    partition_number: 3
     format: ext4
 
-  - name: cache       # p4 — placeholder to push system/vendor/metadata to p5/p6/p7
-    size: "256"
-    format: ext4
+  # p4 is an auto-inserted 1 MiB empty placeholder
 
   - name: system      # p5 — /system  (fstab: mmcblk0p5)
-    size: "4096"
+    partition_number: 5
+    size: "3072"
     format: ext4
     img: out/target/product/rpi5/system.img
 
   - name: vendor      # p6 — /vendor  (fstab: mmcblk0p6)
-    size: "512"
+    partition_number: 6
+    size: "384"
     format: ext4
     img: out/target/product/rpi5/vendor.img
 
   - name: metadata    # p7 — /metadata  (fstab: mmcblk0p7)
+    partition_number: 7
     size: "16"
     format: ext4

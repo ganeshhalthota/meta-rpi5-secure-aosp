@@ -1,36 +1,39 @@
 image_name: rpi5-aosp-signed
-partition_scheme: gpt
-sdcard_size: "24576"
+partition_scheme: mbr
+sdcard_size: "14648"
 partitions:
-  - name: vbmeta      # p1 — Android Verified Boot metadata
-    size: "4"
-    format: raw
-    img: out/target/product/rpi5/vbmeta.img
-
-  - name: boot        # p2 — RPi firmware + kernel + ramdisk
-    size: "256"
+  - name: boot        # p1 — RPi firmware + kernel + ramdisk (mkimg: 128M, FAT32, bootable)
+    partition_number: 1
+    size: "128"
     format: fat32
     flags: boot
     img: out/target/product/rpi5/boot.img
 
-  - name: userdata    # p3 — /data  (fstab: mmcblk0p3)
-    size: "16384"
+  # p2 is auto-inserted as the MBR extended partition covering p5/p6/p7
+
+  - name: userdata    # p3 — /data  (fstab: mmcblk0p3) — fills remaining space
+    partition_number: 3
     format: ext4
 
-  - name: cache       # p4 — placeholder to push system/vendor/metadata to p5/p6/p7
-    size: "256"
-    format: ext4
+  - name: vbmeta      # p4 — Android Verified Boot metadata (replaces 1MiB placeholder)
+    partition_number: 4
+    size: "4"
+    format: raw
+    img: out/target/product/rpi5/vbmeta.img
 
   - name: system      # p5 — /system  (fstab: mmcblk0p5)
-    size: "4096"
+    partition_number: 5
+    size: "3072"
     format: ext4
     img: out/target/product/rpi5/system.img
 
   - name: vendor      # p6 — /vendor  (fstab: mmcblk0p6)
-    size: "512"
+    partition_number: 6
+    size: "384"
     format: ext4
     img: out/target/product/rpi5/vendor.img
 
   - name: metadata    # p7 — /metadata  (fstab: mmcblk0p7)
+    partition_number: 7
     size: "16"
     format: ext4

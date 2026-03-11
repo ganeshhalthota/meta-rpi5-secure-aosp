@@ -1,0 +1,18 @@
+# Kernel — RPi firmware loads U-Boot; U-Boot loads Android via boot.scr
+kernel=u-boot.bin
+
+# Camera
+camera_auto_detect=1
+
+# Display
+disable_overscan=1
+
+# Graphics acceleration
+dtoverlay=vc4-kms-v3d
+dtoverlay=cma,cma-320
+
+# USB
+dtoverlay=dwc2,dr_mode=peripheral
+[cm5]
+dtoverlay=dwc2,dr_mode=otg
+[all]
