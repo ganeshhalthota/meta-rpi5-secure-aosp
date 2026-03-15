@@ -1,0 +1,389 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2026.03.10 21:34:37 =~=~=~=~=~=~=~=~=~=~=~=
+
+  0.80 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  0.84 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 984410
+  0.94 AON_RESET: 00000003 PM_RSTS 00001000
+  0.98 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  1.08 RP1_BOOT chip ID: 0x20001927
+  1.12 PCIEx1: PWR 0 DET_WAKE 0
+  1.13 part 00000000 reset_info 00000000
+  1.16 PMIC reset-event 00000000 rtc 00000001 alarm 00000000 enabled 0
+  1.22 uSD voltage 3.3V
+  1.29 SDRAM_CONFIG: 1b
+  1.29 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  1.34 DDR 4267 1 1 128 152 BL:1
+  2.61 OTP boardrev e04171 bootrom a a
+  2.63 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.70 VC-JTAG unlocked
+  2.93 RP1_BOOT chip ID: 0x20001927
+
+  3.28 RP1_BOOT chip ID: 0x20001927
+  3.28 RP1_BOOT: fw size 46888
+  4.66 PCI2 init
+  4.66 PCI2 reset
+  4.11 PCIe scan 00001de4:00000001
+  4.11 RP1_CHIP_INFO 20001927
+
+  4.14 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.21 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4121572
+  4.31 PCIEx1: PWR 0 DET_WAKE 0
+  4.34 M.2 PCIe HAT not detected.
+  4.58 usb_pd_init status 3
+  4.58 USB_PD CONFIG 0 41
+  4.38 XHCI-STOP
+  4.38 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.43 USBSTS 1
+  4.45 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.50 xHC0 ports 3 slots 64 intrs 4
+  4.62 XHCI-STOP
+  4.62 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.67 USBSTS 1
+  4.69 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.74 xHC1 ports 3 slots 64 intrs 4
+  4.82 USB-PD: src-cap PDO object1 0x0a0191f4
+  4.83 Current 5000 mA
+  4.85 Voltage 5000 mV
+  4.87 USB-PD: src-cap PDO object2 0x0002d12c
+  4.91 Current 3000 mA
+  4.94 Voltage 9000 mV
+  4.96 USB-PD: src-cap PDO object3 0x0003c0e1
+  4.00 Current 2250 mA
+  4.02 Voltage 12000 mV
+  4.04 USB-PD: src-cap PDO object4 0x0004b0b4
+  4.08 Current 1800 mA
+  4.10 Voltage 15000 mV
+  4.12 Boot mode: SD (01) order f4
+  8.75 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  8.86 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  9.08 OCR c0ff8000 [336]
+CID: 00035344534c3634478095513d200108
+CSD: 400e00325b590001dbd37f800a404000
+  9.18 SD: bus-width: 4 spec: 2 SCR: 0x02458003 0x00000000
+  9.26 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  9.39 MBR: 0x00000800,  262144 type: 0x0c
+  9.40 MBR: 0x00040800, 7118848 type: 0x05
+  9.44 MBR: 0x0070a800,22616064 type: 0x83
+  9.48 MBR: 0x00000000,       0 type: 0x00
+  9.52 Trying partition: 0
+  9.03 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.07 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.16 FAT32 clusters 258078
+  9.21 [sdcard] autoboot.txt not found
+  9.22 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  9.28 Trying partition: 1
+  9.34 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.38 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.47 FAT32 clusters 258078
+  9.50 Read config.txt bytes      302 hnd 0x13ac9
+  9.54 [sdcard] pieeprom.upd not found
+  9.55 usb_max_current_enable default 0 max-current 5000
+  9.70 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+  9.72 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  9.78 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  9.90 Read /config.txt bytes      302 hnd 0x13ac9
+  9.95 Read /config.txt bytes      302 hnd 0x13ac9
+  9.00 MESS:00:00:09.400201:0: Initial voltage 800000 temp 27388
+  9.00 MESS:00:00:09.600629:0: avs_2712: AVS pred 8607 860700 temp 27388
+  9.04 MESS:00:00:09.604237:0: vpred 860 mV +0
+ 10.32 MESS:00:00:10.232505:0: FB framebuffer_swap 1
+ 10.34 MESS:00:00:10.234375:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+ 10.41 MESS:00:00:10.241265:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+ 10.61 MESS:00:00:10.261568:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+ 10.64 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+ 10.78 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+ 10.18 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x12152
+ 10.46 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x1245f
+ 10.69 MESS:00:00:10.369829:0: Loaded overlay 'bcm2712d0'
+ 10.33 PCIEx1: PWR 0 DET_WAKE 0
+ 10.49 Read /config.txt bytes      302 hnd 0x13ac9
+ 10.59 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x121a9
+ 10.06 MESS:00:00:10.506529:0: Loaded overlay 'vc4-kms-v3d-pi5'
+ 10.20 Read /overlays/cma.dtbo bytes      964 hnd 0x1200f
+ 10.28 MESS:00:00:10.628851:0: Loaded overlay 'cma'
+ 10.30 MESS:00:00:10.630626:0: dtparam: cma-320=true
+ 10.48 Read /overlays/dwc2.dtbo bytes      801 hnd 0x120d2
+ 10.60 MESS:00:00:10.660452:0: Loaded overlay 'dwc2'
+ 10.62 MESS:00:00:10.662321:0: dtparam: dr_mode=peripheral
+ 10.51 Read /cmdline.txt bytes      208 hnd 0x11fbe
+ 10.87 BMD "armstub8-2712.bin" not found
+ 10.88 fs_open: 'armstub8-2712.bin'
+ 10.92 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+ 11.35 Read u-boot.bin bytes   706888 hnd 0x13562
+ 11.37 PCI1 reset
+ 11.48 PCI2 reset
+ 11.58 set_reboot_order 0
+ 11.58 set_reboot_arg1 0
+ 11.60 USB-OTG disconnect
+ 11.02 MESS:00:00:11.102142:0: BSC_A no ACK
+ 11.03 MESS:00:00:11.103375:0: BSC_A no ACK
+ 11.07 MESS:00:00:11.107300:0: BSC_A no ACK
+ 11.31 MESS:00:00:11.131237:0: BSC_B no ACK
+ 11.32 MESS:00:00:11.132463:0: BSC_B no ACK
+ 11.36 MESS:00:00:11.136398:0: BSC_B no ACK
+ 11.60 MESS:00:00:11.160165:0: Starting OS 11160 ms
+ 11.65 MESS:00:00:11.165777:0: 00000040: -> 00000480
+ 11.67 MESS:00:00:11.167631:0: 00000030: -> 00100080
+ 11.72 MESS:00:00:11.172343:0: 00000034: -> 00100080
+ 11.77 MESS:00:00:11.177056:0: 00000038: -> 00100080
+ 11.81 MESS:00:00:11.181769:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x414fd0b1]
+[    0.000000] Linux version 6.12.73-g8af794a959ec-v8 (kleaf@build-host) (Android (14043575, +pgo, +bolt, +lto, +mlgo, based on r536225) clang version 19.0.1 (https://android.googlesource.com/toolchain/llvm-project b3a530ec6537146650e42be89f1089e9a3588460), LLD 19.0.1) #1 SMP PREEMPT Thu Feb 19 17:32:04 UTC 2026
+[    0.000000] KASLR enabled
+[    0.000000] Machine model: Raspberry Pi 5 Model B Rev 1.1
+[    0.000000] efi: UEFI not found.
+[    0.000000] Reserved memory: created CMA memory pool at 0x000000002bc00000, size 320 MiB
+[    0.000000] OF: reserved mem: initialized node linux,cma, compatible id shared-dma-pool
+[    0.000000] OF: reserved mem: 0x000000002bc00000..0x000000003fbfffff (327680 KiB) map reusable linux,cma
+[    0.000000] OF: reserved mem: 0x0000000000000000..0x000000000007ffff (512 KiB) nomap non-reusable atf@0
+[    0.000000] OF: reserved mem: 0x000000003fd16220..0x000000003fd1625d (0 KiB) nomap non-reusable nvram@0
+[    0.000000] NUMA: Faking a node at [mem 0x0000000000000000-0x00000003ffffffff]
+[    0.000000] NODE_DATA(0) allocated [mem 0x3fdd9f080-0x3fdda1e3f]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000000000000-0x00000000ffffffff]
+[    0.000000]   DMA32    empty
+[    0.000000]   Normal   [mem 0x0000000100000000-0x00000003ffffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000000007ffff]
+[    0.000000]   node   0: [mem 0x0000000000080000-0x000000003fbfffff]
+[    0.000000]   node   0: [mem 0x0000000040000000-0x00000003ffffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x00000003ffffffff]
+[    0.000000] On node 0, zone DMA: 1024 pages in unavailable ranges
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: MIGRATE_INFO_TYPE not supported.
+[    0.000000] psci: SMC Calling Convention v1.2
+[    0.000000] percpu: Embedded 83 pages/cpu s176280 r131072 d32616 u339968
+[    0.000000] Detected PIPT I-cache on CPU0
+[    0.000000] CPU features: detected: Virtualization Host Extensions
+[    0.000000] CPU features: detected: Spectre-v4
+[    0.000000] CPU features: detected: Spectre-BHB
+[    0.000000] CPU features: kernel page table isolation forced ON by KASLR
+[    0.000000] CPU features: detected: Kernel page table isolation (KPTI)
+[    0.000000] CPU features: detected: SSBS not fully self-synchronizing
+[    0.000000] alternatives: applying boot alternatives
+[    0.000000] Kernel command line: console=ttyAMA10,115200 no_console_suspend root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive androidboot.serialno=6113ca6606956aab androidboot.btmacaddr=11:22:06:95:6a:ab
+[    0.000000] printk: log buffer data + meta data: 131072 + 458752 = 589824 bytes
+[    0.000000] Dentry cache hash table entries: 2097152 (order: 12, 16777216 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+[    0.000000] Fallback order for Node 0: 0
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 4193280
+[    0.000000] Policy zone: Normal
+[    0.000000] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+[    0.000000] software IO TLB: area num 4.
+[    0.000000] software IO TLB: mapped [mem 0x00000000fbfff000-0x00000000fffff000] (64MB)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] ftrace: allocating 63501 entries in 249 pages
+[    0.000000] ftrace: allocated 249 pages with 6 groups
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: RCU event tracing is enabled.
+[    0.000000] Trampoline variant of Tasks RCU enabled.
+[    0.000000] Rude variant of Tasks RCU enabled.
+[    0.000000] Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] RCU Tasks: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=4.
+[    0.000000] RCU Tasks Rude: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=4.
+[    0.000000] RCU Tasks Trace: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=4.
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] Root IRQ handler: gic_handle_irq
+[    0.000000] GIC: Using split EOI/Deactivate mode
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] arch_timer: cp15 timer(s) running at 54.00MHz (phys).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0xc743ce346, max_idle_ns: 440795203123 ns
+[    0.000000] sched_clock: 56 bits at 54MHz, resolution 18ns, wraps every 4398046511102ns
+[    0.000516] kfence: initialized - using 2097152 bytes for 255 objects at 0x(____ptrval____)-0x(____ptrval____)
+[    0.000948] Calibrating delay loop (skipped), value calculated using timer frequency.. 108.00 BogoMIPS (lpj=216000)
+[    0.000951] pid_max: default: 32768 minimum: 301
+[    0.001582] LSM: initializing lsm=capability,selinux,bpf
+[    0.002109] SELinux:  Initializing.
+[    0.003688] LSM support for eBPF active
+[    0.003920] Mount-cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.003962] Mountpoint-cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.005456] rcu: Hierarchical SRCU implementation.
+[    0.005459] rcu: Max phase no-delay instances is 1000.
+[    0.005525] Timer migration: 1 hierarchy levels; 8 children per group; 1 crossnode level
+[    0.005960] EFI services will not be available.
+[    0.006050] smp: Bringing up secondary CPUs ...
+[    0.006241] Detected PIPT I-cache on CPU1
+[    0.006272] CPU1: Booted secondary processor 0x0000000100 [0x414fd0b1]
+[    0.006478] Detected PIPT I-cache on CPU2
+[    0.006500] CPU2: Booted secondary processor 0x0000000200 [0x414fd0b1]
+[    0.006674] Detected PIPT I-cache on CPU3
+[    0.006692] CPU3: Booted secondary processor 0x0000000300 [0x414fd0b1]
+[    0.006720] smp: Brought up 1 node, 4 CPUs
+[    0.006723] SMP: Total of 4 processors activated.
+[    0.006724] CPU: All CPU(s) started at EL2
+[    0.006725] CPU features: detected: 32-bit EL0 Support
+[    0.006727] CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+[    0.006728] CPU features: detected: Common not Private translations
+[    0.006729] CPU features: detected: CRC32 instructions
+[    0.006731] CPU features: detected: RCpc load-acquire (LDAPR)
+[    0.006732] CPU features: detected: LSE atomic instructions
+[    0.006733] CPU features: detected: Privileged Access Never
+[    0.006734] CPU features: detected: RAS Extension Support
+[    0.006735] CPU features: detected: Speculative Store Bypassing Safe (SSBS)
+[    0.006755] alternatives: applying system-wide alternatives
+[    0.009096] CPU features: detected: Hardware dirty bit management on CPU0-3
+[    0.009262] Memory: 16010132K/16773120K available (22016K kernel code, 2814K rwdata, 9228K rodata, 2048K init, 749K bss, 429228K reserved, 327680K cma-reserved)
+[    0.009769] devtmpfs: initialized
+[    0.012313] Enabled cp15_barrier support
+[    0.012317] Enabled setend support
+[    0.012381] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.012386] futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+[    0.015622] 2G module region forced by RANDOMIZE_MODULE_REGION_FULL
+[    0.015627] 0 pages in range for non-PLT usage
+[    0.015629] 515008 pages in range for PLT usage
+[    0.016170] pinctrl core: initialized pinctrl subsystem
+[    0.017272] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.017578] DMA: preallocated 2048 KiB GFP_KERNEL pool for atomic allocations
+[    0.017646] DMA: preallocated 2048 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    0.017876] audit: initializing netlink subsys (disabled)
+[    0.017930] audit: type=2000 audit(0.016:1): state=initialized audit_enabled=0 res=1
+[    0.018036] thermal_sys: Registered thermal governor 'step_wise'
+[    0.018046] cpuidle: using governor menu
+[    0.018111] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    0.018133] ASID allocator initialised with 32768 entries
+[    0.018431] Serial: AMBA PL011 UART driver
+[    0.019056] /soc@107c000000/interrupt-controller@7fff9000: Fixed dependency cycle(s) with /soc@107c000000/interrupt-controller@7fff9000
+[    0.019233] bcm2835-mbox 107c013880.mailbox: mailbox enabled
+[    0.019368] 107d001000.serial: ttyAMA10 at MMIO 0x107d001000 (irq = 16, base_baud = 0) is a PL011 AXI
+[    0.019376] printk: legacy console [ttyAMA10] enabled
+[    0.809736] raspberrypi-firmware soc@107c000000:firmware: Attached to firmware from 2025-03-10T17:10:37, variant start_cd
+[    0.824746] raspberrypi-firmware soc@107c000000:firmware: Firmware hash is 2bb2ae6400000000000000000000000000000000
+[    0.911250] raid6: neonx8   gen() 12725 MB/s
+[    0.983550] raid6: neonx4   gen() 12750 MB/s
+[    1.055846] raid6: neonx2   gen() 11669 MB/s
+[    1.128141] raid6: neonx1   gen()  9126 MB/s
+[    1.200450] raid6: int64x8  gen()  5202 MB/s
+[    1.272744] raid6: int64x4  gen()  5599 MB/s
+[    1.345046] raid6: int64x2  gen()  4919 MB/s
+[    1.417341] raid6: int64x1  gen()  4142 MB/s
+[    1.421621] raid6: using algorithm neonx4 gen() 12750 MB/s
+[    1.495137] raid6: .... xor() 9723 MB/s, rmw enabled
+[    1.500116] raid6: using neon recovery algorithm
+[    1.504957] bcm2835-dma 1000010000.dma: DMA legacy API manager, dmachans=0x1
+[    1.512324] iommu: Default domain type: Translated
+[    1.517285] iommu: DMA domain TLB invalidation policy: strict mode
+[    1.523626] SCSI subsystem initialized
+[    1.527420] usbcore: registered new interface driver usbfs
+[    1.532931] usbcore: registered new interface driver hub
+[    1.538269] usbcore: registered new device driver usb
+[    1.543438] mc: Linux media interface: v0.10
+[    1.547726] videodev: Linux video capture interface: v2.00
+[    1.553242] pps_core: LinuxPPS API ver. 1 registered
+[    1.558221] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    1.567391] PTP clock support registered
+[    1.571365] Advanced Linux Sound Architecture Driver Initialized.
+[    1.577625] Bluetooth: Core ver 2.22
+[    1.581214] NET: Registered PF_BLUETOOTH protocol family
+[    1.586542] Bluetooth: HCI device and connection manager initialized
+[    1.592918] Bluetooth: HCI socket layer initialized
+[    1.597810] Bluetooth: L2CAP socket layer initialized
+[    1.602877] Bluetooth: SCO socket layer initialized
+[    1.607929] clocksource: Switched to clocksource arch_sys_counter
+[    1.614735] VFS: Disk quotas dquot_6.6.0
+[    1.618700] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    1.626117] NET: Registered PF_INET protocol family
+[    1.631355] IP idents hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+[    1.642047] tcp_listen_portaddr_hash hash table entries: 8192 (order: 5, 131072 bytes, linear)
+[    1.650770] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    1.658638] TCP established hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+[    1.667106] TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)
+[    1.676004] TCP: Hash tables configured (established 131072 bind 65536)
+[    1.682888] MPTCP token hash table entries: 16384 (order: 7, 393216 bytes, linear)
+[    1.690777] UDP hash table entries: 8192 (order: 6, 262144 bytes, linear)
+[    1.697720] UDP-Lite hash table entries: 8192 (order: 6, 262144 bytes, linear)
+[    1.705323] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    1.711207] NET: Registered PF_XDP protocol family
+[    1.716018] PCI: CLS 0 bytes, default 64
+[    1.720027] Trying to unpack rootfs image as initramfs...
+[    1.729821] kvm [1]: nv: 554 coarse grained trap handlers
+[    1.735400] kvm [1]: IPA Size Limit: 40 bits
+[    1.739738] kvm [1]: vgic interrupt IRQ9
+[    1.743692] kvm [1]: VHE mode initialized successfully
+[    1.744168] Freeing initrd memory: 1508K
+[    1.753433] Initialise system trusted keyrings
+[    1.757975] workingset: timestamp_bits=42 max_order=22 bucket_order=0
+[    1.767560] Key type cifs.idmap registered
+[    1.771694] fuse: init (API version 7.41)
+[    1.791230] xor: measuring software checksum speed
+[    1.796215]    8regs           : 18283 MB/sec
+[    1.800759]    32regs          : 18688 MB/sec
+[    1.805276]    arm64_neon      : 21910 MB/sec
+[    1.809643] xor: using function: arm64_neon (21910 MB/sec)
+[    1.815149] Key type asymmetric registered
+[    1.819255] Asymmetric key parser 'x509' registered
+[    1.824196] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 244)
+[    1.831661] io scheduler mq-deadline registered
+[    1.836204] io scheduler kyber registered
+[    1.840292] io scheduler bfq registered
+[    1.844655] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/intc@7d508380, parent irq: 27)
+[    1.853342] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/intc@7d508400, parent irq: 28)
+[    1.862020] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/intc@7d503000, parent irq: 29)
+[    1.871640] ledtrig-cpu: registered to indicate activity on CPUs
+[    1.878677] bcm2708_fb soc@107c000000:fb: Unable to determine number of FBs. Disabling driver.
+[    1.887330] bcm2708_fb soc@107c000000:fb: probe with driver bcm2708_fb failed with error -2
+[    1.924166] SError Interrupt on CPU2, code 0x00000000be000011 -- SError
+[    1.924171] CPU: 2 UID: 0 PID: 1 Comm: swapper/0 Tainted: G   M               6.12.73-g8af794a959ec-v8 #1
+[    1.924174] Tainted: [M]=MACHINE_CHECK
+[    1.924174] Hardware name: Raspberry Pi 5 Model B Rev 1.1 (DT)
+[    1.924176] pstate: 800000c9 (Nzcv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    1.924178] pc : bcm2712_pinconf_set+0xb0/0x234
+[    1.924183] lr : bcm2712_pinconf_set+0x98/0x234
+[    1.924185] sp : ffffffc08002b820
+[    1.924185] x29: ffffffc08002b820 x28: 0000000000000001 x27: 0000000000000002
+[    1.924189] x26: 0000000000000003 x25: 000000000000ffff x24: 0000000000000018
+[    1.924191] x23: 0000000000000000 x22: 0000000000000122 x21: ffffff8100965880
+[    1.924193] x20: ffffff81020f5880 x19: 0000000000000001 x18: ffffffc0800250a8
+[    1.924195] x17: 00000000f2e198dd x16: 00000000f2e198dd x15: ffffffffff600c48
+[    1.924197] x14: ffffffffffffffff x13: 0000000000000064 x12: 000000000000001d
+[    1.924199] x11: 0000000000000000 x10: 0000000000000000 x9 : 0000000000000000
+[    1.924201] x8 : 0000000000000024 x7 : 616d6b00746c7561 x6 : 0d0b0f15752711f2
+[    1.924203] x5 : 72112775150f0b0d x4 : 8000000000000000 x3 : 0000000000000001
+[    1.924206] x2 : ffffff81020f5880 x1 : 0000000000000000 x0 : 0000000000000000
+[    1.924208] Kernel panic - not syncing: Asynchronous SError Interrupt
+[    1.924209] CPU: 2 UID: 0 PID: 1 Comm: swapper/0 Tainted: G   M               6.12.73-g8af794a959ec-v8 #1
+[    1.924212] Tainted: [M]=MACHINE_CHECK
+[    1.924212] Hardware name: Raspberry Pi 5 Model B Rev 1.1 (DT)
+[    1.924213] Call trace:
+[    1.924214]  dump_backtrace+0x100/0x13c
+[    1.924219]  show_stack+0x24/0x38
+[    1.924222]  dump_stack_lvl+0x44/0x90
+[    1.924226]  dump_stack+0x1c/0x2c
+[    1.924228]  panic+0x130/0x348
+[    1.924230]  nmi_panic+0x48/0x98
+[    1.924233]  arm64_serror_panic+0x78/0x88
+[    1.924236]  do_serror+0xd4/0xd8
+[    1.924239]  el1h_64_error_handler+0x38/0x50
+[    1.924242]  el1h_64_error+0x68/0x6c
+[    1.924244]  bcm2712_pinconf_set+0xb0/0x234
+[    1.924245]  pinconf_apply_setting+0x78/0x14c
+[    1.924249]  pinctrl_commit_state+0x10c/0x1ec
+[    1.924251]  pinctrl_select_state+0x28/0x40
+[    1.924254]  pinctrl_bind_pins+0xd0/0x15c
+[    1.924258]  really_probe+0x68/0x364
+[    1.924260]  __driver_probe_device+0xb0/0x140
+[    1.924262]  driver_probe_device+0x48/0x228
+[    1.924263]  __driver_attach+0x118/0x1f8
+[    1.924265]  bus_for_each_dev+0x110/0x170
+[    1.924268]  driver_attach+0x30/0x44
+[    1.924269]  bus_add_driver+0x150/0x2bc
+[    1.924272]  driver_register+0x74/0x114
+[    1.924274]  __platform_driver_register+0x2c/0x40
+[    1.924276]  brcmuart_init+0x44/0x70
+[    1.924279]  do_one_initcall+0xe8/0x360
+[    1.924282]  do_initcall_level+0xa0/0x154
+[    1.924286]  do_initcalls+0x80/0x100
+[    1.924288]  do_basic_setup+0x28/0x38
+[    1.924290]  kernel_init_freeable+0xd4/0x13c
+[    1.924293]  kernel_init+0x2c/0x1c0
+[    1.924295]  ret_from_fork+0x10/0x20
+[    1.924299] SMP: stopping secondary CPUs
+[    1.924303] Kernel Offset: 0x100c400000 from 0xffffffc080000000
+[    1.924304] PHYS_OFFSET: 0x0
+[    1.924305] CPU features: 0x00000080,0000005c,00280928,0200720b
+[    1.924306] Memory Limit: none

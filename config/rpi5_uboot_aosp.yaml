@@ -12,9 +12,10 @@ aosp:
 avb:
   private_key: avb/avb_private_key.pem
   public_key: avb/avb_public_key.bin
-  algorithm: SHA256_RSA4096
+  sign_algorithm: SHA256_RSA4096
+  hash_algorithm: sha256
 
 sdcard:
   config: sdcard/uboot_aosp.yaml
   sign_config: sdcard/uboot_aosp_signed.yaml
-  enable_signing: false
+  enable_signing: true

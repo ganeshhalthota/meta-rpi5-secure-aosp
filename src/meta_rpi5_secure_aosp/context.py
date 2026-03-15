@@ -18,6 +18,7 @@ class BuildContext:
     aosp_dir: Path
     sdcard_dir: Path
     avb_key: Path
+    avb_pubkey: Path | None
     sdcard_config: Path
     sdcard_data: dict
     rpi5_config: dict

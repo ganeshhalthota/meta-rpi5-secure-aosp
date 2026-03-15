@@ -27,37 +27,66 @@ def run(ctx: BuildContext) -> None:
         for name, cfg in partition_config.items()
     }
 
+    avb_config = ctx.rpi5_config["avb"]
+
+    # Support both old and new config formats for backward compatibility
+    if "sign_algorithm" in avb_config:
+        sign_algorithm = avb_config["sign_algorithm"]
+        hash_algorithm = avb_config.get("hash_algorithm", "sha256")
+    else:
+        # Backward compatibility: treat 'algorithm' as hash_algorithm
+        sign_algorithm = "SHA256_RSA4096"
+        hash_algorithm = avb_config.get("algorithm", "sha256")
+
     avb = AvbTool(
         aosp_dir=ctx.aosp_dir,
         avb_key=ctx.avb_key,
         run=ctx.run,
-        algorithm=ctx.rpi5_config["avb"]["algorithm"],
+        sign_algorithm=sign_algorithm,
+        hash_algorithm=hash_algorithm,
     )
     ctx.console.print(f"Using avbtool: {avb._cmd}")
 
-    images_to_sign = []
+    product_out = ctx.aosp_dir / "out/target/product/rpi5"
 
+    # Get AVB public key for storage in boot partition
+    # (used by U-Boot for verification)
+    avb_pubkey_dir = ctx.workspace / "keys"
+    avb_pubkey_dir.mkdir(exist_ok=True)
+    avb_pubkey_path = avb_pubkey_dir / "avb_pubkey.bin"
+
+    if ctx.avb_pubkey and ctx.avb_pubkey.exists():
+        # Use pre-existing public key from config
+        ctx.console.print(f"-> Using AVB public key from config: {ctx.avb_pubkey}")
+        shutil.copy2(ctx.avb_pubkey, avb_pubkey_path)
+        ctx.console.print(f"   Public key copied to {avb_pubkey_path.name}")
+    else:
+        # Fallback: extract from private key
+        ctx.console.print("-> Extracting AVB public key from private key")
+        avb.extract_public_key(output=avb_pubkey_path)
+        ctx.console.print(f"   Public key extracted to {avb_pubkey_path.name}")
+
+    # Partitions to sign with hashtree footer (dm-verity)
+    # boot.img is intentionally excluded — RPi5 firmware loads it without verification
+    hashtree_partitions = []
     if ctx.do_aosp:
-        product_out = ctx.aosp_dir / "out/target/product/rpi5"
-        boot_img   = product_out / "boot.img"
         system_img = product_out / "system.img"
         vendor_img = product_out / "vendor.img"
 
-        if not boot_img.exists() or not system_img.exists() or not vendor_img.exists():
+        if not system_img.exists() or not vendor_img.exists():
             raise click.ClickException("AOSP images missing — run build first")
 
-        images_to_sign.extend([boot_img, system_img, vendor_img])
+        hashtree_partitions = [system_img, vendor_img]
 
-    vbmeta_sidecar_images: list = []
+    signed_images = []
 
-    for img in images_to_sign:
-        partition_name = img.stem          # e.g. "boot", "system", "vendor"
+    for img in hashtree_partitions:
+        partition_name = img.stem          # e.g. "system", "vendor"
         signed_img     = img.with_suffix(".signed.img")
-        vbmeta_img     = img.parent / f"vbmeta_{partition_name}.img"
 
-        ctx.console.print(f"-> Signing {img.name}")
+        ctx.console.print(f"-> Signing {img.name} with hashtree footer (dm-verity)")
 
-        if partition_name in partition_sizes_bytes:
+        if partition_name in partition_sizes_bytes and partition_sizes_bytes[partition_name] > 0:
             partition_size = partition_sizes_bytes[partition_name]
             ctx.console.print(
                 f"   Using predefined partition size for {partition_name}: "
@@ -69,23 +98,19 @@ def run(ctx: BuildContext) -> None:
 
         shutil.copy2(img, signed_img)
 
-        avb.add_hash_footer(
+        # We don't use sidecar vbmeta descriptors; we point make_vbmeta_image
+        # directly at the signed partition images which now contain the footer.
+        avb.add_hashtree_footer(
             image=signed_img,
             partition_name=partition_name,
             partition_size=partition_size,
-            vbmeta_output=vbmeta_img,
         )
-        avb.append_vbmeta_image(
-            image=signed_img,
-            partition_size=partition_size,
-            vbmeta_image=vbmeta_img,
-        )
-        vbmeta_sidecar_images.append(vbmeta_img)
+        signed_images.append(signed_img)
 
     # Combined vbmeta image
     ctx.console.print("-> Creating combined vbmeta image")
-    combined_vbmeta = ctx.aosp_dir / "out/target/product/rpi5/vbmeta.img"
-    avb.make_vbmeta_image(output=combined_vbmeta, include_images=vbmeta_sidecar_images)
-    ctx.console.print(f"-> Combined vbmeta image created at {combined_vbmeta}")
+    combined_vbmeta = product_out / "vbmeta.img"
+    avb.make_vbmeta_image(output=combined_vbmeta, include_images=signed_images)
+    ctx.console.print(f"-> Combined vbmeta image created at {combined_vbmeta.name}")
 
     ctx.console.print("[green]Signing completed[/]\n")

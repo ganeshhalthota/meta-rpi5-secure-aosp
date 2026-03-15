@@ -40,13 +40,16 @@ class AvbTool:
         aosp_dir: Path,
         avb_key: Path,
         run: Callable[[str, Path], None],
-        algorithm: str = "SHA256_RSA4096",
+        sign_algorithm: str = "SHA256_RSA4096",
+        hash_algorithm: str = "sha256",
     ) -> None:
-        self._cmd       = self._locate(aosp_dir)
-        self._avb_key   = avb_key
-        self._algorithm = algorithm
-        self._run       = run
-        self._workspace = aosp_dir.parent  # used as cwd for avbtool calls
+        self._cmd            = self._locate(aosp_dir)
+        self._avb_key        = avb_key
+        self._sign_algorithm = sign_algorithm
+        self._hash_algorithm = hash_algorithm
+        self._run            = run
+        self._workspace      = aosp_dir.parent  # used as cwd for avbtool calls
+        self._aosp_host_bin  = aosp_dir / "out/host/linux-x86/bin"
 
     # ------------------------------------------------------------------
     # Public API
@@ -57,25 +60,64 @@ class AvbTool:
         image: Path,
         partition_name: str,
         partition_size: int,
-        vbmeta_output: Path,
+        vbmeta_output: Path | None = None,
     ) -> None:
         """
-        Add an AVB hash footer to *image* and write the per-partition
-        vbmeta descriptor to *vbmeta_output*.
+        Add an AVB hash footer to *image* and optionally write the
+        per-partition vbmeta descriptor to *vbmeta_output*.
 
         The image is modified **in-place** — callers should pass a
         ``.signed`` copy rather than the original build output.
         """
-        self._run(
+        cmd = (
             f"{self._cmd} add_hash_footer "
             f"--image {image} "
             f"--partition_name {partition_name} "
             f"--partition_size {partition_size} "
             f"--key {self._avb_key} "
-            f"--algorithm {self._algorithm} "
-            f"--output_vbmeta_image {vbmeta_output}",
-            cwd=self._workspace,
+            f"--algorithm {self._sign_algorithm}"
         )
+        if vbmeta_output:
+            cmd += f" --output_vbmeta_image {vbmeta_output}"
+
+        self._run(self._with_path(cmd), cwd=self._workspace)
+
+    def add_hashtree_footer(
+        self,
+        image: Path,
+        partition_name: str,
+        partition_size: int,
+        vbmeta_output: Path | None = None,
+    ) -> None:
+        """
+        Add an AVB hashtree footer (dm-verity) to *image* and optionally
+        write the per-partition vbmeta descriptor to *vbmeta_output*.
+
+        The image is modified **in-place**.
+        """
+        cmd = (
+            f"{self._cmd} add_hashtree_footer "
+            f"--image {image} "
+            f"--partition_name {partition_name} "
+            f"--partition_size {partition_size} "
+            f"--key {self._avb_key} "
+            f"--algorithm {self._sign_algorithm} "
+            f"--hash_algorithm {self._hash_algorithm} "
+            # f"--fec_num_roots 0"
+        )
+        if vbmeta_output:
+            cmd += f" --output_vbmeta_image {vbmeta_output}"
+
+        self._run(self._with_path(cmd), cwd=self._workspace)
+
+    def extract_public_key(self, output: Path) -> None:
+        """Extract the AVB public key from the RSA private key."""
+        cmd = (
+            f"{self._cmd} extract_public_key "
+            f"--key {self._avb_key} "
+            f"--output {output}"
+        )
+        self._run(self._with_path(cmd), cwd=self._workspace)
 
     def append_vbmeta_image(
         self,
@@ -84,13 +126,13 @@ class AvbTool:
         vbmeta_image: Path,
     ) -> None:
         """Append a vbmeta image to the end of *image*."""
-        self._run(
+        cmd = (
             f"{self._cmd} append_vbmeta_image "
             f"--image {image} "
             f"--partition_size {partition_size} "
-            f"--vbmeta_image {vbmeta_image}",
-            cwd=self._workspace,
+            f"--vbmeta_image {vbmeta_image}"
         )
+        self._run(self._with_path(cmd), cwd=self._workspace)
 
     def make_vbmeta_image(self, output: Path, include_images: list[Path]) -> None:
         """
@@ -100,18 +142,28 @@ class AvbTool:
         descriptors = " ".join(
             f"--include_descriptors_from_image {img}" for img in include_images
         )
-        self._run(
+        cmd = (
             f"{self._cmd} make_vbmeta_image "
             f"--output {output} "
-            f"--algorithm {self._algorithm} "
+            f"--algorithm {self._sign_algorithm} "
             f"--key {self._avb_key} "
-            f"{descriptors}",
-            cwd=self._workspace,
+            f"{descriptors}"
         )
+        self._run(self._with_path(cmd), cwd=self._workspace)
 
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
+
+    def _with_path(self, cmd: str) -> str:
+        """
+        Prepend AOSP host bin directory to PATH for the command.
+
+        This ensures tools like 'fec' are available when avbtool needs them.
+        """
+        if self._aosp_host_bin.exists():
+            return f"export PATH={self._aosp_host_bin}:$PATH && {cmd}"
+        return cmd
 
     @staticmethod
     def _locate(aosp_dir: Path) -> str:

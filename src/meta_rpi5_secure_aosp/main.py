@@ -80,13 +80,20 @@ def main(
     """RPi5 Secure AOSP Builder — flexible stage + code selection."""
 
     # ------------------------------------------------------------------ #
-    # Load rpi5 build config                                               #
+    # Load rpi5 build config                                             #
     # ------------------------------------------------------------------ #
     with open(config, "r") as f:
         rpi5_config = yaml.safe_load(f)
 
     # Derive AVB key path from config (relative to the config file's directory)
-    avb_key = config.parent / rpi5_config["avb"]["private_key"]
+    avb_key = (config.parent / rpi5_config["avb"]["private_key"]).resolve()
+
+    # Derive AVB public key path from config if available (optional, with fallback to extraction)
+    avb_pubkey = (
+        (config.parent / rpi5_config["avb"]["public_key"]).resolve()
+        if rpi5_config["avb"].get("public_key")
+        else None
+    )
 
     # Read signing flag from rpi5 config (authoritative source)
     signing_enabled = rpi5_config["sdcard"].get("enable_signing", False)
@@ -105,7 +112,7 @@ def main(
         sdcard_data = yaml.safe_load(f)
 
     # ------------------------------------------------------------------ #
-    # Resolve which code paths and stages are active                       #
+    # Resolve which code paths and stages are active                     #
     # ------------------------------------------------------------------ #
     do_uboot = code in {"all", "uboot"}
     do_aosp  = code in {"all", "aosp"}
@@ -120,8 +127,9 @@ def main(
     aosp_tag = rpi5_config["aosp"]["tag"]
 
     # ------------------------------------------------------------------ #
-    # Banner                                                               #
+    # Banner                                                             #
     # ------------------------------------------------------------------ #
+    avb_pubkey_source = "from config" if avb_pubkey else "will extract from private key"
     console.print(Panel.fit(
         f"[bold magenta]RPi5 Secure AOSP Builder[/]\n"
         f"[dim]Workspace :[/] {workspace}\n"
@@ -131,6 +139,7 @@ def main(
         f"[dim]Config    :[/] {config}\n"
         f"[dim]AOSP Tag  :[/] {aosp_tag}\n"
         f"[dim]AVB Key   :[/] {avb_key}\n"
+        f"[dim]AVB PubKey:[/] {avb_pubkey_source}\n"
         f"[dim]SD Card   :[/] {sdcard_config}\n"
         f"[dim]Signing   :[/] {'Enabled' if signing_enabled else 'Disabled'} (by config)\n"
         f"[dim]Actions   :[/] "
@@ -143,7 +152,7 @@ def main(
     ))
 
     # ------------------------------------------------------------------ #
-    # Shell-runner helper                                                  #
+    # Shell-runner helper                                                #
     # ------------------------------------------------------------------ #
     def _run(cmd: str, cwd: Path, silent: bool = False) -> None:
         if not silent:
@@ -152,7 +161,7 @@ def main(
         subprocess.run(cmd, shell=True, check=True, cwd=cwd, text=True)
 
     # ------------------------------------------------------------------ #
-    # Build shared context                                                 #
+    # Build shared context                                               #
     # ------------------------------------------------------------------ #
     ctx = BuildContext(
         workspace=workspace,
@@ -160,6 +169,7 @@ def main(
         aosp_dir=workspace / "rpi5-aosp",
         sdcard_dir=workspace / "sdcard",
         avb_key=avb_key,
+        avb_pubkey=avb_pubkey,
         sdcard_config=sdcard_config,
         sdcard_data=sdcard_data,
         rpi5_config=rpi5_config,
@@ -171,7 +181,7 @@ def main(
     )
 
     # ------------------------------------------------------------------ #
-    # Pipeline                                                             #
+    # Pipeline                                                           #
     # ------------------------------------------------------------------ #
     if do_sync:   sync.run(ctx)
     if do_patch:  patch.run(ctx)
