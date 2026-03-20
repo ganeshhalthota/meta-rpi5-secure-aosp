@@ -9,6 +9,12 @@ aosp:
     - url: https://raw.githubusercontent.com/ganeshhalthota/android_local_manifest/android-16.0.0_r4/remove_projects.xml
       filename: remove_projects.xml
 
+uboot:
+  # Keep full flow pinned to known-good RPi5 U-Boot revision.
+  dir: u-boot-rpi5
+  repo_url: https://github.com/u-boot/u-boot.git
+  ref: eefb822fb574e28d49fc9f358328854e17fc8406
+
 avb:
   private_key: avb/avb_private_key.pem
   public_key: avb/avb_public_key.bin
@@ -18,4 +24,4 @@ avb:
 sdcard:
   config: sdcard/uboot_aosp.yaml
   sign_config: sdcard/uboot_aosp_signed.yaml
-  enable_signing: true
+  enable_signing: false

@@ -13,6 +13,8 @@ from rich.console import Console
 
 @dataclass
 class BuildContext:
+    project_root: Path
+    config_dir: Path
     workspace: Path
     uboot_dir: Path
     aosp_dir: Path

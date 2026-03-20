@@ -5,6 +5,7 @@ Clones or updates the u-boot and AOSP source trees.
 
 from __future__ import annotations
 
+import shlex
 import shutil
 
 from rich.progress import Progress, SpinnerColumn, TextColumn
@@ -20,18 +21,28 @@ def run(ctx: BuildContext) -> None:
     tag = aosp_cfg["tag"]
     manifest_url = aosp_cfg["manifest_url"]
     local_manifests = aosp_cfg["local_manifests"]
+    uboot_cfg = ctx.rpi5_config.get("uboot", {})
+    uboot_repo_url = uboot_cfg.get("repo_url", "https://github.com/u-boot/u-boot.git")
+    uboot_ref = uboot_cfg.get("ref", "origin/master")
 
     with Progress(SpinnerColumn(), TextColumn("{task.description}"), console=ctx.console) as progress:
 
         if ctx.do_uboot:
             if ctx.uboot_dir.exists():
-                progress.add_task("Updating u-boot", total=None)
+                progress.add_task(f"Updating u-boot at {uboot_ref}", total=None)
                 ctx.run("git fetch --all --prune", cwd=ctx.uboot_dir)
-                ctx.run("git reset --hard origin/master", cwd=ctx.uboot_dir)
+                ctx.run(f"git checkout --force {shlex.quote(uboot_ref)}", cwd=ctx.uboot_dir)
+                ctx.run(f"git reset --hard {shlex.quote(uboot_ref)}", cwd=ctx.uboot_dir)
                 ctx.run("git clean -fdx", cwd=ctx.uboot_dir)
             else:
-                progress.add_task("Cloning u-boot", total=None)
-                ctx.run("git clone https://github.com/u-boot/u-boot.git u-boot", cwd=ctx.workspace)
+                progress.add_task(f"Cloning u-boot from {uboot_repo_url}", total=None)
+                ctx.run(
+                    f"git clone {shlex.quote(uboot_repo_url)} {shlex.quote(ctx.uboot_dir.name)}",
+                    cwd=ctx.workspace,
+                )
+                ctx.run(f"git checkout --force {shlex.quote(uboot_ref)}", cwd=ctx.uboot_dir)
+                ctx.run(f"git reset --hard {shlex.quote(uboot_ref)}", cwd=ctx.uboot_dir)
+                ctx.run("git clean -fdx", cwd=ctx.uboot_dir)
 
         if ctx.do_aosp:
             repo_cmd = "repo" if shutil.which("repo") else "python3 -m repo"

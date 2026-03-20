@@ -363,7 +363,12 @@ class DiskImage:
         try:
             self._run_cmd(["sudo", "mount", f"/dev/mapper/{loopdev}p{partition_number}", mount_point])
             for file_info in extra_files:
-                if "src" in file_info and os.path.exists(file_info["src"]):
+                if "src" in file_info:
+                    if not os.path.exists(file_info["src"]):
+                        raise FileNotFoundError(
+                            f"extra_file src not found: {file_info['src']} "
+                            f"(required for dst: {file_info['dst']})"
+                        )
                     dst_path = os.path.join(mount_point, file_info["dst"])
                     print(f"  Copying {file_info['src']} to {dst_path}")
                     self._run_cmd(["sudo", "cp", file_info["src"], dst_path])

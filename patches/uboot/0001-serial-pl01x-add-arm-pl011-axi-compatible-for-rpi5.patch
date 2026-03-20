@@ -1,0 +1,35 @@
+From c3ae5b4c4f2a2804c3e5d0ac734d3025f96cbe0f Mon Sep 17 00:00:00 2001
+From: ghalthot <ghalthot@qti.qualcomm.com>
+Date: Thu, 19 Mar 2026 16:45:00 +0530
+Subject: [PATCH] serial: pl01x: add arm,pl011-axi compatible for RPi5
+
+RPi5 firmware-provided DT uses "arm,pl011-axi" for serial10, which is
+the default stdout-path. Without this compatible in the PL011 U-Boot
+driver match table, U-Boot may not bind the console UART and no serial
+output appears even though firmware and Linux console work.
+
+Signed-off-by: ghalthot <ghalthot@qti.qualcomm.com>
+---
+ drivers/serial/serial_pl01x.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/serial/serial_pl01x.c b/drivers/serial/serial_pl01x.c
+index e6bf0c2935b..0557351b312 100644
+--- a/drivers/serial/serial_pl01x.c
++++ b/drivers/serial/serial_pl01x.c
+@@ -369,6 +369,12 @@ static const struct dm_serial_ops pl01x_serial_ops = {
+ 
+ #if CONFIG_IS_ENABLED(OF_REAL)
+ static const struct udevice_id pl01x_serial_id[] ={
++	/*
++	 * RPi5 firmware DT uses "arm,pl011-axi" for serial10 (stdout-path).
++	 * Treat it as a standard PL011 to keep U-Boot console on the default
++	 * Pi5 serial path.
++	 */
++	{.compatible = "arm,pl011-axi", .data = TYPE_PL011},
+ 	{.compatible = "arm,pl011", .data = TYPE_PL011},
+ 	{.compatible = "arm,pl010", .data = TYPE_PL010},
+ 	{}
+-- 
+2.43.0
+

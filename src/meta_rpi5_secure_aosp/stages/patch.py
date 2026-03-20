@@ -2,7 +2,8 @@
 Stage: Patch
 Applies git patch files (.patch) to the u-boot and/or AOSP source trees.
 
-Patch directory layout expected under <workspace>/patches/:
+Patch directory layout expected under <project-root>/patches/ (fallback:
+<workspace>/patches/):
 
   patches/
   ├── uboot/
@@ -32,14 +33,17 @@ from meta_rpi5_secure_aosp.context import BuildContext
 # ---------------------------------------------------------------------------
 
 def run(ctx: BuildContext) -> None:
-    """Apply all patches found under <workspace>/patches/ to the source trees."""
+    """Apply all patches found under project/workspace patches directories."""
     ctx.console.print("\n[bold blue]Stage: Patch[/]")
 
-    patches_root = ctx.workspace / "patches"
+    project_patches_root = ctx.project_root / "patches"
+    workspace_patches_root = ctx.workspace / "patches"
+    patches_root = project_patches_root if project_patches_root.exists() else workspace_patches_root
 
     if not patches_root.exists():
         ctx.console.print(
-            f"[yellow]No patches directory found at {patches_root} — skipping patch stage.[/yellow]"
+            f"[yellow]No patches directory found at {project_patches_root} "
+            f"or {workspace_patches_root} — skipping patch stage.[/yellow]"
         )
         return
 

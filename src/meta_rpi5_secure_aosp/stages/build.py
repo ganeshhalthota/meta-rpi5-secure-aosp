@@ -16,7 +16,7 @@ def run(ctx: BuildContext) -> None:
 
     if ctx.do_uboot:
         if not ctx.uboot_dir.exists():
-            raise click.ClickException("u-boot/ missing — run sync first")
+            raise click.ClickException(f"{ctx.uboot_dir.name}/ missing — run sync first")
         ctx.console.print("-> Building U-Boot")
         ctx.run("CROSS_COMPILE=aarch64-linux-gnu- make rpi_arm64_defconfig", cwd=ctx.uboot_dir)
 
@@ -32,11 +32,11 @@ def run(ctx: BuildContext) -> None:
         # Compile U-Boot boot script for Android
         if ctx.signing_enabled:
             ctx.console.print("-> Compiling U-Boot boot script with AVB support (boot_avb.scr)")
-            boot_cmd = ctx.workspace / "config/uboot/boot_avb.cmd"
+            boot_cmd = ctx.config_dir / "uboot/boot_avb.cmd"
             boot_scr = ctx.uboot_dir / "boot_avb.scr"
         else:
             ctx.console.print("-> Compiling U-Boot boot script (boot.scr)")
-            boot_cmd = ctx.workspace / "config/uboot/boot.cmd"
+            boot_cmd = ctx.config_dir / "uboot/boot.cmd"
             boot_scr = ctx.uboot_dir / "boot.scr"
 
         mkimage = ctx.uboot_dir / "tools/mkimage"
@@ -44,6 +44,36 @@ def run(ctx: BuildContext) -> None:
             f"{mkimage} -C none -A arm64 -T script -d {boot_cmd} {boot_scr}",
             cwd=ctx.uboot_dir,
         )
+
+    # Always compile boot script (needed for SD card regardless of whether U-Boot was rebuilt)
+    # This ensures boot.scr exists even when running with --code aosp
+    if ctx.do_aosp or ctx.do_uboot:
+        if ctx.signing_enabled:
+            boot_cmd = ctx.config_dir / "uboot/boot_avb.cmd"
+            boot_scr = ctx.uboot_dir / "boot_avb.scr"
+            script_name = "boot_avb.scr"
+        else:
+            boot_cmd = ctx.config_dir / "uboot/boot.cmd"
+            boot_scr = ctx.uboot_dir / "boot.scr"
+            script_name = "boot.scr"
+
+        # Skip if already compiled during U-Boot build
+        if not boot_scr.exists():
+            # Try U-Boot's mkimage first, fall back to system mkimage
+            mkimage = ctx.uboot_dir / "tools/mkimage"
+            if not mkimage.exists():
+                mkimage = "mkimage"  # system mkimage (from u-boot-tools package)
+                ctx.console.print(f"-> Compiling U-Boot boot script using system mkimage ({script_name})")
+            else:
+                ctx.console.print(f"-> Compiling U-Boot boot script ({script_name})")
+
+            # Ensure u-boot directory exists
+            ctx.uboot_dir.mkdir(exist_ok=True)
+
+            ctx.run(
+                f"{mkimage} -C none -A arm64 -T script -d {boot_cmd} {boot_scr}",
+                cwd=ctx.workspace,
+            )
 
     if ctx.do_aosp:
         if not (ctx.aosp_dir / ".repo").exists():

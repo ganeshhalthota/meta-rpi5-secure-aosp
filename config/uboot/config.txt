@@ -1,6 +1,14 @@
 # Kernel — RPi firmware loads U-Boot; U-Boot loads Android via boot.scr
 kernel=u-boot.bin
 
+# UART / Serial console
+# enable_uart=1   : enables the primary UART (GPIO 14/15) and keeps it active
+# uart_2ndstage=1 : keeps the debug UART (uart10, JST connector) enabled
+#                   when the firmware hands off to U-Boot; without this,
+#                   U-Boot produces no serial output on RPi5
+enable_uart=1
+uart_2ndstage=1
+
 # Camera
 camera_auto_detect=1
 

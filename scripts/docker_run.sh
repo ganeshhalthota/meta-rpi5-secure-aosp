@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+DEFAULT_BUILDER_CONFIG="config/rpi5_uboot_aosp.yaml"
+
 function log_info() {
     echo -e "${GREEN}[INFO]${NC} $1"
 }
@@ -29,6 +31,7 @@ Commands:
 Examples:
   $0 --shell                                   # Interactive shell
   $0 --stage sync --code aosp                  # Pass args to python app directly
+  $0 --stage all                               # Full U-Boot + AOSP flow (default config auto-applied)
   $0 --help                                    # Pass --help to python app directly
 
 EOF
@@ -166,6 +169,24 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+# If caller didn't pass --config, default to U-Boot-enabled project config.
+# This makes the standard full build path pick up U-Boot boot/script/config
+# changes (including serial console settings) without extra flags.
+if [ "$INTERACTIVE" = false ]; then
+    has_config=false
+    for arg in "${COMMAND_ARGS[@]}"; do
+        if [[ "$arg" == "--config" || "$arg" == --config=* ]]; then
+            has_config=true
+            break
+        fi
+    done
+
+    if [ "$has_config" = false ]; then
+        COMMAND_ARGS+=("--config" "$DEFAULT_BUILDER_CONFIG")
+        log_info "No --config provided; defaulting to ${DEFAULT_BUILDER_CONFIG}"
+    fi
+fi
 
 # Ensure docker image is available
 check_and_build_image

@@ -1,0 +1,121 @@
+
+  0.35 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  0.39 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 939740
+  0.49 AON_RESET: 00000003 PM_RSTS 00001000
+  0.53 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  0.63 RP1_BOOT chip ID: 0x20001927
+  0.68 PCIEx1: PWR 0 DET_WAKE 0
+  0.68 part 00000000 reset_info 00000000
+  0.71 PMIC reset-event 00000000 rtc 00000000 alarm 00000000 enabled 0
+  0.78 uSD voltage 3.3V
+  0.84 SDRAM_CONFIG: 1b
+  0.84 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  0.90 DDR 4267 1 1 128 152 BL:1
+  2.18 OTP boardrev e04171 bootrom a a
+  2.19 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.26 VC-JTAG unlocked
+  2.49 RP1_BOOT chip ID: 0x20001927
+
+  3.84 RP1_BOOT chip ID: 0x20001927
+  3.85 RP1_BOOT: fw size 46888
+  4.22 PCI2 init
+  4.23 PCI2 reset
+  4.67 PCIe scan 00001de4:00000001
+  4.68 RP1_CHIP_INFO 20001927
+
+  4.70 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.77 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4077982
+  4.88 PCIEx1: PWR 0 DET_WAKE 0
+  4.90 M.2 PCIe HAT not detected.
+  4.15 usb_pd_init status 3
+  4.15 USB_PD CONFIG 0 41
+  4.86 XHCI-STOP
+  4.86 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.91 USBSTS 1
+  4.93 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.04 xHC0 ports 3 slots 64 intrs 4
+  4.16 XHCI-STOP
+  4.16 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.20 USBSTS 1
+  4.23 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.28 xHC1 ports 3 slots 64 intrs 4
+  4.35 USB-PD: src-cap PDO object1 0x0a0191f4
+  4.37 Current 5000 mA
+  4.39 Voltage 5000 mV
+  4.41 USB-PD: src-cap PDO object2 0x0002d12c
+  4.45 Current 3000 mA
+  4.47 Voltage 9000 mV
+  4.49 USB-PD: src-cap PDO object3 0x0003c0e1
+  4.53 Current 2250 mA
+  4.55 Voltage 12000 mV
+  4.57 USB-PD: src-cap PDO object4 0x0004b0b4
+  4.62 Current 1800 mA
+  4.64 Voltage 15000 mV
+  4.66 Boot mode: SD (01) order f4
+  8.28 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  8.39 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  9.77 OCR c0ff8000 [202]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+  9.84 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+  9.93 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  9.05 MBR: 0x00000001,   65536 type: 0x0c
+  9.06 MBR: 0x00010001,  245760 type: 0x83
+  9.10 MBR: 0x00000000,       0 type: 0x00
+  9.13 MBR: 0x00000000,       0 type: 0x00
+  9.17 Trying partition: 0
+  9.67 type: 16 lba: 1 'mkfs.fat' '  V       ^ ' clusters 16343 (4)
+  9.71 rsc 4 fat-sectors 64 root dir cluster 1 sectors 32 entries 512
+  9.79 FAT16 clusters 16343
+  9.81 [sdcard] autoboot.txt not found
+  9.83 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  9.90 Trying partition: 1
+  9.94 type: 16 lba: 1 'mkfs.fat' '  V       ^ ' clusters 16343 (4)
+  9.98 rsc 4 fat-sectors 64 root dir cluster 1 sectors 32 entries 512
+  9.07 FAT16 clusters 16343
+  9.09 Read config.txt bytes      566 hnd 0x3050
+  9.11 [sdcard] pieeprom.upd not found
+  9.15 usb_max_current_enable default 0 max-current 5000
+  9.28 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x2
+  9.30 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  9.36 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  9.47 Read /config.txt bytes      566 hnd 0x3050
+  9.50 Read /config.txt bytes      566 hnd 0x3050
+  9.56 MESS:00:00:09.256531:0: Initial voltage 800000 temp 28487
+  9.56 MESS:00:00:09.456966:0: avs_2712: AVS pred 8624 862400 temp 27388
+  9.60 MESS:00:00:09.460574:0: vpred 862 mV +0
+  9.69 MESS:00:00:09.469228:0: FB framebuffer_swap 1
+  9.71 MESS:00:00:09.471097:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+  9.78 MESS:00:00:09.477987:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+  9.94 MESS:00:00:09.494546:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+  9.97 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+  9.09 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x2
+  9.31  /overlays/overlay_map.dtb 
+  9.32  /overlays/bcm2712d0.dtbo 
+  9.62 PCIEx1: PWR 0 DET_WAKE 0
+  9.75 Read /config.txt bytes      566 hnd 0x3050
+  9.43 Read /cmdline.txt bytes       66 hnd 0x77
+  9.75 BMD "armstub8-2712.bin" not found
+  9.75 fs_open: 'armstub8-2712.bin' 
+  9.79 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+  9.17 Read u-boot.bin bytes   708664 hnd 0x78
+  9.18 PCI1 reset
+  9.30 PCI2 reset
+  9.40 set_reboot_order 0
+  9.40 set_reboot_arg1 0
+  9.41 USB-OTG disconnect
+  9.83 MESS:00:00:09.983758:0: BSC_A no ACK
+  9.85 MESS:00:00:09.984991:0: BSC_A no ACK
+  9.88 MESS:00:00:09.988916:0: BSC_A no ACK
+ 10.12 MESS:00:00:10.012847:0: BSC_B no ACK
+ 10.14 MESS:00:00:10.014073:0: BSC_B no ACK
+ 10.18 MESS:00:00:10.017999:0: BSC_B no ACK
+ 10.41 MESS:00:00:10.041773:0: Starting OS 10041 ms
+ 10.47 MESS:00:00:10.047382:0: 00000040: -> 00000480
+ 10.49 MESS:00:00:10.049231:0: 00000030: -> 00100080
+ 10.53 MESS:00:00:10.053944:0: 00000034: -> 00100080
+ 10.58 MESS:00:00:10.058657:0: 00000038: -> 00100080
+ 10.63 MESS:00:00:10.063370:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024

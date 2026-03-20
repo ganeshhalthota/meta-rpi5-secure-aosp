@@ -41,7 +41,7 @@ console = Console()
     type=click.Path(exists=True, file_okay=False, writable=True, path_type=Path),
     default=get_default_workspace,
     show_default="directory containing the binary",
-    help="Workspace root (contains u-boot/, rpi5-aosp/, sdcard/)",
+    help="Workspace root (contains U-Boot source, rpi5-aosp/, sdcard/)",
 )
 @click.option(
     "--stage", "-s",
@@ -82,11 +82,19 @@ def main(
     # ------------------------------------------------------------------ #
     # Load rpi5 build config                                             #
     # ------------------------------------------------------------------ #
+    config_dir = config.parent.resolve()
+    project_root = config_dir.parent
+
     with open(config, "r") as f:
         rpi5_config = yaml.safe_load(f)
 
     # Derive AVB key path from config (relative to the config file's directory)
     avb_key = (config.parent / rpi5_config["avb"]["private_key"]).resolve()
+
+    # Resolve U-Boot source directory (relative to workspace)
+    uboot_cfg = rpi5_config.get("uboot", {})
+    uboot_dir_name = uboot_cfg.get("dir", "u-boot")
+    uboot_dir = workspace / uboot_dir_name
 
     # Derive AVB public key path from config if available (optional, with fallback to extraction)
     avb_pubkey = (
@@ -137,6 +145,7 @@ def main(
         f"[dim]Code      :[/] {code} -> "
         f"U-Boot={'Yes' if do_uboot else 'No'}, AOSP={'Yes' if do_aosp else 'No'}\n"
         f"[dim]Config    :[/] {config}\n"
+        f"[dim]U-Boot Dir:[/] {uboot_dir}\n"
         f"[dim]AOSP Tag  :[/] {aosp_tag}\n"
         f"[dim]AVB Key   :[/] {avb_key}\n"
         f"[dim]AVB PubKey:[/] {avb_pubkey_source}\n"
@@ -164,8 +173,10 @@ def main(
     # Build shared context                                               #
     # ------------------------------------------------------------------ #
     ctx = BuildContext(
+        project_root=project_root,
+        config_dir=config_dir,
         workspace=workspace,
-        uboot_dir=workspace / "u-boot",
+        uboot_dir=uboot_dir,
         aosp_dir=workspace / "rpi5-aosp",
         sdcard_dir=workspace / "sdcard",
         avb_key=avb_key,

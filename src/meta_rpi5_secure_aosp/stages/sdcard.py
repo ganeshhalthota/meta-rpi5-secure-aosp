@@ -38,7 +38,15 @@ def run(ctx: BuildContext) -> None:
         if "extra_files" in part:
             for extra_file in part["extra_files"]:
                 if "src" in extra_file and not extra_file.get("content"):
-                    extra_file["src"] = ctx.workspace / extra_file["src"]
+                    src = extra_file["src"]
+                    # Keep backward-compatible config values ("u-boot/...") while allowing
+                    # the actual U-Boot directory to be configured (e.g. "u-boot-rpi5").
+                    if isinstance(src, str) and src.startswith("u-boot/"):
+                        extra_file["src"] = ctx.uboot_dir / src.removeprefix("u-boot/")
+                    elif isinstance(src, str) and src.startswith("config/"):
+                        extra_file["src"] = ctx.project_root / src
+                    else:
+                        extra_file["src"] = ctx.workspace / src
 
     disk = DiskImage(image_data=image_data)
     image_path = disk.build()

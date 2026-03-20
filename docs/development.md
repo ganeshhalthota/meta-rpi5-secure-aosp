@@ -14,18 +14,28 @@ This document describes the Docker-based workflow for building AOSP for Raspberr
 
 The `docker_run.sh` script is the primary entrypoint. It automatically manages the Docker container, verifying that the appropriate image is built (using the SHA256 of the Dockerfile), and routes everything inside appropriately.
 
+By default, when `--config` is not provided, `docker_run.sh` now injects:
+`--config config/rpi5_uboot_aosp.yaml`
+so the standard flow includes U-Boot integration (boot script/config + U-Boot SD layout).
+
 ```bash
 # 1. Sync sources (U-Boot + AOSP)
 ./docker_run.sh --stage sync
 
-# 2. Build everything
+# 2. Apply patches (includes local U-Boot patch set)
+./docker_run.sh --stage patch
+
+# 3. Build everything
 ./docker_run.sh --stage build
 
-# 3. Generate SD card image
+# 4. Generate SD card image
 ./docker_run.sh --stage sdcard
 
 # Or run all stages at once
 ./docker_run.sh --stage all
+
+# To force plain AOSP (no U-Boot SD config), override config explicitly
+./docker_run.sh --stage all --config config/rpi5_aosp.yaml
 ```
 
 ## Available Commands
@@ -48,7 +58,7 @@ The `docker_run.sh` script is the primary entrypoint. It automatically manages t
 ./docker_run.sh --stage sdcard            # Generate bootable SD card image
 
 # Complete workflow
-./docker_run.sh --stage all               # Run sync + build + sdcard
+./docker_run.sh --stage all               # Run sync + patch + build + sdcard
 
 # Cleanup
 rm -rf work/sdcard/*.img                  # Remove generated images
