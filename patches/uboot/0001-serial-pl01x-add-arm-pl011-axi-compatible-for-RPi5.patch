@@ -1,5 +1,5 @@
-From c3ae5b4c4f2a2804c3e5d0ac734d3025f96cbe0f Mon Sep 17 00:00:00 2001
-From: ghalthot <ghalthot@qti.qualcomm.com>
+From 1212f8ef2b16734282b3dc9aaab4a05fe65b44ff Mon Sep 17 00:00:00 2001
+From: Ganesh Halthota <ganesh.rvec@gmail.com>
 Date: Thu, 19 Mar 2026 16:45:00 +0530
 Subject: [PATCH] serial: pl01x: add arm,pl011-axi compatible for RPi5
 
@@ -8,7 +8,7 @@ the default stdout-path. Without this compatible in the PL011 U-Boot
 driver match table, U-Boot may not bind the console UART and no serial
 output appears even though firmware and Linux console work.
 
-Signed-off-by: ghalthot <ghalthot@qti.qualcomm.com>
+Signed-off-by: Ganesh Halthota <ganesh.rvec@gmail.com>
 ---
  drivers/serial/serial_pl01x.c | 6 ++++++
  1 file changed, 6 insertions(+)

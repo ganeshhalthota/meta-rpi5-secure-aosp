@@ -12,42 +12,37 @@ partitions:
       # U-Boot binary (built by build stage)
       - src: u-boot/u-boot.bin
         dst: u-boot.bin
-      # U-Boot boot script (AVB enabled)
+      # U-Boot AVB boot script (compiled from config/uboot/boot_avb.cmd)
       - src: u-boot/boot_avb.scr
         dst: boot.scr
       # Override config.txt: tell RPi firmware to load u-boot.bin instead of Image
       - src: config/uboot/config.txt
         dst: config.txt
-      # AVB public key (extracted by sign stage)
-      - src: keys/avb_pubkey.bin
-        dst: avb_pubkey.bin
 
-  # Gaps in GPT partition numbers (p2, p4) are fine.
-  # Fixed-size partitions must be listed before userdata (fill remaining).
-
-  - name: system      # p5 — /system (fstab: mmcblk0p5)
+  - name: system      # p5 — /system  (fstab: mmcblk0p5)
     partition_number: 5
     size: "3072"
     format: ext4
     img: out/target/product/rpi5/system.img
 
-  - name: vendor      # p6 — /vendor (fstab: mmcblk0p6)
+  - name: vendor      # p6 — /vendor  (fstab: mmcblk0p6)
     partition_number: 6
     size: "384"
     format: ext4
     img: out/target/product/rpi5/vendor.img
 
-  - name: metadata    # p7 — /metadata (fstab: mmcblk0p7)
+  - name: metadata    # p7 — /metadata  (fstab: mmcblk0p7)
     partition_number: 7
     size: "16"
     format: ext4
 
-  - name: vbmeta      # p8 — AVB Root of Trust descriptor
+  - name: vbmeta      # p8 — AVB top-level metadata
     partition_number: 8
     size: "4"
     format: raw
     img: out/target/product/rpi5/vbmeta.img
 
-  - name: userdata    # p3 — /data (fstab: mmcblk0p3) — fills remaining space
+  # p3 is intentionally listed last so it can fill remaining free space on GPT.
+  - name: userdata    # p3 — /data  (fstab: mmcblk0p3) — fills remaining space
     partition_number: 3
     format: ext4

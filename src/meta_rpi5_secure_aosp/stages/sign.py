@@ -6,12 +6,50 @@ Signs AOSP partition images with Android Verified Boot (AVB).
 from __future__ import annotations
 
 import shutil
+import subprocess
+from pathlib import Path
 
 import click
 import yaml
 
 from meta_rpi5_secure_aosp.context import BuildContext
 from meta_rpi5_secure_aosp.utils.avb import AvbTool
+
+
+def _run_fs_tool(cmd: list[str], ok_codes: set[int] | None = None) -> None:
+    if ok_codes is None:
+        ok_codes = {0}
+    result = subprocess.run(cmd, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if result.returncode not in ok_codes:
+        raise click.ClickException(
+            f"Command failed: {' '.join(cmd)}\n{result.stdout}"
+        )
+
+
+def _shrink_ext4_image_for_avb(ctx: BuildContext, image: Path, target_size_bytes: int) -> None:
+    """
+    Shrink an ext4 image file so AVB footer metadata can fit in partition size.
+    """
+    target_kib = target_size_bytes // 1024
+    if target_kib == 0:
+        raise click.ClickException(f"Invalid AVB target size for {image.name}: {target_size_bytes}")
+
+    ctx.console.print(
+        f"   Resizing {image.name} to <= {target_size_bytes} bytes "
+        f"({target_kib} KiB) to fit AVB hashtree footer"
+    )
+
+    # e2fsck returns 0 (clean) or 1 (fixed errors); both are acceptable here.
+    _run_fs_tool(["e2fsck", "-fy", str(image)], ok_codes={0, 1})
+    _run_fs_tool(["resize2fs", "-f", str(image), f"{target_kib}K"])
+    _run_fs_tool(["truncate", "-s", str(target_size_bytes), str(image)])
+
+    final_size = AvbTool.get_file_size(image)
+    if final_size > target_size_bytes:
+        raise click.ClickException(
+            f"Failed to shrink {image.name} to AVB limit. "
+            f"final_size={final_size}, target={target_size_bytes}"
+        )
 
 
 def run(ctx: BuildContext) -> None:
@@ -49,23 +87,6 @@ def run(ctx: BuildContext) -> None:
 
     product_out = ctx.aosp_dir / "out/target/product/rpi5"
 
-    # Get AVB public key for storage in boot partition
-    # (used by U-Boot for verification)
-    avb_pubkey_dir = ctx.workspace / "keys"
-    avb_pubkey_dir.mkdir(exist_ok=True)
-    avb_pubkey_path = avb_pubkey_dir / "avb_pubkey.bin"
-
-    if ctx.avb_pubkey and ctx.avb_pubkey.exists():
-        # Use pre-existing public key from config
-        ctx.console.print(f"-> Using AVB public key from config: {ctx.avb_pubkey}")
-        shutil.copy2(ctx.avb_pubkey, avb_pubkey_path)
-        ctx.console.print(f"   Public key copied to {avb_pubkey_path.name}")
-    else:
-        # Fallback: extract from private key
-        ctx.console.print("-> Extracting AVB public key from private key")
-        avb.extract_public_key(output=avb_pubkey_path)
-        ctx.console.print(f"   Public key extracted to {avb_pubkey_path.name}")
-
     # Partitions to sign with hashtree footer (dm-verity)
     # boot.img is intentionally excluded — RPi5 firmware loads it without verification
     hashtree_partitions = []
@@ -97,6 +118,22 @@ def run(ctx: BuildContext) -> None:
             ctx.console.print(f"   Using file size for {partition_name}: {partition_size} bytes")
 
         shutil.copy2(img, signed_img)
+
+        max_payload_size = avb.calc_max_image_size(
+            partition_name=partition_name,
+            partition_size=partition_size,
+        )
+        signed_size = AvbTool.get_file_size(signed_img)
+        if signed_size > max_payload_size:
+            ctx.console.print(
+                f"   {partition_name}.img is too large for AVB footer in this partition "
+                f"({signed_size} > {max_payload_size})"
+            )
+            _shrink_ext4_image_for_avb(
+                ctx=ctx,
+                image=signed_img,
+                target_size_bytes=max_payload_size,
+            )
 
         # We don't use sidecar vbmeta descriptors; we point make_vbmeta_image
         # directly at the signed partition images which now contain the footer.

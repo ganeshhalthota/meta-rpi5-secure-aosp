@@ -3,35 +3,78 @@
 
 echo "=== Android U-Boot Boot Script (AVB) ==="
 
-# 1. AVB Initialization and Verification
-# U-Boot must be built with CONFIG_AVB_VERIFY=y
-echo "Initializing AVB..."
-avb init 0
-
-echo "Verifying partitions..."
-avb verify
-
-if test $avb_result -eq 0; then
-    echo "AVB: Verification PASSED"
+# Build-time default; runtime override is possible by setting avb_fail_policy env var.
+# Valid values: fail_closed, fail_open
+if test -z "${avb_fail_policy}"; then
+    setenv avb_fail_policy "__AVB_FAIL_POLICY__"
+    echo "Setting AVB policy to default: fail_closed"
 else
-    echo "AVB: Verification FAILED (result=${avb_result})"
-    echo "Halting system."
-    reset
+    echo "Loading AVB policy"
+fi
+echo "AVB fail policy: ${avb_fail_policy}"
+
+# Clear AVB args from any previous runs
+setenv avb_bootargs
+setenv avb_bootargs_fallback
+
+# 1. AVB Initialization and Verification
+# U-Boot must be built with CONFIG_AVB_VERIFY=y, CONFIG_CMD_AVB=y, CONFIG_LIBAVB=y
+echo "Initializing AVB..."
+if test -z "${avb_bootargs_fallback}" && avb init 0; then
+    echo "Verifying partitions..."
+else
+    if test -z "${avb_bootargs_fallback}"; then
+        echo "AVB: Initialization FAILED"
+        if test "${avb_fail_policy}" = "fail_open"; then
+            echo "WARNING: Continuing boot with fail_open policy"
+            setenv avb_bootargs_fallback "androidboot.verifiedbootstate=orange androidboot.vbmeta.device_state=unlocked"
+        else
+            echo "Fail-closed policy: resetting"
+            reset
+        fi
+    fi
+fi
+
+if test -z "${avb_bootargs_fallback}"; then
+    if avb verify; then
+        echo "AVB: Verification PASSED"
+    else
+        echo "AVB: Verification FAILED"
+        if test "${avb_fail_policy}" = "fail_open"; then
+            echo "WARNING: Continuing boot with fail_open policy"
+            setenv avb_bootargs_fallback "androidboot.verifiedbootstate=orange androidboot.vbmeta.device_state=unlocked"
+        else
+            echo "Fail-closed policy: resetting"
+            reset
+        fi
+    fi
 fi
 
 # 2. Load Android kernel from FAT32 (mmc 0:1 = p1)
 echo "Loading kernel Image..."
 fatload mmc 0:1 ${kernel_addr_r} Image
+if test $? -ne 0; then
+    echo "ERROR: Failed to load kernel"
+    reset
+fi
 
 # 3. Load Android ramdisk
 echo "Loading ramdisk..."
 fatload mmc 0:1 ${ramdisk_addr_r} ramdisk.img
+if test $? -ne 0; then
+    echo "ERROR: Failed to load ramdisk"
+    reset
+fi
 
 # 4. Set Android kernel command line
-# ${avb_bootargs} is automatically populated by 'avb verify'
-# It contains dm-verity parameters required to mount system/vendor.
-setenv bootargs "${bootargs} root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive ${avb_bootargs}"
+# ${avb_bootargs} is populated by 'avb verify' on success.
+# For fail_open, add explicit fallback state args.
+setenv bootargs "${bootargs} root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive ${avb_bootargs} ${avb_bootargs_fallback}"
 
 # 5. Boot Android
-echo "Booting Android with dm-verity..."
+if test -z "${avb_bootargs_fallback}"; then
+    echo "Booting Android with AVB verification..."
+else
+    echo "Booting Android with AVB fail_open fallback..."
+fi
 booti ${kernel_addr_r} ${ramdisk_addr_r}:${filesize} ${fdt_addr}

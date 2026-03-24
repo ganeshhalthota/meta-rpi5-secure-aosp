@@ -110,6 +110,30 @@ class AvbTool:
 
         self._run(self._with_path(cmd), cwd=self._workspace)
 
+    def calc_max_image_size(self, partition_name: str, partition_size: int) -> int:
+        """
+        Return the maximum payload size (bytes) that can fit in *partition_size*
+        after AVB hashtree/FEC metadata is added.
+        """
+        cmd = (
+            f"{self._cmd} add_hashtree_footer "
+            f"--partition_name {partition_name} "
+            f"--partition_size {partition_size} "
+            f"--calc_max_image_size"
+        )
+        out = subprocess.check_output(
+            self._with_path(cmd),
+            shell=True,
+            text=True,
+            cwd=self._workspace,
+        ).strip()
+        try:
+            return int(out.splitlines()[-1].strip())
+        except (ValueError, IndexError) as e:
+            raise click.ClickException(
+                f"Failed to parse avbtool --calc_max_image_size output for {partition_name!r}: {out}"
+            ) from e
+
     def extract_public_key(self, output: Path) -> None:
         """Extract the AVB public key from the RSA private key."""
         cmd = (

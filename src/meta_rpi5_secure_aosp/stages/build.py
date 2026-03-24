@@ -5,9 +5,145 @@ Compiles u-boot and/or AOSP from source.
 
 from __future__ import annotations
 
+import re
+
 import click
 
 from meta_rpi5_secure_aosp.context import BuildContext
+
+
+def _avb_fail_policy(ctx: BuildContext) -> str:
+    policy = ctx.rpi5_config.get("avb", {}).get("uboot_fail_policy", "fail_closed")
+    valid = {"fail_closed", "fail_open"}
+    if policy not in valid:
+        raise click.ClickException(
+            f"Invalid avb.uboot_fail_policy={policy!r}. Expected one of: {', '.join(sorted(valid))}"
+        )
+    return policy
+
+
+def _prepare_boot_script_source(ctx: BuildContext, boot_cmd: str, signing_enabled: bool) -> str:
+    if not signing_enabled:
+        return boot_cmd
+
+    src = ctx.config_dir / "uboot/boot_avb.cmd"
+    if str(boot_cmd) != str(src):
+        return boot_cmd
+
+    content = src.read_text(encoding="utf-8")
+    policy = _avb_fail_policy(ctx)
+    rendered = content.replace("__AVB_FAIL_POLICY__", policy)
+
+    cache_dir = ctx.workspace / ".cache"
+    cache_dir.mkdir(exist_ok=True)
+    out = cache_dir / "boot_avb.generated.cmd"
+    out.write_text(rendered, encoding="utf-8")
+    return str(out)
+
+
+def _format_c_array_hex(data: bytes, per_line: int = 10) -> str:
+    lines: list[str] = []
+    for i in range(0, len(data), per_line):
+        chunk = data[i:i + per_line]
+        lines.append("\t" + ", ".join(f"0x{byte:02x}" for byte in chunk) + ",")
+    return "\n".join(lines)
+
+
+def _sync_uboot_avb_root_key(ctx: BuildContext) -> None:
+    if not ctx.avb_pubkey or not ctx.avb_pubkey.exists():
+        raise click.ClickException(
+            "Signing is enabled but avb.public_key is missing. "
+            "Set avb.public_key to a valid AVB public key file."
+        )
+
+    avb_verify_c = ctx.uboot_dir / "common/avb_verify.c"
+    if not avb_verify_c.exists():
+        raise click.ClickException(f"U-Boot AVB source file not found: {avb_verify_c}")
+
+    key_bytes = ctx.avb_pubkey.read_bytes()
+    replacement = (
+        f"static const unsigned char avb_root_pub[{len(key_bytes)}] = {{\n"
+        f"{_format_c_array_hex(key_bytes)}\n"
+        "};"
+    )
+
+    text = avb_verify_c.read_text(encoding="utf-8")
+    pattern = re.compile(
+        r"static const unsigned char avb_root_pub\[\d+\]\s*=\s*\{.*?\n\};",
+        re.DOTALL,
+    )
+    if not pattern.search(text):
+        raise click.ClickException("Failed to locate avb_root_pub[] in common/avb_verify.c")
+
+    updated = pattern.sub(replacement, text, count=1)
+    if updated != text:
+        avb_verify_c.write_text(updated, encoding="utf-8")
+        ctx.console.print(
+            f"   Synced U-Boot AVB root key from {ctx.avb_pubkey} "
+            f"({len(key_bytes)} bytes)"
+        )
+    else:
+        ctx.console.print("   U-Boot AVB root key already matches configured public key")
+
+
+def _enable_uboot_avb_kconfig(ctx: BuildContext) -> None:
+    """
+    Enable AVB command support and required dependencies in U-Boot config.
+
+    AVB_VERIFY depends on LIBAVB/MMC/PARTITION_UUIDS/FASTBOOT, and LIBAVB
+    depends on ANDROID_BOOT_IMAGE.
+    """
+    enable_symbols = [
+        "CONFIG_ANDROID_BOOT_IMAGE",
+        # CONFIG_FASTBOOT is hidden (no prompt). Enable via a selecting symbol.
+        "CONFIG_UDP_FUNCTION_FASTBOOT",
+        "CONFIG_LIBAVB",
+        "CONFIG_AVB_VERIFY",
+        "CONFIG_CMD_AVB",
+    ]
+
+    for symbol in enable_symbols:
+        ctx.run(f"./scripts/config --enable {symbol}", cwd=ctx.uboot_dir)
+
+    # Hidden FASTBOOT/AVB buffer symbols need concrete hex values; if left
+    # empty, Kconfig restarts interactively and blocks non-interactive builds.
+    ctx.run("./scripts/config --set-val CONFIG_FASTBOOT_BUF_ADDR 0x10000000", cwd=ctx.uboot_dir)
+    ctx.run("./scripts/config --set-val CONFIG_AVB_BUF_ADDR 0x10000000", cwd=ctx.uboot_dir)
+    ctx.run("./scripts/config --set-val CONFIG_FASTBOOT_BUF_SIZE 0x7000000", cwd=ctx.uboot_dir)
+    ctx.run("./scripts/config --set-val CONFIG_AVB_BUF_SIZE 0x7000000", cwd=ctx.uboot_dir)
+
+    ctx.run("CROSS_COMPILE=aarch64-linux-gnu- make olddefconfig", cwd=ctx.uboot_dir)
+
+    dotconfig = ctx.uboot_dir / ".config"
+    if not dotconfig.exists():
+        raise click.ClickException(f"U-Boot config file missing after olddefconfig: {dotconfig}")
+
+    cfg = dotconfig.read_text(encoding="utf-8")
+    required = [
+        "CONFIG_ANDROID_BOOT_IMAGE",
+        "CONFIG_FASTBOOT",
+        "CONFIG_LIBAVB",
+        "CONFIG_AVB_VERIFY",
+        "CONFIG_CMD_AVB",
+        "CONFIG_FASTBOOT_BUF_ADDR=0x10000000",
+        "CONFIG_AVB_BUF_ADDR=0x10000000",
+    ]
+    missing = []
+    for sym in required:
+        if "=" in sym:
+            if sym not in cfg:
+                missing.append(sym)
+        else:
+            if f"{sym}=y" not in cfg:
+                missing.append(sym)
+    if missing:
+        raise click.ClickException(
+            "Failed to enable required U-Boot AVB symbols:\n"
+            + "\n".join(f"  - {sym}" for sym in missing)
+            + "\n"
+            "Check U-Boot Kconfig dependencies for this board defconfig "
+            "(FASTBOOT is selected via UDP_FUNCTION_FASTBOOT)."
+        )
 
 
 def run(ctx: BuildContext) -> None:
@@ -22,10 +158,8 @@ def run(ctx: BuildContext) -> None:
 
         if ctx.signing_enabled:
             ctx.console.print("   Enabling AVB Kconfig options in U-Boot")
-            ctx.run("./scripts/config --enable CONFIG_AVB_VERIFY", cwd=ctx.uboot_dir)
-            ctx.run("./scripts/config --enable CONFIG_CMD_AVB", cwd=ctx.uboot_dir)
-            ctx.run("./scripts/config --enable CONFIG_LIBAVB", cwd=ctx.uboot_dir)
-            ctx.run("CROSS_COMPILE=aarch64-linux-gnu- make olddefconfig", cwd=ctx.uboot_dir)
+            _enable_uboot_avb_kconfig(ctx)
+            _sync_uboot_avb_root_key(ctx)
 
         ctx.run("CROSS_COMPILE=aarch64-linux-gnu- make -j$(nproc)", cwd=ctx.uboot_dir)
 
@@ -40,8 +174,9 @@ def run(ctx: BuildContext) -> None:
             boot_scr = ctx.uboot_dir / "boot.scr"
 
         mkimage = ctx.uboot_dir / "tools/mkimage"
+        boot_cmd_src = _prepare_boot_script_source(ctx, str(boot_cmd), ctx.signing_enabled)
         ctx.run(
-            f"{mkimage} -C none -A arm64 -T script -d {boot_cmd} {boot_scr}",
+            f"{mkimage} -C none -A arm64 -T script -d {boot_cmd_src} {boot_scr}",
             cwd=ctx.uboot_dir,
         )
 
@@ -70,10 +205,17 @@ def run(ctx: BuildContext) -> None:
             # Ensure u-boot directory exists
             ctx.uboot_dir.mkdir(exist_ok=True)
 
+            boot_cmd_src = _prepare_boot_script_source(ctx, str(boot_cmd), ctx.signing_enabled)
             ctx.run(
-                f"{mkimage} -C none -A arm64 -T script -d {boot_cmd} {boot_scr}",
+                f"{mkimage} -C none -A arm64 -T script -d {boot_cmd_src} {boot_scr}",
                 cwd=ctx.workspace,
             )
+
+    if ctx.signing_enabled and not ctx.do_uboot:
+        ctx.console.print(
+            "[yellow]Warning:[/] signing enabled with --code aosp. "
+            "U-Boot AVB key is compiled-in; rebuild U-Boot after AVB key changes."
+        )
 
     if ctx.do_aosp:
         if not (ctx.aosp_dir / ".repo").exists():
