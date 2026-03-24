@@ -1,0 +1,187 @@
+
+  0.81 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  0.85 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 885782
+  0.95 AON_RESET: 00000003 PM_RSTS 00001000
+  0.99 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  0.09 RP1_BOOT chip ID: 0x20001927
+  0.14 PCIEx1: PWR 0 DET_WAKE 0
+  0.14 part 00000000 reset_info 00000000
+  0.17 PMIC reset-event 00000000 rtc 00000000 alarm 00000000 enabled 0
+  0.24 uSD voltage 3.3V
+  0.30 SDRAM_CONFIG: 1b
+  0.30 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  0.36 DDR 4267 1 1 128 152 BL:1
+  2.64 OTP boardrev e04171 bootrom a a
+  2.65 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.73 VC-JTAG unlocked
+  2.95 RP1_BOOT chip ID: 0x20001927
+
+  3.31 RP1_BOOT chip ID: 0x20001927
+  3.31 RP1_BOOT: fw size 46888
+  3.69 PCI2 init
+  3.69 PCI2 reset
+  4.14 PCIe scan 00001de4:00000001
+  4.14 RP1_CHIP_INFO 20001927
+
+  4.17 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.24 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4024380
+  4.34 PCIEx1: PWR 0 DET_WAKE 0
+  4.37 M.2 PCIe HAT not detected.
+  4.61 usb_pd_init status 3
+  4.61 USB_PD CONFIG 0 41
+  4.33 XHCI-STOP
+  4.33 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.37 USBSTS 1
+  4.40 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.45 xHC0 ports 3 slots 64 intrs 4
+  4.57 XHCI-STOP
+  4.57 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.61 USBSTS 1
+  4.64 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.69 xHC1 ports 3 slots 64 intrs 4
+  4.76 Boot mode: SD (01) order f4
+  4.27 USB-PD: src-cap PDO object1 0x0a0191f4
+  4.29 Current 5000 mA
+  4.31 Voltage 5000 mV
+  4.33 USB-PD: src-cap PDO object2 0x0002d12c
+  4.37 Current 3000 mA
+  4.39 Voltage 9000 mV
+  4.41 USB-PD: src-cap PDO object3 0x0003c0e1
+  4.45 Current 2250 mA
+  4.47 Voltage 12000 mV
+  4.50 USB-PD: src-cap PDO object4 0x0004b0b4
+  4.54 Current 1800 mA
+  4.56 Voltage 15000 mV
+  8.72 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  8.83 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  9.16 OCR c0ff8000 [195]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+  9.24 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+  9.32 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  9.44 MBR: 0x00000001,   65536 type: 0x0c
+  9.45 MBR: 0x00010001,  245760 type: 0x83
+  9.49 MBR: 0x00000000,       0 type: 0x00
+  9.53 MBR: 0x00000000,       0 type: 0x00
+  9.57 Trying partition: 0
+  9.07 type: 16 lba: 1 'mkfs.fat' '  V       ^ ' clusters 16343 (4)
+  9.10 rsc 4 fat-sectors 64 root dir cluster 1 sectors 32 entries 512
+  9.19 FAT16 clusters 16343
+  9.21 [sdcard] autoboot.txt not found
+  9.23 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  9.29 Trying partition: 1
+  9.34 type: 16 lba: 1 'mkfs.fat' '  V       ^ ' clusters 16343 (4)
+  9.38 rsc 4 fat-sectors 64 root dir cluster 1 sectors 32 entries 512
+  9.46 FAT16 clusters 16343
+  9.49 Read config.txt bytes      597 hnd 0x3054
+  9.51 [sdcard] pieeprom.upd not found
+  9.54 usb_max_current_enable default 0 max-current 5000
+  9.68 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x2
+  9.70 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  9.76 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  9.87 Read /config.txt bytes      597 hnd 0x3054
+  9.90 Read /config.txt bytes      597 hnd 0x3054
+  9.96 MESS:00:00:09.196558:0: Initial voltage 800000 temp 26838
+  9.97 MESS:00:00:09.396995:0: avs_2712: AVS pred 8607 860700 temp 27937
+  9.00 MESS:00:00:09.400603:0: vpred 860 mV +0
+  9.09 MESS:00:00:09.409260:0: FB framebuffer_swap 1
+  9.11 MESS:00:00:09.411129:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+  9.18 MESS:00:00:09.418019:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+  9.34 MESS:00:00:09.434569:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+  9.37 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+  9.49 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x2
+  9.71  /overlays/overlay_map.dtb 
+  9.72  /overlays/bcm2712d0.dtbo 
+  9.02 PCIEx1: PWR 0 DET_WAKE 0
+  9.16 Read /config.txt bytes      597 hnd 0x3054
+  9.84 Read /cmdline.txt bytes       66 hnd 0x77
+  9.16 BMD "armstub8-2712.bin" not found
+  9.17 fs_open: 'armstub8-2712.bin' 
+  9.21 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+  9.58 Read u-boot.bin bytes   708736 hnd 0x78
+  9.60 PCI1 reset
+  9.71 PCI2 reset
+  9.81 set_reboot_order 0
+  9.81 set_reboot_arg1 0
+  9.83 USB-OTG disconnect
+  9.25 MESS:00:00:09.925310:0: BSC_A no ACK
+  9.26 MESS:00:00:09.926542:0: BSC_A no ACK
+  9.30 MESS:00:00:09.930468:0: BSC_A no ACK
+  9.54 MESS:00:00:09.954399:0: BSC_B no ACK
+  9.55 MESS:00:00:09.955625:0: BSC_B no ACK
+  9.59 MESS:00:00:09.959551:0: BSC_B no ACK
+  9.83 MESS:00:00:09.983324:0: Starting OS 9983 ms
+  9.88 MESS:00:00:09.988846:0: 00000040: -> 00000480
+  9.90 MESS:00:00:09.990700:0: 00000030: -> 00100080
+  9.95 MESS:00:00:09.995412:0: 00000034: -> 00100080
+ 10.00 MESS:00:00:10.000125:0: 00000038: -> 00100080
+ 10.04 MESS:00:00:10.004838:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00006-geefb822fb574-dirty (Mar 19 2026 - 11:16:24 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+No USB controllers found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 1Hit any key to stop autoboot: 0
+Cannot persist EFI variables without system partition
+** Booting bootflow '<NULL>' with efi_mgr
+Loading Boot0000 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14)
+U-Boot> 
+U-Boot> 
+U-Boot> 
+U-Boot> 
+U-Boot> 
+U-Boot> prine tenv
+arch=arm
+baudrate=115200
+board=rpi
+board_name=5 Model B
+board_rev=0x17
+board_rev_scheme=1
+board_revision=0xE04171
+boot_targets=mmc usb pxe dhcp
+bootcmd=bootflow scan
+bootdelay=2
+bootm_size=0x20000000
+cpu=armv8
+dhcpuboot=usb start; dhcp u-boot.uimg; bootm
+fdt_addr=3f730470
+fdt_addr_r=0x05600000
+fdtcontroladdr=3f730470
+fdtfile=broadcom/bcm2712d0-rpi-5-b.dtb
+kernel_addr_r=0x00080000
+kernel_comp_addr_r=0x02000000
+kernel_comp_size=0x03400000
+loadaddr=0x1000000
+preboot=pci enum; usb start;
+pxefile_addr_r=0x05500000
+ramdisk_addr_r=0x05700000
+scriptaddr=0x05400000
+serial#=6113ca6606956aab
+soc=bcm283x
+stderr=serial,vidconsole
+stdin=serial,usbkbd
+stdout=serial,vidconsole
+usb_ignorelist=0x1050:*,
+vendor=raspberrypi
+
+Environment size: 715/16380 bytes
+U-Boot> 

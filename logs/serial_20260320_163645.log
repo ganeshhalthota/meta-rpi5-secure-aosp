@@ -1,0 +1,1332 @@
+
+  0.41 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  0.45 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 945800
+  0.55 AON_RESET: 00000003 PM_RSTS 00001000
+  0.59 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  0.69 RP1_BOOT chip ID: 0x20001927
+  0.74 PCIEx1: PWR 0 DET_WAKE 0
+  0.74 part 00000000 reset_info 00000000
+  0.77 PMIC reset-event 00000000 rtc 00000000 alarm 00000000 enabled 0
+  0.84 uSD voltage 3.3V
+  0.90 SDRAM_CONFIG: 1b
+  0.90 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  0.96 DDR 4267 1 1 128 152 BL:1
+  2.28 OTP boardrev e04171 bootrom a a
+  2.29 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.36 VC-JTAG unlocked
+  2.59 RP1_BOOT chip ID: 0x20001927
+
+  3.94 RP1_BOOT chip ID: 0x20001927
+  3.94 RP1_BOOT: fw size 46888
+  4.32 PCI2 init
+  4.32 PCI2 reset
+  4.77 PCIe scan 00001de4:00000001
+  4.78 RP1_CHIP_INFO 20001927
+
+  4.80 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.87 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4087761
+  4.97 PCIEx1: PWR 0 DET_WAKE 0
+  4.00 M.2 PCIe HAT not detected.
+  4.24 usb_pd_init status 3
+  4.25 USB_PD CONFIG 0 41
+  4.96 XHCI-STOP
+  4.96 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.06 USBSTS 1
+  4.08 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.13 xHC0 ports 3 slots 64 intrs 4
+  4.25 XHCI-STOP
+  4.25 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.30 USBSTS 1
+  4.33 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.37 xHC1 ports 3 slots 64 intrs 4
+  4.45 USB-PD: src-cap PDO object1 0x0a0191f4
+  4.46 Current 5000 mA
+  4.48 Voltage 5000 mV
+  4.51 USB-PD: src-cap PDO object2 0x0002d12c
+  4.55 Current 3000 mA
+  4.57 Voltage 9000 mV
+  4.59 USB-PD: src-cap PDO object3 0x0003c0e1
+  4.63 Current 2250 mA
+  4.65 Voltage 12000 mV
+  4.67 USB-PD: src-cap PDO object4 0x0004b0b4
+  4.71 Current 1800 mA
+  4.73 Voltage 15000 mV
+  4.76 Boot mode: SD (01) order f4
+  8.38 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  8.49 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  9.86 OCR c0ff8000 [202]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+  9.94 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+  9.02 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  9.15 MBR: 0x00000800,  262144 type: 0x0c
+  9.16 MBR: 0x00040800, 7118848 type: 0x05
+  9.20 MBR: 0x0070a800,22616064 type: 0x83
+  9.24 MBR: 0x00000000,       0 type: 0x00
+  9.28 Trying partition: 0
+  9.78 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.82 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.90 FAT32 clusters 258078
+  9.94 [sdcard] autoboot.txt not found
+  9.94 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  9.01 Trying partition: 1
+  9.06 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.10 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.18 FAT32 clusters 258078
+  9.24 Read config.txt bytes      642 hnd 0x13acf
+  9.27 [sdcard] pieeprom.upd not found
+  9.29 usb_max_current_enable default 0 max-current 5000
+  9.40 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+  9.43 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  9.49 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  9.63 Read /config.txt bytes      642 hnd 0x13acf
+  9.69 Read /config.txt bytes      642 hnd 0x13acf
+  9.74 MESS:00:00:09.274563:0: Initial voltage 800000 temp 29037
+  9.75 MESS:00:00:09.474996:0: avs_2712: AVS pred 8624 862400 temp 27937
+  9.78 MESS:00:00:09.478603:0: vpred 862 mV +0
+ 10.06 MESS:00:00:10.106858:0: FB framebuffer_swap 1
+ 10.08 MESS:00:00:10.108730:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+ 10.15 MESS:00:00:10.115618:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+ 10.35 MESS:00:00:10.135320:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+ 10.37 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+ 10.51 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+ 10.89 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x12152
+ 10.18 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x1245f
+ 10.41 MESS:00:00:10.241763:0: Loaded overlay 'bcm2712d0'
+ 10.05 PCIEx1: PWR 0 DET_WAKE 0
+ 10.23 Read /config.txt bytes      642 hnd 0x13acf
+ 10.32 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x121a9
+ 10.79 MESS:00:00:10.379871:0: Loaded overlay 'vc4-kms-v3d-pi5'
+ 10.93 Read /overlays/cma.dtbo bytes      964 hnd 0x1200f
+ 10.01 MESS:00:00:10.501251:0: Loaded overlay 'cma'
+ 10.03 MESS:00:00:10.503027:0: dtparam: cma-320=true
+ 10.20 Read /overlays/dwc2.dtbo bytes      801 hnd 0x120d2
+ 10.32 MESS:00:00:10.532235:0: Loaded overlay 'dwc2'
+ 10.34 MESS:00:00:10.534102:0: dtparam: dr_mode=peripheral
+ 10.22 Read /cmdline.txt bytes      124 hnd 0x11fbe
+ 10.59 BMD "armstub8-2712.bin" not found
+ 10.60 fs_open: 'armstub8-2712.bin' 
+ 10.63 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+ 10.05 Read u-boot.bin bytes   708720 hnd 0x13562
+ 10.07 PCI1 reset
+ 10.19 PCI2 reset
+ 10.29 set_reboot_order 0
+ 10.29 set_reboot_arg1 0
+ 10.30 USB-OTG disconnect
+ 10.72 MESS:00:00:10.972694:0: BSC_A no ACK
+ 10.73 MESS:00:00:10.973926:0: BSC_A no ACK
+ 10.77 MESS:00:00:10.977852:0: BSC_A no ACK
+ 11.01 MESS:00:00:11.001786:0: BSC_B no ACK
+ 11.03 MESS:00:00:11.003012:0: BSC_B no ACK
+ 11.06 MESS:00:00:11.006948:0: BSC_B no ACK
+ 11.30 MESS:00:00:11.030713:0: Starting OS 11030 ms
+ 11.36 MESS:00:00:11.036325:0: 00000040: -> 00000480
+ 11.38 MESS:00:00:11.038179:0: 00000030: -> 00100080
+ 11.42 MESS:00:00:11.042892:0: 00000034: -> 00100080
+ 11.47 MESS:00:00:11.047604:0: 00000038: -> 00100080
+ 11.52 MESS:00:00:11.052317:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-g5d560aa4cbe9 (Mar 20 2026 - 07:55:59 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+USB DWC2
+Bus usb@480000: 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 0
+U-Boot> 
+U-Boot> 
+U-Boot> 
+U-Boot> 
+U-Boot> 
+U-Boot> 
+U-Boot> 
+U-Boot> 
+U-Boot> 
+U-Boot> printenv
+arch=arm
+baudrate=115200
+board=rpi
+board_name=5 Model B
+board_rev=0x17
+board_rev_scheme=1
+board_revision=0xE04171
+boot_targets=mmc usb pxe dhcp
+bootcmd=bootflow scan
+bootdelay=2
+bootm_size=0x20000000
+cpu=armv8
+dhcpuboot=usb start; dhcp u-boot.uimg; bootm
+fdt_addr=3f7303d0
+fdt_addr_r=0x05600000
+fdtcontroladdr=3f7303d0
+fdtfile=broadcom/bcm2712d0-rpi-5-b.dtb
+kernel_addr_r=0x00080000
+kernel_comp_addr_r=0x02000000
+kernel_comp_size=0x03400000
+loadaddr=0x1000000
+preboot=pci enum; usb start;
+pxefile_addr_r=0x05500000
+ramdisk_addr_r=0x05700000
+scriptaddr=0x05400000
+serial#=6113ca6606956aab
+soc=bcm283x
+stderr=serial,vidconsole
+stdin=serial,usbkbd
+stdout=serial,vidconsole
+usb_ignorelist=0x1050:*,
+vendor=raspberrypi
+
+Environment size: 715/16380 bytes
+U-Boot> 
+  0.41 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  0.45 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 945410
+  0.55 AON_RESET: 00000003 PM_RSTS 00001000
+  0.59 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  0.69 RP1_BOOT chip ID: 0x20001927
+  0.73 PCIEx1: PWR 0 DET_WAKE 0
+  0.74 part 00000000 reset_info 00000000
+  0.77 PMIC reset-event 00000000 rtc 00000000 alarm 00000000 enabled 0
+  0.83 uSD voltage 3.3V
+  0.90 SDRAM_CONFIG: 1b
+  0.90 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  0.95 DDR 4267 1 1 128 152 BL:1
+  2.24 OTP boardrev e04171 bootrom a a
+  2.25 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.32 VC-JTAG unlocked
+  2.55 RP1_BOOT chip ID: 0x20001927
+
+  3.90 RP1_BOOT chip ID: 0x20001927
+  3.91 RP1_BOOT: fw size 46888
+  4.28 PCI2 init
+  4.28 PCI2 reset
+  4.73 PCIe scan 00001de4:00000001
+  4.74 RP1_CHIP_INFO 20001927
+
+  4.76 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.83 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4083958
+  4.94 PCIEx1: PWR 0 DET_WAKE 0
+  4.96 M.2 PCIe HAT not detected.
+  4.21 usb_pd_init status 3
+  4.21 USB_PD CONFIG 0 41
+  4.92 XHCI-STOP
+  4.92 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.97 USBSTS 1
+  4.99 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.10 xHC0 ports 3 slots 64 intrs 4
+  4.22 XHCI-STOP
+  4.22 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.26 USBSTS 1
+  4.29 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.34 xHC1 ports 3 slots 64 intrs 4
+  4.41 USB-PD: src-cap PDO object1 0x0a0191f4
+  4.43 Current 5000 mA
+  4.45 Voltage 5000 mV
+  4.47 USB-PD: src-cap PDO object2 0x0002d12c
+  4.51 Current 3000 mA
+  4.53 Voltage 9000 mV
+  4.55 USB-PD: src-cap PDO object3 0x0003c0e1
+  4.59 Current 2250 mA
+  4.61 Voltage 12000 mV
+  4.63 USB-PD: src-cap PDO object4 0x0004b0b4
+  4.67 Current 1800 mA
+  4.70 Voltage 15000 mV
+  4.72 Boot mode: SD (01) order f4
+  8.34 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  8.45 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  9.83 OCR c0ff8000 [202]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+  9.90 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+  9.99 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  9.11 MBR: 0x00000800,  262144 type: 0x0c
+  9.12 MBR: 0x00040800, 7118848 type: 0x05
+  9.16 MBR: 0x0070a800,22616064 type: 0x83
+  9.20 MBR: 0x00000000,       0 type: 0x00
+  9.24 Trying partition: 0
+  9.74 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.78 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.86 FAT32 clusters 258078
+  9.90 [sdcard] autoboot.txt not found
+  9.90 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  9.97 Trying partition: 1
+  9.02 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.06 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.15 FAT32 clusters 258078
+  9.20 Read config.txt bytes      642 hnd 0x13acf
+  9.23 [sdcard] pieeprom.upd not found
+  9.25 usb_max_current_enable default 0 max-current 5000
+  9.36 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+  9.39 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  9.45 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  9.59 Read /config.txt bytes      642 hnd 0x13acf
+  9.65 Read /config.txt bytes      642 hnd 0x13acf
+  9.70 MESS:00:00:09.270754:0: Initial voltage 800000 temp 29037
+  9.71 MESS:00:00:09.471198:0: avs_2712: AVS pred 8613 861300 temp 29586
+  9.74 MESS:00:00:09.474806:0: vpred 861 mV +0
+ 10.03 MESS:00:00:10.103068:0: FB framebuffer_swap 1
+ 10.04 MESS:00:00:10.104939:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+ 10.11 MESS:00:00:10.111828:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+ 10.31 MESS:00:00:10.131597:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+ 10.34 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+ 10.48 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+ 10.85 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x12152
+ 10.15 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x1245f
+ 10.38 MESS:00:00:10.238047:0: Loaded overlay 'bcm2712d0'
+ 10.01 PCIEx1: PWR 0 DET_WAKE 0
+ 10.19 Read /config.txt bytes      642 hnd 0x13acf
+ 10.29 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x121a9
+ 10.76 MESS:00:00:10.376052:0: Loaded overlay 'vc4-kms-v3d-pi5'
+ 10.89 Read /overlays/cma.dtbo bytes      964 hnd 0x1200f
+ 10.97 MESS:00:00:10.497438:0: Loaded overlay 'cma'
+ 10.99 MESS:00:00:10.499215:0: dtparam: cma-320=true
+ 10.16 Read /overlays/dwc2.dtbo bytes      801 hnd 0x120d2
+ 10.28 MESS:00:00:10.528421:0: Loaded overlay 'dwc2'
+ 10.30 MESS:00:00:10.530289:0: dtparam: dr_mode=peripheral
+ 10.19 Read /cmdline.txt bytes      124 hnd 0x11fbe
+ 10.55 BMD "armstub8-2712.bin" not found
+ 10.56 fs_open: 'armstub8-2712.bin' 
+ 10.59 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+ 10.01 Read u-boot.bin bytes   708720 hnd 0x13562
+ 10.04 PCI1 reset
+ 10.15 PCI2 reset
+ 10.25 set_reboot_order 0
+ 10.25 set_reboot_arg1 0
+ 10.27 USB-OTG disconnect
+ 10.68 MESS:00:00:10.968891:0: BSC_A no ACK
+ 10.70 MESS:00:00:10.970124:0: BSC_A no ACK
+ 10.74 MESS:00:00:10.974049:0: BSC_A no ACK
+ 10.97 MESS:00:00:10.997983:0: BSC_B no ACK
+ 10.99 MESS:00:00:10.999210:0: BSC_B no ACK
+ 11.03 MESS:00:00:11.003145:0: BSC_B no ACK
+ 11.26 MESS:00:00:11.026912:0: Starting OS 11026 ms
+ 11.32 MESS:00:00:11.032524:0: 00000040: -> 00000480
+ 11.34 MESS:00:00:11.034378:0: 00000030: -> 00100080
+ 11.39 MESS:00:00:11.039091:0: 00000034: -> 00100080
+ 11.43 MESS:00:00:11.043804:0: 00000038: -> 00100080
+ 11.48 MESS:00:00:11.048517:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-g5d560aa4cbe9 (Mar 20 2026 - 07:55:59 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+USB DWC2
+Bus usb@480000: 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 1Hit any key to stop autoboot: 0
+Cannot persist EFI variables without system partition
+** Booting bootflow '<NULL>' with efi_mgr
+Loading Boot0000 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14)
+** Booting bootflow 'mmc@fff000.bootdev.part_1' with script
+=== Android U-Boot Boot Script ===
+
+Press any key to stop autoboot and enter U-Boot shell...
+Autoboot in 3 seconds...
+Continuing with Android boot...
+Loading kernel Image...
+37157376 bytes read in 1590 ms (22.3 MiB/s)
+Loading ramdisk...
+1544522 bytes read in 68 ms (21.7 MiB/s)
+Booting Android...
+Moving Image from 0x80000 to 0x200000, end=0x2640000
+## Flattened Device Tree blob at 3f7303d0
+   Booting using the fdt blob at 0x3f7303d0
+Working FDT set to 3f7303d0
+   Loading Ramdisk to 1fe86000, end 1ffff14a ... OK
+   Loading Device Tree to 000000001fe6f000, end 000000001fe859bd ... OK
+Working FDT set to 1fe6f000
+
+Starting kernel ...
+
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x414fd0b1]
+[    0.000000] Linux version 6.12.73-g8af794a959ec-v8 (kleaf@build-host) (Android (14043575, +pgo, +bolt, +lto, +mlgo, based on r536225) clang version 19.0.1 (https://android.googlesource.com/toolchain/llvm-project b3a530ec6537146650e42be89f1089e9a3588460), LLD 19.0.1) #1 SMP PREEMPT Thu Feb 19 17:32:04 UTC 2026
+[    0.000000] KASLR enabled
+[    0.000000] random: crng init done
+[    0.000000] Machine model: Raspberry Pi 5 Model B Rev 1.1
+[    0.000000] efi: UEFI not found.
+[    0.000000] Reserved memory: created CMA memory pool at 0x000000002bc00000, size 320 MiB
+[    0.000000] OF: reserved mem: initialized node linux,cma, compatible id shared-dma-pool
+[    0.000000] OF: reserved mem: 0x000000002bc00000..0x000000003fbfffff (327680 KiB) map reusable linux,cma
+[    0.000000] OF: reserved mem: 0x0000000000000000..0x000000000007ffff (512 KiB) nomap non-reusable atf@0
+[    0.000000] OF: reserved mem: 0x000000003fd16380..0x000000003fd163bd (0 KiB) nomap non-reusable nvram@0
+[    0.000000] NUMA: Faking a node at [mem 0x0000000000000000-0x00000003ffffffff]
+[    0.000000] NODE_DATA(0) allocated [mem 0x3fdd9dc80-0x3fdda0a3f]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000000000000-0x00000000ffffffff]
+[    0.000000]   DMA32    empty
+[    0.000000]   Normal   [mem 0x0000000100000000-0x00000003ffffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000000007ffff]
+[    0.000000]   node   0: [mem 0x0000000000080000-0x000000003fbfffff]
+[    0.000000]   node   0: [mem 0x0000000040000000-0x00000003ffffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x00000003ffffffff]
+[    0.000000] On node 0, zone DMA: 1024 pages in unavailable ranges
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: MIGRATE_INFO_TYPE not supported.
+[    0.000000] psci: SMC Calling Convention v1.2
+[    0.000000] percpu: Embedded 83 pages/cpu s176280 r131072 d32616 u339968
+[    0.000000] Detected PIPT I-cache on CPU0
+[    0.000000] CPU features: detected: Virtualization Host Extensions
+[    0.000000] CPU features: detected: Spectre-v4
+[    0.000000] CPU features: detected: Spectre-BHB
+[    0.000000] CPU features: kernel page table isolation forced ON by KASLR
+[    0.000000] CPU features: detected: Kernel page table isolation (KPTI)
+[    0.000000] CPU features: detected: SSBS not fully self-synchronizing
+[    0.000000] alternatives: applying boot alternatives
+[    0.000000] Kernel command line:  root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive androidboot.serialno=6113ca6606956aab androidboot.btmacaddr=11:22:06:95:6a:ab
+[    0.000000] printk: log buffer data + meta data: 131072 + 458752 = 589824 bytes
+[    0.000000] Dentry cache hash table entries: 2097152 (order: 12, 16777216 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+[    0.000000] Fallback order for Node 0: 0 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 4193280
+[    0.000000] Policy zone: Normal
+[    0.000000] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+[    0.000000] software IO TLB: area num 4.
+[    0.000000] software IO TLB: mapped [mem 0x00000000fbfff000-0x00000000fffff000] (64MB)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] ftrace: allocating 63501 entries in 249 pages
+[    0.000000] ftrace: allocated 249 pages with 6 groups
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] 	Trampoline variant of Tasks RCU enabled.
+[    0.000000] 	Rude variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] RCU Tasks: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=4.
+[    0.000000] RCU Tasks Rude: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=4.
+[    0.000000] RCU Tasks Trace: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=4.
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] Root IRQ handler: gic_handle_irq
+[    0.000000] GIC: Using split EOI/Deactivate mode
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] arch_timer: cp15 timer(s) running at 54.00MHz (phys).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0xc743ce346, max_idle_ns: 440795203123 ns
+[    0.000000] sched_clock: 56 bits at 54MHz, resolution 18ns, wraps every 4398046511102ns
+[    0.000125] kfence: initialized - using 2097152 bytes for 255 objects at 0x(____ptrval____)-0x(____ptrval____)
+[    0.000182] Calibrating delay loop (skipped), value calculated using timer frequency.. 108.00 BogoMIPS (lpj=216000)
+[    0.000186] pid_max: default: 32768 minimum: 301
+[    0.000218] LSM: initializing lsm=capability,selinux,bpf
+[    0.000250] SELinux:  Initializing.
+[    0.000511] LSM support for eBPF active
+[    0.000593] Mount-cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.000636] Mountpoint-cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.001356] rcu: Hierarchical SRCU implementation.
+[    0.001357] rcu: 	Max phase no-delay instances is 1000.
+[    0.001412] Timer migration: 1 hierarchy levels; 8 children per group; 1 crossnode level
+[    0.001803] EFI services will not be available.
+[    0.001873] smp: Bringing up secondary CPUs ...
+[    0.002039] Detected PIPT I-cache on CPU1
+[    0.002067] CPU1: Booted secondary processor 0x0000000100 [0x414fd0b1]
+[    0.002253] Detected PIPT I-cache on CPU2
+[    0.002275] CPU2: Booted secondary processor 0x0000000200 [0x414fd0b1]
+[    0.002439] Detected PIPT I-cache on CPU3
+[    0.002456] CPU3: Booted secondary processor 0x0000000300 [0x414fd0b1]
+[    0.002484] smp: Brought up 1 node, 4 CPUs
+[    0.002487] SMP: Total of 4 processors activated.
+[    0.002488] CPU: All CPU(s) started at EL2
+[    0.002489] CPU features: detected: 32-bit EL0 Support
+[    0.002491] CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+[    0.002492] CPU features: detected: Common not Private translations
+[    0.002493] CPU features: detected: CRC32 instructions
+[    0.002495] CPU features: detected: RCpc load-acquire (LDAPR)
+[    0.002496] CPU features: detected: LSE atomic instructions
+[    0.002497] CPU features: detected: Privileged Access Never
+[    0.002498] CPU features: detected: RAS Extension Support
+[    0.002500] CPU features: detected: Speculative Store Bypassing Safe (SSBS)
+[    0.002518] alternatives: applying system-wide alternatives
+[    0.004920] CPU features: detected: Hardware dirty bit management on CPU0-3
+[    0.005064] Memory: 16010128K/16773120K available (22016K kernel code, 2814K rwdata, 9228K rodata, 2048K init, 749K bss, 429232K reserved, 327680K cma-reserved)
+[    0.005501] devtmpfs: initialized
+[    0.007782] Enabled cp15_barrier support
+[    0.007786] Enabled setend support
+[    0.007843] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.007848] futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+[    0.011101] 2G module region forced by RANDOMIZE_MODULE_REGION_FULL
+[    0.011104] 0 pages in range for non-PLT usage
+[    0.011107] 515008 pages in range for PLT usage
+[    0.011207] pinctrl core: initialized pinctrl subsystem
+[    0.012113] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.012412] DMA: preallocated 2048 KiB GFP_KERNEL pool for atomic allocations
+[    0.012481] DMA: preallocated 2048 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    0.012503] audit: initializing netlink subsys (disabled)
+[    0.012553] audit: type=2000 audit(0.008:1): state=initialized audit_enabled=0 res=1
+[    0.012650] thermal_sys: Registered thermal governor 'step_wise'
+[    0.012661] cpuidle: using governor menu
+[    0.012718] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    0.012740] ASID allocator initialised with 32768 entries
+[    0.012965] Serial: AMBA PL011 UART driver
+[    0.013568] /soc@107c000000/interrupt-controller@7fff9000: Fixed dependency cycle(s) with /soc@107c000000/interrupt-controller@7fff9000
+[    0.013743] bcm2835-mbox 107c013880.mailbox: mailbox enabled
+[    0.013864] 107d001000.serial: ttyAMA10 at MMIO 0x107d001000 (irq = 16, base_baud = 0) is a PL011 AXI
+[    0.013872] printk: legacy console [ttyAMA10] enabled
+[    0.803972] raspberrypi-firmware soc@107c000000:firmware: Attached to firmware from 2025-03-10T17:10:37, variant start_cd
+[    0.818987] raspberrypi-firmware soc@107c000000:firmware: Firmware hash is 2bb2ae6400000000000000000000000000000000
+[    0.905490] raid6: neonx8   gen() 12725 MB/s
+[    0.977505] raid6: neonx4   gen() 12751 MB/s
+[    1.049519] raid6: neonx2   gen() 11637 MB/s
+[    1.121533] raid6: neonx1   gen()  9152 MB/s
+[    1.193558] raid6: int64x8  gen()  5214 MB/s
+[    1.265566] raid6: int64x4  gen()  5598 MB/s
+[    1.337586] raid6: int64x2  gen()  4920 MB/s
+[    1.409597] raid6: int64x1  gen()  4141 MB/s
+[    1.413877] raid6: using algorithm neonx4 gen() 12751 MB/s
+[    1.485613] raid6: .... xor() 9724 MB/s, rmw enabled
+[    1.490590] raid6: using neon recovery algorithm
+[    1.495347] bcm2835-dma 1000010000.dma: DMA legacy API manager, dmachans=0x1
+[    1.502698] iommu: Default domain type: Translated
+[    1.507510] iommu: DMA domain TLB invalidation policy: strict mode
+[    1.513825] SCSI subsystem initialized
+[    1.517612] usbcore: registered new interface driver usbfs
+[    1.523124] usbcore: registered new interface driver hub
+[    1.528459] usbcore: registered new device driver usb
+[    1.533619] mc: Linux media interface: v0.10
+[    1.537910] videodev: Linux video capture interface: v2.00
+[    1.543427] pps_core: LinuxPPS API ver. 1 registered
+[    1.548405] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    1.557575] PTP clock support registered
+[    1.561544] Advanced Linux Sound Architecture Driver Initialized.
+[    1.567790] Bluetooth: Core ver 2.22
+[    1.571377] NET: Registered PF_BLUETOOTH protocol family
+[    1.576705] Bluetooth: HCI device and connection manager initialized
+[    1.583081] Bluetooth: HCI socket layer initialized
+[    1.587973] Bluetooth: L2CAP socket layer initialized
+[    1.593040] Bluetooth: SCO socket layer initialized
+[    1.598077] clocksource: Switched to clocksource arch_sys_counter
+[    1.604310] VFS: Disk quotas dquot_6.6.0
+[    1.608981] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    1.616140] NET: Registered PF_INET protocol family
+[    1.621365] IP idents hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+[    1.631732] tcp_listen_portaddr_hash hash table entries: 8192 (order: 5, 131072 bytes, linear)
+[    1.640462] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    1.648251] TCP established hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+[    1.656714] TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)
+[    1.665680] TCP: Hash tables configured (established 131072 bind 65536)
+[    1.672517] MPTCP token hash table entries: 16384 (order: 7, 393216 bytes, linear)
+[    1.680417] UDP hash table entries: 8192 (order: 6, 262144 bytes, linear)
+[    1.687360] UDP-Lite hash table entries: 8192 (order: 6, 262144 bytes, linear)
+[    1.694828] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    1.700749] NET: Registered PF_XDP protocol family
+[    1.705566] PCI: CLS 0 bytes, default 64
+[    1.709561] Trying to unpack rootfs image as initramfs...
+[    1.717182] kvm [1]: nv: 554 coarse grained trap handlers
+[    1.722820] kvm [1]: IPA Size Limit: 40 bits
+[    1.727164] kvm [1]: vgic interrupt IRQ9
+[    1.731110] kvm [1]: VHE mode initialized successfully
+[    1.734347] Freeing initrd memory: 1508K
+[    1.740758] Initialise system trusted keyrings
+[    1.745341] workingset: timestamp_bits=42 max_order=22 bucket_order=0
+[    1.752268] Key type cifs.idmap registered
+[    1.756405] fuse: init (API version 7.41)
+[    1.772283] xor: measuring software checksum speed
+[    1.777269]    8regs           : 18279 MB/sec
+[    1.781813]    32regs          : 18694 MB/sec
+[    1.786329]    arm64_neon      : 22003 MB/sec
+[    1.790697] xor: using function: arm64_neon (22003 MB/sec)
+[    1.796201] Key type asymmetric registered
+[    1.800308] Asymmetric key parser 'x509' registered
+[    1.805221] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 244)
+[    1.812693] io scheduler mq-deadline registered
+[    1.817238] io scheduler kyber registered
+[    1.821263] io scheduler bfq registered
+[    1.825478] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/interrupt-controller@7d510600, parent irq: 27)
+[    1.835567] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/interrupt-controller@7c502000, parent irq: 28)
+[    1.845646] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/intc@7d508380, parent irq: 29)
+[    1.854330] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/intc@7d508400, parent irq: 30)
+[    1.863012] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/intc@7d503000, parent irq: 31)
+[    1.872732] ledtrig-cpu: registered to indicate activity on CPUs
+[    1.907495] bcm7271-uart 107d50c000.serial: error -EINVAL: unable to register 8250 port
+[    1.915538] bcm7271-uart 107d50c000.serial: probe with driver bcm7271-uart failed with error -22
+[    1.924556] iproc-rng200 107d208000.rng: hwrng registered
+[    1.930006] vc-mem: phys_addr:0x00000000 mem_base=0x00000000 mem_size:0x00000000(0 MiB)
+[    1.938146] rpi-gpiomem 107d508500.gpiomem: window base 0x107d508500 size 0x00000040
+[    1.945947] rpi-gpiomem 107d508500.gpiomem: initialised 1 regions as /dev/gpiomem1
+[    1.953560] rpi-gpiomem 107d517c00.gpiomem: window base 0x107d517c00 size 0x00000040
+[    1.961356] rpi-gpiomem 107d517c00.gpiomem: initialised 1 regions as /dev/gpiomem2
+[    1.968967] rpi-gpiomem 107d504100.gpiomem: window base 0x107d504100 size 0x00000020
+[    1.976759] rpi-gpiomem 107d504100.gpiomem: initialised 1 regions as /dev/gpiomem3
+[    1.984368] rpi-gpiomem 107d510700.gpiomem: window base 0x107d510700 size 0x00000020
+[    1.992163] rpi-gpiomem 107d510700.gpiomem: initialised 1 regions as /dev/gpiomem4
+[    1.999887] bcm2712-iommu-cache 1000005b00.iommuc: bcm2712_iommu_cache_probe
+[    2.009922] brd: module loaded
+[    2.015455] loop: module loaded
+[    2.018716] zram: Added device: zram0
+[    2.022567] bcm2835-power bcm2835-power: Broadcom BCM2835 power domains driver
+[    2.030019] Loading iSCSI transport class v2.0-870.
+[    2.035866] wireguard: WireGuard 1.0.0 loaded. See www.wireguard.com for information.
+[    2.043749] wireguard: Copyright (C) 2015-2019 Jason A. Donenfeld <Jason@zx2c4.com>. All Rights Reserved.
+[    2.054012] tun: Universal TUN/TAP device driver, 1.6
+[    2.059297] usbcore: registered new interface driver brcmfmac
+[    2.065074] usbcore: registered new device driver r8152-cfgselector
+[    2.071371] usbcore: registered new interface driver r8152
+[    2.076880] usbcore: registered new interface driver lan78xx
+[    2.082565] usbcore: registered new interface driver asix
+[    2.087988] usbcore: registered new interface driver ax88179_178a
+[    2.094109] usbcore: registered new interface driver cdc_ether
+[    2.099967] usbcore: registered new interface driver smsc95xx
+[    2.105738] usbcore: registered new interface driver cdc_ncm
+[    2.111428] usbcore: registered new interface driver r8153_ecm
+[    2.117349] dwc_otg: version 3.00a 10-AUG-2012 (platform bus)
+[    2.124196] dwc2 1000480000.usb: supply vusb_d not found, using dummy regulator
+[    2.131574] dwc2 1000480000.usb: supply vusb_a not found, using dummy regulator
+[    2.240161] dwc2 1000480000.usb: EPs: 8, dedicated fifos, 4080 entries in SPRAM
+[    2.247611] usbcore: registered new interface driver cdc_acm
+[    2.253290] cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+[    2.261331] usbcore: registered new interface driver usblp
+[    2.266869] usbcore: registered new interface driver uas
+[    2.272207] usbcore: registered new interface driver usb-storage
+[    2.278255] usbcore: registered new interface driver ch341
+[    2.283761] usbserial: USB Serial support registered for ch341-uart
+[    2.290056] usbcore: registered new interface driver cp210x
+[    2.295650] usbserial: USB Serial support registered for cp210x
+[    2.301593] usbcore: registered new interface driver pl2303
+[    2.307186] usbserial: USB Serial support registered for pl2303
+[    2.313250] mousedev: PS/2 mouse device common for all mice
+[    2.318851] usbcore: registered new interface driver xpad
+[    2.324280] usbcore: registered new interface driver usb_acecad
+[    2.330226] usbcore: registered new interface driver aiptek
+[    2.335823] usbcore: registered new interface driver hanwang
+[    2.341507] usbcore: registered new interface driver kbtab
+[    2.347038] usbcore: registered new interface driver usbtouchscreen
+[    2.360889] rpi-rtc soc@107c000000:rpi_rtc: registered as rtc0
+[    2.368116] rpi-rtc soc@107c000000:rpi_rtc: setting system clock to 1970-01-01T00:00:23 UTC (23)
+[    2.376954] i2c_dev: i2c /dev entries driver
+[    2.381350] brcmstb-i2c 107d508200.i2c:  @97500hz registered in interrupt mode
+[    2.388666] brcmstb-i2c 107d508280.i2c:  @97500hz registered in interrupt mode
+[    2.396037] ir_imon_decoder: IR iMON protocol handler initialized
+[    2.402154] IR JVC protocol handler initialized
+[    2.406698] IR MCE Keyboard/mouse protocol handler initialized
+[    2.412550] IR NEC protocol handler initialized
+[    2.417092] IR RC5(x/sz) protocol handler initialized
+[    2.422158] IR RC6 protocol handler initialized
+[    2.426704] IR RCMM protocol handler initialized
+[    2.431335] IR SANYO protocol handler initialized
+[    2.436052] IR Sharp protocol handler initialized
+[    2.440769] IR Sony protocol handler initialized
+[    2.445398] IR XMP protocol handler initialized
+[    2.450060] usbcore: registered new interface driver uvcvideo
+[    2.456151] bcm2835-wdt bcm2835-wdt: Poweroff handler already present!
+[    2.462706] bcm2835-wdt bcm2835-wdt: Broadcom BCM2835 watchdog timer
+[    2.469093] device-mapper: uevent: version 1.0.3
+[    2.473757] device-mapper: ioctl: 4.48.0-ioctl (2023-03-01) initialised: dm-devel@lists.linux.dev
+[    2.482706] Bluetooth: HCI UART driver ver 2.3
+[    2.487163] Bluetooth: HCI UART protocol H4 registered
+[    2.492330] Bluetooth: HCI UART protocol Broadcom registered
+[    2.500045] sdhci: Secure Digital Host Controller Interface driver
+[    2.506261] sdhci: Copyright(c) Pierre Ossman
+[    2.510675] sdhci-pltfm: SDHCI platform and OF driver helper
+[    2.516433] SMCCC: SOC_ID: ARCH_SOC_ID not implemented, skipping ....
+[    2.522917] hid: raw HID events driver (C) Jiri Kosina
+[    2.528743] usbcore: registered new interface driver usbhid
+[    2.534344] usbhid: USB HID core driver
+[    2.538252] ashmem: initialized
+[    2.541447] SPI driver st-accel-spi has no spi_device_id for st,lis302dl-spi
+[    2.548524] SPI driver st-accel-spi has no spi_device_id for st,lis3lv02dl-accel
+[    2.555950] SPI driver st-accel-spi has no spi_device_id for st,lis3dh-accel
+[    2.563026] SPI driver st-accel-spi has no spi_device_id for st,lsm330d-accel
+[    2.570186] SPI driver st-accel-spi has no spi_device_id for st,lsm330dl-accel
+[    2.577436] SPI driver st-accel-spi has no spi_device_id for st,lsm330dlc-accel
+[    2.584772] SPI driver st-accel-spi has no spi_device_id for st,lis331dlh-accel
+[    2.592109] SPI driver st-accel-spi has no spi_device_id for st,lsm330-accel
+[    2.599182] SPI driver st-accel-spi has no spi_device_id for st,lsm303agr-accel
+[    2.606519] SPI driver st-accel-spi has no spi_device_id for st,lis2dh12-accel
+[    2.613767] SPI driver st-accel-spi has no spi_device_id for st,lng2dm-accel
+[    2.620841] SPI driver st-accel-spi has no spi_device_id for st,h3lis331dl-accel
+[    2.628264] SPI driver st-accel-spi has no spi_device_id for st,lis331dl-accel
+[    2.635515] SPI driver st-accel-spi has no spi_device_id for st,lsm303c-accel
+[    2.642714] SPI driver st-magn-spi has no spi_device_id for st,lis3mdl-magn
+[    2.649703] SPI driver st-magn-spi has no spi_device_id for st,lsm303agr-magn
+[    2.656863] SPI driver st-magn-spi has no spi_device_id for st,lsm9ds1-magn
+[    2.663851] SPI driver st-magn-spi has no spi_device_id for st,lsm303c-magn
+[    2.671106] hw perfevents: enabled with armv8_cortex_a76 PMU driver, 7 (0,8000003f) counters available
+[    2.680710] usbcore: registered new interface driver snd-usb-audio
+[    2.687418] GACT probability NOT on
+[    2.690920] Mirror/redirect action on
+[    2.694645] netem: version 1.3
+[    2.697707] u32 classifier
+[    2.700419]     input device check on
+[    2.704089]     Actions configured
+[    2.708541] xt_time: kernel timezone is -0000
+[    2.712956] ipip: IPv4 and MPLS over IPv4 tunneling driver
+[    2.718575] gre: GRE over IPv4 demultiplexor driver
+[    2.723468] ip_gre: GRE over IPv4 tunneling driver
+[    2.728465] IPv4 over IPsec tunneling driver
+[    2.732821] Initializing XFRM netlink socket
+[    2.737111] IPsec XFRM device driver
+[    2.740716] NET: Registered PF_INET6 protocol family
+[    2.746058] Segment Routing with IPv6
+[    2.749739] In-situ OAM (IOAM) with IPv6
+[    2.753694] mip6: Mobile IPv6
+[    2.756784] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    2.762882] ip6_gre: GRE over IPv6 tunneling driver
+[    2.767866] NET: Registered PF_PACKET protocol family
+[    2.772935] NET: Registered PF_KEY protocol family
+[    2.777750] Key type dns_resolver registered
+[    2.782061] NET: Registered PF_VSOCK protocol family
+[    2.792288] registered taskstats version 1
+[    2.796471] Loading compiled-in X.509 certificates
+[    2.804861] Demotion targets for Node 0: null
+[    2.809280] Key type .fscrypt registered
+[    2.813452] Key type fscrypt-provisioning registered
+[    2.818937] Btrfs loaded, zoned=no, fsverity=yes
+[    2.824767] brcm-pcie 1000120000.pcie: host bridge /axi/pcie@1000120000 ranges:
+[    2.832149] brcm-pcie 1000120000.pcie:   No bus range found for /axi/pcie@1000120000, using [bus 00-ff]
+[    2.841601] brcm-pcie 1000120000.pcie:      MEM 0x1f00000000..0x1ffffffffb -> 0x0000000000
+[    2.849915] brcm-pcie 1000120000.pcie:      MEM 0x1c00000000..0x1effffffff -> 0x0400000000
+[    2.858222] brcm-pcie 1000120000.pcie:   IB MEM 0x1f00000000..0x1f003fffff -> 0x0000000000
+[    2.866524] brcm-pcie 1000120000.pcie:   IB MEM 0x0000000000..0x0fffffffff -> 0x1000000000
+[    2.874828] brcm-pcie 1000120000.pcie:   IB MEM 0x1000130000..0x1000130fff -> 0xfffffff000
+[    2.884578] brcm-pcie 1000120000.pcie: PCI host bridge to bus 0002:00
+[    2.891047] pci_bus 0002:00: root bus resource [bus 00-ff]
+[    2.896577] pci_bus 0002:00: root bus resource [mem 0x1f00000000-0x1ffffffffb] (bus address [0x00000000-0xfffffffb])
+[    2.907152] pci_bus 0002:00: root bus resource [mem 0x1c00000000-0x1effffffff pref] (bus address [0x400000000-0x6ffffffff])
+[    2.918344] pci 0002:00:00.0: [14e4:2712] type 01 class 0x060400 PCIe Root Port
+[    2.925691] pci 0002:00:00.0: PCI bridge to [bus 00]
+[    2.930683] pci 0002:00:00.0:   bridge window [mem 0x1f80000000-0x1fbfffffff]
+[    2.937868] pci 0002:00:00.0: PME# supported from D0 D3hot
+[    2.943971] pci 0002:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring
+[    3.054081] brcm-pcie 1000120000.pcie: clkreq-mode set to default
+[    3.060202] brcm-pcie 1000120000.pcie: link up, 5.0 GT/s PCIe x4 (!SSC)
+[    3.066861] pci 0002:01:00.0: [1de4:0001] type 00 class 0x020000 PCIe Endpoint
+[    3.074127] pci 0002:01:00.0: BAR 0 [mem 0xffffc000-0xffffffff]
+[    3.080076] pci 0002:01:00.0: BAR 1 [mem 0xffc00000-0xffffffff]
+[    3.086024] pci 0002:01:00.0: BAR 2 [mem 0xffff0000-0xffffffff]
+[    3.092027] pci 0002:01:00.0: supports D1
+[    3.096046] pci 0002:01:00.0: PME# supported from D0 D1 D3hot D3cold
+[    3.110086] pci_bus 0002:01: busn_res: [bus 01-ff] end is updated to 01
+[    3.116741] pci 0002:00:00.0: bridge window [mem 0x1f00000000-0x1f005fffff]: assigned
+[    3.124609] pci 0002:01:00.0: BAR 1 [mem 0x1f00000000-0x1f003fffff]: assigned
+[    3.131776] pci 0002:01:00.0: BAR 2 [mem 0x1f00400000-0x1f0040ffff]: assigned
+[    3.138944] pci 0002:01:00.0: BAR 0 [mem 0x1f00410000-0x1f00413fff]: assigned
+[    3.146111] pci 0002:00:00.0: PCI bridge to [bus 01]
+[    3.151098] pci 0002:00:00.0:   bridge window [mem 0x1f00000000-0x1f005fffff]
+[    3.158279] pci_bus 0002:00: resource 4 [mem 0x1f00000000-0x1ffffffffb]
+[    3.164923] pci_bus 0002:00: resource 5 [mem 0x1c00000000-0x1effffffff pref]
+[    3.172011] pci_bus 0002:01: resource 1 [mem 0x1f00000000-0x1f005fffff]
+[    3.178722] pcieport 0002:00:00.0: enabling device (0000 -> 0002)
+[    3.184876] pcieport 0002:00:00.0: PME: Signaling with IRQ 42
+[    3.190699] pcieport 0002:00:00.0: AER: enabled with IRQ 42
+[    3.196409] rp1 0002:01:00.0: bar0 len 0x4000, start 0x1f00410000, end 0x1f00413fff, flags, 0x40200
+[    3.205499] rp1 0002:01:00.0: bar1 len 0x400000, start 0x1f00000000, end 0x1f003fffff, flags, 0x40200
+[    3.214772] rp1 0002:01:00.0: enabling device (0000 -> 0002)
+[    3.221175] rp1 0002:01:00.0: chip_id 0x20001927
+[    3.232652] rpi-gpiomem 1f000d0000.gpiomem: window base 0x1f000d0000 size 0x00030000
+[    3.240531] rpi-gpiomem 1f000d0000.gpiomem: initialised 1 regions as /dev/gpiomem0
+[    3.248261] bcm2712-iommu 1000005100.iommu: IOVA aperture 0xa00000000..0xb00000000 including DMA offset 0x0
+[    3.258097] bcm2712-iommu 1000005100.iommu: bcm2712_iommu_init: DEBUG_INFO = 0x20804774
+[    3.266216] bcm2712-iommu 1000005200.iommu: IOVA aperture 0xa00000000..0xa80000000 including DMA offset 0x0
+[    3.276047] bcm2712-iommu 1000005200.iommu: bcm2712_iommu_init: DEBUG_INFO = 0x20804774
+[    3.284157] bcm2712-iommu 1000005280.iommu: IOVA aperture 0x1a00000000..0x1a80000000 including DMA offset 0x1000000000
+[    3.294933] bcm2712-iommu 1000005280.iommu: bcm2712_iommu_init: DEBUG_INFO = 0x20804774
+[    3.311129] v3d 1002000000.v3d: [drm] Transparent Hugepage support is recommended for optimal performance on this platform!
+[    3.322616] [drm] Initialized v3d 1.0.0 for 1002000000.v3d on minor 0
+[    3.333366] vc4_hvs 107c580000.hvs: bcm2712_iommu_of_xlate: MMU 1000005200.iommu
+[    3.340805] vc4_hvs 107c580000.hvs: bcm2712_iommu_probe_device: MMU 1000005200.iommu
+[    3.348593] vc4_hvs 107c580000.hvs: bcm2712_iommu_device_group: MMU 1000005200.iommu
+[    3.356375] vc4_hvs 107c580000.hvs: Adding to iommu group 1
+[    3.361968] vc4_hvs 107c580000.hvs: bcm2712_iommu_attach_dev: MMU 1000005200.iommu
+[    3.369625] vc4-drm axi:gpu: bcm2712_iommu_of_xlate: MMU 1000005200.iommu
+[    3.376450] vc4-drm axi:gpu: bcm2712_iommu_probe_device: MMU 1000005200.iommu
+[    3.383631] vc4-drm axi:gpu: bcm2712_iommu_device_group: MMU 1000005200.iommu
+[    3.390800] vc4-drm axi:gpu: Adding to iommu group 1
+[    3.395783] vc4-drm axi:gpu: bcm2712_iommu_attach_dev: MMU 1000005200.iommu
+[    3.407515] vc4-drm axi:gpu: bound 107c580000.hvs (ops vc4_hvs_ops)
+[    3.418736] input: vc4-hdmi-0 HDMI Jack as /devices/platform/soc@107c000000/107c701400.hdmi/sound/card0/input0
+[    3.431410] vc4-drm axi:gpu: bound 107c701400.hdmi (ops vc4_hdmi_ops)
+[    3.439279] input: vc4-hdmi-1 HDMI Jack as /devices/platform/soc@107c000000/107c706400.hdmi/sound/card1/input1
+[    3.452742] vc4-drm axi:gpu: bound 107c706400.hdmi (ops vc4_hdmi_ops)
+[    3.459269] vc4-drm axi:gpu: bound 107c500000.mop (ops vc4_txp_ops)
+[    3.465604] vc4-drm axi:gpu: bound 107c501000.moplet (ops vc4_txp_ops)
+[    3.472198] vc4-drm axi:gpu: bound 107c410000.pixelvalve (ops vc4_crtc_ops)
+[    3.479232] vc4-drm axi:gpu: bound 107c411000.pixelvalve (ops vc4_crtc_ops)
+[    3.486890] [drm] Initialized vc4 0.0.0 for axi:gpu on minor 1
+[    3.496198] vc4-drm axi:gpu: [drm] Cannot find any crtc or sizes
+[    3.502420] rpi-hevc-dec 1000800000.codec: bcm2712_iommu_of_xlate: MMU 1000005100.iommu
+[    3.510476] rpi-hevc-dec 1000800000.codec: bcm2712_iommu_probe_device: MMU 1000005100.iommu
+[    3.518870] rpi-hevc-dec 1000800000.codec: bcm2712_iommu_device_group: MMU 1000005100.iommu
+[    3.527269] rpi-hevc-dec 1000800000.codec: Adding to iommu group 0
+[    3.533490] rpi-hevc-dec 1000800000.codec: bcm2712_iommu_attach_dev: MMU 1000005100.iommu
+[    3.543443] vc4-drm axi:gpu: [drm] Cannot find any crtc or sizes
+[    3.549555] rpi-hevc-dec 1000800000.codec: Device registered as /dev/video19
+[    3.556727] pispbe 1000880000.pisp_be: bcm2712_iommu_of_xlate: MMU 1000005100.iommu
+[    3.558855] vc4-drm axi:gpu: [drm] Cannot find any crtc or sizes
+[    3.564417] pispbe 1000880000.pisp_be: bcm2712_iommu_probe_device: MMU 1000005100.iommu
+[    3.578478] pispbe 1000880000.pisp_be: bcm2712_iommu_device_group: MMU 1000005100.iommu
+[    3.586517] pispbe 1000880000.pisp_be: Adding to iommu group 0
+[    3.592374] pispbe 1000880000.pisp_be: bcm2712_iommu_attach_dev: MMU 1000005100.iommu
+[    3.601313] sdhci-brcmstb 1000fff000.mmc: Got CD GPIO
+[    3.606527] mmc0: CQHCI version 5.10
+[    3.606809] genirq: irq_chip rp1_irq_chip did not update eff. affinity mask of irq 104
+[    3.610315] mmc1: CQHCI version 5.10
+[    3.635958] macb 1f00100000.ethernet eth0: Cadence GEM rev 0x00070109 at 0x1f00100000 irq 110 (88:a2:9e:11:aa:ea)
+[    3.647754] dw_axi_dmac_platform 1f00188000.dma: DesignWare AXI DMA Controller, 8 channels
+[    3.656294] xhci-hcd xhci-hcd.0: xHCI Host Controller
+[    3.658804] mmc0: SDHCI controller on 1000fff000.mmc [1000fff000.mmc] using ADMA 64-bit
+[    3.661369] xhci-hcd xhci-hcd.0: new USB bus registered, assigned bus number 1
+[    3.677076] xhci-hcd xhci-hcd.0: hcc params 0x0240fe6d hci version 0x110 quirks 0x0000808000000810
+[    3.686086] xhci-hcd xhci-hcd.0: irq 135, io mem 0x1f00200000
+[    3.691919] xhci-hcd xhci-hcd.0: xHCI Host Controller
+[    3.696989] xhci-hcd xhci-hcd.0: new USB bus registered, assigned bus number 2
+[    3.704248] xhci-hcd xhci-hcd.0: Host supports USB 3.0 SuperSpeed
+[    3.710402] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[    3.718699] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.725953] usb usb1: Product: xHCI Host Controller
+[    3.730845] usb usb1: Manufacturer: Linux 6.12.73-g8af794a959ec-v8 xhci-hcd
+[    3.739865] usb usb1: SerialNumber: xhci-hcd.0
+[    3.744457] hub 1-0:1.0: USB hub found
+[    3.748230] hub 1-0:1.0: 2 ports detected
+[    3.752360] usb usb2: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 6.12
+[    3.760658] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.767908] usb usb2: Product: xHCI Host Controller
+[    3.770895] mmc0: new ultra high speed SDR104 SDHC card at address aaaa
+[    3.772800] usb usb2: Manufacturer: Linux 6.12.73-g8af794a959ec-v8 xhci-hcd
+[    3.779611] mmcblk0: mmc0:aaaa JULIE 29.7 GiB
+[    3.786490] usb usb2: SerialNumber: xhci-hcd.0
+[    3.795338] hub 2-0:1.0: USB hub found
+[    3.795749]  mmcblk0: p1 p2 < p5 p6 p7 > p3
+[    3.799108] hub 2-0:1.0: 1 port detected
+[    3.803505] mmcblk0: mmc0:aaaa JULIE 29.7 GiB (quirks 0x00004000)
+[    3.807593] xhci-hcd xhci-hcd.1: xHCI Host Controller
+[    3.814080] mmc1: SDHCI controller on 1001100000.mmc [1001100000.mmc] using ADMA 64-bit
+[    3.818421] xhci-hcd xhci-hcd.1: new USB bus registered, assigned bus number 3
+[    3.834128] xhci-hcd xhci-hcd.1: hcc params 0x0240fe6d hci version 0x110 quirks 0x0000808000000810
+[    3.843141] xhci-hcd xhci-hcd.1: irq 140, io mem 0x1f00300000
+[    3.848974] xhci-hcd xhci-hcd.1: xHCI Host Controller
+[    3.854048] xhci-hcd xhci-hcd.1: new USB bus registered, assigned bus number 4
+[    3.858672] mmc1: new ultra high speed DDR50 SDIO card at address 0001
+[    3.861300] xhci-hcd xhci-hcd.1: Host supports USB 3.0 SuperSpeed
+[    3.873989] usb usb3: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[    3.875153] brcmfmac: brcmf_fw_alloc_request: using brcm/brcmfmac43455-sdio for chip BCM4345/6
+[    3.882285] usb usb3: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.882287] usb usb3: Product: xHCI Host Controller
+[    3.890980] brcmfmac mmc1:0001:1: Direct firmware load for brcm/brcmfmac43455-sdio.raspberrypi,5-model-b.bin failed with error -2
+[    3.898182] usb usb3: Manufacturer: Linux 6.12.73-g8af794a959ec-v8 xhci-hcd
+[    3.898184] usb usb3: SerialNumber: xhci-hcd.1
+[    3.926334] hub 3-0:1.0: USB hub found
+[    3.930105] hub 3-0:1.0: 2 ports detected
+[    3.934231] usb usb4: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 6.12
+[    3.942532] usb usb4: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.949781] usb usb4: Product: xHCI Host Controller
+[    3.954676] usb usb4: Manufacturer: Linux 6.12.73-g8af794a959ec-v8 xhci-hcd
+[    3.961726] usb usb4: SerialNumber: xhci-hcd.1
+[    3.966274] hub 4-0:1.0: USB hub found
+[    3.970038] hub 4-0:1.0: 1 port detected
+[    3.975152] input: pwr_button as /devices/platform/pwr_button/input/input2
+[    3.982140] of_cfs_init
+[    3.984593] of_cfs_init: OK
+[    3.987448] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[    3.995487] Loaded X.509 cert 'benh@debian.org: 577e021cb980e0e820821ba7b54b4961b8b4fadf'
+[    4.003859] Loaded X.509 cert 'romain.perier@gmail.com: 3abbc6ec146e09d1b6016ab9d6cf71dd233f0328'
+[    4.012924] Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[    4.018762] Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+[    4.026532] clk: Disabling unused clocks
+[    4.034775] PM: genpd: Disabling unused power domains
+[    4.039864] ALSA device list:
+[    4.042840]   #0: vc4-hdmi-0
+[    4.045724]   #1: vc4-hdmi-1
+[    4.046212] brcmfmac: brcmf_c_process_txcap_blob: no txcap_blob available (err=-2)
+[    4.057286] brcmfmac: brcmf_c_preinit_dcmds: Firmware: BCM4345/6 wl0: Aug 29 2023 01:47:08 version 7.45.265 (28bca26 CY) FWID 01-b677b91b
+[    4.057643] Freeing unused kernel memory: 2048K
+[    4.074346] Run /init as init process
+[    4.079182] init: init first stage started!
+[    4.083442] init: Unable to open /lib/modules, skipping module loading.
+[    4.090162] init: [libfstab] Using Android DT directory /proc/device-tree/firmware/android/
+[    4.091124] ------------[ cut here ]------------
+[    4.098578] init: [libfstab] ReadFstabFromDt(): failed to read fstab from dt
+[    4.103179] memcpy: detected field-spanning write (size 27) of single field "eventmask_msg->mask" at drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.c:461 (size 1)
+[    4.110546] init: Failed to read vbmeta partitions.
+[    4.125474] WARNING: CPU: 3 PID: 99 at drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.c:461 brcmf_fweh_activate_events+0x274/0x2e0
+[    4.136853] init: [libfs_mgr] superblock s_max_mnt_count:65535,/dev/block/mmcblk0p7
+[    4.142731] Modules linked in:
+[    4.142737] CPU: 3 UID: 0 PID: 99 Comm: kworker/3:3 Not tainted 6.12.73-g8af794a959ec-v8 #1
+[    4.161854] Hardware name: Raspberry Pi 5 Model B Rev 1.1 (DT)
+[    4.167704] Workqueue: events request_firmware_work_func
+[    4.173034] pstate: 60000009 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    4.180020] pc : brcmf_fweh_activate_events+0x274/0x2e0
+[    4.185260] lr : brcmf_fweh_activate_events+0x270/0x2e0
+[    4.190501] sp : ffffffc080bbbb10
+[    4.193819] x29: ffffffc080bbbb10 x28: ffffffd08dc24a50 x27: ffffffd08e08e226
+[    4.194750] EXT4-fs (mmcblk0p7): mounted filesystem 4f078087-10e3-4a1e-83da-82ea1bc9c0e4 r/w with ordered data mode. Quota mode: none.
+[    4.200981] x26: 0000000000000001 x25: ffffff8103073868 x24: ffffffd08dc24e80
+[    4.200983] x23: 000000000000001b x22: ffffff8103073800
+[    4.213140] init: [libfs_mgr] check_fs(): mount(/dev/block/mmcblk0p7,/metadata,ext4)=0: Success
+[    4.220274]  x21: 000000000000001f
+[    4.220276] x20: ffffff81031fbe80 x19: ffffff8103af8a40 x18: ffffffc080b9d048
+[    4.220278] x17: 0000000010e2957a x16: 0000000010e2957a x15: 7373656c65726977
+[    4.220280] x14: 000000000000000d x13: fffffffffffffff0 x12: 0000000000000f01
+[    4.220283] x11: ffffffd08e73a000 x10: 0000000000000001 x9 : 9de96d38ba646e00
+[    4.220285] x8 : 9de96d38ba646e00 x7 : 205d393731333031 x6 : 312e34202020205b
+[    4.273446] x5 : ffffffd08e7a4340 x4 : ffffffc080bbb697 x3 : ffffffd08e198ce4
+[    4.280606] x2 : 000000000000001b x1 : ffffff810305c640 x0 : ffffff83fdd4ea80
+[    4.287767] Call trace:
+[    4.290212]  brcmf_fweh_activate_events+0x274/0x2e0
+[    4.295104]  brcmf_cfg80211_attach+0x12e8/0x1728
+[    4.299733]  brcmf_attach+0x270/0x5c0
+[    4.303404]  brcmf_sdio_firmware_callback+0x848/0x8d8
+[    4.308470]  brcmf_fw_request_done+0x170/0x1b4
+[    4.312924]  request_firmware_work_func+0x74/0xc8
+[    4.317641]  process_scheduled_works+0x1d0/0x46c
+[    4.322272]  worker_thread+0x244/0x300
+[    4.326029]  kthread+0x128/0x1bc
+[    4.329262]  ret_from_fork+0x10/0x20
+[    4.332846] ---[ end trace 0000000000000000 ]---
+[    4.337521] EXT4-fs (mmcblk0p7): unmounting filesystem 4f078087-10e3-4a1e-83da-82ea1bc9c0e4.
+[    4.349720] init: [libfs_mgr] umount_retry(): unmount(/metadata) succeeded
+[    4.356653] init: [libfs_mgr] Not running /system/bin/e2fsck on /dev/block/mmcblk0p7 (executable not in system image)
+[    4.367372] init: [libfs_mgr] fsck on /metadata took 216ms
+[    4.378693] EXT4-fs (mmcblk0p7): mounted filesystem 4f078087-10e3-4a1e-83da-82ea1bc9c0e4 r/w with ordered data mode. Quota mode: none.
+[    4.396539] EXT4-fs (mmcblk0p5): mounted filesystem d392d8bb-6c67-58f7-b0b2-091ad46c5bc2 ro without journal. Quota mode: none.
+[    4.416654] EXT4-fs (mmcblk0p6): mounted filesystem 2b96c597-1e2f-5ee1-9851-c4a9fa9de36e ro without journal. Quota mode: none.
+[    4.435874] printk: init: 10 output lines suppressed due to ratelimiting
+[    4.597472] init: [libfstab] Using Android DT directory /proc/device-tree/firmware/android/
+[    4.610157] init: Skipping mount of system_ext, system is not dynamic.
+[    4.616718] init: Skipping mount of product, system is not dynamic.
+[    4.623019] init: Opening SELinux policy
+[    4.643496] init: Loading SELinux policy
+[    4.653747] SELinux:  Class memfd_file not defined in policy.
+[    4.659569] SELinux: the above unknown classes and permissions will be denied
+[    4.669344] SELinux:  policy capability network_peer_controls=1
+[    4.675367] SELinux:  policy capability open_perms=1
+[    4.680367] SELinux:  policy capability extended_socket_class=1
+[    4.686310] SELinux:  policy capability always_check_network=0
+[    4.692165] SELinux:  policy capability cgroup_seclabel=0
+[    4.697582] SELinux:  policy capability nnp_nosuid_transition=1
+[    4.703520] SELinux:  policy capability genfs_seclabel_symlinks=0
+[    4.709635] SELinux:  policy capability ioctl_skip_cloexec=0
+[    4.715312] SELinux:  policy capability userspace_initial_context=0
+[    4.721602] SELinux: policy capability memfd_class=0
+[    4.726586] SELinux: policy capability genfs_seclabel_wildcard=0
+[    4.732615] SELinux:  unknown policy capability 12
+[    4.742040] audit: type=1403 audit(25.867:2): auid=4294967295 ses=4294967295 lsm=selinux res=1
+[    4.747259] selinux: SELinux: Loaded file context from:
+[    4.755948] selinux: 		/system/etc/selinux/plat_file_contexts
+[    4.761718] selinux: 		/system_ext/etc/selinux/system_ext_file_contexts
+[    4.768371] selinux: 		/product/etc/selinux/product_file_contexts
+[    4.774488] selinux: 		/vendor/etc/selinux/vendor_file_contexts
+[    4.785682] printk: init: 1 output lines suppressed due to ratelimiting
+[    4.798317] init: init second stage started!
+[    4.815655] selinux: SELinux: Loaded file context from:
+[    4.820948] selinux: 		/system/etc/selinux/plat_file_contexts
+[    4.826775] selinux: 		/system_ext/etc/selinux/system_ext_file_contexts
+[    4.833424] selinux: 		/product/etc/selinux/product_file_contexts
+[    4.839541] selinux: 		/vendor/etc/selinux/vendor_file_contexts
+[    4.845488] selinux: 		/odm/etc/selinux/odm_file_contexts
+[    4.866727] init: [libfstab] Using Android DT directory /proc/device-tree/firmware/android/
+[    4.879835] audit: type=1107 audit(26.007:3): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=u:r:init:s0 msg='avc:  denied  { set } for property=ro.boot.audio.tinyalsa.simulate_input pid=1 uid=0 gid=0 scontext=u:r:vendor_init:s0 tcontext=u:object_r:bootloader_prop:s0 tclass=property_service permissive=1'
+[    4.880327] init: Overriding previous property 'bluetooth.device.class_of_device':'38,4,32' with new value '38,4,8'
+[    4.906999] audit: type=1107 audit(26.007:4): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=u:r:init:s0 msg='avc:  denied  { set } for property=persist.bluetooth.a2dp_aac.vbr_supported pid=1 uid=0 gid=0 scontext=u:r:vendor_init:s0 tcontext=u:object_r:bluetooth_prop:s0 tclass=property_service permissive=1'
+[    4.923136] init: Setting product property ro.product.brand to 'Raspberry' (from ro.product.product.brand)
+[    4.944815] audit: type=1107 audit(26.007:5): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=u:r:init:s0 msg='avc:  denied  { set } for property=ro.lockscreen.disable.default pid=1 uid=0 gid=0 scontext=u:r:vendor_init:s0 tcontext=u:object_r:default_prop:s0 tclass=property_service permissive=1'
+[    4.980693] audit: type=1107 audit(26.007:6): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=u:r:init:s0 msg='avc:  denied  { set } for property=persist.device_config.mglru_native.lru_gen_config pid=1 uid=0 gid=0 scontext=u:r:vendor_init:s0 tcontext=u:object_r:device_config_mglru_native_prop:s0 tclass=property_service permissive=1'
+[    5.010305] audit: type=1107 audit(26.047:7): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=u:r:init:s0 msg='avc:  denied  { set } for property=service.sf.prime_shader_cache pid=1 uid=0 gid=0 scontext=u:r:vendor_init:s0 tcontext=u:object_r:system_prop:s0 tclass=property_service permissive=1'
+[    5.055333] ueventd: ueventd started!
+[    5.060235] selinux: SELinux: Loaded file context from:
+[    5.065523] selinux: 		/system/etc/selinux/plat_file_contexts
+[    5.071392] selinux: 		/system_ext/etc/selinux/system_ext_file_contexts
+[    5.078150] selinux: 		/product/etc/selinux/product_file_contexts
+[    5.084290] selinux: 		/vendor/etc/selinux/vendor_file_contexts
+[    5.090243] selinux: 		/odm/etc/selinux/odm_file_contexts
+[    5.095862] ueventd: Parsing file /system/etc/ueventd.rc...
+[    5.102775] ueventd: Added '/vendor/etc/ueventd.rc' to import list
+[    5.108985] ueventd: Added '/odm/etc/ueventd.rc' to import list
+[    5.119275] audit: type=1400 audit(26.247:8): avc:  denied  { search } for  pid=150 comm="ueventd" name="/" dev="mmcblk0p7" ino=2 scontext=u:r:ueventd:s0 tcontext=u:object_r:unlabeled:s0 tclass=dir permissive=1
+[    5.205338] apexd: Started. subcommand = --bootstrap
+[    5.212381] apexd-bootstrap: Scanning /system/apex for pre-installed ApexFiles
+[    5.222103] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.permission.apex
+[    5.230777] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.devicelock.apex
+[    5.239433] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.wifi.apex
+[    5.247580] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.tzdata.apex
+[    5.255884] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.runtime.apex
+[    5.264273] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.bt.apex
+[    5.272228] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.i18n.apex
+[    5.280352] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.tethering.apex
+[    5.404912] audit: type=1400 audit(26.531:9): avc:  denied  { create } for  pid=43 comm="kdevtmpfs" name="loop16" scontext=u:r:kernel:s0 tcontext=u:object_r:device:s0 tclass=blk_file permissive=1
+[    5.422635] audit: type=1400 audit(26.531:10): avc:  denied  { setattr } for  pid=43 comm="kdevtmpfs" name="loop16" dev="devtmpfs" ino=142 scontext=u:r:kernel:s0 tcontext=u:object_r:device:s0 tclass=blk_file permissive=1
+[    5.445937] loop2: detected capacity change from 0 to 202072
+[    5.445956] loop3: detected capacity change from 0 to 8632
+[    5.445971] loop4: detected capacity change from 0 to 23512
+[    5.446222] loop5: detected capacity change from 0 to 8848
+[    5.446331] loop6: detected capacity change from 0 to 1672
+[    5.446442] loop7: detected capacity change from 0 to 40440
+[    5.446507] loop0: detected capacity change from 0 to 27936
+[    5.446612] loop8: detected capacity change from 0 to 17832
+[    5.446686] loop1: detected capacity change from 0 to 42016
+[    5.446785] loop9: detected capacity change from 0 to 73472
+[    5.578432] EXT4-fs (loop7): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    5.580942] EXT4-fs (loop1): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    5.581397] EXT4-fs (loop3): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    5.614883] EXT4-fs (loop5): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    5.615440] EXT4-fs (loop4): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    5.628619] EXT4-fs (loop0): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    5.650682] EXT4-fs (loop6): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    5.651224] EXT4-fs (loop2): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    5.667417] EXT4-fs (loop8): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    5.688837] EXT4-fs (loop9): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    5.704292] printk: apexd: 73 output lines suppressed due to ratelimiting
+[    5.883683] main[303]: Starting aconfigd_system command: EarlyPlatformInit
+console:/ $ [    6.006461] servicemanager: Starting sm instance on /dev/binder
+[    6.025081] logd: libprocessgroup: A JoinCgroup action in the SystemMemoryProcess profile is used for controller memory in the cgroup v2 hierarchy and will be ignored
+[    6.025386] SELinux: SELinux: Loaded service context from:
+[    6.045667] SELinux: 		/system/etc/selinux/plat_service_contexts
+[    6.051751] SELinux: 		/system_ext/etc/selinux/system_ext_service_contexts
+[    6.058780] SELinux: 		/product/etc/selinux/product_service_contexts
+[    6.065250] SELinux: 		/vendor/etc/selinux/vendor_service_contexts
+[    6.071489] SELinux: 		/odm/etc/selinux/odm_service_contexts
+[    6.085403] logd.auditd: start
+[    6.088488] logd.klogd: 5742408940
+[    6.123908] logd: Loaded bug_map file: /system_ext/etc/selinux/bug_map
+[    6.130507] logd: Loaded bug_map file: /vendor/etc/selinux/selinux_denial_metadata
+[    6.144681] logd: Loaded bug_map file: /system/etc/selinux/bug_map
+[    6.153043] tune2fs: tune2fs 1.47.2 (1-Jan-2025)
+[    6.214324] servicemanager: getDeviceHalManifest: Reading VINTF information.
+[    6.231682] servicemanager: Loaded APEX Infos from /bootstrap-apex/apex-info-list.xml
+[    6.304340] hw-ProcessState: HwBinder is not supported on this device but this process is calling setThreadPoolConfiguration
+[    6.335576] servicemanager: Loaded APEX Infos from /bootstrap-apex/apex-info-list.xml
+[    6.342927] EXT4-fs (mmcblk0p3): mounted filesystem 888793b5-43dd-401d-892a-ae05a235eb91 r/w with ordered data mode. Quota mode: journalled.
+[    6.356321] EXT4-fs (mmcblk0p3): unmounting filesystem 888793b5-43dd-401d-892a-ae05a235eb91.
+[    6.397775] e2fsck: e2fsck 1.47.2 (1-Jan-2025)
+[    6.412151] libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: vold
+[    6.444448] e2fsck: Pass 1: Checking inodes, blocks, and sizes
+[    6.503684] e2fsck: Pass 2: Checking directory structure
+[    6.520903] e2fsck: Pass 3: Checking directory connectivity
+[    6.526508] e2fsck: Pass 4: Checking reference counts
+[    6.531862] e2fsck: Pass 5: Checking group summary information
+[    6.542133] e2fsck: userdata: 12/707136 files (0.0% non-contiguous), 115232/2827008 blocks
+[    6.560277] tune2fs: tune2fs 1.47.2 (1-Jan-2025)
+[    6.585611] tune2fs: tune2fs 1.47.2 (1-Jan-2025)
+[    6.604267] EXT4-fs (mmcblk0p3): Using encoding defined by superblock: utf8-12.1.0 with flags 0x0
+[    6.619785] EXT4-fs (mmcblk0p3): mounted filesystem 888793b5-43dd-401d-892a-ae05a235eb91 r/w with ordered data mode. Quota mode: journalled.
+[    7.548779] logd: logd reinit
+[    7.551905] logd: Cannot read /data/misc/logd/event-log-tags
+[    7.558453] logd: FrameworkListener: read() failed (Connection reset by peer)
+[    7.560672] apexd: Started. subcommand = (null)
+[    7.571265] libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: vold
+[    7.586043] apexd: Scanning /system/apex for pre-installed ApexFiles
+[    7.592913] apexd: Found pre-installed APEX /system/apex/com.android.permission.apex
+[    7.600760] apexd: Found pre-installed APEX /system/apex/com.android.devicelock.apex
+[    7.608567] apexd: Found pre-installed APEX /system/apex/com.android.wifi.apex
+[    7.615852] apexd: Found pre-installed APEX /system/apex/com.android.tzdata.apex
+[    7.623291] apexd: Found pre-installed APEX /system/apex/com.android.runtime.apex
+[    7.630805] apexd: Found pre-installed APEX /system/apex/com.android.bt.apex
+[    7.637882] apexd: Found pre-installed APEX /system/apex/com.android.i18n.apex
+[    7.717109] EXT4-fs (loop17): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.730697] EXT4-fs (loop16): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.744564] EXT4-fs (loop12): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.763078] EXT4-fs (loop10): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.809102] EXT4-fs (loop62): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.823676] EXT4-fs (loop35): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.837778] EXT4-fs (loop13): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.853283] EXT4-fs (loop23): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.853733] EXT4-fs (loop31): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.878171] EXT4-fs (loop38): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.878630] EXT4-fs (loop39): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.903197] EXT4-fs (loop15): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.905334] EXT4-fs (loop49): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.932579] EXT4-fs (loop45): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.956685] EXT4-fs (loop21): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.957045] EXT4-fs (loop25): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.970520] EXT4-fs (loop29): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    7.992694] EXT4-fs (loop58): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.003957] EXT4-fs (loop66): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.015209] EXT4-fs (loop68): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.017509] EXT4-fs (loop27): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.031564] EXT4-fs (loop36): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.056395] EXT4-fs (loop57): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.056822] EXT4-fs (loop30): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.067708] EXT4-fs (loop40): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.081291] EXT4-fs (loop51): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.101222] EXT4-fs (loop18): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.112478] EXT4-fs (loop26): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.123718] EXT4-fs (loop28): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.126266] EXT4-fs (loop14): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.148553] EXT4-fs (loop56): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.148892] EXT4-fs (loop55): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.173435] EXT4-fs (loop61): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.184668] EXT4-fs (loop63): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.198324] EXT4-fs (loop69): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.198656] EXT4-fs (loop22): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.198999] EXT4-fs (loop70): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.234445] EXT4-fs (loop44): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.248092] EXT4-fs (loop43): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.248475] EXT4-fs (loop34): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.262594] EXT4-fs (loop60): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.270509] EXT4-fs (loop46): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.270521] EXT4-fs (loop53): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.281686] EXT4-fs (loop52): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.292899] EXT4-fs (loop47): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    8.304074] EXT4-fs (loop42): mounted filesystem 7d1522e1-9dfa-5edb-a43e-98e3a4d20250 ro without journal. Quota mode: none.
+[    9.711399] libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: vold
+[    9.811119] selinux: SELinux: Skipping restorecon on directory(/data/system/shutdown-checkpoints)
+[    9.826997] init: Command 'restorecon --recursive --skip-ce /data' action=post-fs-data (/system/etc/init/hw/init.rc:1030) took 71ms and succeeded
+[    9.840291] init: starting service 'derive_classpath'...
+[    9.848056] init: ... started service 'derive_classpath' has pid 595
+[    9.854467] init: SVC_EXEC service 'derive_classpath' pid 595 (uid 1000 gid 1000+1 context default) started; waiting...
+[    9.889730] init: Service 'derive_classpath' (pid 595) exited with status 0 waiting took 0.042000 seconds
+[    9.899350] init: Sending SIGKILL to service 'derive_classpath' (pid 595) process group...
+[    9.907827] libprocessgroup: Removed cgroup /sys/fs/cgroup/system/uid_1000/pid_595
+[    9.918236] init: starting service 'art_boot'...
+[    9.925216] init: ... started service 'art_boot' has pid 596
+[   10.559985] apexd: Started. subcommand = --snapshotde
+[   10.565559] libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: vold
+[   10.580348] apexd-snapshotde: Marking APEXd as ready
+[   10.639683] NetBpfLoad: NetBpfLoad (/apex/com.android.tethering/bin/netbpfload) api:36/3610 kver:60c0049 (64-on-aarch64) libbpf: v1.4 uid:0 rc:01
+[   10.653332] NetBpfLoad: Tethering APEX version 361099999
+[   10.658836] NetBpfLoad: detected 5 of 5: 2025Q4 api:36.1.0
+[   10.664399] WARNING: Unprivileged eBPF is enabled, data leaks possible via Spectre v2 BHB attacks!
+[   10.732200] NetBpfLoad: map /sys/fs/bpf/tethering/map_offload_tether_error_map id 1
+[   10.739934] NetBpfLoad: map /sys/fs/bpf/tethering/map_offload_tether_stats_map id 2
+[   11.032306] servicemanager: getDeviceHalManifest: Reloading VINTF information.
+[   11.039612] servicemanager: getDeviceHalManifest: Reading VINTF information.
+[   11.047308] servicemanager: Loaded APEX Infos from /apex/apex-info-list.xml
+[   11.078601] servicemanager: Loaded APEX Infos from /apex/apex-info-list.xml
+[   11.085723] servicemanager: getDeviceHalManifest: Successfully processed VINTF information
+[   11.094066] servicemanager: getFrameworkHalManifest: Reloading VINTF information.
+[   11.101623] servicemanager: getFrameworkHalManifest: Reading VINTF information.
+[   11.110367] servicemanager: Loaded APEX Infos from /apex/apex-info-list.xml
+[   11.119957] servicemanager: getFrameworkHalManifest: Successfully processed VINTF information
+[   11.128728] servicemanager: Caller(pid=605,uid=1062,sid=u:r:evs_app:s0) Found android.hardware.automotive.evs.IEvsEnumerator/default in framework VINTF manifest.
+[   11.233504] printk: netbpfload: 268 output lines suppressed due to ratelimiting
+[   11.264858] type=1400 audit(32.391:11): avc:  denied  { write } for  comm="init" name="discard_max_bytes" dev="sysfs" ino=33362 scontext=u:r:init:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   11.284217] type=1400 audit(32.391:12): avc:  denied  { open } for  comm="init" path="/sys/devices/platform/soc@107c000000/1000fff000.mmc/mmc_host/mmc0/mmc0:aaaa/block/mmcblk0/queue/discard_max_bytes" dev="sysfs" ino=33362 scontext=u:r:init:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   11.310793] logd: HexToBytes: Invalid size: 115
+[   12.776960] type=1400 audit(33.903:13): avc:  denied  { read } for  comm="binder:646_2" name="u:object_r:default_prop:s0" dev="tmpfs" ino=126 scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_prop:s0 tclass=file permissive=1
+[   12.797634] type=1400 audit(33.903:14): avc:  denied  { open } for  comm="binder:646_2" path="/dev/__properties__/u:object_r:default_prop:s0" dev="tmpfs" ino=126 scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_prop:s0 tclass=file permissive=1
+[   12.821470] logd: HexToBytes: Invalid characters: ", /
+[   12.826939] type=1400 audit(33.903:15): avc:  denied  { getattr } for  comm="binder:646_2" path="/dev/__properties__/u:object_r:default_prop:s0" dev="tmpfs" ino=126 scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_prop:s0 tclass=file permissive=1
+[   12.838511] file system registered
+[   12.849549] logd: HexToBytes: Invalid characters: ", /
+[   12.858156] type=1400 audit(33.903:16): avc:  denied  { map } for  comm="binder:646_2" path="/dev/__properties__/u:object_r:default_prop:s0" dev="tmpfs" ino=126 scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_prop:s0 tclass=file permissive=1
+[   12.880570] logd: HexToBytes: Invalid characters: ", /
+[   12.912243] healthd: No battery devices found
+[   12.918312] HealthLoop: Successfully attached the BPF filter to the uevent socket
+[   12.927780] healthd: battery none chg=
+[   13.712631] read descriptors
+[   13.715743] bcdVersion must be 0x0100, stored in Little Endian order. Userspace driver should be fixed, accepting 0x0001 for compatibility.
+[   13.728442] bcdVersion must be 0x0100, stored in Little Endian order. Userspace driver should be fixed, accepting 0x0001 for compatibility.
+[   13.741079] read strings
+[   14.288295] vc4-drm axi:gpu: [drm] Cannot find any crtc or sizes
+[   14.300182] vc4-drm axi:gpu: [drm] Cannot find any crtc or sizes
+[   14.790357] read descriptors
+[   14.793254] bcdVersion must be 0x0100, stored in Little Endian order. Userspace driver should be fixed, accepting 0x0001 for compatibility.
+[   14.805886] bcdVersion must be 0x0100, stored in Little Endian order. Userspace driver should be fixed, accepting 0x0001 for compatibility.
+[   14.818471] read strings
+[   14.898805] init: starting service 'bootanim'...
+[   14.906948] init: ... started service 'bootanim' has pid 790
+[   14.912661] init: Control message: Processed ctl.start for 'bootanim' from pid: 663 (/system/bin/surfaceflinger)
+[   15.015391] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   15.380870] bcdVersion must be 0x0100, stored in Little Endian order. Userspace driver should be fixed, accepting 0x0001 for compatibility.
+[   15.393461] bcdVersion must be 0x0100, stored in Little Endian order. Userspace driver should be fixed, accepting 0x0001 for compatibility.
+[   15.406183] dwc2 1000480000.usb: bound driver configfs-gadget.g1
+[   16.015698] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   16.317909] init: starting service 'evs_app'...
+[   16.326247] init: ... started service 'evs_app' has pid 805
+[   16.344760] servicemanager: Caller(pid=805,uid=1062,sid=u:r:evs_app:s0) Found android.hardware.automotive.evs.IEvsEnumerator/default in framework VINTF manifest.
+[   16.360742] servicemanager: Caller(pid=805,uid=1062,sid=u:r:evs_app:s0) Found android.hardware.automotive.vehicle.IVehicle/default in device VINTF manifest.
+[   16.376108] type=1400 audit(37.503:43): avc:  denied  { use } for  comm="binder:317_1" path="socket:[15064]" dev="sockfs" ino=15064 scontext=u:r:surfaceflinger:s0 tcontext=u:r:automotive_display_service:s0 tclass=fd permissive=1
+[   16.376280] servicemanager: Caller(pid=317,uid=1003,sid=u:r:automotive_display_service:s0) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   16.396695] logd: HexToBytes: Invalid characters: ", s
+[   16.414764] servicemanager: Caller(pid=317,uid=1003,sid=u:r:automotive_display_service:s0) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   16.433943] servicemanager: Caller(pid=317,uid=1003,sid=u:r:automotive_display_service:s0) Found mapper/minigbm_gbm_mesa in device VINTF manifest.
+[   16.587268] type=1400 audit(37.715:44): avc:  denied  { read } for  comm="binder:317_1" name="u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:automotive_display_service:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   16.610449] type=1400 audit(37.715:45): avc:  denied  { open } for  comm="binder:317_1" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:automotive_display_service:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   16.635873] logd: HexToBytes: Invalid size: 55
+[   16.640453] type=1400 audit(37.715:46): avc:  denied  { getattr } for  comm="binder:317_1" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:automotive_display_service:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   16.665993] logd: HexToBytes: Invalid size: 55
+[   16.670555] type=1400 audit(37.715:47): avc:  denied  { map } for  comm="binder:317_1" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:automotive_display_service:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   16.695348] logd: HexToBytes: Invalid size: 55
+[   16.778133] type=1400 audit(37.903:48): avc:  denied  { read } for  comm="binder:321_3" name="dri" dev="tmpfs" ino=793 scontext=u:r:hal_evs_default:s0 tcontext=u:object_r:gpu_device:s0 tclass=dir permissive=1
+[   16.797129] servicemanager: Caller(pid=321,uid=1003,sid=u:r:hal_evs_default:s0) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   16.813649] servicemanager: Caller(pid=321,uid=1003,sid=u:r:hal_evs_default:s0) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   16.830065] servicemanager: Caller(pid=321,uid=1003,sid=u:r:hal_evs_default:s0) Found mapper/minigbm_gbm_mesa in device VINTF manifest.
+[   16.927045] servicemanager: Caller(pid=321,uid=1003,sid=u:r:hal_evs_default:s0) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   16.943115] servicemanager: Caller(pid=321,uid=1003,sid=u:r:hal_evs_default:s0) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   17.016449] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   18.017730] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   19.018890] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   20.020046] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   21.020213] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   22.020303] servicemanager: Caller(pid=659,uid=1041,sid=u:r:audioserver:s0) Since 'activity' could not be found trying to start it as a lazy AIDL service. (if it's not configured to be a lazy service, it may be stuck starting or still starting).
+[   22.043172] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   22.056120] servicemanager: Caller(pid=659,uid=1041,sid=u:r:audioserver:s0) Tried to start aidl service activity as a lazy service, but was unable to. Usually this happens when a service is not installed, but if the service is intended to be used as a lazy service, then it may be configured incorrectly.
+[   23.044307] servicemanager: Caller(pid=659,uid=1041,sid=u:r:audioserver:s0) Since 'activity' could not be found trying to start it as a lazy AIDL service. (if it's not configured to be a lazy service, it may be stuck starting or still starting).
+[   23.068073] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   23.080156] servicemanager: Caller(pid=659,uid=1041,sid=u:r:audioserver:s0) Tried to start aidl service activity as a lazy service, but was unable to. Usually this happens when a service is not installed, but if the service is intended to be used as a lazy service, then it may be configured incorrectly.
+[   24.067768] servicemanager: Caller(pid=659,uid=1041,sid=u:r:audioserver:s0) Since 'activity' could not be found trying to start it as a lazy AIDL service. (if it's not configured to be a lazy service, it may be stuck starting or still starting).
+[   24.092024] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   24.105191] servicemanager: Caller(pid=659,uid=1041,sid=u:r:audioserver:s0) Tried to start aidl service activity as a lazy service, but was unable to. Usually this happens when a service is not installed, but if the service is intended to be used as a lazy service, then it may be configured incorrectly.
+[   24.122823] servicemanager: Notifying apexservice they do (previously: don't) have clients when service is guaranteed to be in use
+[   24.144265] libbinder.AidlLazyServiceRegistrar: Process has 1 (of 1 available) client(s) in use after notification apexservice has clients: 1
+[   24.145075] apexd: getActivePackages received by ApexService
+[   24.157076] libbinder.AidlLazyServiceRegistrar: Shutdown prevented by forcePersist override flag.
+[   24.198199] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Found android.hardware.power.stats.IPowerStats/default in device VINTF manifest.
+[   24.213699] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Found android.frameworks.stats.IStats/default in framework VINTF manifest.
+[   24.227809] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Could not find android.hardware.memtrack.IMemtrack/default in the VINTF manifest. No alternative instances declared in VINTF.
+[   24.618517] fs-verity: sha256 using implementation "sha256-ce" (multibuffer)
+[   24.711784] init: processing action (ro.postinstall.fstab.prefix=/system && sys.cppreopt=requested) from (/system/etc/init/cppreopts.rc:26)
+[   24.726945] init: [libfstab] Error updating for slotselect
+[   24.732461] init: [libfstab] ReadFstabFromFileCommon(): failed to load fstab from : '/system/etc/fstab.postinstall'
+[   24.743072] init: Command 'mount_all /system/etc/fstab.postinstall' action=ro.postinstall.fstab.prefix=/system && sys.cppreopt=requested (/system/etc/init/cppreopts.rc:27) took 18ms and failed: Could not read fstab
+[   24.762374] init: starting service 'cppreopts'...
+[   24.918593] apexd: getAllPackages received by ApexService
+[   25.092016] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   26.077876] libbinder.AidlLazyServiceRegistrar: Process has 0 (of 1 available) client(s) in use after notification apexservice has clients: 0
+[   26.090656] libbinder.AidlLazyServiceRegistrar: Shutdown prevented by forcePersist override flag.
+[   26.100051] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   27.092927] servicemanager: Caller(pid=659,uid=1041,sid=u:r:audioserver:s0) Since 'activity' could not be found trying to start it as a lazy AIDL service. (if it's not configured to be a lazy service, it may be stuck starting or still starting).
+[   27.115615] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   27.128033] servicemanager: Caller(pid=659,uid=1041,sid=u:r:audioserver:s0) Tried to start aidl service activity as a lazy service, but was unable to. Usually this happens when a service is not installed, but if the service is intended to be used as a lazy service, then it may be configured incorrectly.
+[   28.055806] libbinder.BpBinder: onLastStrongRef automatically unlinking death recipients for descriptor: '(not cached)'
+[   28.068199] servicemanager: Caller(pid=659,uid=1041,sid=u:r:audioserver:s0) Since 'sensor_privacy' could not be found trying to start it as a lazy AIDL service. (if it's not configured to be a lazy service, it may be stuck starting or still starting).
+[   28.091065] init: Control message: Could not find 'aidl/sensor_privacy' for ctl.interface_start from pid: 308 (/system/bin/servicemanager)
+[   28.103974] servicemanager: Caller(pid=659,uid=1041,sid=u:r:audioserver:s0) Tried to start aidl service sensor_privacy as a lazy service, but was unable to. Usually this happens when a service is not installed, but if the service is intended to be used as a lazy service, then it may be configured incorrectly.
+[   28.460934] libbinder.BpBinder: onLastStrongRef automatically unlinking death recipients for descriptor: '(not cached)'
+[   28.473435] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Could not find android.hardware.sensors.ISensors/default in the VINTF manifest. No alternative instances declared in VINTF.
+[   28.497671] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Found android.hardware.health.IHealth/default in device VINTF manifest.
+[   28.514880] healthd: battery none chg=
+[   29.334778] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Found android.hardware.power.IPower/default in device VINTF manifest.
+[   29.366060] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Could not find android.hardware.vibrator.IVibratorManager/default in the VINTF manifest. No alternative instances declared in VINTF.
+[   29.677223] init: processing action (sys.sysctl.extra_free_kbytes=*) from (/system/etc/init/hw/init.rc:1254)
+[   29.688888] init: starting service 'exec 14 (/system/bin/extra_free_kbytes.sh 24300)'...
+[   29.734673] init: ... started service 'exec 14 (/system/bin/extra_free_kbytes.sh 24300)' has pid 960
+[   29.743981] init: Command 'exec_background -- /system/bin/extra_free_kbytes.sh ${sys.sysctl.extra_free_kbytes}' action=sys.sysctl.extra_free_kbytes=* (/system/etc/init/hw/init.rc:1255) took 55ms and succeeded
+[   29.986815] init: Service 'exec 14 (/system/bin/extra_free_kbytes.sh 24300)' (pid 960) exited with status 0 oneshot service took 0.288000 seconds in background
+[   30.001264] init: Sending SIGKILL to service 'exec 14 (/system/bin/extra_free_kbytes.sh 24300)' (pid 960) process group...
+[   31.153678] read descriptors
+[   31.157036] bcdVersion must be 0x0100, stored in Little Endian order. Userspace driver should be fixed, accepting 0x0001 for compatibility.
+[   31.170000] read strings
+[   31.173037] read descriptors
+[   31.176143] bcdVersion must be 0x0100, stored in Little Endian order. Userspace driver should be fixed, accepting 0x0001 for compatibility.
+[   31.189106] read strings
+[   32.491067] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Could not find android.hardware.authsecret.IAuthSecret/default in the VINTF manifest. No alternative instances declared in VINTF.
+[   33.223486] type=1400 audit(1773998105.819:58): avc:  denied  { read } for  comm="android.system." name="name" dev="sysfs" ino=12681 scontext=u:r:system_suspend:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   33.243950] type=1400 audit(1773998105.819:59): avc:  denied  { open } for  comm="android.system." path="/sys/devices/platform/soc@107c000000/soc@107c000000:rpi_rtc/wakeup/wakeup0/name" dev="sysfs" ino=12681 scontext=u:r:system_suspend:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   33.270149] logd: HexToBytes: Invalid size: 81
+[   33.548124] macb 1f00100000.ethernet eth0: PHY [1f00100000.ethernet-ffffffff:01] driver [Broadcom BCM54213PE] (irq=POLL)
+[   33.549495] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Found android.hardware.wifi.IWifi/default in device VINTF manifest.
+[   33.559417] macb 1f00100000.ethernet eth0: configuring for phy/rgmii-id link mode
+[   33.584028] macb 1f00100000.ethernet: gem-ptp-timer ptp clock registered.
+[   33.634262] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Found android.hardware.health.IHealth/default in device VINTF manifest.
+[   33.863620] servicemanager: Notifying apexservice they do (previously: don't) have clients when service is guaranteed to be in use
+[   33.876033] libbinder.AidlLazyServiceRegistrar: Process has 1 (of 1 available) client(s) in use after notification apexservice has clients: 1
+[   33.888848] apexd: getSessions() received by ApexService
+[   33.889948] libbinder.AidlLazyServiceRegistrar: Shutdown prevented by forcePersist override flag.
+[   34.239186] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Found android.hardware.thermal.IThermal/default in device VINTF manifest.
+[   34.268707] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Could not find android.hardware.input.processor.IInputProcessor/default in the VINTF manifest. No alternative instances declared in VINTF.
+[   34.356523] SELinux: avc:  denied  { find } for pid=726 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediaserver:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=1
+[   34.384269] servicemanager: Caller(pid=726,uid=1013,sid=u:r:mediaserver:s0) Found android.hardware.media.c2.IComponentStore/ffmpeg in device VINTF manifest.
+[   34.399393] servicemanager: Caller(pid=726,uid=1013,sid=u:r:mediaserver:s0) Found android.hardware.media.c2.IComponentStore/software in framework VINTF manifest.
+[   34.474533] servicemanager: Caller(pid=759,uid=1046,sid=u:r:mediaswcodec:s0) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   34.495986] type=1400 audit(1773998107.091:60): avc:  denied  { read } for  comm="binder:759_3" name="u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:mediaswcodec:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   34.519126] type=1400 audit(1773998107.091:61): avc:  denied  { open } for  comm="binder:759_3" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:mediaswcodec:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   34.543509] logd: HexToBytes: Invalid size: 55
+[   34.548212] type=1400 audit(1773998107.091:62): avc:  denied  { getattr } for  comm="binder:759_3" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:mediaswcodec:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   34.572836] logd: HexToBytes: Invalid size: 55
+[   34.577326] type=1400 audit(1773998107.091:63): avc:  denied  { map } for  comm="binder:759_3" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:mediaswcodec:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   34.601565] logd: HexToBytes: Invalid size: 55
+H[   36.077916] libbinder.AidlLazyServiceRegistrar: Process has 0 (of 1 available) client(s) in use after notification apexservice has clients: 0
+[   36.092790] libbinder.AidlLazyServiceRegistrar: Shutdown prevented by forcePersist override flag.
+[   36.471083] init: processing action (boot.car_service_created=1) from (/system/etc/init/com.android.car.procfsinspector.rc:7)
+[   36.488242] init: starting service 'com.android.car.procfsinspector'...
+[   36.523087] init: ... started service 'com.android.car.procfsinspector' has pid 1233
+[   36.531788] init: processing action (boot.car_service_created=1) from (/system/etc/init/init.bootstat.car.rc:6)
+[   36.542765] init: starting service 'exec 15 (/system/bin/bootstat -r car_service_created)'...
+[   36.554485] init: ... started service 'exec 15 (/system/bin/bootstat -r car_service_created)' has pid 1251
+[   36.564462] init: SVC_EXEC service 'exec 15 (/system/bin/bootstat -r car_service_created)' pid 1251 (uid 1000 gid 1007+0 context default) started; waiting...
+[   36.588365] init: Service 'exec 15 (/system/bin/bootstat -r car_service_created)' (pid 1251) exited with status 0 waiting took 0.035000 seconds
+[   36.601497] init: Sending SIGKILL to service 'exec 15 (/system/bin/bootstat -r car_service_created)' (pid 1251) process group...
+[   36.613367] libprocessgroup: Removed cgroup /sys/fs/cgroup/system/uid_1000/pid_1251
+HHHH[   37.891640] servicemanager: Caller(pid=1300,uid=1068,sid=u:r:secure_element:s0:c44,c260,c512,c768) Could not find android.hardware.secure_element.ISecureElement/eSE1 in the VINTF manifest. No alternative instances declared in VINTF.
+[   37.915505] servicemanager: Caller(pid=1300,uid=1068,sid=u:r:secure_element:s0:c44,c260,c512,c768) Could not find android.hardware.secure_element.ISecureElement/SIM1 in the VINTF manifest. No alternative instances declared in VINTF.
+[   38.334505] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Could not find android.hardware.weaver.IWeaver/default in the VINTF manifest. No alternative instances declared in VINTF.
+HH[   38.943285] type=1400 audit(1773998111.539:65): avc:  denied  { open } for  comm="RenderThread" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:system_app:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+H[   38.968023] logd: HexToBytes: Invalid size: 55
+[   38.972624] type=1400 audit(1773998111.539:66): avc:  denied  { getattr } for  comm="RenderThread" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:system_app:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   38.982855] servicemanager: Caller(pid=1343,uid=1001000,sid=u:r:system_app:s0) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   38.997464] logd: HexToBytes: Invalid size: 55
+[   39.015424] servicemanager: Caller(pid=1343,uid=1001000,sid=u:r:system_app:s0) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   39.016778] type=1400 audit(1773998111.539:67): avc:  denied  { map } for  comm="RenderThread" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:system_app:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   39.031906] servicemanager: Caller(pid=1343,uid=1001000,sid=u:r:system_app:s0) Found mapper/minigbm_gbm_mesa in device VINTF manifest.
+[   39.055873] logd: HexToBytes: Invalid size: 55
+[   39.168112] servicemanager: Caller(pid=1343,uid=1001000,sid=u:r:system_app:s0) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   39.183989] servicemanager: Caller(pid=1343,uid=1001000,sid=u:r:system_app:s0) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   39.200147] servicemanager: Caller(pid=1343,uid=1001000,sid=u:r:system_app:s0) Found mapper/minigbm_gbm_mesa in device VINTF manifest.
+[   39.740248] servicemanager: Caller(pid=836,uid=1000,sid=u:r:system_server:s0) Could not find android.hardware.weaver.IWeaver/default in the VINTF manifest. No alternative instances declared in VINTF.
+[   40.880574] type=1400 audit(1773998113.475:68): avc:  denied  { search } for  comm="binder:652_2" name="axi:gpu" dev="sysfs" ino=4647 scontext=u:r:hal_tv_hdmi_connection_default:s0 tcontext=u:object_r:sysfs_gpu:s0 tclass=dir permissive=1
+[   42.545719] type=1400 audit(1773998115.139:69): avc:  denied  { open } for  comm="hwuiTask0" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1 app=com.android.systemui
+[   42.545766] logd: start watching /data/system/packages.list ...
+[   42.575509] logd: HexToBytes: Invalid size: 55
+[   43.774529] servicemanager: Caller(pid=1600,uid=1010049,sid=u:r:platform_app:s0:c522,c768) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   43.794953] servicemanager: Caller(pid=1600,uid=1010049,sid=u:r:platform_app:s0:c522,c768) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   43.813292] servicemanager: Caller(pid=1600,uid=1010049,sid=u:r:platform_app:s0:c522,c768) Found mapper/minigbm_gbm_mesa in device VINTF manifest.
+[   43.895437] servicemanager: Caller(pid=1600,uid=1010049,sid=u:r:platform_app:s0:c522,c768) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   43.913909] servicemanager: Caller(pid=1600,uid=1010049,sid=u:r:platform_app:s0:c522,c768) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   43.930364] servicemanager: Caller(pid=1600,uid=1010049,sid=u:r:platform_app:s0:c522,c768) Found mapper/minigbm_gbm_mesa in device VINTF manifest.
+[   44.269610] servicemanager: Caller(pid=1641,uid=1001002,sid=u:r:bluetooth:s0) Found android.hardware.bluetooth.IBluetoothHci/default in device VINTF manifest.
+[   44.334818] SELinux: avc:  denied  { find } for pid=1328 uid=10103 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=1
+[   44.361914] servicemanager: Caller(pid=1328,uid=10103,sid=u:r:platform_app:s0:c512,c768) Found android.hardware.media.c2.IComponentStore/ffmpeg in device VINTF manifest.
+[   44.380051] servicemanager: Caller(pid=1328,uid=10103,sid=u:r:platform_app:s0:c512,c768) Found android.hardware.media.c2.IComponentStore/software in framework VINTF manifest.
+[   45.574235] type=1400 audit(1773998118.167:75): avc:  denied  { read } for  comm="android.display" name="u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:system_server:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   45.599117] type=1400 audit(1773998118.191:76): avc:  denied  { open } for  comm="android.display" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:system_server:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   45.626137] logd: HexToBytes: Invalid size: 55
+[   45.631127] type=1400 audit(1773998118.191:77): avc:  denied  { getattr } for  comm="android.display" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:system_server:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   45.657048] logd: HexToBytes: Invalid size: 55
+[   45.661686] type=1400 audit(1773998118.191:78): avc:  denied  { map } for  comm="android.display" path="/dev/__properties__/u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=372 scontext=u:r:system_server:s0 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=1
+[   45.686910] logd: HexToBytes: Invalid size: 55
+[   47.247650] logd: start watching /data/system/packages.list ...
+[   47.258681] logd: ReadPackageList, total packages: 141
+[   47.847337] type=1400 audit(1773998120.443:79): avc:  denied  { read } for  comm="crash_dump64" name="BluetoothRpiOverlay.apk" dev="mmcblk0p6" ino=515 scontext=u:r:crash_dump:s0 tcontext=u:object_r:vendor_overlay_file:s0 tclass=file permissive=1
+[   47.928867] init: Untracked process (pid: 1814 name: (crash_dump64) ppid: 1 pgrp: 1813 state: Z) exited with status 0
+[   47.937248] binder: release 1641:1687 transaction 29454 out, still active
+[   47.940014] init: Untracked process (pid: 1814 name: (crash_dump64) ppid: 1 pgrp: 1813 state: Z) did not have an associated service entry and will not be reaped
+[   47.962367] init: Untracked process (pid: 1817 name: (droid.bluetooth) ppid: 1 pgrp: 1817 state: Z) exited with status 0
+[   47.974168] init: Untracked process (pid: 1817 name: (droid.bluetooth) ppid: 1 pgrp: 1817 state: Z) did not have an associated service entry and will not be reaped
+[   47.989661] init: Untracked process (pid: 1837 name: (pbtombstone) ppid: 1 pgrp: 610 state: Z) exited with status 1
+[   48.000240] init: Untracked process (pid: 1837 name: (pbtombstone) ppid: 1 pgrp: 610 state: Z) did not have an associated service entry and will not be reaped
+[   48.699927] init: Service 'bootanim' (pid 790) exited with status 0 oneshot service took 33.793999 seconds in background
+[   48.710899] init: Sending SIGKILL to service 'bootanim' (pid 790) process group...
+[   48.718831] libprocessgroup: Removed cgroup /sys/fs/cgroup/system/uid_1003/pid_790
+[   49.055267] servicemanager: Caller(pid=1841,uid=1001002,sid=u:r:bluetooth:s0) Found android.hardware.bluetooth.IBluetoothHci/default in device VINTF manifest.
+[   49.072991] servicemanager: Notifying apexservice they do (previously: don't) have clients when service is guaranteed to be in use
+[   49.085814] libbinder.AidlLazyServiceRegistrar: Process has 1 (of 1 available) client(s) in use after notification apexservice has clients: 1
+[   49.086023] apexd: markBootCompleted() received by ApexService
+[   49.099279] libbinder.AidlLazyServiceRegistrar: Shutdown prevented by forcePersist override flag.
+[   49.125517] init: processing action (sys.boot_completed=1) from (/system/etc/init/hw/init.rc:1245)
+[   49.512881] servicemanager: Caller(pid=663,uid=1000,sid=u:r:surfaceflinger:s0) Found android.hardware.power.IPower/default in device VINTF manifest.
+[   49.599883] apexd: destroyCeSnapshotsNotSpecified() received by ApexService user_id : 0 retain_rollback_ids : []
+[   50.134861] servicemanager: Caller(pid=1967,uid=1010069,sid=u:r:untrusted_app_25:s0:c522,c768) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   50.154032] servicemanager: Caller(pid=1967,uid=1010069,sid=u:r:untrusted_app_25:s0:c522,c768) Found android.hardware.graphics.allocator.IAllocator/default in device VINTF manifest.
+[   50.172745] servicemanager: Caller(pid=1967,uid=1010069,sid=u:r:untrusted_app_25:s0:c522,c768) Found mapper/minigbm_gbm_mesa in device VINTF manifest.
