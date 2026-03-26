@@ -1,0 +1,91 @@
+From 7a4c75a8a0134d59c9e96861c8ec27f28b0fcd88 Mon Sep 17 00:00:00 2001
+From: Ganesh Halthota <ganesh.rvec@gmail.com>
+Date: Wed, 25 Mar 2026 10:55:00 +0530
+Subject: [PATCH] rpi5: add AVB-aware fstab selection for signed flow
+
+Enable AVB-aware first-stage mount behavior when RPI5_ENABLE_AVB=true:
+- add RPI5_ENABLE_AVB build toggle
+- append androidboot.vbmeta.device cmdline for vbmeta by-name lookup
+- add fstab.rpi5.avb with avb=vbmeta on system/vendor
+- select AVB vs non-AVB fstab in device.mk
+
+This keeps signing ownership in the external pipeline while ensuring
+Android first-stage mount policy is aligned with AVB-verified partitions.
+---
+ BoardConfig.mk          |  9 +++++++++
+ device.mk               | 12 ++++++++++--
+ ramdisk/fstab.rpi5.avb  | 10 ++++++++++
+ 3 files changed, 29 insertions(+), 2 deletions(-)
+ create mode 100644 ramdisk/fstab.rpi5.avb
+
+diff --git a/BoardConfig.mk b/BoardConfig.mk
+index 17cf163..5a2e744 100644
+--- a/BoardConfig.mk
++++ b/BoardConfig.mk
+@@ -5,6 +5,7 @@
+ #
+ 
+ DEVICE_PATH := device/brcm/rpi5
++RPI5_ENABLE_AVB ?= false
+ 
+ # Architecture
+ TARGET_ARCH := arm64
+@@ -58,6 +59,14 @@ TARGET_NO_RECOVERY := true
+ BOARD_SEPOLICY_DIRS += device/brcm/rpi5/sepolicy
+ BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+ 
++# AVB integration for external signing pipeline:
++# - system/vendor are signed by external sign stage (not via BOARD_AVB_ENABLE).
++# - keep cmdline aligned so first-stage init can locate vbmeta partition.
++ifeq ($(RPI5_ENABLE_AVB),true)
++BOARD_KERNEL_CMDLINE += androidboot.vbmeta.device=/dev/block/by-name/vbmeta
++endif
++
++
+ # Treble
+ TARGET_COPY_OUT_VENDOR := vendor
+ 
+diff --git a/device.mk b/device.mk
+index f53cc9c..1d7b4f3 100644
+--- a/device.mk
++++ b/device.mk
+@@ -135,11 +135,20 @@ PRODUCT_PACKAGES += \
+     com.android.hardware.power
+ 
+ # Ramdisk
++ifeq ($(RPI5_ENABLE_AVB),true)
++PRODUCT_COPY_FILES += \
++    $(DEVICE_PATH)/ramdisk/fstab.rpi5.avb:$(TARGET_COPY_OUT_RAMDISK)/fstab.rpi5 \
++    $(DEVICE_PATH)/ramdisk/fstab.rpi5.avb:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.rpi5 \
++    $(DEVICE_PATH)/ramdisk/init.rpi5.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.rpi5.rc \
++    $(DEVICE_PATH)/ramdisk/init.rpi5.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.rpi5.usb.rc \
++    $(DEVICE_PATH)/ramdisk/ueventd.rpi5.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc
++else
+ PRODUCT_COPY_FILES += \
+     $(DEVICE_PATH)/ramdisk/fstab.rpi5:$(TARGET_COPY_OUT_RAMDISK)/fstab.rpi5 \
+     $(DEVICE_PATH)/ramdisk/fstab.rpi5:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.rpi5 \
+     $(DEVICE_PATH)/ramdisk/init.rpi5.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.rpi5.rc \
+     $(DEVICE_PATH)/ramdisk/init.rpi5.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.rpi5.usb.rc \
+     $(DEVICE_PATH)/ramdisk/ueventd.rpi5.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc
++endif
+ 
+ # Seccomp
+diff --git a/ramdisk/fstab.rpi5.avb b/ramdisk/fstab.rpi5.avb
+new file mode 100644
+index 0000000..d8250c2
+--- /dev/null
++++ b/ramdisk/fstab.rpi5.avb
+@@ -0,0 +1,11 @@
++# Android fstab file.
++# The filesystem that contains the filesystem checker binary (typically /system) cannot
++# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
++
++#<src>                                     <mnt_point>  <type>  <mnt_flags and options>            <fs_mgr_flags>
++/dev/block/by-name/system                 /system      ext4    ro,barrier=1                       wait,avb=vbmeta,first_stage_mount
++/dev/block/by-name/vendor                 /vendor      ext4    ro,barrier=1                       wait,avb=vbmeta,first_stage_mount
++/dev/block/by-name/metadata               /metadata    ext4    nodev,noatime,nosuid               wait,check,formattable,first_stage_mount
++/dev/block/by-name/userdata               /data        ext4    nodev,noatime,nosuid,errors=panic  wait,check,formattable,quota
++/devices/platform/axi/*.pcie/*.usb/*/usb*  auto         auto    defaults                           voldmanaged=usb:auto
++/devices/platform/axi/*.usb/usb*           auto         auto    defaults                           voldmanaged=usb:auto
+-- 
+2.43.0
