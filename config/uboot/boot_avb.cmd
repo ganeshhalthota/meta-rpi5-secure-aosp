@@ -16,6 +16,7 @@ echo "AVB fail policy: ${avb_fail_policy}"
 # Clear AVB args from any previous runs
 setenv avb_bootargs
 setenv avb_bootargs_fallback
+setenv bootdev_bootarg
 
 # 1. AVB Initialization and Verification
 # U-Boot must be built with CONFIG_AVB_VERIFY=y, CONFIG_CMD_AVB=y, CONFIG_LIBAVB=y
@@ -69,7 +70,14 @@ fi
 # 4. Set Android kernel command line
 # ${avb_bootargs} is populated by 'avb verify' on success.
 # For fail_open, add explicit fallback state args.
-setenv bootargs "${bootargs} root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive ${avb_bootargs} ${avb_bootargs_fallback}"
+# Expose kernel-boot-partition UUID so first-stage init can identify boot device
+# and create /dev/block/by-name/<partition> symlinks consistently on GPT layouts.
+if part uuid mmc 0:1 boot_part_uuid; then
+    setenv bootdev_bootarg "androidboot.boot_part_uuid=${boot_part_uuid}"
+else
+    echo "WARNING: Failed to query boot partition UUID (mmc 0:1)"
+fi
+setenv bootargs "${bootargs} root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive ${bootdev_bootarg} ${avb_bootargs} ${avb_bootargs_fallback}"
 
 # 5. Boot Android
 if test -z "${avb_bootargs_fallback}"; then

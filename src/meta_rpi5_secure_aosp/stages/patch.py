@@ -10,7 +10,7 @@ Patch directory layout expected under <project-root>/patches/ (fallback:
   │   ├── 0001-some-fix.patch
   │   └── 0002-another-fix.patch
   └── aosp/
-      ├── device_brcm_rpi5/          ← matches subdirectory inside rpi5-aosp/
+      ├── device_brcm_rpi5/          ← maps to rpi5-aosp/device/brcm/rpi5
       │   └── 0001-car-config.patch
       └── kernel_rpi/
           └── 0001-driver-fix.patch
@@ -59,15 +59,23 @@ def run(ctx: BuildContext) -> None:
     if ctx.do_aosp:
         aosp_patches_dir = patches_root / "aosp"
         if aosp_patches_dir.exists():
-            # Each subdirectory of patches/aosp/ maps to a project path inside rpi5-aosp/
+            # Each subdirectory under patches/aosp/ maps to an AOSP project path:
+            #   - exact name:    patches/aosp/device -> rpi5-aosp/device
+            #   - underscore map patches/aosp/device_brcm_rpi5 -> rpi5-aosp/device/brcm/rpi5
             project_dirs = sorted(p for p in aosp_patches_dir.iterdir() if p.is_dir())
             if project_dirs:
                 for project_patch_dir in project_dirs:
-                    target_dir = ctx.aosp_dir / project_patch_dir.name
+                    target_dir = _resolve_aosp_project_dir(ctx, project_patch_dir.name)
                     if not target_dir.exists():
                         ctx.console.print(
                             f"[yellow]Warning: AOSP project directory {target_dir} does not exist "
                             f"— skipping patches in {project_patch_dir.name}.[/yellow]"
+                        )
+                        continue
+                    if not _is_git_project_under(ctx.aosp_dir, target_dir):
+                        ctx.console.print(
+                            f"[yellow]Warning: AOSP patch target {target_dir} is not a git project "
+                            f"under {ctx.aosp_dir} — skipping {project_patch_dir.name}.[/yellow]"
                         )
                         continue
                     applied_any |= _apply_patch_dir(
@@ -91,6 +99,63 @@ def run(ctx: BuildContext) -> None:
 # Internal helpers
 # ---------------------------------------------------------------------------
 
+def _resolve_aosp_project_dir(ctx: BuildContext, patch_dir_name: str) -> Path:
+    """
+    Resolve a patches/aosp/<name> directory to an AOSP project directory.
+
+    Resolution order:
+      1) <aosp>/<name>
+      2) <aosp>/<name with "__" -> "/">
+      3) <aosp>/<name with "_"  -> "/">
+    """
+    candidates: list[Path] = [ctx.aosp_dir / patch_dir_name]
+
+    if "__" in patch_dir_name:
+        candidates.append(ctx.aosp_dir / patch_dir_name.replace("__", "/"))
+
+    if "_" in patch_dir_name:
+        candidates.append(ctx.aosp_dir / patch_dir_name.replace("_", "/"))
+
+    seen: set[Path] = set()
+    for candidate in candidates:
+        if candidate in seen:
+            continue
+        seen.add(candidate)
+        if candidate.exists():
+            return candidate
+
+    # Default to direct mapping; caller handles non-existence.
+    return ctx.aosp_dir / patch_dir_name
+
+
+def _git_toplevel(path: Path) -> Path | None:
+    result = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"],
+        cwd=path,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return None
+    return Path(result.stdout.strip()).resolve()
+
+
+def _is_git_project_under(aosp_root: Path, path: Path) -> bool:
+    """
+    Return True only when *path* itself is a git project root under *aosp_root*.
+
+    This prevents accidental patch application against the outer meta repo when
+    an AOSP path (e.g. rpi5-aosp/device) is not a git root.
+    """
+    top = _git_toplevel(path)
+    if top is None:
+        return False
+    try:
+        top.relative_to(aosp_root.resolve())
+    except ValueError:
+        return False
+    return top == path.resolve()
+
 def _apply_patch_dir(ctx: BuildContext, patch_dir: Path, target_dir: Path, label: str) -> bool:
     """
     Apply all *.patch files in *patch_dir* to *target_dir* using ``git am --3way``.
@@ -106,6 +171,9 @@ def _apply_patch_dir(ctx: BuildContext, patch_dir: Path, target_dir: Path, label
     ctx.console.print(f"  [bold cyan][{label}][/] Applying {len(patches)} patch(es) from {patch_dir}")
 
     for patch_file in patches:
+        if _already_applied(patch_file, target_dir):
+            ctx.console.print(f"    -> {patch_file.name} [dim](already applied, skipping)[/dim]")
+            continue
         ctx.console.print(f"    -> {patch_file.name}")
         _check_patch(ctx, patch_file, target_dir, label)
         ctx.run(f"git am --3way {patch_file}", cwd=target_dir)
@@ -129,3 +197,28 @@ def _check_patch(ctx: BuildContext, patch_file: Path, target_dir: Path, label: s
             f"[{label}] Patch {patch_file.name} would not apply cleanly:\n{result.stderr.strip()}\n"
             "Fix the patch or run 'git am --abort' in the target directory and retry."
         )
+
+
+def _already_applied(patch_file: Path, target_dir: Path) -> bool:
+    """
+    Return True if *patch_file* appears already applied in *target_dir*.
+
+    A naive reverse-check can return success with "Skipped patch" when the patch
+    is actually not applied. To avoid false positives, treat a patch as already
+    applied only when:
+      - forward apply check fails, and
+      - reverse apply check succeeds.
+    """
+    forward = subprocess.run(
+        ["git", "apply", "--check", str(patch_file)],
+        cwd=target_dir,
+        capture_output=True,
+        text=True,
+    )
+    reverse = subprocess.run(
+        ["git", "apply", "--reverse", "--check", str(patch_file)],
+        cwd=target_dir,
+        capture_output=True,
+        text=True,
+    )
+    return forward.returncode != 0 and reverse.returncode == 0
