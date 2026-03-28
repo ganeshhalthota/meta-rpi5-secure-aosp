@@ -60,8 +60,7 @@ def run(ctx: BuildContext) -> None:
                 ctx.run(
                     f"{repo_cmd} init "
                     f"-u {manifest_url} "
-                    f"-b {tag} --depth=1 --no-tags --current-branch "
-                    "--repo-branch=aosp/stable --no-repo-verify",
+                    f"-b {tag} --depth=1 --no-tags --current-branch",
                     cwd=ctx.aosp_dir,
                 )
 

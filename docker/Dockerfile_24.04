@@ -48,6 +48,9 @@ RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python
     ln -s /opt/poetry/bin/poetry /usr/local/bin/poetry && \
     chmod 755 /opt/poetry/bin/poetry
 
+# Ubuntu 24.04 images have a default 'ubuntu' user with UID 1000, so we delete it first to avoid collision.
+RUN userdel -r ubuntu || true
+
 # Create a script to create the user
 RUN echo '#!/bin/bash\n\
 groupadd -g $GROUP_ID $USERNAME\n\
