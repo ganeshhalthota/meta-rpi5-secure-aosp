@@ -146,8 +146,8 @@ Patches within each directory are applied in alphabetical order using `git am --
 │   ├── run_src.sh            # Container entrypoint for Python builder
 │   └── flash_sdcard.sh       # Helper to flash the generated image to an SD card
 ├── patches/                  # Git patch files for uboot and aosp
-│   ├── uboot/
-│   └── aosp/
+│   ├── aosp/
+│   └── uboot/
 ├── src/
 │   └── meta_rpi5_secure_aosp/
 │       ├── main.py           # CLI entry point
