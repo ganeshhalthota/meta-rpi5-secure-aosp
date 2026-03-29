@@ -31,8 +31,10 @@ YAML partition fields
 from __future__ import annotations
 
 import os
+import re
 import subprocess
 import tempfile
+import time
 from datetime import datetime
 
 
@@ -326,20 +328,59 @@ class DiskImage:
 
     def _map_loop_device(self) -> str:
         print("Mapping loop device...")
-        result = subprocess.run(["sudo", "losetup", "-f"], capture_output=True, text=True, check=True)
-        loopdev = result.stdout.strip()
-        if not loopdev:
-            raise RuntimeError("Unable to find free loop device!")
-        print(f"  Found free loop device: {loopdev}")
 
-        print(f"  Attaching {self._img_path} to {loopdev}...")
-        self._run_cmd(["sudo", "losetup", loopdev, self._img_path])
+        # 1. Proactively ensure basic loop nodes 0-7 exist in /dev.
+        #    In some Docker containers, these nodes may be missing even if
+        #    the kernel supports loop devices.
+        for i in range(8):
+            node = f"/dev/loop{i}"
+            if not os.path.exists(node):
+                # Major number 7 is for loop devices. Minor is the index.
+                # We use sudo as we are in a privileged container or on host.
+                try:
+                    subprocess.run(["sudo", "mknod", node, "b", "7", str(i)],
+                                   capture_output=True, check=False)
+                except Exception:
+                    pass
 
+        # 2. Use 'losetup --find --show' for atomic allocation.
+        #    We use a retry loop to handle transient "No such file or directory"
+        #    errors, which usually mean a device node was just deleted or
+        #    not yet fully created in the /dev devtmpfs.
+        loopdev_path = None
+        for attempt in range(1, 4):
+            try:
+                # --find: first free loop device
+                # --show: print its name
+                result = subprocess.run(
+                    ["sudo", "losetup", "--find", "--show", self._img_path],
+                    capture_output=True, text=True, check=True
+                )
+                loopdev_path = result.stdout.strip()
+                if not loopdev_path:
+                    raise RuntimeError("losetup returned empty output")
+                break
+            except subprocess.CalledProcessError as e:
+                print(f"  losetup failed (attempt {attempt}/3): {e.stderr or e}")
+                if attempt == 3:
+                    raise
+                time.sleep(1)
+
+        print(f"  Attached {self._img_path} to {loopdev_path}")
+
+        # 3. Map partitions with kpartx.
+        #    Sometimes there's a race between loop attachment and partition mapping.
+        #    Using -av (add verbose) or a small delay helps.
         print("  Mapping partitions with kpartx...")
-        result = subprocess.run(["sudo", "kpartx", "-av", loopdev], capture_output=True, text=True, check=True)
+        # Add a tiny settling delay for the kernel to see the new loop device.
+        time.sleep(0.5)
+        result = subprocess.run(
+            ["sudo", "kpartx", "-av", loopdev_path],
+            capture_output=True, text=True, check=True
+        )
         print(f"  kpartx output:\n{result.stdout}")
 
-        mapper_name = os.path.basename(loopdev)
+        mapper_name = os.path.basename(loopdev_path)
         print(f"  Partitions mapped as /dev/mapper/{mapper_name}pX")
         return mapper_name
 
