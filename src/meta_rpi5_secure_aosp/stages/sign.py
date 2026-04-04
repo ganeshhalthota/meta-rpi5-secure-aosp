@@ -16,6 +16,60 @@ from meta_rpi5_secure_aosp.context import BuildContext
 from meta_rpi5_secure_aosp.utils.avb import AvbTool
 
 
+def _derive_hash_algorithm_from_sign(sign_algorithm: str) -> str:
+    """
+    Derive a hash algorithm from AVB sign algorithm tokens.
+
+    Examples:
+    - SHA256_RSA4096 -> sha256
+    - SHA512_RSA2048 -> sha512
+    """
+    token = sign_algorithm.strip().upper().split("_", 1)[0]
+    if token in {"SHA1", "SHA256", "SHA512"}:
+        return token.lower()
+    return "sha256"
+
+
+def _resolve_avb_algorithms(avb_config: dict) -> tuple[str, str]:
+    """
+    Resolve AVB signing/hash algorithms from new and legacy config formats.
+
+    Supported formats:
+    - New:    avb.sign_algorithm + optional avb.hash_algorithm
+    - Legacy: avb.algorithm
+      - If legacy value looks like SHA*_RSA* treat it as sign algorithm.
+      - Otherwise treat it as hash algorithm.
+    """
+    sign_default = "SHA256_RSA4096"
+    hash_default = "sha256"
+
+    sign_value = str(avb_config.get("sign_algorithm", "")).strip()
+    hash_value = str(avb_config.get("hash_algorithm", "")).strip()
+    legacy_value = str(avb_config.get("algorithm", "")).strip()
+
+    if sign_value:
+        sign_algorithm = sign_value.upper()
+        hash_algorithm = (
+            hash_value.lower()
+            if hash_value
+            else _derive_hash_algorithm_from_sign(sign_algorithm)
+        )
+        return sign_algorithm, hash_algorithm
+
+    if legacy_value:
+        legacy_upper = legacy_value.upper()
+        if "_RSA" in legacy_upper:
+            sign_algorithm = legacy_upper
+            hash_algorithm = _derive_hash_algorithm_from_sign(sign_algorithm)
+            return sign_algorithm, hash_algorithm
+        return sign_default, legacy_value.lower()
+
+    if hash_value:
+        return sign_default, hash_value.lower()
+
+    return sign_default, hash_default
+
+
 def _run_fs_tool(cmd: list[str], ok_codes: set[int] | None = None) -> None:
     if ok_codes is None:
         ok_codes = {0}
@@ -67,14 +121,7 @@ def run(ctx: BuildContext) -> None:
 
     avb_config = ctx.rpi5_config["avb"]
 
-    # Support both old and new config formats for backward compatibility
-    if "sign_algorithm" in avb_config:
-        sign_algorithm = avb_config["sign_algorithm"]
-        hash_algorithm = avb_config.get("hash_algorithm", "sha256")
-    else:
-        # Backward compatibility: treat 'algorithm' as hash_algorithm
-        sign_algorithm = "SHA256_RSA4096"
-        hash_algorithm = avb_config.get("algorithm", "sha256")
+    sign_algorithm, hash_algorithm = _resolve_avb_algorithms(avb_config)
 
     avb = AvbTool(
         aosp_dir=ctx.aosp_dir,

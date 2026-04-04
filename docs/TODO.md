@@ -1,6 +1,6 @@
 # Project TODO
 
-Last updated: 2026-03-29
+Last updated: 2026-04-03
 
 ## P0 (High Priority)
 
@@ -11,6 +11,11 @@ Last updated: 2026-03-29
       - `src/meta_rpi5_secure_aosp/utils/avb.py`
       - `src/meta_rpi5_secure_aosp/stages/sign.py`
       - `config/rpi5_uboot_aosp.yaml`
+    - Implemented: migrated legacy config and hardened fallback mapping.
+      - `config/rpi5_aosp.yaml` now uses `avb.sign_algorithm` + `avb.hash_algorithm`
+      - `src/meta_rpi5_secure_aosp/stages/sign.py` now classifies legacy `avb.algorithm` values:
+        - sign token (`SHA*_RSA*`) -> treated as `sign_algorithm`
+        - hash token (`sha*`) -> treated as `hash_algorithm`
     - Remaining:
       - Migrate legacy config `config/rpi5_aosp.yaml` from `avb.algorithm` to explicit `avb.sign_algorithm` + `avb.hash_algorithm`.
       - Harden backward-compat logic in sign stage so legacy `algorithm` values like `SHA256_RSA4096` are not misinterpreted as a hash algorithm.
@@ -89,6 +94,7 @@ Last updated: 2026-03-29
   - Owner: Mixed
   - Scope:
     - SELinux enforcing validation
+    - Full-disk encryption (FDE) feasibility/legacy compatibility assessment
     - File-based encryption (FBE) + metadata encryption
     - Rollback index / anti-rollback validation
     - Signed update flow hardening (before OTA rollout)
