@@ -1,0 +1,216 @@
+[0;32m[INFO][0m Using existing docker image: rpi5-20c41d2fff09
+[0;32m[INFO][0m Starting container: rpi_build
+[0;32m[INFO][0m   Workspace: /local/mnt/workspace/ghalthot/32-rpi/rpi5_aosp_car/meta-rpi5-secure-aosp/work
+[0;32m[INFO][0m   User: ghalthot (UID=4186280, GID=200)
+[0;32m[INFO][0m   SSH keys: /usr2/ghalthot/.ssh (read-only)
+[0;32m[INFO][0m   pip config: /usr2/ghalthot/.pip (read-only)
+[0;32m[INFO][0m Executing python builder application with args: --stage sdcard --code aosp --config config/rpi5_uboot_aosp_signed.yaml
+useradd warning: ghalthot's uid 4186280 outside of the UID_MIN 1000 and UID_MAX 60000 range.
+useradd: warning: the home directory /home/ghalthot already exists.
+useradd: Not copying any file from skel directory into it.
+[2K[34mResolving dependencies...[39m [39;2m(0.0s)[39;22m[2K[34mResolving dependencies...[39m [39;2m(0.1s)[39;22m
+[34mInstalling dependencies from lock file[39m
+
+No dependencies to install or update
+
+[39;1mInstalling[39;22m the current project: [36mmeta-rpi5-secure-aosp[39m ([39;1m0.1.0[39;22m)[1G[2K[39;1mInstalling[39;22m the current project: [36mmeta-rpi5-secure-aosp[39m ([32m0.1.0[39m)
+[35m╭──────────────────────────────────────────────────╮[0m
+[35m│[0m [1;35mRPi5 Secure AOSP Builder[0m                         [35m│[0m
+[35m│[0m [2mWorkspace :[0m /app/work                            [35m│[0m
+[35m│[0m [2mStage     :[0m sdcard                               [35m│[0m
+[35m│[0m [2mCode      :[0m aosp -> U-Boot=No, AOSP=Yes          [35m│[0m
+[35m│[0m [2mConfig    :[0m config/rpi5_uboot_aosp_signed.yaml   [35m│[0m
+[35m│[0m [2mU-Boot Dir:[0m /app/work/u-boot-rpi5                [35m│[0m
+[35m│[0m [2mAOSP Tag  :[0m android-16.0.0_r4                    [35m│[0m
+[35m│[0m [2mAVB Key   :[0m /app/config/avb/avb_private_key.pem  [35m│[0m
+[35m│[0m [2mAVB PubKey:[0m from config                          [35m│[0m
+[35m│[0m [2mSD Card   :[0m config/sdcard/uboot_aosp_signed.yaml [35m│[0m
+[35m│[0m [2mSigning   :[0m Enabled (by config)                  [35m│[0m
+[35m│[0m [2mActions   :[0m Sign, SD Card                        [35m│[0m
+[35m╰──────────────────────────────────────────────────╯[0m
+[1;34mStage: Signing images with AVB[0m
+Using avbtool: [35m/app/work/rpi5-aosp/out/host/linux-x86/bin/[0m[95mavbtool[0m
+-> Signing system.img with hashtree footer [1m([0mdm-verity[1m)[0m
+   Using predefined partition size for system: [1;36m3221225472[0m bytes [1m([0m[1;36m3072[0m MB[1m)[0m
+   system.img is too large for AVB footer in this partition [1m([0m[1;36m3221225472[0m > 
+[1;36m3170316288[0m[1m)[0m
+   Resizing system.signed.img to <= [1;36m3170316288[0m bytes [1m([0m[1;36m3096012[0m KiB[1m)[0m to fit AVB 
+hashtree footer
+[2;36m[16:53:08][0m[2;36m [0m[1;32m+$[0m [2m.[0m export                                               ]8;id=806911;file:///app/src/meta_rpi5_secure_aosp/main.py\[2mmain.py[0m]8;;\[2m:[0m]8;id=806528;file:///app/src/meta_rpi5_secure_aosp/main.py#169\[2m169[0m]8;;\
+[2;36m           [0m[33mPATH[0m=[35m/app/work/rpi5-aosp/out/host/linux-x86/[0m[95mbin[0m:$PATH &&  [2m           [0m
+[2;36m           [0m[35m/app/work/rpi5-aosp/out/host/linux-x86/bin/[0m[95mavbtool[0m        [2m           [0m
+[2;36m           [0madd_hashtree_footer --image                               [2m           [0m
+[2;36m           [0m[35m/app/work/rpi5-aosp/out/target/product/rpi5/[0m[95msystem.signed[0m [2m           [0m
+[2;36m           [0m[95m.img[0m --partition_name system --partition_size [1;36m3221225472[0m  [2m           [0m
+[2;36m           [0m--key [35m/app/config/avb/[0m[95mavb_private_key.pem[0m --algorithm     [2m           [0m
+[2;36m           [0mSHA256_RSA4096 --hash_algorithm sha256                    [2m           [0m
+-> Signing vendor.img with hashtree footer [1m([0mdm-verity[1m)[0m
+   Using predefined partition size for vendor: [1;36m402653184[0m bytes [1m([0m[1;36m384[0m MB[1m)[0m
+   vendor.img is too large for AVB footer in this partition [1m([0m[1;36m402653184[0m > 
+[1;36m396218368[0m[1m)[0m
+   Resizing vendor.signed.img to <= [1;36m396218368[0m bytes [1m([0m[1;36m386932[0m KiB[1m)[0m to fit AVB 
+hashtree footer
+[2;36m[16:53:17][0m[2;36m [0m[1;32m+$[0m [2m.[0m export                                               ]8;id=741720;file:///app/src/meta_rpi5_secure_aosp/main.py\[2mmain.py[0m]8;;\[2m:[0m]8;id=10421;file:///app/src/meta_rpi5_secure_aosp/main.py#169\[2m169[0m]8;;\
+[2;36m           [0m[33mPATH[0m=[35m/app/work/rpi5-aosp/out/host/linux-x86/[0m[95mbin[0m:$PATH &&  [2m           [0m
+[2;36m           [0m[35m/app/work/rpi5-aosp/out/host/linux-x86/bin/[0m[95mavbtool[0m        [2m           [0m
+[2;36m           [0madd_hashtree_footer --image                               [2m           [0m
+[2;36m           [0m[35m/app/work/rpi5-aosp/out/target/product/rpi5/[0m[95mvendor.signed[0m [2m           [0m
+[2;36m           [0m[95m.img[0m --partition_name vendor --partition_size [1;36m402653184[0m   [2m           [0m
+[2;36m           [0m--key [35m/app/config/avb/[0m[95mavb_private_key.pem[0m --algorithm     [2m           [0m
+[2;36m           [0mSHA256_RSA4096 --hash_algorithm sha256                    [2m           [0m
+-> Creating combined vbmeta image
+[2;36m[16:53:18][0m[2;36m [0m[1;32m+$[0m [2m.[0m export                                               ]8;id=443280;file:///app/src/meta_rpi5_secure_aosp/main.py\[2mmain.py[0m]8;;\[2m:[0m]8;id=944706;file:///app/src/meta_rpi5_secure_aosp/main.py#169\[2m169[0m]8;;\
+[2;36m           [0m[33mPATH[0m=[35m/app/work/rpi5-aosp/out/host/linux-x86/[0m[95mbin[0m:$PATH &&  [2m           [0m
+[2;36m           [0m[35m/app/work/rpi5-aosp/out/host/linux-x86/bin/[0m[95mavbtool[0m        [2m           [0m
+[2;36m           [0mmake_vbmeta_image --output                                [2m           [0m
+[2;36m           [0m[35m/app/work/rpi5-aosp/out/target/product/rpi5/[0m[95mvbmeta.img[0m    [2m           [0m
+[2;36m           [0m--algorithm SHA256_RSA4096 --key                          [2m           [0m
+[2;36m           [0m[35m/app/config/avb/[0m[95mavb_private_key.pem[0m                       [2m           [0m
+[2;36m           [0m--include_descriptors_from_image                          [2m           [0m
+[2;36m           [0m[35m/app/work/rpi5-aosp/out/target/product/rpi5/[0m[95msystem.signed[0m [2m           [0m
+[2;36m           [0m[95m.img[0m --include_descriptors_from_image                     [2m           [0m
+[2;36m           [0m[35m/app/work/rpi5-aosp/out/target/product/rpi5/[0m[95mvendor.signed[0m [2m           [0m
+[2;36m           [0m[95m.img[0m                                                      [2m           [0m
+-> Combined vbmeta image created at vbmeta.img
+[32mSigning completed[0m
+
+[1;34mStage: Generating sdcard image[0m
+   Using signed image for system: system.signed.img
+   Using signed image for vendor: vendor.signed.img
+Creating image file /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img...
+Running: sudo fallocate -l 15359541248 /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img
+Running: sync
+Creating GPT partition table using sgdisk...
+Running: sudo sgdisk -o /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img
+Creating new GPT entries in memory.
+Warning: The kernel is still using the old partition table.
+The new table will be used at the next reboot or after you
+run partprobe(8) or kpartx(8)
+The operation has completed successfully.
+  Creating GPT partition 1: boot  size=+128M
+Running: sudo sgdisk -n 1:0:+128M -c 1:boot /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img
+Warning: The kernel is still using the old partition table.
+The new table will be used at the next reboot or after you
+run partprobe(8) or kpartx(8)
+The operation has completed successfully.
+Running: sudo sgdisk -t 1:ef00 /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img
+Warning: The kernel is still using the old partition table.
+The new table will be used at the next reboot or after you
+run partprobe(8) or kpartx(8)
+The operation has completed successfully.
+  Creating GPT partition 5: system  size=+3072M
+Running: sudo sgdisk -n 5:0:+3072M -c 5:system /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img
+Warning: The kernel is still using the old partition table.
+The new table will be used at the next reboot or after you
+run partprobe(8) or kpartx(8)
+The operation has completed successfully.
+  Creating GPT partition 6: vendor  size=+384M
+Running: sudo sgdisk -n 6:0:+384M -c 6:vendor /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img
+Warning: The kernel is still using the old partition table.
+The new table will be used at the next reboot or after you
+run partprobe(8) or kpartx(8)
+The operation has completed successfully.
+  Creating GPT partition 7: metadata  size=+16M
+Running: sudo sgdisk -n 7:0:+16M -c 7:metadata /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img
+Warning: The kernel is still using the old partition table.
+The new table will be used at the next reboot or after you
+run partprobe(8) or kpartx(8)
+The operation has completed successfully.
+  Creating GPT partition 8: vbmeta  size=+4M
+Running: sudo sgdisk -n 8:0:+4M -c 8:vbmeta /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img
+Warning: The kernel is still using the old partition table.
+The new table will be used at the next reboot or after you
+run partprobe(8) or kpartx(8)
+The operation has completed successfully.
+  Creating GPT partition 3: userdata  size=0
+Running: sudo sgdisk -n 3:0:0 -c 3:userdata /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img
+Warning: The kernel is still using the old partition table.
+The new table will be used at the next reboot or after you
+run partprobe(8) or kpartx(8)
+The operation has completed successfully.
+Mapping loop device...
+  Found free loop device: /dev/loop0
+  Attaching /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img to /dev/loop0...
+Running: sudo losetup /dev/loop0 /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img
+  Mapping partitions with kpartx...
+  kpartx output:
+add map loop0p1 (252:6): 0 262144 linear 7:0 2048
+add map loop0p3 (252:7): 0 22616031 linear 7:0 7383040
+add map loop0p5 (252:8): 0 6291456 linear 7:0 264192
+add map loop0p6 (252:9): 0 786432 linear 7:0 6555648
+add map loop0p7 (252:10): 0 32768 linear 7:0 7342080
+add map loop0p8 (252:11): 0 8192 linear 7:0 7374848
+
+  Partitions mapped as /dev/mapper/loop0pX
+Copying /app/work/rpi5-aosp/out/target/product/rpi5/boot.img to p1...
+  Source image size: 128.00 MiB
+Running: sudo dd if=/app/work/rpi5-aosp/out/target/product/rpi5/boot.img of=/dev/mapper/loop0p1 bs=1M conv=notrunc
+128+0 records in
+128+0 records out
+134217728 bytes (134 MB, 128 MiB) copied, 0.115706 s, 1.2 GB/s
+Copying extra files to partition 1...
+  Created temporary mount point: /tmp/tmpbuvxepty
+Running: sudo mount /dev/mapper/loop0p1 /tmp/tmpbuvxepty
+  Copying /app/work/u-boot-rpi5/u-boot.bin to /tmp/tmpbuvxepty/u-boot.bin
+Running: sudo cp /app/work/u-boot-rpi5/u-boot.bin /tmp/tmpbuvxepty/u-boot.bin
+  Copying /app/work/u-boot-rpi5/boot_avb.scr to /tmp/tmpbuvxepty/boot.scr
+Running: sudo cp /app/work/u-boot-rpi5/boot_avb.scr /tmp/tmpbuvxepty/boot.scr
+  Copying /app/config/uboot/config.txt to /tmp/tmpbuvxepty/config.txt
+Running: sudo cp /app/config/uboot/config.txt /tmp/tmpbuvxepty/config.txt
+Running: sudo sync
+Running: sudo umount /tmp/tmpbuvxepty
+  Removed temporary mount point
+Copying /app/work/rpi5-aosp/out/target/product/rpi5/system.signed.img to p5...
+  Source image size: 3072.00 MiB
+Running: sudo dd if=/app/work/rpi5-aosp/out/target/product/rpi5/system.signed.img of=/dev/mapper/loop0p5 bs=1M conv=notrunc
+3072+0 records in
+3072+0 records out
+3221225472 bytes (3.2 GB, 3.0 GiB) copied, 2.10695 s, 1.5 GB/s
+Copying /app/work/rpi5-aosp/out/target/product/rpi5/vendor.signed.img to p6...
+  Source image size: 384.00 MiB
+Running: sudo dd if=/app/work/rpi5-aosp/out/target/product/rpi5/vendor.signed.img of=/dev/mapper/loop0p6 bs=1M conv=notrunc
+384+0 records in
+384+0 records out
+402653184 bytes (403 MB, 384 MiB) copied, 0.283474 s, 1.4 GB/s
+Creating filesystem on p7 with label metadata...
+Running: sudo mkfs.ext4 /dev/mapper/loop0p7 -I 512 -L metadata
+mke2fs 1.47.0 (5-Feb-2023)
+Discarding device blocks:    0/4096         done                            
+Creating filesystem with 4096 4k blocks and 4096 inodes
+
+Allocating group tables: 0/1   done                            
+Writing inode tables: 0/1   done                            
+Creating journal (1024 blocks): done
+Writing superblocks and filesystem accounting information: 0/1   done
+
+Copying /app/work/rpi5-aosp/out/target/product/rpi5/vbmeta.img to p8...
+  Source image size: 0.00 MiB
+Running: sudo dd if=/app/work/rpi5-aosp/out/target/product/rpi5/vbmeta.img of=/dev/mapper/loop0p8 bs=1M conv=notrunc
+0+1 records in
+0+1 records out
+2432 bytes (2.4 kB, 2.4 KiB) copied, 0.000103182 s, 23.6 MB/s
+Creating filesystem on p3 with label userdata...
+Running: sudo mkfs.ext4 /dev/mapper/loop0p3 -I 512 -L userdata
+mke2fs 1.47.0 (5-Feb-2023)
+Discarding device blocks:       0/2827003               done                            
+Creating filesystem with 2827003 4k blocks and 707136 inodes
+Filesystem UUID: d1e8fe5c-862d-46de-a6fe-ba8e4fee33ab
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208
+
+Allocating group tables:  0/87     done                            
+Writing inode tables:  0/87     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/87     done
+
+Cleaning up loop device...
+Running: sudo kpartx -d /dev/loop0
+Running: sudo losetup -d /dev/loop0
+  Changing ownership of /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img...
+Running: sudo chown ghalthot:ghalthot /app/work/sdcard/rpi5-uboot-aosp-signed-202604041653.img
+  Changed ownership to ghalthot:ghalthot
+  Cleanup completed successfully!
+[1;32mImage ready in:[0m [35m/app/work/sdcard/[0m[95mrpi5-uboot-aosp-signed-202604041653.img[0m
+
+[1;34mCompressing image to tar.gz [0m[1;34m([0m[1;34msplit by [0m[1;34m0.5[0m[1;34m GiB[0m[1;34m)[0m[1;34m...[0m
+Compressing rpi5-uboot-aosp-signed-202604041653.img to tar.gz split by 0.50 GiB ...

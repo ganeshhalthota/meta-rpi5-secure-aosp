@@ -20,7 +20,8 @@ function show_usage() {
 Usage: $0 [OPTIONS] [ARGS...]
 
 Options:
-  --build-binary    Build PyInstaller binary before running
+  --build-binary    Build PyInstaller binary before running (TODO: not yet implemented)
+  --pytest          Run pytest inside docker (ARGS are forwarded to pytest)
   --shell          Start interactive shell (default if no command)
   --help           Show this help message
 
@@ -32,7 +33,9 @@ Examples:
   $0 --shell                                   # Interactive shell
   $0 --stage sync --code aosp                  # Pass args to python app directly
   $0 --stage all                               # Full U-Boot + AOSP flow (default config auto-applied)
-  $0 --help                                    # Pass --help to python app directly
+  $0 --pytest                                  # Run all tests
+  $0 --pytest -q tests/test_main.py            # Run selected pytest targets/options
+  $0 --help                                    # Show this usage message
 
 EOF
 }
@@ -100,7 +103,12 @@ function start_container() {
         log_warn "  pip config: ${host_home}/.pip not found - pip commands may fail"
     fi
 
-    DOCKER_ARGS="-it --rm \
+    local docker_tty_args="--rm"
+    if [ "$INTERACTIVE" = true ]; then
+        docker_tty_args="-it --rm"
+    fi
+
+    DOCKER_ARGS="${docker_tty_args} \
         --name ${CONTAINER_NAME} \
         -v ${PROJECT_DIR}/docker/home:/home/${host_user} \
         ${ssh_mount[@]} \
@@ -124,6 +132,13 @@ function start_container() {
     if [ -z "$cmd" ] && [ "$INTERACTIVE" = true ]; then
         log_info "Starting interactive shell..."
         docker run ${DOCKER_ARGS} /bin/bash
+    elif [ "$RUN_PYTEST" = true ]; then
+        log_info "Executing pytest with args: ${PYTEST_ARGS[*]}"
+        docker run ${DOCKER_ARGS} \
+            /bin/bash -c "cd /app/ && \
+                          poetry lock && \
+                          poetry install && \
+                          poetry run pytest ${PYTEST_ARGS[*]}"
     else
         log_info "Executing python builder application with args: $cmd"
         docker run ${DOCKER_ARGS} \
@@ -155,13 +170,27 @@ IMAGE_NAME="rpi5-${DOCKERFILE_SHA:0:12}"
 
 # Parse arguments
 INTERACTIVE=false
+RUN_PYTEST=false
 COMMAND_ARGS=()
+PYTEST_ARGS=()
 
 while [[ $# -gt 0 ]]; do
     case $1 in
+        --help|-h)
+            show_usage
+            exit 0
+            ;;
         --shell)
             INTERACTIVE=true
             shift
+            ;;
+        --pytest)
+            RUN_PYTEST=true
+            shift
+            while [[ $# -gt 0 ]]; do
+                PYTEST_ARGS+=("$1")
+                shift
+            done
             ;;
         *)
             COMMAND_ARGS+=("$1")
@@ -170,10 +199,15 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+if [ "$INTERACTIVE" = true ] && [ "$RUN_PYTEST" = true ]; then
+    log_error "--shell and --pytest cannot be used together."
+    exit 1
+fi
+
 # If caller didn't pass --config, default to U-Boot-enabled project config.
 # This makes the standard full build path pick up U-Boot boot/script/config
 # changes (including serial console settings) without extra flags.
-if [ "$INTERACTIVE" = false ]; then
+if [ "$INTERACTIVE" = false ] && [ "$RUN_PYTEST" = false ]; then
     has_config=false
     for arg in "${COMMAND_ARGS[@]}"; do
         if [[ "$arg" == "--config" || "$arg" == --config=* ]]; then
@@ -192,4 +226,12 @@ fi
 check_and_build_image
 
 # Setup new container
-start_container "${COMMAND_ARGS[@]}"
+if [ "$RUN_PYTEST" = true ]; then
+    if [ ${#PYTEST_ARGS[@]} -eq 0 ]; then
+        # Keep default output concise and scope collection to this repo tests.
+        PYTEST_ARGS=(-q tests)
+    fi
+    start_container
+else
+    start_container "${COMMAND_ARGS[@]}"
+fi

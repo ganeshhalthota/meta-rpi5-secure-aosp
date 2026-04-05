@@ -1,10 +1,10 @@
 # Project TODO
 
-Last updated: 2026-04-03
+Last updated: 2026-04-04
 
 ## P0 (High Priority)
 
-- [ ] Finalize AVB algorithm refactor
+- [x] Finalize AVB algorithm refactor
   - Owner: Coding
   - Status check:
     - Implemented: split `sign_algorithm` and `hash_algorithm` in AVB tooling and sign stage.
@@ -16,16 +16,21 @@ Last updated: 2026-04-03
       - `src/meta_rpi5_secure_aosp/stages/sign.py` now classifies legacy `avb.algorithm` values:
         - sign token (`SHA*_RSA*`) -> treated as `sign_algorithm`
         - hash token (`sha*`) -> treated as `hash_algorithm`
-    - Remaining:
-      - Migrate legacy config `config/rpi5_aosp.yaml` from `avb.algorithm` to explicit `avb.sign_algorithm` + `avb.hash_algorithm`.
-      - Harden backward-compat logic in sign stage so legacy `algorithm` values like `SHA256_RSA4096` are not misinterpreted as a hash algorithm.
+    - Validation complete (2026-04-04):
+      - Full signing-flow validation executed for U-Boot signed config and migrated AOSP config path.
+      - Evidence captured in `logs/` and generated artifacts verified.
   - Validation tasks:
-    - [ ] Run signing flow using `config/rpi5_uboot_aosp.yaml` and verify `vbmeta.img` is produced.
-    - [ ] Run signing flow using migrated `config/rpi5_aosp.yaml` and verify no regression.
-    - [ ] Verify generated avbtool commands include correct `--algorithm` and `--hash_algorithm`.
+    - [x] Run signing flow using signing-enabled U-Boot config (`config/rpi5_uboot_aosp_signed.yaml`) and verify `vbmeta.img` is produced.
+    - [x] Run signing flow using migrated `config/rpi5_aosp.yaml` path (via temporary signing-enabled clone for sign-stage validation) and verify no regression.
+    - [x] Verify generated avbtool commands include correct `--algorithm` and `--hash_algorithm`.
   - Evidence to capture:
-    - command output logs for both config paths
-    - resulting image artifacts (`*.signed.img`, `vbmeta.img`)
+    - command output logs:
+      - `logs/2026-04-04-avb-refactor-validate-uboot-signed.log`
+      - `logs/2026-04-04-avb-refactor-validate-aosp-signcheck.log`
+    - resulting image artifacts:
+      - `work/rpi5-aosp/out/target/product/rpi5/system.signed.img`
+      - `work/rpi5-aosp/out/target/product/rpi5/vendor.signed.img`
+      - `work/rpi5-aosp/out/target/product/rpi5/vbmeta.img`
 
 - [ ] AVB validation test matrix on hardware (negative + positive cases)
   - Owner: Mixed (Coding + Validation)
@@ -123,15 +128,20 @@ Last updated: 2026-04-03
 
 ## P1 (Important)
 
-- [ ] Add automated regression coverage for AVB command construction
+- [x] Add automated regression coverage for AVB command construction
   - Owner: Coding
   - Target:
     - `src/meta_rpi5_secure_aosp/utils/avb.py`
     - `src/meta_rpi5_secure_aosp/stages/sign.py`
   - Goal: ensure command flags are stable for both new and legacy AVB config formats.
+  - Status check:
+    - Implemented: pytest coverage added for `utils/avb.py` command construction and `stages/sign.py` algorithm-resolution/flow paths.
+    - Validation complete (2026-04-05):
+      - Dockerized test run passes via `./scripts/docker_run.sh --pytest`.
+      - Current result: `38 passed`.
   - Validation tasks:
-    - [ ] Add tests for both config formats (`sign_algorithm/hash_algorithm` and legacy `algorithm`).
-    - [ ] Assert command strings include expected flags and values.
+    - [x] Add tests for both config formats (`sign_algorithm/hash_algorithm` and legacy `algorithm`).
+    - [x] Assert command strings include expected flags and values.
   - Evidence to capture:
     - test results output and changed test files
 

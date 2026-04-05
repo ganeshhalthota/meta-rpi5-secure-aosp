@@ -57,6 +57,10 @@ so the standard flow includes U-Boot integration (boot script/config + U-Boot SD
 # SD card image
 ./docker_run.sh --stage sdcard            # Generate bootable SD card image
 
+# Tests (inside Docker; no host Python toolchain required)
+./docker_run.sh --pytest                  # Run all repo tests under tests/
+./docker_run.sh --pytest -q tests/test_main.py  # Run selected tests/options
+
 # Complete workflow
 ./docker_run.sh --stage all               # Run sync + patch + build + sdcard
 
