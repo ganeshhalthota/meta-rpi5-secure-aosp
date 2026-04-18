@@ -1,0 +1,26 @@
+$ gdisk -l 2_secure_boot/rpi5-uboot-aosp-signed-202604070247.img
+GPT fdisk (gdisk) version 1.0.10
+
+Partition table scan:
+  MBR: protective
+  BSD: not present
+  APM: not present
+  GPT: present
+
+Found valid GPT with protective MBR; using GPT.
+Disk 2_secure_boot/rpi5-uboot-aosp-signed-202604070247.img: 29999104 sectors, 14.3 GiB
+Sector size (logical): 512 bytes
+Disk identifier (GUID): C2948EF5-C574-45A8-87ED-618551DCBDF0
+Partition table holds up to 128 entries
+Main partition table begins at sector 2 and ends at sector 33
+First usable sector is 34, last usable sector is 29999070
+Partitions will be aligned on 2048-sector boundaries
+Total free space is 2014 sectors (1007.0 KiB)
+
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1            2048          264191   128.0 MiB   EF00  boot
+   3         7383040        29999070   10.8 GiB    8300  userdata
+   5          264192         6555647   3.0 GiB     8300  system
+   6         6555648         7342079   384.0 MiB   8300  vendor
+   7         7342080         7374847   16.0 MiB    8300  metadata
+   8         7374848         7383039   4.0 MiB     8300  vbmeta

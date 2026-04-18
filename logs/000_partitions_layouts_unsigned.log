@@ -1,0 +1,17 @@
+$ fdisk -l 1_unsigned/rpi5-uboot-aosp-202604061818.img
+Disk 1_unsigned/rpi5-uboot-aosp-202604061818.img: 14.3 GiB, 15359541248 bytes, 29999104 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x0aed460a
+
+Device                                       Boot   Start      End  Sectors  Size Id Type
+1_unsigned/rpi5-uboot-aosp-202604061818.img1 *       2048   264191   262144  128M  c W95 FAT32 (LBA)
+1_unsigned/rpi5-uboot-aosp-202604061818.img2       264192  7383039  7118848  3.4G  5 Extended
+1_unsigned/rpi5-uboot-aosp-202604061818.img3      7383040 29999103 22616064 10.8G 83 Linux
+1_unsigned/rpi5-uboot-aosp-202604061818.img5       266240  6557695  6291456    3G 83 Linux
+1_unsigned/rpi5-uboot-aosp-202604061818.img6      6559744  7346175   786432  384M 83 Linux
+1_unsigned/rpi5-uboot-aosp-202604061818.img7      7348224  7380991    32768   16M 83 Linux
+
+Partition table entries are not in disk order.

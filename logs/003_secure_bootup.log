@@ -1,0 +1,546 @@
+
+  4.54 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.58 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4658322
+  4.68 AON_RESET: 00000003 PM_RSTS 00001000
+  4.72 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  4.82 RP1_BOOT chip ID: 0x20001927
+  4.86 PCIEx1: PWR 0 DET_WAKE 0
+  4.87 part 00000000 reset_info 00000000
+  4.90 PMIC reset-event 00000000 rtc 00000004 alarm 00000000 enabled 0
+  4.96 uSD voltage 3.3V
+  4.03 SDRAM_CONFIG: 1b
+  4.03 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  4.08 DDR 4267 1 1 128 152 BL:1
+  6.36 OTP boardrev e04171 bootrom a a
+  6.37 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  6.44 VC-JTAG unlocked
+  6.67 RP1_BOOT chip ID: 0x20001927
+
+  7.02 RP1_BOOT chip ID: 0x20001927
+  7.03 RP1_BOOT: fw size 46888
+  7.41 PCI2 init
+  7.41 PCI2 reset
+  7.85 PCIe scan 00001de4:00000001
+  7.86 RP1_CHIP_INFO 20001927
+
+  7.88 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  7.96 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 7796035
+  7.06 PCIEx1: PWR 0 DET_WAKE 0
+  7.08 M.2 PCIe HAT not detected.
+  7.33 usb_pd_init status 3
+  7.33 USB_PD CONFIG 0 41
+  7.13 XHCI-STOP
+  7.13 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.17 USBSTS 1
+  7.20 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.25 xHC0 ports 3 slots 64 intrs 4
+  7.37 XHCI-STOP
+  7.37 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.41 USBSTS 1
+  7.44 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.49 xHC1 ports 3 slots 64 intrs 4
+  7.56 USB-PD: src-cap PDO object1 0x0a0191f4
+  7.58 Current 5000 mA
+  7.60 Voltage 5000 mV
+  7.62 USB-PD: src-cap PDO object2 0x0002d12c
+  7.66 Current 3000 mA
+  7.68 Voltage 9000 mV
+  7.70 USB-PD: src-cap PDO object3 0x0003c0e1
+  7.74 Current 2250 mA
+  7.76 Voltage 12000 mV
+  7.78 USB-PD: src-cap PDO object4 0x0004b0b4
+  7.84 Current 1800 mA
+  7.86 Voltage 15000 mV
+  7.88 Boot mode: SD (01) order f4
+ 12.49 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+ 12.60 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+ 12.95 OCR c0ff8000 [198]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+ 12.05 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+ 12.12 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+ 12.24 MBR: 0x00000001,62333951 type: 0xee
+ 12.25 MBR: 0x00000000,       0 type: 0x00
+ 12.29 MBR: 0x00000000,       0 type: 0x00
+ 12.33 MBR: 0x00000000,       0 type: 0x00
+ 12.37 Trying partition: 0
+ 12.87 GPT f58e94c274c5a84587ed618551dcbdf0 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+ 12.95 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+ 12.02 Matched GUID bootable-part-idx 0 want partition 0
+ 12.09 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+ 12.13 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+ 12.22 FAT32 clusters 258078
+ 12.25 [sdcard] autoboot.txt not found
+ 12.26 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+ 12.32 Trying partition: 1
+ 12.37 GPT f58e94c274c5a84587ed618551dcbdf0 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+ 12.47 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+ 12.52 Matched GUID bootable-part-idx 0 want partition 0
+ 12.60 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+ 12.64 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+ 12.72 FAT32 clusters 258078
+ 12.77 Read config.txt bytes      642 hnd 0x1399e
+ 12.80 [sdcard] pieeprom.upd not found
+ 12.82 usb_max_current_enable default 0 max-current 5000
+ 12.94 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+ 12.97 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+ 13.03 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+ 13.17 Read /config.txt bytes      642 hnd 0x1399e
+ 13.23 Read /config.txt bytes      642 hnd 0x1399e
+ 13.28 MESS:00:00:13.028286:0: Initial voltage 800000 temp 33433
+ 13.28 MESS:00:00:13.228718:0: avs_2712: AVS pred 8682 868200 temp 35082
+ 13.32 MESS:00:00:13.232326:0: vpred 868 mV +0
+ 13.60 MESS:00:00:13.860587:0: FB framebuffer_swap 1
+ 13.62 MESS:00:00:13.862457:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+ 13.69 MESS:00:00:13.869347:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+ 13.89 MESS:00:00:13.889042:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+ 13.91 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+ 13.06 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+ 13.45 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x12152
+ 13.72 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x1245f
+ 13.95 MESS:00:00:13.995523:0: Loaded overlay 'bcm2712d0'
+ 14.59 PCIEx1: PWR 0 DET_WAKE 0
+ 14.76 Read /config.txt bytes      642 hnd 0x1399e
+ 14.87 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x121a9
+ 14.34 MESS:00:00:14.134084:0: Loaded overlay 'vc4-kms-v3d-pi5'
+ 14.48 Read /overlays/cma.dtbo bytes      964 hnd 0x1200f
+ 14.56 MESS:00:00:14.256299:0: Loaded overlay 'cma'
+ 14.58 MESS:00:00:14.258076:0: dtparam: cma-320=true
+ 14.76 Read /overlays/dwc2.dtbo bytes      801 hnd 0x120d2
+ 14.88 MESS:00:00:14.288283:0: Loaded overlay 'dwc2'
+ 14.90 MESS:00:00:14.290150:0: dtparam: dr_mode=peripheral
+ 14.79 Read /cmdline.txt bytes      176 hnd 0x11fbe
+ 14.16 BMD "armstub8-2712.bin" not found
+ 14.16 fs_open: 'armstub8-2712.bin' 
+ 14.20 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+ 14.64 Read u-boot.bin bytes   769928 hnd 0x133b7
+ 14.66 PCI1 reset
+ 14.77 PCI2 reset
+ 14.87 set_reboot_order 0
+ 14.88 set_reboot_arg1 0
+ 14.89 USB-OTG disconnect
+ 14.31 MESS:00:00:14.731558:0: BSC_A no ACK
+ 14.32 MESS:00:00:14.732790:0: BSC_A no ACK
+ 14.36 MESS:00:00:14.736716:0: BSC_A no ACK
+ 14.60 MESS:00:00:14.760653:0: BSC_B no ACK
+ 14.61 MESS:00:00:14.761879:0: BSC_B no ACK
+ 14.65 MESS:00:00:14.765814:0: BSC_B no ACK
+ 14.89 MESS:00:00:14.789582:0: Starting OS 14789 ms
+ 14.95 MESS:00:00:14.795195:0: 00000040: -> 00000480
+ 14.97 MESS:00:00:14.797048:0: 00000030: -> 00100080
+ 14.01 MESS:00:00:14.801761:0: 00000034: -> 00100080
+ 14.06 MESS:00:00:14.806473:0: 00000038: -> 00100080
+ 14.11 MESS:00:00:14.811186:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-g7fa3be7eedb5-dirty (Apr 07 2026 - 01:17:21 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+USB DWC2
+Bus usb@480000: 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 1Hit any key to stop autoboot: 0
+No EFI variables loaded
+** Booting bootflow '<NULL>' with efi_mgr
+Loading Boot0000 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14)
+** Booting bootflow 'mmc@fff000.bootdev.part_1' with script
+=== Android U-Boot Boot Script (AVB) ===
+Setting AVB policy to default: fail_closed
+AVB fail policy: fail_closed
+Initializing AVB...
+Verifying partitions...
+## Android Verified Boot 2.0 version 1.1.0
+Verification passed successfully
+AVB: Verification PASSED
+Loading kernel Image...
+37157376 bytes read in 1595 ms (22.2 MiB/s)
+Loading ramdisk...
+1326049 bytes read in 59 ms (21.4 MiB/s)
+Booting Android with AVB verification...
+Moving Image from 0x80000 to 0x200000, end=0x2640000
+## Flattened Device Tree blob at 3f722390
+   Booting using the fdt blob at 0x3f722390
+Working FDT set to 3f722390
+   Loading Ramdisk to 1febc000, end 1ffffbe1 ... OK
+   Loading Device Tree to 000000001fea5000, end 000000001febb9f1 ... OK
+Working FDT set to 1fea5000
+
+Starting kernel ...
+
+[    0.704530] bcm7271-uart 107d50c000.serial: error -EINVAL: unable to register 8250 port
+[    0.712578] bcm7271-uart 107d50c000.serial: probe with driver bcm7271-uart failed with error -22
+[    1.531577] init: Do not have permissions to set 'ro.boot.audio.tinyalsa.simulate_input' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    1.546948] init: Do not have permissions to set 'persist.bluetooth.a2dp_aac.vbr_supported' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    3.615755] logd: FrameworkListener: read() failed (Connection reset by peer)
+[    6.112888] WARNING: Unprivileged eBPF is enabled, data leaks possible via Spectre v2 BHB attacks!
+[    9.616383] logd: HexToBytes: Invalid characters: ", /
+[   27.270250] apexd: Native process 'vendor.media.c2.ffmpeg' is crashing. Attempting a revert
+[   27.278727] apexd: Revert failed : Revert requested, when there are no active sessions.
+[   56.689166] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[   62.282624] SELinux: avc:  denied  { add } for pid=2056 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   62.310355] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[   67.275332] SELinux: avc:  denied  { add } for pid=2186 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   67.304135] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[   72.287998] SELinux: avc:  denied  { add } for pid=2315 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   72.316315] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[   77.279443] SELinux: avc:  denied  { add } for pid=2444 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   77.307957] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[   82.295846] SELinux: avc:  denied  { add } for pid=2574 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   82.323639] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[   87.298227] SELinux: avc:  denied  { add } for pid=2705 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   87.326658] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[   92.298824] SELinux: avc:  denied  { add } for pid=2834 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   92.423490] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[   92.797105] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[   96.717992] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[   97.299846] SELinux: avc:  denied  { add } for pid=2963 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   97.424623] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[   97.856636] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  102.321273] SELinux: avc:  denied  { add } for pid=3093 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  102.426873] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  102.840717] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  107.315471] SELinux: avc:  denied  { add } for pid=3222 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  107.848331] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  112.320706] SELinux: avc:  denied  { add } for pid=3350 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  112.853433] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  116.750823] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[  117.312963] SELinux: avc:  denied  { add } for pid=3480 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  117.869101] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  126.735351] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[  128.259365] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  133.259925] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  138.265436] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  138.316748] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  143.247051] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  143.322746] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  148.256518] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  148.375964] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  153.367819] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  163.313564] SELinux: avc:  denied  { find } for pid=4634 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  163.385591] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_0/pid_4629/cgroup.kill: No such file or directory
+[  163.397544] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_0/pid_4629/cgroup.procs: No such file or directory
+[  168.350037] SELinux: avc:  denied  { find } for pid=4762 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  168.406716] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  173.331649] SELinux: avc:  denied  { find } for pid=4895 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  178.323067] SELinux: avc:  denied  { find } for pid=5036 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  183.318947] SELinux: avc:  denied  { find } for pid=5154 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  183.446299] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1041/pid_5234/cgroup.kill: No such file or directory
+[  183.457937] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_1041/pid_5234/cgroup.procs: No such file or directory
+[  188.340081] SELinux: avc:  denied  { find } for pid=5284 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  188.452107] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1047/pid_5266/cgroup.kill: No such file or directory
+[  188.463740] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_1047/pid_5266/cgroup.procs: No such file or directory
+[  188.475318] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1013/pid_5267/cgroup.kill: No such file or directory
+[  193.331524] SELinux: avc:  denied  { find } for pid=5412 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  193.490134] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  198.492938] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  203.495226] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  209.497852] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  214.501294] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  215.501489] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  216.501805] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  219.503812] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  220.504083] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  221.504384] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  224.506061] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  225.506355] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  226.506672] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  227.386458] SELinux: avc:  denied  { add } for pid=6334 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  229.509941] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  230.510097] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  231.510321] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  232.398541] SELinux: avc:  denied  { add } for pid=6463 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  234.513462] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  235.513597] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  236.513784] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  237.381831] SELinux: avc:  denied  { add } for pid=6592 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  239.515308] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  240.515658] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  241.515910] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  242.381863] SELinux: avc:  denied  { add } for pid=6722 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  244.517456] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  245.517620] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  246.517886] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  247.396759] SELinux: avc:  denied  { add } for pid=6852 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  249.519466] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  250.519757] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  251.520112] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  252.390549] SELinux: avc:  denied  { add } for pid=6981 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  255.521913] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  256.522140] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  257.410602] SELinux: avc:  denied  { add } for pid=7110 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  260.524850] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  261.525217] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  262.414026] SELinux: avc:  denied  { add } for pid=7240 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  265.527782] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  266.528047] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  267.435888] SELinux: avc:  denied  { add } for pid=7368 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  270.532830] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  271.533036] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  272.408998] SELinux: avc:  denied  { add } for pid=7496 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  275.534782] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  276.534982] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  277.413821] SELinux: avc:  denied  { add } for pid=7626 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  281.538140] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  282.414481] SELinux: avc:  denied  { add } for pid=7756 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  286.540820] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  287.407199] SELinux: avc:  denied  { add } for pid=7887 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  291.543052] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  311.807662] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[  333.373987] SELinux: avc:  denied  { find } for pid=9031 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  343.407571] SELinux: avc:  denied  { find } for pid=9290 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  347.449990] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  348.377220] SELinux: avc:  denied  { find } for pid=9433 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  352.452771] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  353.380940] SELinux: avc:  denied  { find } for pid=9549 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  357.453598] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  358.386227] SELinux: avc:  denied  { find } for pid=9681 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  362.473697] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  363.415926] SELinux: avc:  denied  { find } for pid=9810 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  367.488637] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  372.582331] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  373.004717] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  376.830584] selinux: SELinux: Could not get canonical path for /sys/devices/virtual/net/ipsec_test/queues/tx-0 restorecon: No such file or directory.
+[  376.844301] ueventd: selinux_android_restorecon(/sys/devices/virtual/net/ipsec_test/queues/tx-0) failed: No such file or directory
+[  377.584375] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  377.953324] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  381.841126] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[  382.586357] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  382.984749] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  387.940905] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  392.977643] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  398.012920] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  408.374351] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  412.470044] SELinux: avc:  denied  { add } for pid=11127 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  413.364812] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  417.501052] SELinux: avc:  denied  { add } for pid=11257 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  418.389081] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  418.435479] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  422.489320] SELinux: avc:  denied  { add } for pid=11388 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  423.372071] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  423.467850] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  427.500697] SELinux: avc:  denied  { add } for pid=11519 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  428.379896] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  428.466386] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  432.493879] SELinux: avc:  denied  { add } for pid=11650 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  433.396401] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  433.455711] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  437.501952] SELinux: avc:  denied  { add } for pid=11780 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  438.479588] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  442.496743] SELinux: avc:  denied  { add } for pid=11911 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  443.483654] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  443.498517] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1000/pid_11972/cgroup.kill: No such file or directory
+[  443.510451] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_1000/pid_11972/cgroup.procs: No such file or directory
+[  447.499634] SELinux: avc:  denied  { add } for pid=12043 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  452.505626] SELinux: avc:  denied  { add } for pid=12172 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  453.503327] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_0/pid_12148/cgroup.kill: No such file or directory
+[  453.515223] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_0/pid_12148/cgroup.procs: No such file or directory
+[  457.508075] SELinux: avc:  denied  { add } for pid=12300 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  462.489031] SELinux: avc:  denied  { add } for pid=12429 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  467.498391] SELinux: avc:  denied  { add } for pid=12557 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  468.626245] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  468.718329] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  472.508998] SELinux: avc:  denied  { add } for pid=12689 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  474.628785] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  479.630692] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  484.632982] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  489.636054] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  490.636228] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  491.636502] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  494.638078] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  495.638292] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  496.638578] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  499.640209] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  500.640357] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  501.640685] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  504.642234] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  505.642410] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  506.642647] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  509.644066] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  510.644188] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  511.644542] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  514.646146] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  515.646337] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  516.646656] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  519.648270] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  520.648474] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  521.648665] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  524.650416] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  525.650541] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  526.650822] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  529.652266] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  530.652493] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  531.652799] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  533.487332] SELinux: avc:  denied  { find } for pid=14232 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  534.654304] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  535.654465] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  536.654675] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  538.486665] SELinux: avc:  denied  { find } for pid=14362 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  540.656461] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  541.656677] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  543.482982] SELinux: avc:  denied  { find } for pid=14480 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  545.658465] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  546.658773] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  548.478602] SELinux: avc:  denied  { find } for pid=14621 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  551.660553] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  556.662637] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  602.557339] SELinux: avc:  denied  { add } for pid=16050 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  607.554368] SELinux: avc:  denied  { add } for pid=16179 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  612.572960] SELinux: avc:  denied  { add } for pid=16308 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  617.565769] SELinux: avc:  denied  { add } for pid=16439 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  622.557609] SELinux: avc:  denied  { add } for pid=16568 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  627.576827] SELinux: avc:  denied  { add } for pid=16697 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  632.585156] SELinux: avc:  denied  { add } for pid=16828 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  637.563191] SELinux: avc:  denied  { add } for pid=16956 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  637.590874] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  642.591857] SELinux: avc:  denied  { add } for pid=17085 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  647.571640] SELinux: avc:  denied  { add } for pid=17214 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  647.599222] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  652.594801] SELinux: avc:  denied  { add } for pid=17342 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  652.623710] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  657.586038] SELinux: avc:  denied  { add } for pid=17470 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  657.613439] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  662.602948] SELinux: avc:  denied  { add } for pid=17600 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  662.630578] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  667.612411] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  672.718135] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  673.129387] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  677.719994] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  678.112697] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  683.100670] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  693.511082] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  698.490811] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  698.550950] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  703.492974] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  703.555060] SELinux: avc:  denied  { find } for pid=18628 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  703.610056] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  706.960128] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[  708.498488] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  708.572980] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  711.980467] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[  713.524906] SELinux: avc:  denied  { find } for pid=18890 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  713.580120] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  713.594201] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1000/pid_18959/cgroup.kill: No such file or directory
+[  713.606133] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_1000/pid_18959/cgroup.procs: No such file or directory
+[  718.527678] SELinux: avc:  denied  { find } for pid=19020 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  718.586084] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1000/pid_19089/cgroup.kill: No such file or directory
+[  718.597815] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_1000/pid_19089/cgroup.procs: No such file or directory
+[  723.530879] SELinux: avc:  denied  { find } for pid=19150 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  723.587064] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  728.533753] SELinux: avc:  denied  { find } for pid=19278 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  728.591149] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1000/pid_19349/cgroup.kill: No such file or directory
+[  728.602902] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_1000/pid_19349/cgroup.procs: No such file or directory
+[  728.628814] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_0/pid_19264/cgroup.kill: No such file or directory
+[  731.998791] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test/queues/rx-0: No such file or directory.
+[  733.567772] SELinux: avc:  denied  { find } for pid=19409 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  733.620747] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  738.553772] SELinux: avc:  denied  { find } for pid=19537 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  738.631426] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_0/pid_19520/cgroup.kill: No such file or directory
+[  738.643071] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_0/pid_19520/cgroup.procs: No such file or directory
+[  743.538883] SELinux: avc:  denied  { find } for pid=19667 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  748.576502] SELinux: avc:  denied  { find } for pid=19798 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  748.649785] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_0/pid_19779/cgroup.kill: No such file or directory
+[  748.661274] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_0/pid_19779/cgroup.procs: No such file or directory
+[  758.656788] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1047/pid_20028/cgroup.kill: No such file or directory
+[  758.668538] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_1047/pid_20028/cgroup.procs: No such file or directory
+[  758.680261] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1013/pid_20029/cgroup.kill: No such file or directory
+[  763.755555] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  773.762680] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  779.766132] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  784.768144] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  789.769953] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  792.647503] SELinux: avc:  denied  { add } for pid=20971 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  794.772010] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  797.654279] SELinux: avc:  denied  { add } for pid=21100 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  799.773951] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  802.649770] SELinux: avc:  denied  { add } for pid=21230 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  804.775960] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  805.776252] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  806.776531] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  807.674509] SELinux: avc:  denied  { add } for pid=21358 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  809.778135] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  810.778445] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  811.778732] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  812.668422] SELinux: avc:  denied  { add } for pid=21487 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  814.780303] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  815.780608] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  816.781013] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  817.689825] SELinux: avc:  denied  { add } for pid=21615 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  819.782533] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  820.782751] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  821.782975] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  822.678622] SELinux: avc:  denied  { add } for pid=21743 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  824.784332] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  825.784524] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  826.784892] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  827.017978] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[  827.672632] SELinux: avc:  denied  { add } for pid=21871 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  829.786364] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  830.786559] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  831.786756] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  832.665030] SELinux: avc:  denied  { add } for pid=22000 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  834.788323] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  835.788596] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  836.788919] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  837.672254] SELinux: avc:  denied  { add } for pid=22129 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  839.790480] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  840.790661] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  841.790898] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  842.682488] SELinux: avc:  denied  { add } for pid=22259 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  844.792469] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  845.792618] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  846.792939] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  847.682484] SELinux: avc:  denied  { add } for pid=22387 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  849.794362] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  850.794652] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  851.794925] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  852.688427] SELinux: avc:  denied  { add } for pid=22515 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  855.796834] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  856.797152] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  857.672712] SELinux: avc:  denied  { add } for pid=22644 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  860.798859] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  861.799330] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  862.707657] SELinux: avc:  denied  { add } for pid=22774 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  866.801119] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  867.712049] SELinux: avc:  denied  { add } for pid=22903 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  871.802941] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  918.632931] SELinux: avc:  denied  { find } for pid=24183 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  923.613252] SELinux: avc:  denied  { find } for pid=24313 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  928.614004] SELinux: avc:  denied  { find } for pid=24443 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  933.616277] SELinux: avc:  denied  { find } for pid=24571 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  937.079820] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[  937.722965] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  938.632971] SELinux: avc:  denied  { find } for pid=24701 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  942.757306] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  943.652011] SELinux: avc:  denied  { find } for pid=24829 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  952.740382] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  957.739081] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  962.755442] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  967.732590] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  972.738330] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  977.744149] SELinux: avc:  denied  { add } for pid=25742 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  977.773563] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  982.751124] SELinux: avc:  denied  { add } for pid=25871 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  982.778869] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  987.744833] SELinux: avc:  denied  { add } for pid=26000 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  987.851067] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  988.244847] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  992.740210] SELinux: avc:  denied  { add } for pid=26129 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  992.853034] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
+[  993.193145] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 335 (/system/bin/servicemanager)
