@@ -1,0 +1,613 @@
+
+  4.52 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.56 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4656809
+  4.66 AON_RESET: 00000003 PM_RSTS 00001000
+  4.70 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  4.80 RP1_BOOT chip ID: 0x20001927
+  4.85 PCIEx1: PWR 0 DET_WAKE 0
+  4.85 part 00000000 reset_info 00000000
+  4.89 PMIC reset-event 00000000 rtc 00000004 alarm 00000000 enabled 0
+  4.95 uSD voltage 3.3V
+  4.01 SDRAM_CONFIG: 1b
+  4.01 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  4.07 DDR 4267 1 1 128 152 BL:1
+  6.46 OTP boardrev e04171 bootrom a a
+  6.47 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  6.54 VC-JTAG unlocked
+  6.77 RP1_BOOT chip ID: 0x20001927
+
+  7.12 RP1_BOOT chip ID: 0x20001927
+  7.12 RP1_BOOT: fw size 46888
+  7.50 PCI2 init
+  7.50 PCI2 reset
+  7.95 PCIe scan 00001de4:00000001
+  7.96 RP1_CHIP_INFO 20001927
+
+  7.98 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  7.05 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 7805797
+  7.15 PCIEx1: PWR 0 DET_WAKE 0
+  7.18 M.2 PCIe HAT not detected.
+  7.42 usb_pd_init status 3
+  7.43 USB_PD CONFIG 0 41
+  7.22 XHCI-STOP
+  7.22 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.27 USBSTS 1
+  7.29 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.34 xHC0 ports 3 slots 64 intrs 4
+  7.46 XHCI-STOP
+  7.46 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.51 USBSTS 1
+  7.53 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.58 xHC1 ports 3 slots 64 intrs 4
+  7.66 USB-PD: src-cap PDO object1 0x0a0191f4
+  7.67 Current 5000 mA
+  7.69 Voltage 5000 mV
+  7.71 USB-PD: src-cap PDO object2 0x0002d12c
+  7.75 Current 3000 mA
+  7.78 Voltage 9000 mV
+  7.80 USB-PD: src-cap PDO object3 0x0003c0e1
+  7.84 Current 2250 mA
+  7.88 Voltage 12000 mV
+  7.90 USB-PD: src-cap PDO object4 0x0004b0b4
+  7.92 Current 1800 mA
+  7.95 Voltage 15000 mV
+  7.97 Boot mode: SD (01) order f4
+ 12.59 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+ 12.70 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+ 12.06 OCR c0ff8000 [200]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+ 12.16 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+ 12.23 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+ 12.35 MBR: 0x00000001,62333951 type: 0xee
+ 12.36 MBR: 0x00000000,       0 type: 0x00
+ 12.40 MBR: 0x00000000,       0 type: 0x00
+ 12.44 MBR: 0x00000000,       0 type: 0x00
+ 12.47 Trying partition: 0
+ 12.98 GPT 22b77280fa3af947ae346cef1d8a3131 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+ 12.05 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+ 12.12 Matched GUID bootable-part-idx 0 want partition 0
+ 12.20 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+ 12.24 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+ 12.32 FAT32 clusters 258078
+ 12.36 [sdcard] autoboot.txt not found
+ 12.37 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+ 12.43 Trying partition: 1
+ 12.48 GPT 22b77280fa3af947ae346cef1d8a3131 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+ 12.58 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+ 12.63 Matched GUID bootable-part-idx 0 want partition 0
+ 12.71 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+ 12.75 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+ 12.83 FAT32 clusters 258078
+ 12.88 Read config.txt bytes      642 hnd 0x13b7f
+ 12.91 [sdcard] pieeprom.upd not found
+ 12.93 usb_max_current_enable default 0 max-current 5000
+ 13.05 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+ 13.07 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+ 13.13 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+ 13.27 Read /config.txt bytes      642 hnd 0x13b7f
+ 13.33 Read /config.txt bytes      642 hnd 0x13b7f
+ 13.38 MESS:00:00:13.038318:0: Initial voltage 800000 temp 31235
+ 13.38 MESS:00:00:13.238751:0: avs_2712: AVS pred 8632 863200 temp 32334
+ 13.42 MESS:00:00:13.242358:0: vpred 863 mV +0
+ 13.70 MESS:00:00:13.870623:0: FB framebuffer_swap 1
+ 13.72 MESS:00:00:13.872494:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+ 13.79 MESS:00:00:13.879383:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+ 13.99 MESS:00:00:13.899032:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+ 13.01 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+ 13.15 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+ 13.52 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x12152
+ 13.80 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x1245f
+ 14.03 MESS:00:00:14.003231:0: Loaded overlay 'bcm2712d0'
+ 14.67 PCIEx1: PWR 0 DET_WAKE 0
+ 14.84 Read /config.txt bytes      642 hnd 0x13b7f
+ 14.94 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x121a9
+ 14.41 MESS:00:00:14.141244:0: Loaded overlay 'vc4-kms-v3d-pi5'
+ 14.54 Read /overlays/cma.dtbo bytes      964 hnd 0x1200f
+ 14.62 MESS:00:00:14.262796:0: Loaded overlay 'cma'
+ 14.64 MESS:00:00:14.264572:0: dtparam: cma-320=true
+ 14.81 Read /overlays/dwc2.dtbo bytes      801 hnd 0x120d2
+ 14.93 MESS:00:00:14.293925:0: Loaded overlay 'dwc2'
+ 14.95 MESS:00:00:14.295792:0: dtparam: dr_mode=peripheral
+ 14.84 Read /cmdline.txt bytes      176 hnd 0x11fbe
+ 14.21 BMD "armstub8-2712.bin" not found
+ 14.22 fs_open: 'armstub8-2712.bin' 
+ 14.25 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+ 14.70 Read u-boot.bin bytes   769928 hnd 0x13598
+ 14.72 PCI1 reset
+ 14.83 PCI2 reset
+ 14.93 set_reboot_order 0
+ 14.93 set_reboot_arg1 0
+ 14.95 USB-OTG disconnect
+ 14.36 MESS:00:00:14.736979:0: BSC_A no ACK
+ 14.38 MESS:00:00:14.738212:0: BSC_A no ACK
+ 14.42 MESS:00:00:14.742137:0: BSC_A no ACK
+ 14.66 MESS:00:00:14.766071:0: BSC_B no ACK
+ 14.67 MESS:00:00:14.767298:0: BSC_B no ACK
+ 14.71 MESS:00:00:14.771233:0: BSC_B no ACK
+ 14.95 MESS:00:00:14.795000:0: Starting OS 14794 ms
+ 14.00 MESS:00:00:14.800612:0: 00000040: -> 00000480
+ 14.02 MESS:00:00:14.802465:0: 00000030: -> 00100080
+ 14.07 MESS:00:00:14.807178:0: 00000034: -> 00100080
+ 14.11 MESS:00:00:14.811891:0: 00000038: -> 00100080
+ 14.16 MESS:00:00:14.816604:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-gb6df74e193b5-dirty (Apr 19 2026 - 06:59:47 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+USB DWC2
+Bus usb@480000: 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 1Hit any key to stop autoboot: 0
+No EFI variables loaded
+** Booting bootflow '<NULL>' with efi_mgr
+Loading Boot0000 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14)
+** Booting bootflow 'mmc@fff000.bootdev.part_1' with script
+=== Android U-Boot Boot Script (AVB) ===
+Setting AVB policy to default: fail_closed
+AVB fail policy: fail_closed
+Initializing AVB...
+Verifying partitions...
+## Android Verified Boot 2.0 version 1.1.0
+Verification passed successfully
+AVB: Verification PASSED
+Loading kernel Image...
+37157376 bytes read in 1594 ms (22.2 MiB/s)
+Loading ramdisk...
+1572029 bytes read in 70 ms (21.4 MiB/s)
+bootargs:  root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=enforcing quiet loglevel=4 androidboot.boot_part_uuid=e535c664-ce6a-4237-b68a-ef958162bb5d androidboot.vbmeta.device=PARTUUID=866cad12-c0f2-4641-85dc-4e7d7100e274 androidboot.vbmeta.avb_version=1.1 androidboot.vbmeta.device_state=unlocked androidboot.vbmeta.hash_alg=sha256 androidboot.vbmeta.size=2432 androidboot.vbmeta.digest=3b1c6100bb8896f0b5c2ffd2b9f59b4b1e258bb3c9025659b57be6c061bbdd63 androidboot.vbmeta.invalidate_on_error=yes androidboot.veritymode=enforcing androidboot.verifiedbootstate=orange   androidboot.fde_mode=enabled
+Booting Android with AVB verification...
+Moving Image from 0x80000 to 0x200000, end=0x2640000
+## Flattened Device Tree blob at 3f722390
+   Booting using the fdt blob at 0x3f722390
+Working FDT set to 3f722390
+   Loading Ramdisk to 1fe80000, end 1ffffcbd ... OK
+   Loading Device Tree to 000000001fe69000, end 000000001fe7f9f1 ... OK
+Working FDT set to 1fe69000
+
+Starting kernel ...
+
+[    0.704854] bcm7271-uart 107d50c000.serial: error -EINVAL: unable to register 8250 port
+[    0.712899] bcm7271-uart 107d50c000.serial: probe with driver bcm7271-uart failed with error -22
+[    1.649773] init: Do not have permissions to set 'ro.boot.audio.tinyalsa.simulate_input' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    1.665347] init: Do not have permissions to set 'persist.bluetooth.a2dp_aac.vbr_supported' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+console:/ $ [    3.820414] logd: Cannot read /data/misc/logd/event-log-tags
+[    3.826866] logd: FrameworkListener: read() failed (Connection reset by peer)
+[    6.462497] WARNING: Unprivileged eBPF is enabled, data leaks possible via Spectre v2 BHB attacks!
+[    6.879699] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[   10.129207] logd: HexToBytes: Invalid characters: ", /
+[   27.655466] apexd: Native process 'vendor.media.c2.ffmpeg' is crashing. Attempting a revert
+[   27.664046] apexd: Revert failed : Revert requested, when there are no active sessions.
+[   47.674383] SELinux: avc:  denied  { add } for pid=1734 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+getprop ro.boot.verifiedbootstate
+ro.boot.vorange
+bmconsole:/ $ getprop ro.boot.vbmeta.device_state
+op unlocked
+ro.boconsole:/ $ getprop ro.boot.flash.locked
+op r
+console:/ $ getprop ro.boot.avb_version
+rop r1.3
+console:/ $ getprop ro.boot.vbmeta.digest
+prop3b1c6100bb8896f0b5c2ffd2b9f59b4b1e258bb3c9025659b57be6c061bbdd63
+ ro.crypconsole:/ $ getprop ro.crypto.state
+p runsupported
+o.crypconsole:/ $ getprop ro.crypto.type
+rop
+console:/ $ getprop ro.crypto.volume.filenames_mode
+
+console:/ $ [   52.672488] SELinux: avc:  denied  { add } for pid=1880 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+
+console:/ $ 
+console:/ $ [   57.670845] SELinux: avc:  denied  { add } for pid=2016 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+
+console:/ $ console:/ $ getprop ro.crypto.volume.filenames_mode                            console:/ $ getprop ro.crypto.type                                             console:/ $ getprop ro.crypto.state                                            console:/ $ getprop ro.boot.vbmeta.digest                                      console:/ $ getprop ro.boot.avb_version                                        console:/ $ getprop ro.boot.flash.locked                                       console:/ $ getprop ro.boot.vbmeta.device_state                                console:/ $ getprop ro.boot.verifiedbootstate                                  [   62.695613] SELinux: avc:  denied  { add } for pid=2154 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+
+orange
+console:/ $ console:/ $ getprop ro.boot.verifiedbootstate                                  console:/ $ getprop ro.crypto.volume.filenames_mode                            console:/ $ getprop ro.crypto.type                                             console:/ $ getprop ro.crypto.state                                            console:/ $ getprop ro.boot.vbmeta.digest                                      console:/ $ getprop ro.boot.avb_version                                        console:/ $ getprop ro.boot.flash.locked                                       [   67.674450] SELinux: avc:  denied  { add } for pid=2294 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+console:/ $ getprop ro.boot.vbmeta.device_state                                
+unlocked
+console:/ $ [   72.693142] SELinux: avc:  denied  { add } for pid=2433 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+console:/ $ getprop ro.boot.vbmeta.device_state                                console:/ $ getprop ro.boot.verifiedbootstate                                  console:/ $ getprop ro.crypto.volume.filenames_mode                            console:/ $ getprop ro.crypto.type                                             console:/ $ getprop ro.crypto.state                                            console:/ $ getprop ro.boot.vbmeta.digest                                      console:/ $ getprop ro.boot.avb_version                                        console:/ $ getprop ro.boot.flash.locked                                       console:/ $ getprop ro.boot.vbmeta.device_state                                [   77.683791] SELinux: avc:  denied  { add } for pid=2571 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   77.711503] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+console:/ $ getprop ro.boot.flash.locked                                       
+
+console:/ $ [   82.687568] SELinux: avc:  denied  { add } for pid=2710 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   87.686363] SELinux: avc:  denied  { add } for pid=2847 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   87.713798] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[   92.698596] SELinux: avc:  denied  { add } for pid=2985 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   92.726515] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[   97.709904] SELinux: avc:  denied  { add } for pid=3121 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[   97.745494] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  102.702666] SELinux: avc:  denied  { add } for pid=3259 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  102.729747] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  107.713266] SELinux: avc:  denied  { add } for pid=3396 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  107.741277] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  112.716702] SELinux: avc:  denied  { add } for pid=3535 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  112.744487] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  117.707081] SELinux: avc:  denied  { add } for pid=3672 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  117.734963] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  122.714908] SELinux: avc:  denied  { add } for pid=3808 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  122.743030] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  127.726534] SELinux: avc:  denied  { add } for pid=3947 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  127.754516] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  132.731942] init: process with updatable components 'vendor.media.c2.ffmpeg' exited 4 times before boot completed
+[  137.881511] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  138.248188] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  142.883636] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  143.212752] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  147.887168] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  148.264745] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  152.888138] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  153.244596] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  157.152097] selinux: SELinux: Could not get canonical path for /sys/devices/virtual/net/ipsec_test/queues/rx-0 restorecon: No such file or directory.
+[  157.167009] ueventd: selinux_android_restorecon(/sys/devices/virtual/net/ipsec_test/queues/rx-0) failed: No such file or directory
+[  157.891013] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  158.213297] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  163.472942] SELinux: avc:  denied  { find } for pid=4887 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  168.400697] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  173.395410] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  173.429632] SELinux: avc:  denied  { find } for pid=5177 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  173.490370] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  178.388504] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  178.434198] SELinux: avc:  denied  { find } for pid=5304 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  178.677165] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  183.402830] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  183.430719] SELinux: avc:  denied  { find } for pid=5444 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  183.490967] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  188.430111] SELinux: avc:  denied  { find } for pid=5583 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  188.491634] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  193.432938] SELinux: avc:  denied  { find } for pid=5722 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  193.497131] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1000/pid_5805/cgroup.kill: No such file or directory
+[  193.508834] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_1000/pid_5805/cgroup.procs: No such file or directory
+[  193.535505] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_0/pid_5715/cgroup.kill: No such file or directory
+[  197.164359] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[  198.458455] SELinux: avc:  denied  { find } for pid=5858 uid=1000 name=android.hardware.graphics.allocator.IAllocator/default scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:hal_graphics_allocator_service:s0 tclass=service_manager permissive=0
+[  198.521027] init: process with updatable components 'vendor.hwcomposer-3' exited 4 times before boot completed
+[  213.921980] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  218.924978] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  223.929712] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  228.932931] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  229.933291] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  230.933483] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  233.936097] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  234.936375] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  235.936732] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  239.938523] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  240.938735] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  241.939008] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  242.794953] SELinux: avc:  denied  { add } for pid=7121 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  244.940434] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  245.940657] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  246.941144] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  247.770637] SELinux: avc:  denied  { add } for pid=7258 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  249.943984] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  250.944313] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  251.944685] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  252.787761] SELinux: avc:  denied  { add } for pid=7395 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  254.948461] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  255.948737] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  256.949026] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  257.794743] SELinux: avc:  denied  { add } for pid=7533 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  259.951430] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  260.951645] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  261.951939] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  262.786360] SELinux: avc:  denied  { add } for pid=7671 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  264.953391] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  265.953774] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  266.954036] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  267.797515] SELinux: avc:  denied  { add } for pid=7809 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  269.956809] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  270.957116] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  271.957432] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  272.786542] SELinux: avc:  denied  { add } for pid=7946 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+[  274.960382] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  275.960704] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  276.961036] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 336 (/system/bin/servicemanager)
+[  277.800316] SELinux: avc:  denied  { add } for pid=8082 uid=1013 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediacodec:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=0
+
+  4.57 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.61 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4661916
+  4.71 AON_RESET: 00000003 PM_RSTS 00001000
+  4.75 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  4.85 RP1_BOOT chip ID: 0x20001927
+  4.90 PCIEx1: PWR 0 DET_WAKE 0
+  4.90 part 00000000 reset_info 00000000
+  4.94 PMIC reset-event 00000000 rtc 00000004 alarm 00000000 enabled 0
+  4.00 uSD voltage 3.3V
+  4.06 SDRAM_CONFIG: 1b
+  4.07 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  4.12 DDR 4267 1 1 128 152 BL:1
+  6.68 OTP boardrev e04171 bootrom a a
+  6.69 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  6.77 VC-JTAG unlocked
+  6.99 RP1_BOOT chip ID: 0x20001927
+
+  7.35 RP1_BOOT chip ID: 0x20001927
+  7.35 RP1_BOOT: fw size 46888
+  7.73 PCI2 init
+  7.73 PCI2 reset
+  7.18 PCIe scan 00001de4:00000001
+  7.18 RP1_CHIP_INFO 20001927
+
+  7.21 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  7.28 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 7828401
+  7.38 PCIEx1: PWR 0 DET_WAKE 0
+  7.41 M.2 PCIe HAT not detected.
+  7.65 usb_pd_init status 3
+  7.65 USB_PD CONFIG 0 41
+  7.37 XHCI-STOP
+  7.37 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.41 USBSTS 1
+  7.44 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.49 xHC0 ports 3 slots 64 intrs 4
+  7.61 XHCI-STOP
+  7.61 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.65 USBSTS 1
+  7.68 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  7.73 xHC1 ports 3 slots 64 intrs 4
+  7.80 Boot mode: SD (01) order f4
+ 12.40 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+ 12.51 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+ 12.86 OCR c0ff8000 [199]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+ 12.96 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+ 12.03 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+ 12.15 MBR: 0x00000001,62333951 type: 0xee
+ 12.16 MBR: 0x00000000,       0 type: 0x00
+ 12.20 MBR: 0x00000000,       0 type: 0x00
+ 12.24 MBR: 0x00000000,       0 type: 0x00
+ 12.28 Trying partition: 0
+ 12.78 GPT 22b77280fa3af947ae346cef1d8a3131 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+ 12.86 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+ 12.93 Matched GUID bootable-part-idx 0 want partition 0
+ 12.00 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+ 12.04 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+ 12.13 FAT32 clusters 258078
+ 12.17 [sdcard] autoboot.txt not found
+ 12.17 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+ 12.24 Trying partition: 1
+ 12.29 GPT 22b77280fa3af947ae346cef1d8a3131 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+ 12.39 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+ 12.44 Matched GUID bootable-part-idx 0 want partition 0
+ 12.51 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+ 12.55 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+ 12.64 FAT32 clusters 258078
+ 12.69 Read config.txt bytes      642 hnd 0x13b7f
+ 12.72 [sdcard] pieeprom.upd not found
+ 12.74 usb_max_current_enable default 0 max-current 3000
+ 12.86 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+ 12.88 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+ 12.94 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+ 13.01 Selecting USB low current limit
+ 13.11 Read /config.txt bytes      642 hnd 0x13b7f
+ 13.17 Read /config.txt bytes      642 hnd 0x13b7f
+ 13.22 MESS:00:00:13.022323:0: Initial voltage 800000 temp 41127
+ 13.22 MESS:00:00:13.222760:0: avs_2712: AVS pred 8636 863600 temp 40028
+ 13.26 MESS:00:00:13.226368:0: vpred 863 mV +0
+ 13.54 MESS:00:00:13.854620:0: FB framebuffer_swap 1
+ 13.56 MESS:00:00:13.856490:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+ 13.63 MESS:00:00:13.863379:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+ 13.80 MESS:00:00:13.880473:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+ 13.83 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+ 13.97 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+ 13.35 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x12152
+ 13.63 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x1245f
+ 13.86 MESS:00:00:13.986303:0: Loaded overlay 'bcm2712d0'
+ 14.50 PCIEx1: PWR 0 DET_WAKE 0
+ 14.67 Read /config.txt bytes      642 hnd 0x13b7f
+ 14.76 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x121a9
+ 14.23 MESS:00:00:14.123935:0: Loaded overlay 'vc4-kms-v3d-pi5'
+ 14.37 Read /overlays/cma.dtbo bytes      964 hnd 0x1200f
+ 14.45 MESS:00:00:14.245510:0: Loaded overlay 'cma'
+ 14.47 MESS:00:00:14.247287:0: dtparam: cma-320=true
+ 14.64 Read /overlays/dwc2.dtbo bytes      801 hnd 0x120d2
+ 14.76 MESS:00:00:14.276649:0: Loaded overlay 'dwc2'
+ 14.78 MESS:00:00:14.278517:0: dtparam: dr_mode=peripheral
+ 14.66 Read /cmdline.txt bytes      176 hnd 0x11fbe
+ 14.02 BMD "armstub8-2712.bin" not found
+ 14.03 fs_open: 'armstub8-2712.bin' 
+ 14.07 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+ 14.51 Read u-boot.bin bytes   769928 hnd 0x13b82
+ 14.53 PCI1 reset
+ 14.64 PCI2 reset
+ 14.74 set_reboot_order 0
+ 14.74 set_reboot_arg1 0
+ 14.76 USB-OTG disconnect
+ 14.18 MESS:00:00:14.718510:0: BSC_A no ACK
+ 14.19 MESS:00:00:14.719743:0: BSC_A no ACK
+ 14.23 MESS:00:00:14.723668:0: BSC_A no ACK
+ 14.47 MESS:00:00:14.747602:0: BSC_B no ACK
+ 14.48 MESS:00:00:14.748828:0: BSC_B no ACK
+ 14.52 MESS:00:00:14.752764:0: BSC_B no ACK
+ 14.76 MESS:00:00:14.776530:0: Starting OS 14776 ms
+ 14.82 MESS:00:00:14.782142:0: 00000040: -> 00000480
+ 14.84 MESS:00:00:14.783996:0: 00000030: -> 00100080
+ 14.88 MESS:00:00:14.788709:0: 00000034: -> 00100080
+ 14.93 MESS:00:00:14.793421:0: 00000038: -> 00100080
+ 14.98 MESS:00:00:14.798134:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-g92878f9ad6ac-dirty (Apr 19 2026 - 11:09:01 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... fs uses incompatible features: 00020000, ignoring
+Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+USB DWC2
+Bus usb@480000: 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 1Hit any key to stop autoboot: 0
+** Booting bootflow '<NULL>' with efi_mgr
+fs uses incompatible features: 00020000, ignoring
+fs uses incompatible features: 00020000, ignoring
+Loading Boot0000 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14)
+** Booting bootflow 'mmc@fff000.bootdev.part_1' with script
+=== Android U-Boot Boot Script (AVB) ===
+Setting AVB policy to default: fail_closed
+AVB fail policy: fail_closed
+Initializing AVB...
+Verifying partitions...
+## Android Verified Boot 2.0 version 1.1.0
+avb_slot_verify.c:837: ERROR: vbmeta: Public key used to sign data rejected.
+Verification failed, reason: Public keys are not accepted
+AVB: Verification FAILED
+Fail-closed policy: resetting
+resetting ...
+Ì
+  0.57 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  0.61 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 861645
+  0.71 AON_RESET: 00000003 PM_RSTS 00001020
+  0.75 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 0
+  0.85 RP1_BOOT chip ID: 0x20001927
+  0.90 PCIEx1: PWR 0 DET_WAKE 0
+  0.90 part 00000000 reset_info 00000000
+  0.93 PMIC reset-event 00000000 rtc 00000014 alarm 00000000 enabled 0
+  0.00 uSD voltage 3.3V
+  0.06 SDRAM_CONFIG: 1b
+  0.06 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  0.12 DDR 4267 1 1 128 152 BL:1
+  2.68 OTP boardrev e04171 bootrom a a
+  2.69 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.76 VC-JTAG unlocked
+  2.99 RP1_BOOT chip ID: 0x20001927
+
+  3.34 RP1_BOOT chip ID: 0x20001927
+  3.35 RP1_BOOT: fw size 46888
+  3.72 PCI2 init
+  3.72 PCI2 reset
+  4.17 PCIe scan 00001de4:00000001
+  4.18 RP1_CHIP_INFO 20001927
+
+  4.20 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.27 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4027955
+  4.38 PCIEx1: PWR 0 DET_WAKE 0
+  4.40 M.2 PCIe HAT not detected.
+  4.65 usb_pd_init status 3
+  4.65 USB_PD CONFIG 0 43
+  4.73 XHCI-STOP
+  4.73 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.77 USBSTS 1
+  4.80 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.85 xHC0 ports 3 slots 64 intrs 4
+  4.97 XHCI-STOP
+  4.97 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.01 USBSTS 1
+  4.04 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.09 xHC1 ports 3 slots 64 intrs 4
+  4.16 Boot mode: SD (01) order f4
+  4.31 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  4.42 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  4.78 OCR c0ff8000 [199]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+  4.87 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+  4.94 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  4.07 MBR: 0x00000001,62333951 type: 0xee
+  4.08 MBR: 0x00000000,       0 type: 0x00
+  4.11 MBR: 0x00000000,       0 type: 0x00
+  4.15 MBR: 0x00000000,       0 type: 0x00
+  4.19 Trying partition: 0
+  4.24 GPT 22b77280fa3af947ae346cef1d8a3131 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+  4.34 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  4.39 Matched GUID bootable-part-idx 0 want partition 0
+  4.46 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  4.50 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  4.59 FAT32 clusters 258078
+  4.63 [sdcard] autoboot.txt not found
+  4.64 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  4.70 Trying partition: 1
+  4.75 GPT 22b77280fa3af947ae346cef1d8a3131 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+  4.85 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  4.90 Matched GUID bootable-part-idx 0 want partition 0
+  4.98 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  4.02 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  4.10 FAT32 clusters 258078
+  4.15 Read config.txt bytes      642 hnd 0x13b7f
+  4.18 [sdcard] pieeprom.upd not found
+  4.20 usb_max_current_enable default 0 max-current 3000
+  4.32 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+  4.34 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  4.40 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  4.47 Selecting USB low current limit
+  4.57 Read /config.txt bytes      642 hnd 0x13b7f
+  4.63 Read /config.txt bytes      642 hnd 0x13b7f
+  4.68 MESS:00:00:04.968504:0: Initial voltage 800000 temp 41127
+  5.68 MESS:00:00:05.168939:0: avs_2712: AVS pred 8655 865500 temp 41676
+  5.72 MESS:00:00:05.172547:0: vpred 865 mV +0
+  5.00 MESS:00:00:05.800803:0: FB framebuffer_swap 1
+  5.20 MESS:00:00:05.820239:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+  5.24 MESS:00:00:05.824291:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+  5.41 MESS:00:00:05.841387:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+  5.44 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+  5.58 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+  5.96 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x12152
+  5.23 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x1245f
+  5.47 MESS:00:00:05.947034:0: Loaded overlay 'bcm2712d0'
+  6.10 PCIEx1: PWR 0 DET_WAKE 0
+  6.27 Read /config.txt bytes      642 hnd 0x13b7f
+  6.37 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x121a9
+  6.84 MESS:00:00:06.084618:0: Loaded overlay 'vc4-kms-v3d-pi5'
+  6.98 Read /overlays/cma.dtbo bytes      964 hnd 0x1200f
+  6.06 MESS:00:00:06.206443:0: Loaded overlay 'cma'
+  6.08 MESS:00:00:06.208219:0: dtparam: cma-320=true
+  6.25 Read /overlays/dwc2.dtbo bytes      801 hnd 0x120d2
+  6.37 MESS:00:00:06.237545:0: Loaded overlay 'dwc2'
+  6.39 MESS:00:00:06.239413:0: dtparam: dr_mode=peripheral
+  6.27 Read /cmdline.txt bytes      176 hnd 0x11fbe
+  6.63 BMD "armstub8-2712.bin" not found
+  6.64 fs_open: 'armstub8-2712.bin' 
+  6.68 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+  6.12 Read u-boot.bin bytes   769928 hnd 0x13b82
+  6.14 PCI1 reset
+  6.25 PCI2 reset
+  6.35 set_reboot_order 0
+  6.35 set_reboot_arg1 0
+  6.37 USB-OTG disconnect
+  6.79 MESS:00:00:06.679195:0: Starting OS 6679 ms
+  6.84 MESS:00:00:06.684722:0: 00000040: -> 00000480
+  6.86 MESS:00:00:06.686572:0: 00000030: -> 00100080
+  6.91 MESS:00:00:06.691285:0: 00000034: -> 00100080
+  6.96 MESS:00:00:06.695998:0: 00000038: -> 00100080
+  6.00 MESS:00:00:06.700711:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-g92878f9ad6ac-dirty (Apr 19 2026 - 11:09:01 +0000)
+
+DRAM:  

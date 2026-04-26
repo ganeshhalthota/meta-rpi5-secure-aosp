@@ -1,0 +1,200 @@
+
+  0.66 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  0.71 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 971062
+  0.81 AON_RESET: 00000003 PM_RSTS 00001000
+  0.84 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  0.94 RP1_BOOT chip ID: 0x20001927
+  0.99 PCIEx1: PWR 0 DET_WAKE 0
+  0.99 part 00000000 reset_info 00000000
+  1.03 PMIC reset-event 00000000 rtc 00000000 alarm 00000000 enabled 0
+  1.09 uSD voltage 3.3V
+  1.16 SDRAM_CONFIG: 1b
+  1.16 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  1.21 DDR 4267 1 1 128 152 BL:1
+  2.55 OTP boardrev e04171 bootrom a a
+  2.56 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.63 VC-JTAG unlocked
+  2.86 RP1_BOOT chip ID: 0x20001927
+
+  3.21 RP1_BOOT chip ID: 0x20001927
+  3.22 RP1_BOOT: fw size 46888
+  4.59 PCI2 init
+  4.59 PCI2 reset
+  4.04 PCIe scan 00001de4:00000001
+  4.05 RP1_CHIP_INFO 20001927
+
+  4.07 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.14 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4114911
+  4.24 PCIEx1: PWR 0 DET_WAKE 0
+  4.27 M.2 PCIe HAT not detected.
+  4.52 usb_pd_init status 3
+  4.52 USB_PD CONFIG 0 41
+  4.31 XHCI-STOP
+  4.31 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.36 USBSTS 1
+  4.39 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.43 xHC0 ports 3 slots 64 intrs 4
+  4.55 XHCI-STOP
+  4.55 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.60 USBSTS 1
+  4.63 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.68 xHC1 ports 3 slots 64 intrs 4
+  4.75 USB-PD: src-cap PDO object1 0x0a0191f4
+  4.76 Current 5000 mA
+  4.79 Voltage 5000 mV
+  4.81 USB-PD: src-cap PDO object2 0x0002d12c
+  4.85 Current 3000 mA
+  4.87 Voltage 9000 mV
+  4.89 USB-PD: src-cap PDO object3 0x0003c0e1
+  4.93 Current 2250 mA
+  4.95 Voltage 12000 mV
+  4.97 USB-PD: src-cap PDO object4 0x0004b0b4
+  4.01 Current 1800 mA
+  4.03 Voltage 15000 mV
+  4.06 Boot mode: SD (01) order f4
+  8.68 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  8.79 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  9.11 OCR c0ff8000 [193]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+  9.18 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+  9.27 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  9.39 MBR: 0x00000001,62333951 type: 0xee
+  9.40 MBR: 0x00000000,       0 type: 0x00
+  9.44 MBR: 0x00000000,       0 type: 0x00
+  9.48 MBR: 0x00000000,       0 type: 0x00
+  9.52 Trying partition: 0
+  9.02 GPT 22b77280fa3af947ae346cef1d8a3131 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+  9.09 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  9.16 Matched GUID bootable-part-idx 0 want partition 0
+  9.24 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.28 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.36 FAT32 clusters 258078
+  9.41 [sdcard] autoboot.txt not found
+  9.41 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  9.48 Trying partition: 1
+  9.53 GPT 22b77280fa3af947ae346cef1d8a3131 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+  9.63 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  9.68 Matched GUID bootable-part-idx 0 want partition 0
+  9.75 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.79 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.88 FAT32 clusters 258078
+  9.93 Read config.txt bytes      642 hnd 0x13b7f
+  9.96 [sdcard] pieeprom.upd not found
+  9.98 usb_max_current_enable default 0 max-current 5000
+  9.10 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+  9.12 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  9.18 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  9.32 Read /config.txt bytes      642 hnd 0x13b7f
+  9.38 Read /config.txt bytes      642 hnd 0x13b7f
+  9.43 MESS:00:00:09.343006:0: Initial voltage 800000 temp 34532
+  9.43 MESS:00:00:09.543449:0: avs_2712: AVS pred 8632 863200 temp 35082
+  9.47 MESS:00:00:09.547057:0: vpred 863 mV +0
+ 10.75 MESS:00:00:10.175310:0: FB framebuffer_swap 1
+ 10.77 MESS:00:00:10.177180:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+ 10.84 MESS:00:00:10.184070:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+ 10.03 MESS:00:00:10.203863:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+ 10.06 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+ 10.20 Read bcm2712-rpi-5-b.dtb bytes    78744 hnd 0x11b80
+ 10.59 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x12152
+ 10.86 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x1245f
+ 10.09 MESS:00:00:10.309606:0: Loaded overlay 'bcm2712d0'
+ 10.73 PCIEx1: PWR 0 DET_WAKE 0
+ 10.90 Read /config.txt bytes      642 hnd 0x13b7f
+ 10.00 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x121a9
+ 10.47 MESS:00:00:10.447402:0: Loaded overlay 'vc4-kms-v3d-pi5'
+ 10.60 Read /overlays/cma.dtbo bytes      964 hnd 0x1200f
+ 10.69 MESS:00:00:10.568983:0: Loaded overlay 'cma'
+ 10.70 MESS:00:00:10.570759:0: dtparam: cma-320=true
+ 10.88 Read /overlays/dwc2.dtbo bytes      801 hnd 0x120d2
+ 10.00 MESS:00:00:10.600123:0: Loaded overlay 'dwc2'
+ 10.02 MESS:00:00:10.601989:0: dtparam: dr_mode=peripheral
+ 10.90 Read /cmdline.txt bytes      176 hnd 0x11fbe
+ 10.27 BMD "armstub8-2712.bin" not found
+ 10.28 fs_open: 'armstub8-2712.bin' 
+ 10.31 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+ 10.76 Read u-boot.bin bytes   769928 hnd 0x14162
+ 10.78 PCI1 reset
+ 10.89 PCI2 reset
+ 11.00 set_reboot_order 0
+ 11.00 set_reboot_arg1 0
+ 11.01 USB-OTG disconnect
+ 11.43 MESS:00:00:11.043574:0: BSC_A no ACK
+ 11.44 MESS:00:00:11.044807:0: BSC_A no ACK
+ 11.48 MESS:00:00:11.048732:0: BSC_A no ACK
+ 11.72 MESS:00:00:11.072666:0: BSC_B no ACK
+ 11.73 MESS:00:00:11.073892:0: BSC_B no ACK
+ 11.77 MESS:00:00:11.077828:0: BSC_B no ACK
+ 11.01 MESS:00:00:11.101593:0: Starting OS 11101 ms
+ 11.07 MESS:00:00:11.107205:0: 00000040: -> 00000480
+ 11.09 MESS:00:00:11.109059:0: 00000030: -> 00100080
+ 11.13 MESS:00:00:11.113772:0: 00000034: -> 00100080
+ 11.18 MESS:00:00:11.118485:0: 00000038: -> 00100080
+ 11.23 MESS:00:00:11.123198:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-gb6df74e193b5-dirty (Apr 19 2026 - 06:59:47 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... fs uses incompatible features: 00020000, ignoring
+Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+USB DWC2
+Bus usb@480000: 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 1Hit any key to stop autoboot: 0
+** Booting bootflow '<NULL>' with efi_mgr
+fs uses incompatible features: 00020000, ignoring
+fs uses incompatible features: 00020000, ignoring
+Loading Boot0000 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14)
+** Booting bootflow 'mmc@fff000.bootdev.part_1' with script
+=== Android U-Boot Boot Script (AVB) ===
+Setting AVB policy to default: fail_closed
+AVB fail policy: fail_closed
+Initializing AVB...
+Verifying partitions...
+## Android Verified Boot 2.0 version 1.1.0
+Verification passed successfully
+AVB: Verification PASSED
+Loading kernel Image...
+37157376 bytes read in 1582 ms (22.4 MiB/s)
+Loading ramdisk...
+1572029 bytes read in 69 ms (21.7 MiB/s)
+bootargs:  root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=enforcing quiet loglevel=4 androidboot.boot_part_uuid=e535c664-ce6a-4237-b68a-ef958162bb5d androidboot.vbmeta.device=PARTUUID=866cad12-c0f2-4641-85dc-4e7d7100e274 androidboot.vbmeta.avb_version=1.1 androidboot.vbmeta.device_state=unlocked androidboot.vbmeta.hash_alg=sha256 androidboot.vbmeta.size=2432 androidboot.vbmeta.digest=3b1c6100bb8896f0b5c2ffd2b9f59b4b1e258bb3c9025659b57be6c061bbdd63 androidboot.vbmeta.invalidate_on_error=yes androidboot.veritymode=enforcing androidboot.verifiedbootstate=orange   androidboot.fde_mode=enabled
+Booting Android with AVB verification...
+Moving Image from 0x80000 to 0x200000, end=0x2640000
+## Flattened Device Tree blob at 3f722390
+   Booting using the fdt blob at 0x3f722390
+Working FDT set to 3f722390
+   Loading Ramdisk to 1fe80000, end 1ffffcbd ... OK
+   Loading Device Tree to 000000001fe69000, end 000000001fe7f9f1 ... OK
+Working FDT set to 1fe69000
+
+Starting kernel ...
+
+[    0.704938] bcm7271-uart 107d50c000.serial: error -EINVAL: unable to register 8250 port
+[    0.712999] bcm7271-uart 107d50c000.serial: probe with driver bcm7271-uart failed with error -22
+[    1.683323] init: Do not have permissions to set 'ro.boot.audio.tinyalsa.simulate_input' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    1.698784] init: Do not have permissions to set 'persist.bluetooth.a2dp_aac.vbr_supported' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+console:/ $ [    3.958566] logd: FrameworkListener: read() failed (Connection reset by peer)
+[    5.349730] WARNING: Unprivileged eBPF is enabled, data leaks possible via Spectre v2 BHB attacks!
+[    7.683119] SELinux: avc:  denied  { find } for pid=628 uid=1041 name=android.frameworks.automotive.powerpolicy.ICarPowerPolicyServer/default scontext=u:r:hal_audiocontrol_default:s0 tcontext=u:object_r:carpowerpolicyd_service:s0 tclass=service_manager permissive=0
+[    7.706790] SELinux: avc:  denied  { find } for pid=628 uid=1041 name=android.frameworks.automotive.powerpolicy.ICarPowerPolicyServer/default scontext=u:r:hal_audiocontrol_default:s0 tcontext=u:object_r:carpowerpolicyd_service:s0 tclass=service_manager permissive=0
+[    9.956338] logd: HexToBytes: Invalid characters: ", /
+[   10.903416] selinux: SELinux:  Could not stat /sys/devices/virtual/net/ipsec_test: No such file or directory.
+[   11.963323] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 331 (/system/bin/servicemanager)
