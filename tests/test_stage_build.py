@@ -36,6 +36,40 @@ def test_prepare_boot_script_source_renders_policy(tmp_path: Path) -> None:
     assert "fail_open" in rendered
 
 
+def test_prepare_boot_script_source_renders_mode_placeholders(tmp_path: Path) -> None:
+    ctx = make_stage_ctx(
+        tmp_path,
+        signing_enabled=False,
+        selinux_mode="enforcing",
+        boot_state_args="androidboot.verifiedbootstate=green",
+        cmdline_profile_args="quiet loglevel=4",
+        encryption_args="androidboot.fde_mode=enabled",
+    )
+    src = ctx.config_dir / "uboot/boot.cmd"
+    src.parent.mkdir(parents=True, exist_ok=True)
+    src.write_text("selinux=__SELINUX_MODE__ __CMDLINE_PROFILE_ARGS__ __BOOT_STATE_ARGS__ __ENCRYPTION_ARGS__", encoding="utf-8")
+
+    out = build_mod._prepare_boot_script_source(ctx, str(src), signing_enabled=False)
+    rendered = Path(out).read_text(encoding="utf-8")
+    assert "__SELINUX_MODE__" not in rendered
+    assert "__BOOT_STATE_ARGS__" not in rendered
+    assert "__CMDLINE_PROFILE_ARGS__" not in rendered
+    assert "__ENCRYPTION_ARGS__" not in rendered
+    assert "selinux=enforcing" in rendered
+    assert "quiet loglevel=4" in rendered
+    assert "androidboot.verifiedbootstate=green" in rendered
+    assert "androidboot.fde_mode=enabled" in rendered
+
+
+def test_aosp_lunch_target_uses_variant_and_validates(tmp_path: Path) -> None:
+    ctx = make_stage_ctx(tmp_path, build_variant="userdebug")
+    assert build_mod._aosp_lunch_target(ctx) == "aosp_rpi5_car-bp4a-userdebug"
+
+    bad = make_stage_ctx(tmp_path, build_variant="invalid")
+    with pytest.raises(click.ClickException):
+        build_mod._aosp_lunch_target(bad)
+
+
 def test_sync_uboot_avb_root_key_updates_file(tmp_path: Path) -> None:
     ctx = make_stage_ctx(tmp_path)
     ctx.avb_pubkey.parent.mkdir(parents=True, exist_ok=True)

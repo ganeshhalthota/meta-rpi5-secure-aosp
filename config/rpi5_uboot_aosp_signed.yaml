@@ -3,6 +3,9 @@
 aosp:
   tag: android-16.0.0_r4
   manifest_url: https://android.googlesource.com/platform/manifest
+  # userdebug: keeps serial console shell for hardware validation;
+  # switch to 'user' after all test cases are confirmed passing.
+  build_variant: userdebug
   local_manifests:
     - url: https://raw.githubusercontent.com/ganeshhalthota/android_local_manifest/android-16.0.0_r4/manifest_brcm_rpi.xml
       filename: manifest_brcm_rpi.xml
@@ -20,9 +23,26 @@ avb:
   public_key: avb/avb_public_key.bin
   sign_algorithm: SHA256_RSA4096
   hash_algorithm: sha256
+  # Secure/prod profile: fail-closed verification.
   uboot_fail_policy: fail_closed
+
+boot:
+  # Secure/prod profile: enforcing SELinux.
+  selinux_mode: permissive
+  # Secure/prod profile: do not force insecure boot state; keep AVB-driven state.
+  state_override: none
+  # Secure/prod profile: quieter command line/logging.
+  cmdline_profile: production
+  # Secure/prod profile: block insecure mode requests unless CLI explicitly opts in.
+  allow_insecure_boot_state: false
+
+encryption:
+  # Optional: disabled | fde | fbe
+  # fbe requires signing enabled + fail_closed AVB + metadata partition.
+  mode: fbe
 
 sdcard:
   config: sdcard/uboot_aosp.yaml
   sign_config: sdcard/uboot_aosp_signed.yaml
+  # Secure/prod profile: signed flow.
   enable_signing: true

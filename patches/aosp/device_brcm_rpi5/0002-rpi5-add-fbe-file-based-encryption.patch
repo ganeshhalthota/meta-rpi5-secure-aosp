@@ -1,0 +1,91 @@
+From df7297b0df4eb8033a774e8e2aecaf8c1421dff4 Mon Sep 17 00:00:00 2001
+From: Ganesh Halthota <ganesh.rvec@gmail.com>
+Date: Sun, 26 Apr 2026 14:17:29 +0530
+Subject: [PATCH] rpi5: add FBE file-based encryption support
+
+Enable file-based encryption on userdata when RPI5_ENABLE_FBE=true:
+- add RPI5_ENABLE_FBE build toggle (default: false)
+- append androidboot.encryption_mode=fbe cmdline when FBE enabled
+- add fstab.rpi5.fbe with fileencryption= and keydirectory= on userdata
+- extend ramdisk fstab selection: FBE > AVB-only > base
+- set ro.crypto.type=file product property when FBE enabled
+
+FBE depends on AVB (system/vendor still use avb=vbmeta in fstab.rpi5.fbe).
+Prebuilt kernel already has CONFIG_FS_ENCRYPTION=y.
+Metadata encryption is activated by keydirectory= + fileencryption= together;
+no PRODUCT_ENCRYPT_METADATA needed (variable does not exist in android-16).
+---
+ BoardConfig.mk         |  7 +++++++
+ device.mk              | 12 ++++++++++--
+ ramdisk/fstab.rpi5.fbe | 11 +++++++++++
+ 3 files changed, 28 insertions(+), 2 deletions(-)
+ create mode 100644 ramdisk/fstab.rpi5.fbe
+
+diff --git a/BoardConfig.mk b/BoardConfig.mk
+index b1c4dd6..a2518a5 100644
+--- a/BoardConfig.mk
++++ b/BoardConfig.mk
+@@ -6,6 +6,7 @@
+ 
+ DEVICE_PATH := device/brcm/rpi5
+ RPI5_ENABLE_AVB ?= false
++RPI5_ENABLE_FBE ?= false
+ 
+ # Architecture
+ TARGET_ARCH := arm64
+@@ -66,6 +67,12 @@ ifeq ($(RPI5_ENABLE_AVB),true)
+ BOARD_KERNEL_CMDLINE += androidboot.vbmeta.device=/dev/block/by-name/vbmeta
+ endif
+ 
++# FBE: file-based encryption on userdata via vold/fscrypt.
++# Prebuilt kernel already has CONFIG_FS_ENCRYPTION=y; activation is via fstab fileencryption= flag.
++ifeq ($(RPI5_ENABLE_FBE),true)
++BOARD_KERNEL_CMDLINE += androidboot.encryption_mode=fbe
++endif
++
+ 
+ # Treble
+ TARGET_COPY_OUT_VENDOR := vendor
+diff --git a/device.mk b/device.mk
+index ab81c41..dc0273a 100644
+--- a/device.mk
++++ b/device.mk
+@@ -134,8 +134,16 @@ PRODUCT_COPY_FILES += \
+ PRODUCT_PACKAGES += \
+     com.android.hardware.power
+ 
+-# Ramdisk
+-ifeq ($(RPI5_ENABLE_AVB),true)
++# Ramdisk - fstab selection: FBE (FBE+AVB fstab) > AVB-only > base
++ifeq ($(RPI5_ENABLE_FBE),true)
++PRODUCT_COPY_FILES += \
++    $(DEVICE_PATH)/ramdisk/fstab.rpi5.fbe:$(TARGET_COPY_OUT_RAMDISK)/fstab.rpi5 \
++    $(DEVICE_PATH)/ramdisk/fstab.rpi5.fbe:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.rpi5 \
++    $(DEVICE_PATH)/ramdisk/init.rpi5.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.rpi5.rc \
++    $(DEVICE_PATH)/ramdisk/init.rpi5.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.rpi5.usb.rc \
++    $(DEVICE_PATH)/ramdisk/ueventd.rpi5.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc
++PRODUCT_PROPERTY_OVERRIDES += ro.crypto.type=file
++else ifeq ($(RPI5_ENABLE_AVB),true)
+ PRODUCT_COPY_FILES += \
+     $(DEVICE_PATH)/ramdisk/fstab.rpi5.avb:$(TARGET_COPY_OUT_RAMDISK)/fstab.rpi5 \
+     $(DEVICE_PATH)/ramdisk/fstab.rpi5.avb:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.rpi5 \
+diff --git a/ramdisk/fstab.rpi5.fbe b/ramdisk/fstab.rpi5.fbe
+new file mode 100644
+index 0000000..a1d7f8a
+--- /dev/null
++++ b/ramdisk/fstab.rpi5.fbe
+@@ -0,0 +1,11 @@
++# Android fstab for RPi5 — FBE + metadata encryption (based on fstab.rpi5.avb)
++# The filesystem that contains the filesystem checker binary (typically /system) cannot
++# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
++
++#<src>                                     <mnt_point>  <type>  <mnt_flags and options>            <fs_mgr_flags>
++/dev/block/by-name/system                 /system      ext4    ro,barrier=1                       wait,avb=vbmeta,first_stage_mount
++/dev/block/by-name/vendor                 /vendor      ext4    ro,barrier=1                       wait,avb=vbmeta,first_stage_mount
++/dev/block/by-name/metadata               /metadata    ext4    nodev,noatime,nosuid               wait,check,formattable,first_stage_mount
++/dev/block/by-name/userdata               /data        ext4    nodev,noatime,nosuid,errors=panic  wait,check,formattable,quota,fileencryption=aes-256-xts:aes-256-cts:v2,keydirectory=/metadata/vold/metadata_encryption
++/devices/platform/axi/*.pcie/*.usb/*/usb*  auto         auto    defaults                           voldmanaged=usb:auto
++/devices/platform/axi/*.usb/usb*           auto         auto    defaults                           voldmanaged=usb:auto
+-- 
+2.43.0
+

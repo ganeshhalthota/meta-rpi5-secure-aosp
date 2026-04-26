@@ -53,31 +53,32 @@ Last updated: 2026-04-04
 - [ ] Configurable build and security mode options (requested + extensions)
   - Owner: Coding
   - Requested options:
-    - [ ] Build variant option: default `userdebug`, selectable `user` (and optional `eng` for development)
-    - [ ] Boot state option: configurable `androidboot.verifiedbootstate` / device_state for test scenarios (orange/green and related states)
-    - [ ] SELinux mode option: selectable `permissive` or `enforcing`
+    - [x] Build variant option: configurable `eng`/`userdebug`/`user` (default is `userdebug`).
+    - [x] Boot state option: configurable `androidboot.verifiedbootstate` / device_state for test scenarios (none/green/orange; insecure orange requires explicit opt-in).
+    - [x] SELinux mode option: selectable `permissive` or `enforcing`.
   - Additional recommended options:
-    - [ ] CLI/config override for signing toggle (`sdcard.enable_signing`) per run
-    - [ ] Explicit AVB fail policy option (`fail_closed` / `fail_open`) with clear defaulting
-    - [ ] Configurable AVB algorithms (`sign_algorithm`, `hash_algorithm`) across all active configs
-    - [ ] Optional boot cmdline profile switch (debug vs production verbosity)
+    - [x] CLI/config override for signing toggle (`sdcard.enable_signing`) per run.
+    - [x] Explicit AVB fail policy option (`fail_closed` / `fail_open`) with clear defaulting (`fail_open` requires explicit insecure opt-in when signing is enabled).
+    - [x] Configurable AVB algorithms (`sign_algorithm`, `hash_algorithm`) across all active configs.
+    - [x] Optional boot cmdline profile switch (legacy/debug/production).
   - Validation tasks:
     - [ ] Build variant:
-      - [ ] `userdebug` remains default when no variant provided.
-      - [ ] `user` build path completes and artifacts are generated.
+      - [x] No-flag behavior keeps default (`userdebug`).
+      - [x] `user` variant can be selected via CLI/config and is validated.
       - [ ] Verify expected property differences (`ro.build.type`, debugability) on booted image.
     - [ ] Boot state option:
-      - [ ] Verify configured state is reflected in kernel cmdline and runtime properties.
-      - [ ] Ensure production-safe mode does not allow forcing insecure state unless explicitly enabled for testing.
+      - [x] Ensure production-safe mode does not allow forcing insecure state unless explicitly enabled for testing.
+      - [x] Add templating support so configured state is rendered into bootargs generation.
+      - [ ] Verify configured state is reflected in kernel cmdline and runtime properties on hardware.
       - [ ] Confirm AVB success/failure paths still set consistent state semantics.
     - [ ] SELinux mode option:
-      - [ ] Verify cmdline reflects chosen mode (`androidboot.selinux=`...).
+      - [x] Verify boot script templating reflects chosen mode (`androidboot.selinux=`...).
       - [ ] Enforcing mode boot test with service health checks.
       - [ ] Permissive mode boot test captures AVC denials for policy iteration.
     - [ ] Additional options:
-      - [ ] Signing toggle override uses correct SD-card config and sign stage behavior.
-      - [ ] AVB fail policy toggle follows expected reset/fallback behavior.
-      - [ ] Boot cmdline profile toggle does not break normal boot.
+      - [x] Signing toggle override uses correct SD-card config and sign stage behavior.
+      - [x] AVB fail policy and cmdline profile options are validated and rendered.
+      - [ ] AVB fail policy toggle and cmdline profile toggle do not break normal boot (hardware validation).
   - Evidence to capture:
     - build logs for each option combination tested
     - U-Boot/kernel logs showing effective bootargs and verification path
@@ -100,15 +101,30 @@ Last updated: 2026-04-04
   - Scope:
     - SELinux enforcing validation
     - Full-disk encryption (FDE) feasibility/legacy compatibility assessment
-    - File-based encryption (FBE) + metadata encryption
+    - [x] File-based encryption (FBE) + metadata encryption — implemented 2026-04-26; hardware validation pending (TC-FBE-001/002)
     - Rollback index / anti-rollback validation
     - Signed update flow hardening (before OTA rollout)
+    - [ ] TEE/hardware keystore integration for FBE — follow-up after FBE hardware validation; RPi5 has no TEE so keys are software-protected only (documented residual risk)
   - Validation tasks:
     - [ ] For each feature, define enablement preconditions and expected boot/runtime indicators.
     - [ ] Define at least one negative test and one recovery path.
     - [ ] Track dependency blockers (kernel config, hardware capability, userspace support).
   - Evidence to capture:
     - feature readiness checklist in `notes/`
+
+- [ ] AVB key rotation and re-provisioning workflow
+  - Owner: Mixed (Coding + Validation)
+  - Scope:
+    - Rotate AVB signing keypair and regenerate dependent artifacts (`vbmeta.img`, signed partitions, embedded U-Boot AVB public key).
+    - Validate old-key images fail and new-key images pass with fail-closed policy.
+    - Define device migration/recovery path for key mismatch scenarios.
+  - Validation tasks:
+    - [ ] Generate a second AVB keypair and switch config to new key material in a controlled branch/run.
+    - [ ] Rebuild + sign artifacts with the new key and verify successful boot with updated U-Boot public key.
+    - [ ] Negative test: boot a new-key signed image with old compiled-in public key and confirm AVB reject path.
+    - [ ] Document rollback and operational runbook for safe rotation in development and production profiles.
+  - Evidence to capture:
+    - build/sign logs, U-Boot AVB verification logs, and key-rotation runbook note in `genai_dev/notes/`
 
 - [ ] SE policy migration checklist for AOSP upgrades
   - Owner: Mixed

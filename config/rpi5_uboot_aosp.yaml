@@ -3,6 +3,9 @@
 aosp:
   tag: android-16.0.0_r4
   manifest_url: https://android.googlesource.com/platform/manifest
+  # Optional: eng | userdebug | user
+  # Insecure/dev profile: debuggable build.
+  build_variant: eng
   local_manifests:
     - url: https://raw.githubusercontent.com/ganeshhalthota/android_local_manifest/android-16.0.0_r4/manifest_brcm_rpi.xml
       filename: manifest_brcm_rpi.xml
@@ -20,8 +23,32 @@ avb:
   public_key: avb/avb_public_key.bin
   sign_algorithm: SHA256_RSA4096
   hash_algorithm: sha256
+  # Optional: fail_closed | fail_open
+  # Insecure/dev profile: do not block boot on AVB verification failures.
+  uboot_fail_policy: fail_open
+
+boot:
+  # Optional: permissive | enforcing
+  # Insecure/dev profile: permissive SELinux for bring-up and debugging.
+  selinux_mode: permissive
+  # Optional: none | green | orange
+  # Insecure/dev profile: explicitly expose insecure boot state.
+  state_override: orange
+  # Optional: legacy | debug | production
+  # Insecure/dev profile: verbose kernel logging.
+  cmdline_profile: debug
+  # Optional: true | false
+  # Allow insecure boot-state and fail-open defaults in this profile.
+  allow_insecure_boot_state: true
+
+encryption:
+  # Optional: disabled | fde | fbe
+  # Insecure/dev profile default: keep encryption disabled unless explicitly requested.
+  mode: disabled
 
 sdcard:
   config: sdcard/uboot_aosp.yaml
   sign_config: sdcard/uboot_aosp_signed.yaml
+  # Optional: true | false
+  # Insecure/dev profile: unsigned flow.
   enable_signing: false

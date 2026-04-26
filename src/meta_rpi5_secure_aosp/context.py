@@ -27,5 +27,14 @@ class BuildContext:
     do_uboot: bool
     do_aosp: bool
     signing_enabled: bool
+    build_variant: str
+    selinux_mode: str
+    boot_state_override: str
+    boot_state_args: str
+    avb_fail_policy: str
+    cmdline_profile: str
+    cmdline_profile_args: str
+    encryption_mode: str
+    encryption_args: str
     run: Callable[[str, Path], None]
     console: Console

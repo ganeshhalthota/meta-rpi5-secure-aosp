@@ -1,0 +1,93 @@
+$ sudo losetup -fP --show 1_unsigned/rpi5-uboot-aosp-eng-202604190557.img
+[sudo] password for ganesh:
+/dev/loop0
+$ sudo lsblk /dev/loop0
+NAME      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+loop0       7:0    0 14.3G  0 loop
+├─loop0p1 259:0    0  128M  0 part
+├─loop0p2 259:1    0    1K  0 part
+├─loop0p3 259:2    0 10.8G  0 part
+├─loop0p5 259:3    0    3G  0 part
+├─loop0p6 259:4    0  384M  0 part
+└─loop0p7 259:5    0   16M  0 part
+$ sudo mount /dev/loop0p
+loop0p1  loop0p2  loop0p3  loop0p5  loop0p6  loop0p7
+$ sudo mount /dev/loop0p
+loop0p1  loop0p2  loop0p3  loop0p5  loop0p6  loop0p7
+$ sudo mount /dev/loop0p1 boot/
+$ ll boot/
+total 39070
+drwxr-xr-x 3 root   root       1024 Jan  1  1970 .
+drwxrwxr-x 7 ganesh ganesh     4096 Apr 19 21:01 ..
+-rwxr-xr-x 1 root   root      78748 Apr 19 11:15 bcm2712d0-rpi-5-b.dtb
+-rwxr-xr-x 1 root   root      78700 Apr 19 11:15 bcm2712-rpi-500.dtb
+-rwxr-xr-x 1 root   root      78744 Apr 19 11:15 bcm2712-rpi-5-b.dtb
+-rwxr-xr-x 1 root   root      79689 Apr 19 11:15 bcm2712-rpi-cm5-cm4io.dtb
+-rwxr-xr-x 1 root   root      79755 Apr 19 11:15 bcm2712-rpi-cm5-cm5io.dtb
+-rwxr-xr-x 1 root   root      79730 Apr 19 11:15 bcm2712-rpi-cm5l-cm4io.dtb
+-rwxr-xr-x 1 root   root      79796 Apr 19 11:15 bcm2712-rpi-cm5l-cm5io.dtb
+-rwxr-xr-x 1 root   root       1499 Apr 19 11:27 boot.scr
+-rwxr-xr-x 1 root   root        124 Apr 19 11:15 cmdline.txt
+-rwxr-xr-x 1 root   root        642 Apr 19 11:27 config.txt
+-rwxr-xr-x 1 root   root   37157376 Apr 19 11:15 Image
+drwxr-xr-x 2 root   root      32256 Apr 19 11:15 overlays
+-rwxr-xr-x 1 root   root    1544522 Apr 19 11:15 ramdisk.img
+-rwxr-xr-x 1 root   root     708720 Apr 19 11:27 u-boot.bin
+$ cat boot/cmdline.txt
+console=ttyAMA10,115200 no_console_suspend root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive
+$ cat boot/config.txt
+# Kernel _ RPi firmware loads U-Boot; U-Boot loads Android via boot.scr
+kernel=u-boot.bin
+
+# UART / Serial console
+# enable_uart=1   : enables the primary UART (GPIO 14/15) and keeps it active
+# uart_2ndstage=1 : keeps the debug UART (uart10, JST connector) enabled
+#                   when the firmware hands off to U-Boot; without this,
+#                   U-Boot produces no serial output on RPi5
+enable_uart=1
+uart_2ndstage=1
+
+# Camera
+camera_auto_detect=1
+
+# Display
+disable_overscan=1
+
+# Graphics acceleration
+dtoverlay=vc4-kms-v3d
+dtoverlay=cma,cma-320
+
+# USB
+dtoverlay=dwc2,dr_mode=peripheral
+[cm5]
+dtoverlay=dwc2,dr_mode=otg
+[all]
+$ cat boot/boot.scr
+'V      "ifz# U-Boot boot script for Android on RPi5
+# Compiled to boot.scr via: mkimage -C none -A arm64 -T script -d boot.cmd boot.scr
+
+echo "=== Android U-Boot Boot Script ==="
+
+# Load Android kernel from FAT32 (mmc 0:1 = p1)
+echo "Loading kernel Image..."
+fatload mmc 0:1 ${kernel_addr_r} Image
+
+
+# Load Android ramdisk
+echo "Loading ramdisk..."
+fatload mmc 0:1 ${ramdisk_addr_r} ramdisk.img
+
+# Set Android kernel command line (matches BOARD_KERNEL_CMDLINE in BoardConfig.mk)
+# Append Android-specific parameters to the firmware-provided bootargs.
+# The RPi firmware sets ${bootargs} with critical parameters like:
+#   numa=fake=8, vc_mem.mem_base/size, coherent_pool, pci=pcie_bus_safe, etc.
+# We must NOT replace them _ only append our Android-specific ones.
+setenv bootargs "${bootargs} root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive ignore_loglevel loglevel=7 androidboot.verifiedbootstate=orange androidboot.vbmeta.device_state=unlocked "
+
+# Boot Android (AArch64 kernel + ramdisk + firmware-provided FDT)
+# IMPORTANT: Use ${fdt_addr} _ the DTB the RPi firmware already prepared in memory
+# (with bcm2712d0, vc4-kms-v3d, cma, dwc2 overlays applied).
+# Do NOT load bcm2712-rpi-5-b.dtb from disk _ that raw DTB lacks the overlays
+# and causes an SError in bcm2712_pinconf_set (brcmuart_init) at boot.
+echo "Booting Android..."
+booti ${kernel_addr_r} ${ramdisk_addr_r}:${filesize} ${fdt_addr}

@@ -120,7 +120,7 @@ CSD: 400e00325b590000edc87f800a404000
 NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
 NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
 [    0.000000] Booting Linux on physical CPU 0x0000000000 [0x414fd0b1]
-[    0.000000] Linux version 6.12.61-v8-16k (ghalthot@dd20517f10bd) (aarch64-linux-gcc.br_real (Buildroot 2021.11-18033-g83947c7bb6) 14.3.0, GNU ld (GNU Binutils) 2.43.1) #1 SMP PREEMPT Tue Mar 17 16:58:57 UTC 2026
+[    0.000000] Linux version 6.12.61-v8-16k (ganesh@dd20517f10bd) (aarch64-linux-gcc.br_real (Buildroot 2021.11-18033-g83947c7bb6) 14.3.0, GNU ld (GNU Binutils) 2.43.1) #1 SMP PREEMPT Tue Mar 17 16:58:57 UTC 2026
 [    0.000000] KASLR enabled
 [    0.000000] random: crng init done
 [    0.000000] Machine model: Raspberry Pi 5 Model B Rev 1.1

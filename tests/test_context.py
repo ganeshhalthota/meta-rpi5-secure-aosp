@@ -23,6 +23,13 @@ def test_build_context_dataclass_fields() -> None:
         do_uboot=True,
         do_aosp=False,
         signing_enabled=False,
+        build_variant="userdebug",
+        selinux_mode="permissive",
+        boot_state_override="none",
+        boot_state_args="",
+        avb_fail_policy="fail_closed",
+        cmdline_profile="legacy",
+        cmdline_profile_args="",
         run=lambda cmd, cwd: None,
         console=console,
     )

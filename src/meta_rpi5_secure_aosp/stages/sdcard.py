@@ -22,6 +22,7 @@ def run(ctx: BuildContext) -> None:
 
     # Make paths in image_data absolute
     image_data["output_dir"] = ctx.sdcard_dir
+    image_data["build_variant"] = ctx.build_variant
 
     for part in image_data["partitions"]:
         if "img" in part:

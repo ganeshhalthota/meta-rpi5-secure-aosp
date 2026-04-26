@@ -1,4 +1,37 @@
-# U-Boot boot script for Android on RPi5 (with AVB 2.0)
+$ sudo losetup -fP --show 2_secure_boot/rpi5-uboot-aosp-signed-user-202604190832.img
+/dev/loop0
+$ sudo lsblk /dev/loop0
+NAME      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+loop0       7:0    0 14.3G  0 loop
+├─loop0p1 259:0    0  128M  0 part
+├─loop0p3 259:1    0 10.8G  0 part
+├─loop0p5 259:2    0    3G  0 part
+├─loop0p6 259:3    0  384M  0 part
+├─loop0p7 259:4    0   16M  0 part
+└─loop0p8 259:5    0    4M  0 part
+$ sudo mount -o ro /dev/loop0p1 boot/
+$ ll boot/
+total 38918
+drwxr-xr-x 3 root   root       1024 Jan  1  1970 .
+drwxrwxr-x 7 ganesh ganesh     4096 Apr 19 21:01 ..
+-rwxr-xr-x 1 root   root      78748 Apr 19 13:57 bcm2712d0-rpi-5-b.dtb
+-rwxr-xr-x 1 root   root      78700 Apr 19 13:57 bcm2712-rpi-500.dtb
+-rwxr-xr-x 1 root   root      78744 Apr 19 13:57 bcm2712-rpi-5-b.dtb
+-rwxr-xr-x 1 root   root      79689 Apr 19 13:57 bcm2712-rpi-cm5-cm4io.dtb
+-rwxr-xr-x 1 root   root      79755 Apr 19 13:57 bcm2712-rpi-cm5-cm5io.dtb
+-rwxr-xr-x 1 root   root      79730 Apr 19 13:57 bcm2712-rpi-cm5l-cm4io.dtb
+-rwxr-xr-x 1 root   root      79796 Apr 19 13:57 bcm2712-rpi-cm5l-cm5io.dtb
+-rwxr-xr-x 1 root   root       3289 Apr 19 14:03 boot.scr
+-rwxr-xr-x 1 root   root        176 Apr 19 13:57 cmdline.txt
+-rwxr-xr-x 1 root   root        642 Apr 19 14:03 config.txt
+-rwxr-xr-x 1 root   root   37157376 Apr 19 13:57 Image
+drwxr-xr-x 2 root   root      32256 Apr 19 13:57 overlays
+-rwxr-xr-x 1 root   root    1326049 Apr 19 13:57 ramdisk.img
+-rwxr-xr-x 1 root   root     769928 Apr 19 14:03 u-boot.bin
+$ cat boot/boot.scr
+'V?iQ
+     ,Of
+        # U-Boot boot script for Android on RPi5 (with AVB 2.0)
 # Compiled to boot_avb.scr via: mkimage -C none -A arm64 -T script -d boot_avb.cmd boot_avb.scr
 
 echo "=== Android U-Boot Boot Script (AVB) ==="
@@ -6,7 +39,7 @@ echo "=== Android U-Boot Boot Script (AVB) ==="
 # Build-time default; runtime override is possible by setting avb_fail_policy env var.
 # Valid values: fail_closed, fail_open
 if test -z "${avb_fail_policy}"; then
-    setenv avb_fail_policy "__AVB_FAIL_POLICY__"
+    setenv avb_fail_policy "fail_closed"
     echo "Setting AVB policy to default: ${avb_fail_policy}"
 else
     echo "Loading AVB policy"
@@ -77,7 +110,7 @@ if part uuid mmc 0:1 boot_part_uuid; then
 else
     echo "WARNING: Failed to query boot partition UUID (mmc 0:1)"
 fi
-setenv bootargs "${bootargs} root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=__SELINUX_MODE__ __CMDLINE_PROFILE_ARGS__ ${bootdev_bootarg} ${avb_bootargs} ${avb_bootargs_fallback} __BOOT_STATE_ARGS__ __ENCRYPTION_ARGS__"
+setenv bootargs "${bootargs} root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=enforcing quiet loglevel=4 ${bootdev_bootarg} ${avb_bootargs} ${avb_bootargs_fallback}  androidboot.fde_mode=enabled"
 echo "bootargs: ${bootargs}"
 
 # 5. Boot Android
@@ -87,3 +120,32 @@ else
     echo "Booting Android with AVB fail_open fallback..."
 fi
 booti ${kernel_addr_r} ${ramdisk_addr_r}:${filesize} ${fdt_addr}
+$ cat boot/cmdline.txt
+console=ttyAMA10,115200 no_console_suspend root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive androidboot.vbmeta.device=/dev/block/by-name/vbmeta
+$ cat boot/config.txt
+# Kernel _ RPi firmware loads U-Boot; U-Boot loads Android via boot.scr
+kernel=u-boot.bin
+
+# UART / Serial console
+# enable_uart=1   : enables the primary UART (GPIO 14/15) and keeps it active
+# uart_2ndstage=1 : keeps the debug UART (uart10, JST connector) enabled
+#                   when the firmware hands off to U-Boot; without this,
+#                   U-Boot produces no serial output on RPi5
+enable_uart=1
+uart_2ndstage=1
+
+# Camera
+camera_auto_detect=1
+
+# Display
+disable_overscan=1
+
+# Graphics acceleration
+dtoverlay=vc4-kms-v3d
+dtoverlay=cma,cma-320
+
+# USB
+dtoverlay=dwc2,dr_mode=peripheral
+[cm5]
+dtoverlay=dwc2,dr_mode=otg
+[all]

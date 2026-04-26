@@ -74,6 +74,80 @@ rm -rf work/                              # Remove entire workspace (WARNING: de
 ./docker_run.sh --build-binary            # Build PyInstaller binary
 ```
 
+## Configurable Build/Security Modes
+
+The builder supports per-run overrides with this precedence:
+`CLI option > config YAML value > built-in default`.
+
+No-flag behavior keeps safe defaults (`userdebug`, `permissive`, no boot-state override, and config-driven signing).
+
+```bash
+# Build variant override (eng/userdebug/user)
+./docker_run.sh --stage build --code aosp --build-variant user
+
+# SELinux mode override in generated U-Boot boot script
+./docker_run.sh --stage build --code uboot --selinux-mode enforcing
+
+# Per-run signing override without editing config files
+./docker_run.sh --stage sdcard --code aosp --signing enabled
+
+# AVB policy and test boot state (requires explicit insecure opt-in for fail_open/orange)
+./docker_run.sh --stage build --avb-fail-policy fail_open --allow-insecure-boot-state
+./docker_run.sh --stage build --boot-state-override orange --allow-insecure-boot-state
+
+# Optional cmdline profile toggle
+./docker_run.sh --stage build --cmdline-profile production
+
+# Encryption mode (disabled/fde/fbe); fbe requires signed + fail-closed AVB profile
+./docker_run.sh --stage build --config config/rpi5_uboot_aosp_signed.yaml --encryption-mode fde
+./docker_run.sh --stage build --config config/rpi5_uboot_aosp_signed.yaml --encryption-mode fbe
+```
+
+### FBE (File-Based Encryption)
+
+`encryption.mode: fbe` enables Android File-Based Encryption on the `userdata` partition. Prerequisites:
+- Signing must be enabled (`sdcard.enable_signing: true`)
+- AVB fail policy must be `fail_closed`
+- SD-card config must contain `userdata` and `metadata` partitions
+
+When `fbe` is active, the pipeline passes `RPI5_ENABLE_FBE=true` to the AOSP build, which selects `fstab.rpi5.fbe` with `fileencryption=aes-256-xts:aes-256-cts:v2` and `keydirectory=/metadata/vold/metadata_encryption` on the `userdata` entry.
+
+**First-boot note:** vold initialises FBE on the first boot after flashing. This takes several minutes while keys are generated and the `dm-default-key` device is set up over `userdata`. Do not power-cycle during this window. After completion, `getprop ro.crypto.type` returns `file` and `getprop ro.crypto.state` returns `encrypted`.
+
+**Rollback:** Set `encryption.mode: disabled` in the config and reflash from a clean image. Once vold has encrypted `userdata`, reverting without a reflash is not possible.
+```
+
+## Recommended Config Profiles
+
+Use explicit config profiles to avoid mixing secure and insecure settings:
+
+- `config/rpi5_uboot_aosp.yaml` (insecure/dev profile)
+  - `sdcard.enable_signing: false`
+  - `aosp.build_variant: userdebug`
+  - `boot.selinux_mode: permissive`
+  - `boot.state_override: orange`
+  - `avb.uboot_fail_policy: fail_open`
+  - `boot.cmdline_profile: debug`
+  - `encryption.mode: disabled`
+- `config/rpi5_uboot_aosp_signed.yaml` (secure/prod profile)
+  - `sdcard.enable_signing: true`
+  - `aosp.build_variant: user`
+  - `boot.selinux_mode: enforcing`
+  - `boot.state_override: none`
+  - `avb.uboot_fail_policy: fail_closed`
+  - `boot.cmdline_profile: production`
+  - `encryption.mode: fbe` (set to `disabled` to build without encryption)
+
+Build commands:
+
+```bash
+# Insecure/dev
+./docker_run.sh --stage all --config config/rpi5_uboot_aosp.yaml
+
+# Secure/prod
+./docker_run.sh --stage all --config config/rpi5_uboot_aosp_signed.yaml
+```
+
 ## Environment Variables
 
 The following environment variables are automatically set when running via `docker_run.sh`:

@@ -17,7 +17,7 @@ fatload mmc 0:1 ${ramdisk_addr_r} ramdisk.img
 # The RPi firmware sets ${bootargs} with critical parameters like:
 #   numa=fake=8, vc_mem.mem_base/size, coherent_pool, pci=pcie_bus_safe, etc.
 # We must NOT replace them — only append our Android-specific ones.
-setenv bootargs "${bootargs} root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive"
+setenv bootargs "${bootargs} root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=__SELINUX_MODE__ __CMDLINE_PROFILE_ARGS__ __BOOT_STATE_ARGS__ __ENCRYPTION_ARGS__"
 
 # Boot Android (AArch64 kernel + ramdisk + firmware-provided FDT)
 # IMPORTANT: Use ${fdt_addr} — the DTB the RPi firmware already prepared in memory

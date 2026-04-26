@@ -6,6 +6,7 @@ Compiles u-boot and/or AOSP from source.
 from __future__ import annotations
 
 import re
+from pathlib import Path
 
 import click
 
@@ -13,7 +14,9 @@ from meta_rpi5_secure_aosp.context import BuildContext
 
 
 def _avb_fail_policy(ctx: BuildContext) -> str:
-    policy = ctx.rpi5_config.get("avb", {}).get("uboot_fail_policy", "fail_closed")
+    policy = ctx.rpi5_config.get("avb", {}).get("uboot_fail_policy") or getattr(ctx, "avb_fail_policy", None)
+    if not policy:
+        policy = "fail_closed"
     valid = {"fail_closed", "fail_open"}
     if policy not in valid:
         raise click.ClickException(
@@ -23,22 +26,34 @@ def _avb_fail_policy(ctx: BuildContext) -> str:
 
 
 def _prepare_boot_script_source(ctx: BuildContext, boot_cmd: str, signing_enabled: bool) -> str:
-    if not signing_enabled:
-        return boot_cmd
-
-    src = ctx.config_dir / "uboot/boot_avb.cmd"
+    src = ctx.config_dir / "uboot/boot_avb.cmd" if signing_enabled else ctx.config_dir / "uboot/boot.cmd"
     if str(boot_cmd) != str(src):
-        return boot_cmd
+        src = Path(boot_cmd)
 
     content = src.read_text(encoding="utf-8")
-    policy = _avb_fail_policy(ctx)
-    rendered = content.replace("__AVB_FAIL_POLICY__", policy)
+    rendered = content.replace("__SELINUX_MODE__", getattr(ctx, "selinux_mode", "permissive"))
+    rendered = rendered.replace("__BOOT_STATE_ARGS__", getattr(ctx, "boot_state_args", ""))
+    rendered = rendered.replace("__CMDLINE_PROFILE_ARGS__", getattr(ctx, "cmdline_profile_args", ""))
+    rendered = rendered.replace("__ENCRYPTION_ARGS__", getattr(ctx, "encryption_args", ""))
+    if signing_enabled:
+        policy = _avb_fail_policy(ctx)
+        rendered = rendered.replace("__AVB_FAIL_POLICY__", policy)
 
     cache_dir = ctx.workspace / ".cache"
     cache_dir.mkdir(exist_ok=True)
-    out = cache_dir / "boot_avb.generated.cmd"
+    out = cache_dir / f"{src.stem}.generated.cmd"
     out.write_text(rendered, encoding="utf-8")
     return str(out)
+
+
+def _aosp_lunch_target(ctx: BuildContext) -> str:
+    variant = getattr(ctx, "build_variant", None) or ctx.rpi5_config.get("aosp", {}).get("build_variant", "userdebug")
+    valid = {"eng", "userdebug", "user"}
+    if variant not in valid:
+        raise click.ClickException(
+            f"Invalid aosp.build_variant={variant!r}. Expected one of: {', '.join(sorted(valid))}"
+        )
+    return f"aosp_rpi5_car-bp4a-{variant}"
 
 
 def _format_c_array_hex(data: bytes, per_line: int = 10) -> str:
@@ -180,6 +195,9 @@ def run(ctx: BuildContext) -> None:
             cwd=ctx.uboot_dir,
         )
 
+    if ctx.do_aosp and not (ctx.aosp_dir / ".repo").exists():
+        raise click.ClickException("rpi5-aosp/ missing — run sync first")
+
     # Always compile boot script (needed for SD card regardless of whether U-Boot was rebuilt)
     # This ensures boot.scr exists even when running with --code aosp
     if ctx.do_aosp or ctx.do_uboot:
@@ -218,20 +236,24 @@ def run(ctx: BuildContext) -> None:
         )
 
     if ctx.do_aosp:
-        if not (ctx.aosp_dir / ".repo").exists():
-            raise click.ClickException("rpi5-aosp/ missing — run sync first")
         ctx.console.print("-> Building AOSP")
+        lunch_target = _aosp_lunch_target(ctx)
+        ctx.console.print(f"   Using lunch target: {lunch_target}")
+        encryption_mode = getattr(ctx, "encryption_mode", "disabled")
         if ctx.signing_enabled:
+            extra_flags = "RPI5_ENABLE_AVB=true"
+            if encryption_mode == "fbe":
+                extra_flags += " RPI5_ENABLE_FBE=true"
             ctx.run(
                 "bash -c 'source build/envsetup.sh && "
-                "lunch aosp_rpi5_car-bp4a-eng && "
-                "RPI5_ENABLE_AVB=true make bootimage systemimage vendorimage -j $(nproc)'",
+                f"lunch {lunch_target} && "
+                f"{extra_flags} make bootimage systemimage vendorimage -j $(nproc)'",
                 cwd=ctx.aosp_dir,
             )
         else:
             ctx.run(
                 "bash -c 'source build/envsetup.sh && "
-                "lunch aosp_rpi5_car-bp4a-eng && "
+                f"lunch {lunch_target} && "
                 "make bootimage systemimage vendorimage -j $(nproc)'",
                 cwd=ctx.aosp_dir,
             )

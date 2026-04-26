@@ -218,4 +218,4 @@ docker/home/.viminfo
 docker/home/bin/
 docker/home/include/
 
-work/
+work*

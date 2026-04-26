@@ -1,0 +1,42 @@
+$ ../rpi5-aosp/out/host/linux-x86/bin/avbtool info_image --image rpi5-uboot-aosp-signed-user-202604190832-vbmeta.img
+Minimum libavb version:   1.0
+Header Block:             256 bytes
+Authentication Block:     576 bytes
+Auxiliary Block:          1600 bytes
+Public key (sha1):        9bb3e2190993817ea4537010c856d9b54707e128
+Algorithm:                SHA256_RSA4096
+Rollback Index:           0
+Flags:                    0
+Rollback Index Location:  0
+Release String:           'avbtool 1.3.0'
+Descriptors:
+    Hashtree descriptor:
+      Version of dm-verity:  1
+      Image Size:            3170316288 bytes
+      Tree Offset:           3170316288
+      Tree Size:             24969216 bytes
+      Data Block Size:       4096 bytes
+      Hash Block Size:       4096 bytes
+      FEC num roots:         2
+      FEC offset:            3195285504
+      FEC size:              25264128 bytes
+      Hash Algorithm:        sha256
+      Partition Name:        system
+      Salt:                  29803808fd51689ce9129b47514aba3a25c259e2d2b50b53fa1feb77fa8b4694
+      Root Digest:           4a93723721691eb8ce6bfd442d355f779fb5a4c6e4bf5b9cc90d01a55fe83caa
+      Flags:                 0
+    Hashtree descriptor:
+      Version of dm-verity:  1
+      Image Size:            396218368 bytes
+      Tree Offset:           396218368
+      Tree Size:             3125248 bytes
+      Data Block Size:       4096 bytes
+      Hash Block Size:       4096 bytes
+      FEC num roots:         2
+      FEC offset:            399343616
+      FEC size:              3162112 bytes
+      Hash Algorithm:        sha256
+      Partition Name:        vendor
+      Salt:                  2cf76687fb0061dcf6aa6acbaa26df0af9a38938ec66ad80a56008169eb95f51
+      Root Digest:           88391cedddf16646e721915eb2a7e66199c75d53e3c56b3b8358a89baa13068f
+      Flags:                 0
