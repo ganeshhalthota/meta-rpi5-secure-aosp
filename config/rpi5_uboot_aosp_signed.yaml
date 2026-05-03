@@ -5,7 +5,7 @@ aosp:
   manifest_url: https://android.googlesource.com/platform/manifest
   # userdebug: keeps serial console shell for hardware validation;
   # switch to 'user' after all test cases are confirmed passing.
-  build_variant: userdebug
+  build_variant: user
   local_manifests:
     - url: https://raw.githubusercontent.com/ganeshhalthota/android_local_manifest/android-16.0.0_r4/manifest_brcm_rpi.xml
       filename: manifest_brcm_rpi.xml
@@ -18,26 +18,40 @@ uboot:
   repo_url: https://github.com/u-boot/u-boot.git
   ref: eefb822fb574e28d49fc9f358328854e17fc8406
 
+kernel:
+  # Build kernel Image from source instead of using the prebuilt.
+  # Commit 55b572d3ed0e = "rpi5: defconfig: regenerate" on android-16.0 branch.
+  # This is the exact commit that produced the prebuilt 6.12.77-g55b572d3ed0e-v8.
+  repo_url: https://github.com/raspberry-vanilla/android_kernel_brcm_rpi.git
+  ref: 55b572d3ed0efe3308b26a9946433f4d2d2a72d4
+  dir: rpi5-kernel-src
+  defconfig: android_rpi5_defconfig
+
 avb:
   private_key: avb/avb_private_key.pem
   public_key: avb/avb_public_key.bin
   sign_algorithm: SHA256_RSA4096
   hash_algorithm: sha256
   # Secure/prod profile: fail-closed verification.
+  # Options: fail_closed | fail_open
   uboot_fail_policy: fail_closed
 
 boot:
   # Secure/prod profile: enforcing SELinux.
+  # Options: permissive | enforcing
   selinux_mode: permissive
   # Secure/prod profile: do not force insecure boot state; keep AVB-driven state.
+  # Options: none | green | orange
   state_override: none
   # Secure/prod profile: quieter command line/logging.
+  # Options: legacy | debug | production
   cmdline_profile: production
   # Secure/prod profile: block insecure mode requests unless CLI explicitly opts in.
+  # Options: true | false
   allow_insecure_boot_state: false
 
 encryption:
-  # Optional: disabled | fde | fbe
+  # Options: disabled | fde | fbe
   # fbe requires signing enabled + fail_closed AVB + metadata partition.
   mode: fbe
 

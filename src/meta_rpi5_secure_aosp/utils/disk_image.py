@@ -43,7 +43,8 @@ class DiskImage:
         self._validate(image_data)
         self._image_data = image_data
         date_time = datetime.now().strftime("%Y%m%d%H%M")
-        img_name = f"{image_data['image_name']}-{date_time}.img"
+        variant = image_data.get("build_variant", "unknown")
+        img_name = f"{image_data['image_name']}-{variant}-{date_time}.img"
         self._img_path = os.path.join(image_data["output_dir"], img_name)
 
     # ------------------------------------------------------------------

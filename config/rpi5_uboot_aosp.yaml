@@ -18,6 +18,15 @@ uboot:
   repo_url: https://github.com/u-boot/u-boot.git
   ref: eefb822fb574e28d49fc9f358328854e17fc8406
 
+kernel:
+  # Build kernel Image from source instead of using the prebuilt.
+  # Commit 55b572d3ed0e = "rpi5: defconfig: regenerate" on android-16.0 branch.
+  # This is the exact commit that produced the prebuilt 6.12.77-g55b572d3ed0e-v8.
+  repo_url: https://github.com/raspberry-vanilla/android_kernel_brcm_rpi.git
+  ref: 55b572d3ed0efe3308b26a9946433f4d2d2a72d4
+  dir: rpi5-kernel-src
+  defconfig: android_rpi5_defconfig
+
 avb:
   private_key: avb/avb_private_key.pem
   public_key: avb/avb_public_key.bin

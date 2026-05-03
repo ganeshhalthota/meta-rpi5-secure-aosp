@@ -161,9 +161,61 @@ def _enable_uboot_avb_kconfig(ctx: BuildContext) -> None:
         )
 
 
+def _build_kernel(ctx: BuildContext) -> None:
+    """Cross-compile the kernel Image and deploy it to the prebuilt tree."""
+    kernel_cfg = ctx.rpi5_config.get("kernel", {})
+    repo_url = kernel_cfg.get("repo_url")
+
+    if not repo_url:
+        ctx.console.print(
+            "[yellow]Skipping kernel build: kernel.repo_url not set in config "
+            "(prebuilt Image will be used)[/]"
+        )
+        return
+
+    if not ctx.kernel_dir.exists():
+        raise click.ClickException(
+            f"{ctx.kernel_dir.name}/ missing — run sync --code kernel first"
+        )
+
+    defconfig = kernel_cfg.get("defconfig", "android_rpi5_defconfig")
+    cross = "ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-"
+
+    ctx.console.print(f"   Using defconfig: {defconfig}")
+    ctx.run(f"{cross} make {defconfig}", cwd=ctx.kernel_dir)
+
+    # android_rpi5_defconfig sets CONFIG_EXTRA_FIRMWARE="regulatory.db" and
+    # CONFIG_EXTRA_FIRMWARE_DIR="../vendor/brcm/rpi5/proprietary/vendor/firmware".
+    # That relative path assumes the kernel lives inside the AOSP tree. Our
+    # standalone checkout has no adjacent vendor/ directory, so clear the value
+    # in .config before building. The regulatory.db is loaded from the vendor
+    # partition at runtime; it does not need to be embedded in the kernel Image.
+    ctx.run(
+        "./scripts/config --set-str CONFIG_EXTRA_FIRMWARE ''",
+        cwd=ctx.kernel_dir,
+    )
+    ctx.run(f"{cross} make olddefconfig", cwd=ctx.kernel_dir)
+    ctx.run(f"{cross} make Image -j$(nproc)", cwd=ctx.kernel_dir)
+
+    built_image = ctx.kernel_dir / "arch/arm64/boot/Image"
+    if not built_image.exists():
+        raise click.ClickException(
+            f"Kernel build did not produce {built_image}. Check build output."
+        )
+
+    prebuilt_dir = ctx.aosp_dir / "device/brcm/rpi5-kernel"
+    prebuilt_dir.mkdir(parents=True, exist_ok=True)
+    ctx.run(f"cp {built_image} {prebuilt_dir / 'Image'}", cwd=ctx.workspace)
+    ctx.console.print(f"   Deployed Image -> {prebuilt_dir / 'Image'}")
+
+
 def run(ctx: BuildContext) -> None:
-    """Build u-boot and/or AOSP depending on ctx.do_uboot / ctx.do_aosp."""
+    """Build kernel and/or u-boot and/or AOSP depending on ctx flags."""
     ctx.console.print("[bold blue]Stage: Build[/]")
+
+    if ctx.do_kernel:
+        ctx.console.print("-> Building Kernel")
+        _build_kernel(ctx)
 
     if ctx.do_uboot:
         if not ctx.uboot_dir.exists():

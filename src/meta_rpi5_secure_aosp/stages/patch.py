@@ -49,6 +49,13 @@ def run(ctx: BuildContext) -> None:
 
     applied_any = False
 
+    if ctx.do_kernel:
+        kernel_patches_dir = patches_root / "kernel"
+        if kernel_patches_dir.exists():
+            applied_any |= _apply_patch_dir(ctx, kernel_patches_dir, ctx.kernel_dir, label="kernel")
+        else:
+            ctx.console.print(f"[dim]No kernel patch directory at {kernel_patches_dir} — skipping.[/dim]")
+
     if ctx.do_uboot:
         uboot_patches_dir = patches_root / "uboot"
         if uboot_patches_dir.exists():
@@ -199,26 +206,75 @@ def _check_patch(ctx: BuildContext, patch_file: Path, target_dir: Path, label: s
         )
 
 
+def _patch_subject(patch_file: Path) -> str | None:
+    """
+    Extract the commit subject from a git format-patch file.
+
+    Handles ``Subject: [PATCH]``, ``Subject: [PATCH N/M]``, and bare subjects.
+    Also handles RFC 2822 header folding where git format-patch wraps long
+    subjects onto continuation lines that begin with whitespace, e.g.::
+
+        Subject: [PATCH] rpi5: boot diag: move service into init.rpi5.rc via hw
+         import path
+
+    The folded lines are joined before stripping the [PATCH] prefix.
+    """
+    import re
+    subject_re = re.compile(r"^\[PATCH[^\]]*\]\s*(.+)$", re.DOTALL)
+    try:
+        lines = patch_file.read_text(errors="replace").splitlines()
+        for i, line in enumerate(lines):
+            if line.startswith("Subject:"):
+                raw = line[len("Subject:"):].strip()
+                # Absorb RFC 2822 continuation lines (start with space or tab)
+                j = i + 1
+                while j < len(lines) and lines[j] and lines[j][0] in (" ", "\t"):
+                    raw += " " + lines[j].strip()
+                    j += 1
+                m = subject_re.match(raw)
+                return m.group(1).strip() if m else raw
+    except OSError:
+        pass
+    return None
+
+
 def _already_applied(patch_file: Path, target_dir: Path) -> bool:
     """
     Return True if *patch_file* appears already applied in *target_dir*.
 
-    A naive reverse-check can return success with "Skipped patch" when the patch
-    is actually not applied. To avoid false positives, treat a patch as already
-    applied only when:
-      - forward apply check fails, and
-      - reverse apply check succeeds.
+    Primary check: commit subject match in ``git log``.  This is reliable even
+    when a series of patches touches the same files (reverse-apply would fail
+    for earlier patches once later patches have also modified the same lines).
+
+    Fallback: forward/reverse ``git apply --check`` for patches without a
+    parseable Subject header.
     """
+    subject = _patch_subject(patch_file)
+    if subject:
+        result = subprocess.run(
+            ["git", "log", "--format=%s", "--fixed-strings", f"--grep={subject}"],
+            cwd=target_dir,
+            capture_output=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+        if result.returncode == 0:
+            return subject in result.stdout.splitlines()
+
+    # Fallback: reverse-apply check (unreliable in multi-patch series but kept
+    # as a safety net for patches without a Subject header).
     forward = subprocess.run(
         ["git", "apply", "--check", str(patch_file)],
         cwd=target_dir,
         capture_output=True,
-        text=True,
+        encoding="utf-8",
+        errors="replace",
     )
     reverse = subprocess.run(
         ["git", "apply", "--reverse", "--check", str(patch_file)],
         cwd=target_dir,
         capture_output=True,
-        text=True,
+        encoding="utf-8",
+        errors="replace",
     )
     return forward.returncode != 0 and reverse.returncode == 0

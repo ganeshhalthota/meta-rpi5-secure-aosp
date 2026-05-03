@@ -1,0 +1,53 @@
+From b1928bc18c7cf80901aa23867472f81d23a5797b Mon Sep 17 00:00:00 2001
+From: Ganesh Halthota <ganesh.rvec@gmail.com>
+Date: Sun, 3 May 2026 12:24:02 +0530
+Subject: [PATCH] rpi5: boot diag: fix auto-trigger by removing console keyword
+
+Android init requires androidboot.console= in bootargs to identify the
+TTY device for 'console' services. This parameter is not set in
+boot_avb.cmd, so init silently drops the service at startup.
+
+Remove 'console' keyword; redirect explicitly to /dev/console in the
+script with || fallback in case the device is unavailable.
+---
+ ramdisk/init.rpi5.diag.rc | 7 ++++---
+ ramdisk/rpi5_boot_diag.sh | 6 ++++--
+ 2 files changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/ramdisk/init.rpi5.diag.rc b/ramdisk/init.rpi5.diag.rc
+index 48302b6..f65791d 100644
+--- a/ramdisk/init.rpi5.diag.rc
++++ b/ramdisk/init.rpi5.diag.rc
+@@ -1,11 +1,12 @@
+ # init.rpi5.diag.rc — boot diagnostics service
+-# Triggered once after full Android boot; prints to serial console (/dev/console)
+-# and writes to /data/local/tmp/rpi5_boot_diag.log
++# Triggered once after full Android boot; writes to /data/local/tmp/rpi5_boot_diag.log
++# and explicitly redirects to /dev/console for serial visibility.
++# Note: 'console' keyword omitted — androidboot.console= is not set in bootargs,
++# so Android init cannot identify the console TTY and would silently drop the service.
+ 
+ service rpi5_boot_diag /system/bin/sh /vendor/bin/rpi5_boot_diag.sh
+     user root
+     group root
+-    console
+     oneshot
+     disabled
+ 
+diff --git a/ramdisk/rpi5_boot_diag.sh b/ramdisk/rpi5_boot_diag.sh
+index 6c07d3e..3106e03 100644
+--- a/ramdisk/rpi5_boot_diag.sh
++++ b/ramdisk/rpi5_boot_diag.sh
+@@ -78,5 +78,7 @@ echo " diagnostics complete"
+ echo "============================================================"
+ }
+ 
+-# stdout is /dev/console (via 'console' in init.rc); also mirror to log file
+-run_diag 2>&1 | tee "$LOG"
++# Write to log file and mirror to serial console.
++# Serial output is explicit (not via 'console' init.rc keyword) because
++# androidboot.console= is absent from bootargs; /dev/console fallback used directly.
++run_diag 2>&1 | tee "$LOG" > /dev/console 2>/dev/null || run_diag 2>&1 | tee "$LOG"
+-- 
+2.43.0
+

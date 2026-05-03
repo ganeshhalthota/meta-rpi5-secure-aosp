@@ -24,8 +24,10 @@ class BuildContext:
     sdcard_config: Path
     sdcard_data: dict
     rpi5_config: dict
+    do_kernel: bool
     do_uboot: bool
     do_aosp: bool
+    kernel_dir: Path
     signing_enabled: bool
     build_variant: str
     selinux_mode: str

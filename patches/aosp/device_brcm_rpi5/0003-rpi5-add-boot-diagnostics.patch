@@ -1,0 +1,146 @@
+From 0000000000000000000000000000000000000003 Mon Sep 17 00:00:00 2001
+From: Ganesh Halthota <ganesh.rvec@gmail.com>
+Date: Fri, 2 May 2026 00:00:00 +0530
+Subject: [PATCH] rpi5: add boot diagnostics service
+
+Print device security/encryption state to serial console after full boot:
+- add rpi5_boot_diag.sh: runs getprop/dumpsys/mount diagnostic commands
+  writing output to /dev/console (serial UART) and /data/local/tmp/rpi5_boot_diag.log
+- add init.rpi5.diag.rc: oneshot service triggered on sys.boot_completed=1
+- deploy both unconditionally via device.mk (works for all build variants
+  including user; SELinux is already permissive via BoardConfig.mk)
+
+The log captures: build info, AVB verified boot state, crypto/FBE
+properties, vold status, fstab, /data mount, dm-verity/dm-crypt devices,
+and SELinux enforce mode. stderr is included so missing tools are visible.
+Output goes to /dev/console so it appears on the UART without ADB.
+---
+ device.mk                   |  6 ++++
+ ramdisk/init.rpi5.diag.rc   | 13 +++++++
+ ramdisk/rpi5_boot_diag.sh   | 74 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 100 insertions(+)
+ create mode 100644 ramdisk/init.rpi5.diag.rc
+ create mode 100644 ramdisk/rpi5_boot_diag.sh
+
+diff --git a/device.mk b/device.mk
+index dc0273a..0000003 100644
+--- a/device.mk
++++ b/device.mk
+@@ -149,4 +149,9 @@ else
+     $(DEVICE_PATH)/ramdisk/ueventd.rpi5.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc
+ endif
+
++# Boot diagnostics — runs on every boot after sys.boot_completed=1
++PRODUCT_COPY_FILES += \
++    $(DEVICE_PATH)/ramdisk/rpi5_boot_diag.sh:$(TARGET_COPY_OUT_VENDOR)/bin/rpi5_boot_diag.sh \
++    $(DEVICE_PATH)/ramdisk/init.rpi5.diag.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.rpi5.diag.rc
++
+ # Seccomp
+diff --git a/ramdisk/init.rpi5.diag.rc b/ramdisk/init.rpi5.diag.rc
+new file mode 100644
+index 0000000..0000003
+--- /dev/null
++++ b/ramdisk/init.rpi5.diag.rc
+@@ -0,0 +1,13 @@
++# init.rpi5.diag.rc — boot diagnostics service
++# Triggered once after full Android boot; prints to serial console (/dev/console)
++# and writes to /data/local/tmp/rpi5_boot_diag.log
++
++service rpi5_boot_diag /system/bin/sh /vendor/bin/rpi5_boot_diag.sh
++    user root
++    group root
++    console
++    oneshot
++    disabled
++
++on property:sys.boot_completed=1
++    start rpi5_boot_diag
+diff --git a/ramdisk/rpi5_boot_diag.sh b/ramdisk/rpi5_boot_diag.sh
+new file mode 100644
+index 0000000..0000003
+--- /dev/null
++++ b/ramdisk/rpi5_boot_diag.sh
+@@ -0,0 +1,81 @@
++#!/system/bin/sh
++# rpi5_boot_diag.sh — print device security/encryption state to serial console
++# Called by init on sys.boot_completed=1; stdout is /dev/console via 'console' keyword.
++# Also mirrors output to /data/local/tmp/rpi5_boot_diag.log for later retrieval.
++
++LOG=/data/local/tmp/rpi5_boot_diag.log
++# Fall back to /tmp if /data is not yet mounted or not writable.
++# Use a write-test rather than [ -w ] which can pass even on a read-only mount.
++if mkdir -p /data/local/tmp 2>&1 && touch /data/local/tmp/.diag_test 2>&1; then
++    rm -f /data/local/tmp/.diag_test 2>&1 || true
++else
++    LOG=/tmp/rpi5_boot_diag.log
++fi
++
++run_diag() {
++echo "============================================================"
++echo " rpi5 boot diagnostics  $(date)"
++echo "============================================================"
++echo ""
++
++echo "--- basic info ---"
++getprop ro.build.type
++getprop ro.build.version.release
++getprop ro.build.version.sdk
++uname -a
++cat /proc/cmdline
++echo ""
++
++echo "--- verified boot ---"
++getprop ro.boot.verifiedbootstate
++getprop ro.boot.vbmeta.device_state
++getprop ro.boot.flash.locked
++getprop ro.boot.avb_version
++getprop ro.boot.vbmeta.digest
++getprop ro.boot.vbmeta.hash_alg
++echo ""
++
++echo "--- global crypto state ---"
++getprop ro.crypto.state
++getprop ro.crypto.type
++echo ""
++
++echo "--- FBE properties ---"
++getprop ro.crypto.volume.filenames_mode
++getprop ro.crypto.volume.contents_mode
++getprop ro.crypto.metadata.enabled
++getprop ro.crypto.fs_crypto_blkdev
++echo ""
++
++echo "--- vold crypto status (filtered) ---"
++dumpsys vold 2>&1 | grep -iE 'encrypt|file|fscrypt' || true
++echo ""
++
++echo "--- fstab ---"
++cat /vendor/etc/fstab* 2>&1 || true
++echo ""
++
++echo "--- mounts ---"
++mount 2>&1 || true
++echo ""
++echo "--- /data mount ---"
++mount | grep ' /data ' || true
++df -h /data 2>&1 || true
++echo ""
++
++echo "--- dm-crypt/dm-verity ---"
++ls -l /dev/block/dm-* 2>&1 || true
++ls -l /dev/block/mapper/ 2>&1 || true
++echo ""
++
++echo "--- selinux ---"
++getenforce 2>&1 || true
++echo ""
++
++echo "============================================================"
++echo " diagnostics complete"
++echo "============================================================"
++}
++
++# stdout is /dev/console (via 'console' in init.rc); also mirror to log file
++run_diag 2>&1 | tee "$LOG"
+--
+2.43.0

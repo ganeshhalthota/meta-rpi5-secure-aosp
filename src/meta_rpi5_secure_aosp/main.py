@@ -128,7 +128,7 @@ def _resolve_mode_options(
     }[resolved_boot_state]
     cmdline_profile_args = {
         "legacy": "",
-        "debug": "ignore_loglevel loglevel=7",
+        "debug": "ignore_loglevel loglevel=7 initcall_debug",
         "production": "quiet loglevel=4",
     }[cmdline_profile]
     encryption_args = {
@@ -197,10 +197,10 @@ def _validate_encryption_prerequisites(mode_options: dict, sdcard_data: dict) ->
 )
 @click.option(
     "--code", "-c",
-    type=click.Choice(["all", "uboot", "aosp"], case_sensitive=False),
+    type=click.Choice(["all", "kernel", "uboot", "aosp"], case_sensitive=False),
     default="all",
     show_default=True,
-    help="Which code to process: all, uboot, or aosp",
+    help="Which code to process: all, kernel, uboot, or aosp",
 )
 @click.option(
     "--config",
@@ -297,6 +297,11 @@ def main(
     uboot_dir_name = uboot_cfg.get("dir", "u-boot")
     uboot_dir = workspace / uboot_dir_name
 
+    # Resolve kernel source directory (relative to workspace)
+    kernel_cfg = rpi5_config.get("kernel", {})
+    kernel_dir_name = kernel_cfg.get("dir", "rpi5-kernel-src")
+    kernel_dir = workspace / kernel_dir_name
+
     # Derive AVB public key path from config if available (optional, with fallback to extraction)
     avb_pubkey = (
         (config.parent / rpi5_config["avb"]["public_key"]).resolve()
@@ -344,6 +349,7 @@ def main(
     # ------------------------------------------------------------------ #
     # Resolve which code paths and stages are active                     #
     # ------------------------------------------------------------------ #
+    do_kernel = code in {"all", "kernel"}
     do_uboot = code in {"all", "uboot"}
     do_aosp  = code in {"all", "aosp"}
 
@@ -365,6 +371,7 @@ def main(
         f"[dim]Workspace :[/] {workspace}\n"
         f"[dim]Stage     :[/] {stage}\n"
         f"[dim]Code      :[/] {code} -> "
+        f"Kernel={'Yes' if do_kernel else 'No'}, "
         f"U-Boot={'Yes' if do_uboot else 'No'}, AOSP={'Yes' if do_aosp else 'No'}\n"
         f"[dim]Config    :[/] {config}\n"
         f"[dim]U-Boot Dir:[/] {uboot_dir}\n"
@@ -412,8 +419,10 @@ def main(
         sdcard_config=sdcard_config,
         sdcard_data=sdcard_data,
         rpi5_config=rpi5_config,
+        do_kernel=do_kernel,
         do_uboot=do_uboot,
         do_aosp=do_aosp,
+        kernel_dir=kernel_dir,
         signing_enabled=signing_enabled,
         build_variant=mode_options["build_variant"],
         selinux_mode=mode_options["selinux_mode"],

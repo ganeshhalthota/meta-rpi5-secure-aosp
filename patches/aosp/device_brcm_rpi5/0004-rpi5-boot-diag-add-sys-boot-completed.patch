@@ -1,0 +1,24 @@
+From ce6653fec1e96e2ed97d21bc01e0b6ce3165d84d Mon Sep 17 00:00:00 2001
+From: Ganesh Halthota <ganesh.rvec@gmail.com>
+Date: Sun, 3 May 2026 11:12:40 +0530
+Subject: [PATCH] rpi5: boot diag: add sys.boot_completed to basic info section
+
+---
+ ramdisk/rpi5_boot_diag.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/ramdisk/rpi5_boot_diag.sh b/ramdisk/rpi5_boot_diag.sh
+index dc89131..6c07d3e 100644
+--- a/ramdisk/rpi5_boot_diag.sh
++++ b/ramdisk/rpi5_boot_diag.sh
+@@ -24,6 +24,7 @@ getprop ro.build.version.release
+ getprop ro.build.version.sdk
+ uname -a
+ cat /proc/cmdline
++getprop sys.boot_completed
+ echo ""
+ 
+ echo "--- verified boot ---"
+-- 
+2.43.0
+

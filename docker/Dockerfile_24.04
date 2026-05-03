@@ -35,6 +35,12 @@ RUN apt-get update && apt-get install -y \
   python3-sphinx-rtd-theme python3-subunit python3-testtools \
   python3-venv swig uuid-dev
 
+# Kernel build requirements
+# libdw-dev: provides dwarf.h required by scripts/gendwarfksyms (kernel 6.12+)
+# libelf-dev: provides libelf.h required by kernel host tools
+RUN apt-get update && apt-get install -y \
+  libdw-dev libelf-dev
+
 # Debug tools
 RUN apt-get update && apt-get install -y tree bash-completion strace vim
 

@@ -64,7 +64,7 @@ src/meta_rpi5_secure_aosp/
 
 #### Module Responsibilities
 
-- **`main.py`**: Defines the `click` CLI, resolves which stages and code targets are active, constructs a `BuildContext`, and calls each stage module in order:
+- **`main.py`**: Defines the `click` CLI, resolves which stages and code targets are active, resolves build/security mode options (`build_variant`, signing, SELinux mode, AVB fail policy, boot-state override, cmdline profile, `encryption_mode`), constructs a `BuildContext`, and calls each stage module in order:
   ```
   sync → patch → build → sign → sdcard
   ```
@@ -75,7 +75,7 @@ src/meta_rpi5_secure_aosp/
 
 - **`stages/patch.py`**: Discovers `.patch` files under `patches/uboot/` and `patches/aosp/<project>/`, dry-runs each with `git apply --check`, then applies them with `git am --3way`.
 
-- **`stages/build.py`**: Cross-compiles U-Boot for `rpi_arm64_defconfig` and builds the AOSP `aosp_rpi5_car` lunch target.
+- **`stages/build.py`**: Cross-compiles U-Boot for `rpi_arm64_defconfig`, renders boot script templates with resolved mode options, and builds the AOSP `aosp_rpi5_car-bp4a-<variant>` lunch target.
 
 - **`stages/sign.py`**: Uses `AvbTool` to add AVB hash footers to each partition image, append vbmeta sidecars, and produce a combined `vbmeta.img`.
 
@@ -180,3 +180,30 @@ Patches within each directory are applied in alphabetical order using `git am --
 
 3. **`scripts/flash_sdcard.sh`**:
    - Helper script to flash the generated SD card image to a physical SD card device.
+
+### Encryption Model
+
+The builder supports three encryption modes configured via `encryption.mode` in the rpi5 config YAML (or `--encryption-mode` CLI override):
+
+| Mode | Description | Prerequisites |
+|------|-------------|---------------|
+| `disabled` | No encryption (default) | None |
+| `fde` | Full-disk encryption via dm-crypt | Signing enabled, `fail_closed`, `userdata`+`metadata` partitions |
+| `fbe` | File-based encryption via fscrypt | Same as FDE |
+
+**FBE activation chain:**
+
+```
+config encryption.mode=fbe
+  → pipeline passes RPI5_ENABLE_FBE=true to AOSP make
+    → device.mk selects fstab.rpi5.fbe
+      → fstab.rpi5.fbe has fileencryption= + keydirectory= on userdata
+        → vold reads fstab at first-stage mount
+          → sets up dm-default-key over userdata (metadata encryption)
+            → applies fscrypt policy on /data (per-file encryption)
+              → ro.crypto.type=file, ro.crypto.state=encrypted
+```
+
+The `__ENCRYPTION_ARGS__` placeholder in `config/uboot/boot_avb.cmd` is rendered by `stages/build.py` with the resolved encryption cmdline arg (e.g. `androidboot.encryption_mode=fbe`), which is passed through U-Boot `bootargs` to the kernel.
+
+FBE depends on AVB: `fstab.rpi5.fbe` inherits `avb=vbmeta` on system/vendor from `fstab.rpi5.avb`. The prebuilt RPi5 AOSP kernel (`device/brcm/rpi5-kernel/Image`) has `CONFIG_FS_ENCRYPTION=y` compiled in unconditionally — no kernel source patch is required.

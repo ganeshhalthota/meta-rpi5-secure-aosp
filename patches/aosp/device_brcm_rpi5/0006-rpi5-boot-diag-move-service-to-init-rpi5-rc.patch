@@ -1,0 +1,55 @@
+From 4083ca5bd0c0e15baff0fa0e162a96bc6a1329cc Mon Sep 17 00:00:00 2001
+From: Ganesh Halthota <ganesh.rvec@gmail.com>
+Date: Sun, 3 May 2026 14:26:43 +0530
+Subject: [PATCH] rpi5: boot diag: move service into init.rpi5.rc
+
+ParseConfigDir('/vendor/etc/init') does not reliably load standalone rc
+files in this build; the service was silently dropped. init.rpi5.rc is
+loaded via the explicit hw import path in system init.rc and is
+guaranteed to be parsed.
+
+Move service + on property:sys.boot_completed=1 into init.rpi5.rc.
+Remove init.rpi5.diag.rc and its PRODUCT_COPY_FILES entry.
+---
+ device.mk            |  4 ++--
+ ramdisk/init.rpi5.rc | 11 +++++++++++
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/device.mk b/device.mk
+index b1642a0..6754d37 100644
+--- a/device.mk
++++ b/device.mk
+@@ -160,9 +160,9 @@ PRODUCT_COPY_FILES += \
+ endif
+ 
+ # Boot diagnostics — runs on every boot after sys.boot_completed=1
++# Service is defined in init.rpi5.rc (loaded via hw import path, not ParseConfigDir)
+ PRODUCT_COPY_FILES += \
+-    $(DEVICE_PATH)/ramdisk/rpi5_boot_diag.sh:$(TARGET_COPY_OUT_VENDOR)/bin/rpi5_boot_diag.sh \
+-    $(DEVICE_PATH)/ramdisk/init.rpi5.diag.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.rpi5.diag.rc
++    $(DEVICE_PATH)/ramdisk/rpi5_boot_diag.sh:$(TARGET_COPY_OUT_VENDOR)/bin/rpi5_boot_diag.sh
+ 
+ # Seccomp
+ PRODUCT_COPY_FILES += \
+diff --git a/ramdisk/init.rpi5.rc b/ramdisk/init.rpi5.rc
+index 029b52b..e5e239b 100644
+--- a/ramdisk/init.rpi5.rc
++++ b/ramdisk/init.rpi5.rc
+@@ -8,3 +8,14 @@ on fs
+ 
+ on late-fs
+     mount_all /vendor/etc/fstab.${ro.hardware} --late
++
++# Boot diagnostics: print security/encryption state to serial + log file
++service rpi5_boot_diag /system/bin/sh /vendor/bin/rpi5_boot_diag.sh
++    user root
++    group root
++    oneshot
++    disabled
++
++on property:sys.boot_completed=1
++    start rpi5_boot_diag
++
+-- 
+2.43.0
+
