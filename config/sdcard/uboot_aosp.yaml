@@ -43,3 +43,4 @@ partitions:
     partition_number: 7
     size: "16"
     format: ext4
+    selinux_context: "u:object_r:metadata_file:s0"

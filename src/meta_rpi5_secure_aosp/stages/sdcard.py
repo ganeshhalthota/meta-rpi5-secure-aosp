@@ -24,6 +24,14 @@ def run(ctx: BuildContext) -> None:
     image_data["output_dir"] = ctx.sdcard_dir
     image_data["build_variant"] = ctx.build_variant
 
+    # Provide e2fsdroid and compiled file_contexts for build-time SELinux labeling
+    # (used by DiskImage to label ext4 partitions via libext2fs instead of kernel setxattr)
+    _e2fsdroid = ctx.aosp_dir / "out/host/linux-x86/bin/e2fsdroid"
+    _file_contexts = ctx.aosp_dir / "out/target/product/rpi5/system/etc/selinux/plat_file_contexts"
+    if _e2fsdroid.exists() and _file_contexts.exists():
+        image_data["e2fsdroid"] = str(_e2fsdroid)
+        image_data["selinux_file_contexts"] = str(_file_contexts)
+
     for part in image_data["partitions"]:
         if "img" in part:
             img_path   = ctx.aosp_dir / part["img"]

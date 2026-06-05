@@ -1,0 +1,814 @@
+
+  0.63 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  0.67 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 967345
+  0.77 AON_RESET: 00000003 PM_RSTS 00001000
+  0.81 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  0.90 RP1_BOOT chip ID: 0x20001927
+  0.95 PCIEx1: PWR 0 DET_WAKE 0
+  0.96 part 00000000 reset_info 00000000
+  0.99 PMIC reset-event 00000000 rtc 00000000 alarm 00000000 enabled 0
+  1.05 uSD voltage 3.3V
+  1.12 SDRAM_CONFIG: 1b
+  1.12 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  1.17 DDR 4267 1 1 128 152 BL:1
+  2.48 OTP boardrev e04171 bootrom a a
+  2.50 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.57 VC-JTAG unlocked
+  2.79 RP1_BOOT chip ID: 0x20001927
+
+  3.15 RP1_BOOT chip ID: 0x20001927
+  3.15 RP1_BOOT: fw size 46888
+  4.53 PCI2 init
+  4.53 PCI2 reset
+  4.98 PCIe scan 00001de4:00000001
+  4.98 RP1_CHIP_INFO 20001927
+
+  4.01 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.08 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4108436
+  4.18 PCIEx1: PWR 0 DET_WAKE 0
+  4.21 M.2 PCIe HAT not detected.
+  4.45 usb_pd_init status 3
+  4.45 USB_PD CONFIG 0 41
+  4.25 XHCI-STOP
+  4.25 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.30 USBSTS 1
+  4.32 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.37 xHC0 ports 3 slots 64 intrs 4
+  4.49 XHCI-STOP
+  4.49 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.54 USBSTS 1
+  4.56 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.61 xHC1 ports 3 slots 64 intrs 4
+  4.69 USB-PD: src-cap PDO object1 0x0a0191f4
+  4.70 Current 5000 mA
+  4.72 Voltage 5000 mV
+  4.74 USB-PD: src-cap PDO object2 0x0002d12c
+  4.78 Current 3000 mA
+  4.80 Voltage 9000 mV
+  4.82 USB-PD: src-cap PDO object3 0x0003c0e1
+  4.87 Current 2250 mA
+  4.89 Voltage 12000 mV
+  4.91 USB-PD: src-cap PDO object4 0x0004b0b4
+  4.95 Current 1800 mA
+  4.97 Voltage 15000 mV
+  4.99 Boot mode: SD (01) order f4
+  8.61 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  8.72 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  9.05 OCR c0ff8000 [194]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+  9.12 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+  9.21 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  9.33 MBR: 0x00000001,62333951 type: 0xee
+  9.34 MBR: 0x00000000,       0 type: 0x00
+  9.38 MBR: 0x00000000,       0 type: 0x00
+  9.42 MBR: 0x00000000,       0 type: 0x00
+  9.46 Trying partition: 0
+  9.96 GPT 3a1c891c4351474ba00df1c4c01aae77 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+  9.03 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  9.10 Matched GUID bootable-part-idx 0 want partition 0
+  9.18 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.22 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.30 FAT32 clusters 258078
+  9.33 [sdcard] autoboot.txt not found
+  9.34 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  9.41 Trying partition: 1
+  9.46 GPT 3a1c891c4351474ba00df1c4c01aae77 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+  9.56 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  9.61 Matched GUID bootable-part-idx 0 want partition 0
+  9.68 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.72 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.81 FAT32 clusters 258078
+  9.86 Read config.txt bytes      642 hnd 0x15bc1
+  9.88 [sdcard] pieeprom.upd not found
+  9.91 usb_max_current_enable default 0 max-current 5000
+  9.04 Read bcm2712-rpi-5-b.dtb bytes    78768 hnd 0x13da0
+  9.06 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  9.12 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  9.26 Read /config.txt bytes      642 hnd 0x15bc1
+  9.32 Read /config.txt bytes      642 hnd 0x15bc1
+  9.36 MESS:00:00:09.336892:0: Initial voltage 800000 temp 29586
+  9.37 MESS:00:00:09.537327:0: avs_2712: AVS pred 8643 864300 temp 30685
+  9.40 MESS:00:00:09.540935:0: vpred 864 mV +0
+ 10.69 MESS:00:00:10.169200:0: FB framebuffer_swap 1
+ 10.71 MESS:00:00:10.171069:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+ 10.77 MESS:00:00:10.177959:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+ 10.97 MESS:00:00:10.197309:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+ 10.99 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+ 10.13 Read bcm2712-rpi-5-b.dtb bytes    78768 hnd 0x13da0
+ 10.50 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x14374
+ 10.78 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x14681
+ 10.01 MESS:00:00:10.301265:0: Loaded overlay 'bcm2712d0'
+ 10.65 PCIEx1: PWR 0 DET_WAKE 0
+ 10.81 Read /config.txt bytes      642 hnd 0x15bc1
+ 10.90 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x143cb
+ 10.37 MESS:00:00:10.437910:0: Loaded overlay 'vc4-kms-v3d-pi5'
+ 10.50 Read /overlays/cma.dtbo bytes      964 hnd 0x1422f
+ 10.58 MESS:00:00:10.558665:0: Loaded overlay 'cma'
+ 10.60 MESS:00:00:10.560441:0: dtparam: cma-320=true
+ 10.77 Read /overlays/dwc2.dtbo bytes      801 hnd 0x142f4
+ 10.89 MESS:00:00:10.589096:0: Loaded overlay 'dwc2'
+ 10.90 MESS:00:00:10.590963:0: dtparam: dr_mode=peripheral
+ 10.79 Read /cmdline.txt bytes      165 hnd 0x141de
+ 10.16 BMD "armstub8-2712.bin" not found
+ 10.16 fs_open: 'armstub8-2712.bin' 
+ 10.20 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+ 10.64 Read u-boot.bin bytes   769928 hnd 0x155da
+ 10.66 PCI1 reset
+ 10.77 PCI2 reset
+ 10.87 set_reboot_order 0
+ 10.87 set_reboot_arg1 0
+ 10.89 USB-OTG disconnect
+ 11.31 MESS:00:00:11.031158:0: BSC_A no ACK
+ 11.32 MESS:00:00:11.032391:0: BSC_A no ACK
+ 11.36 MESS:00:00:11.036316:0: BSC_A no ACK
+ 11.60 MESS:00:00:11.060250:0: BSC_B no ACK
+ 11.61 MESS:00:00:11.061476:0: BSC_B no ACK
+ 11.65 MESS:00:00:11.065412:0: BSC_B no ACK
+ 11.89 MESS:00:00:11.089177:0: Starting OS 11089 ms
+ 11.94 MESS:00:00:11.094789:0: 00000040: -> 00000480
+ 11.96 MESS:00:00:11.096643:0: 00000030: -> 00100080
+ 11.01 MESS:00:00:11.101356:0: 00000034: -> 00100080
+ 11.06 MESS:00:00:11.106069:0: 00000038: -> 00100080
+ 11.10 MESS:00:00:11.110782:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-g14e2f30cd28c-dirty (May 21 2026 - 17:25:40 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+USB DWC2
+Bus usb@480000: 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 1Hit any key to stop autoboot: 0
+No EFI variables loaded
+** Booting bootflow '<NULL>' with efi_mgr
+Loading Boot0000 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14)
+** Booting bootflow 'mmc@fff000.bootdev.part_1' with script
+=== Android U-Boot Boot Script (AVB) ===
+Setting AVB policy to default: fail_closed
+AVB fail policy: fail_closed
+Initializing AVB...
+Verifying partitions...
+## Android Verified Boot 2.0 version 1.1.0
+Verification passed successfully
+AVB: Verification PASSED
+Loading kernel Image...
+41630208 bytes read in 1767 ms (22.5 MiB/s)
+Loading ramdisk...
+1326103 bytes read in 58 ms (21.8 MiB/s)
+bootargs:  root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive quiet loglevel=4 androidboot.boot_part_uuid=6d22d1d4-5a9f-483f-999c-462fb3fb7f88 androidboot.vbmeta.device=PARTUUID=0e3a9e0d-dba5-460a-849d-abf519ee5649 androidboot.vbmeta.avb_version=1.1 androidboot.vbmeta.device_state=unlocked androidboot.vbmeta.hash_alg=sha256 androidboot.vbmeta.size=2432 androidboot.vbmeta.digest=849960ce43d75f80621a59389e1bb2dae135ea50be8e98b7d685e0f20465b185 androidboot.vbmeta.invalidate_on_error=yes androidboot.veritymode=enforcing androidboot.verifiedbootstate=orange   androidboot.encryption_mode=fbe
+Booting Android with AVB verification...
+Moving Image from 0x80000 to 0x200000, end=0x2a70000
+## Flattened Device Tree blob at 3f722370
+   Booting using the fdt blob at 0x3f722370
+Working FDT set to 3f722370
+   Loading Ramdisk to 1febc000, end 1ffffc17 ... OK
+   Loading Device Tree to 000000001fea5000, end 000000001febba01 ... OK
+Working FDT set to 1fea5000
+
+Starting kernel ...
+
+[    0.703272][    T1] bcm7271-uart 107d50c000.serial: error -EINVAL: unable to register 8250 port
+[    0.712021][    T1] bcm7271-uart 107d50c000.serial: probe with driver bcm7271-uart failed with error -22
+[    1.439134][    T1] init: Do not have permissions to set 'ro.boot.audio.tinyalsa.simulate_input' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    1.455131][    T1] init: Do not have permissions to set 'persist.bluetooth.a2dp_aac.vbr_supported' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    2.131173][   T31] brcmfmac: brcmf_sdio_htclk: HT Avail timeout (1000000): clkctl 0x50
+[    2.851551][  T343] vold: Failed to create /metadata/vold: Permission denied
+[    2.858657][  T343] vold: read_key failed in mountFstab
+[    2.863956][  T374] vdc: Command: cryptfs encryptFstab /dev/block/by-name/userdata /data false ext4 false 0   Failed: Status(-8, EX_SERVICE_SPECIFIC): '0: '
+[    3.610090][  T343] vold: keystore2 Communication with Keystore earlyBootEnded failed error: -129
+[    6.708010][    T1] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 331 (/system/bin/servicemanager)
+[    7.708407][    T1] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 331 (/system/bin/servicemanager)
+[    9.289515][  T343] cutils: Failed to mkdir(/data/misc/vold/user_keys): No such file or directory
+[    9.298502][  T343] vold: Failed to prepare /data/misc/vold/user_keys: No such file or directory
+[    9.307411][  T631] vdc: Command: cryptfs init_user0 Failed: Status(-8, EX_SERVICE_SPECIFIC): '0: '
+[    9.340528][    T1] reboot: Restarting system with command 'bootloader'
+
+  0.70 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  0.74 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 974800
+  0.84 AON_RESET: 00000003 PM_RSTS 00001020
+  0.88 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 0
+  0.98 RP1_BOOT chip ID: 0x20001927
+  1.03 PCIEx1: PWR 0 DET_WAKE 0
+  1.03 part 00000000 reset_info 00000000
+  1.06 PMIC reset-event 00000000 rtc 0000001d alarm 00000000 enabled 0
+  1.13 uSD voltage 3.3V
+  1.19 SDRAM_CONFIG: 1b
+  1.19 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  1.25 DDR 4267 1 1 128 152 BL:1
+  2.59 OTP boardrev e04171 bootrom a a
+  2.61 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.68 VC-JTAG unlocked
+  2.91 RP1_BOOT chip ID: 0x20001927
+
+  3.26 RP1_BOOT chip ID: 0x20001927
+  3.26 RP1_BOOT: fw size 46888
+  4.64 PCI2 init
+  4.64 PCI2 reset
+  4.09 PCIe scan 00001de4:00000001
+  4.09 RP1_CHIP_INFO 20001927
+
+  4.12 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.19 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4119538
+  4.29 PCIEx1: PWR 0 DET_WAKE 0
+  4.32 M.2 PCIe HAT not detected.
+  4.56 usb_pd_init status 3
+  4.56 USB_PD CONFIG 0 43
+  4.67 XHCI-STOP
+  4.67 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.78 USBSTS 1
+  4.80 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.85 xHC0 ports 3 slots 64 intrs 4
+  4.97 XHCI-STOP
+  4.97 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.02 USBSTS 1
+  4.04 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.09 xHC1 ports 3 slots 64 intrs 4
+  4.17 USB-PD: src-cap PDO object1 0x0a0191f4
+  4.18 Current 5000 mA
+  4.20 Voltage 5000 mV
+  4.22 USB-PD: src-cap PDO object2 0x0002d12c
+  4.26 Current 3000 mA
+  4.28 Voltage 9000 mV
+  4.30 USB-PD: src-cap PDO object3 0x0003c0e1
+  4.35 Current 2250 mA
+  4.37 Voltage 12000 mV
+  4.39 USB-PD: src-cap PDO object4 0x0004b0b4
+  4.43 Current 1800 mA
+  4.45 Voltage 15000 mV
+  4.47 Boot mode: SD (01) order f4
+  4.65 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  4.76 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  4.09 OCR c0ff8000 [196]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+  4.17 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+  4.25 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  4.38 MBR: 0x00000001,62333951 type: 0xee
+  4.39 MBR: 0x00000000,       0 type: 0x00
+  4.43 MBR: 0x00000000,       0 type: 0x00
+  4.47 MBR: 0x00000000,       0 type: 0x00
+  4.50 Trying partition: 0
+  4.55 GPT 3a1c891c4351474ba00df1c4c01aae77 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+  4.65 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  4.70 Matched GUID bootable-part-idx 0 want partition 0
+  4.78 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  4.82 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  4.90 FAT32 clusters 258078
+  4.94 [sdcard] autoboot.txt not found
+  4.95 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  5.01 Trying partition: 1
+  5.06 GPT 3a1c891c4351474ba00df1c4c01aae77 000000001 003b723ff num-partitions 128 entry-size 128 pentry 2 first 0
+  5.16 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  5.21 Matched GUID bootable-part-idx 0 want partition 0
+  5.29 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  5.33 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  5.41 FAT32 clusters 258078
+  5.46 Read config.txt bytes      642 hnd 0x15bc1
+  5.49 [sdcard] pieeprom.upd not found
+  5.51 usb_max_current_enable default 0 max-current 5000
+  5.63 Read bcm2712-rpi-5-b.dtb bytes    78768 hnd 0x13da0
+  5.65 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  5.71 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  5.85 Read /config.txt bytes      642 hnd 0x15bc1
+  5.91 Read /config.txt bytes      642 hnd 0x15bc1
+  5.96 MESS:00:00:05.096312:0: Initial voltage 800000 temp 30685
+  5.96 MESS:00:00:05.296747:0: avs_2712: AVS pred 8621 862100 temp 31235
+  5.00 MESS:00:00:05.300355:0: vpred 862 mV +0
+  5.28 MESS:00:00:05.928614:0: FB framebuffer_swap 1
+  5.48 MESS:00:00:05.948049:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+  5.52 MESS:00:00:05.952102:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+  5.71 MESS:00:00:05.971569:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+  5.74 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+  5.88 Read bcm2712-rpi-5-b.dtb bytes    78768 hnd 0x13da0
+  6.25 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x14374
+  6.52 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x14681
+  6.75 MESS:00:00:06.075691:0: Loaded overlay 'bcm2712d0'
+  6.39 PCIEx1: PWR 0 DET_WAKE 0
+  6.56 Read /config.txt bytes      642 hnd 0x15bc1
+  6.66 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x143cb
+  6.13 MESS:00:00:06.212980:0: Loaded overlay 'vc4-kms-v3d-pi5'
+  6.25 Read /overlays/cma.dtbo bytes      964 hnd 0x1422f
+  6.33 MESS:00:00:06.333787:0: Loaded overlay 'cma'
+  6.35 MESS:00:00:06.335563:0: dtparam: cma-320=true
+  6.52 Read /overlays/dwc2.dtbo bytes      801 hnd 0x142f4
+  6.64 MESS:00:00:06.364191:0: Loaded overlay 'dwc2'
+  6.66 MESS:00:00:06.366057:0: dtparam: dr_mode=peripheral
+  6.54 Read /cmdline.txt bytes      165 hnd 0x141de
+  6.91 BMD "armstub8-2712.bin" not found
+  6.92 fs_open: 'armstub8-2712.bin' 
+  6.95 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+  6.39 Read u-boot.bin bytes   769928 hnd 0x155da
+  6.41 PCI1 reset
+  6.53 PCI2 reset
+  6.63 set_reboot_order 0
+  6.63 set_reboot_arg1 0
+  6.64 USB-OTG disconnect
+  6.06 MESS:00:00:06.806468:0: Starting OS 6806 ms
+  6.12 MESS:00:00:06.811994:0: 00000040: -> 00000480
+  6.13 MESS:00:00:06.813844:0: 00000030: -> 00100080
+  6.18 MESS:00:00:06.818557:0: 00000034: -> 00100080
+  6.23 MESS:00:00:06.823270:0: 00000038: -> 00100080
+  6.27 MESS:00:00:06.827983:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-g14e2f30cd28c-dirty (May 21 2026 - 17:25:40 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... fs uses incompatible features: 00020000, ignoring
+Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+USB DWC2
+Bus usb@480000: 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 1Hit any key to stop autoboot: 0
+** Booting bootflow '<NULL>' with efi_mgr
+fs uses incompatible features: 00020000, ignoring
+fs uses incompatible features: 00020000, ignoring
+Loading Boot0000 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14)
+** Booting bootflow 'mmc@fff000.bootdev.part_1' with script
+=== Android U-Boot Boot Script (AVB) ===
+Setting AVB policy to default: fail_closed
+AVB fail policy: fail_closed
+Initializing AVB...
+Verifying partitions...
+## Android Verified Boot 2.0 version 1.1.0
+Verification passed successfully
+AVB: Verification PASSED
+Loading kernel Image...
+41630208 bytes read in 1768 ms (22.5 MiB/s)
+Loading ramdisk...
+1326103 bytes read in 58 ms (21.8 MiB/s)
+bootargs:  root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive quiet loglevel=4 androidboot.boot_part_uuid=6d22d1d4-5a9f-483f-999c-462fb3fb7f88 androidboot.vbmeta.device=PARTUUID=0e3a9e0d-dba5-460a-849d-abf519ee5649 androidboot.vbmeta.avb_version=1.1 androidboot.vbmeta.device_state=unlocked androidboot.vbmeta.hash_alg=sha256 androidboot.vbmeta.size=2432 androidboot.vbmeta.digest=849960ce43d75f80621a59389e1bb2dae135ea50be8e98b7d685e0f20465b185 androidboot.vbmeta.invalidate_on_error=yes androidboot.veritymode=enforcing androidboot.verifiedbootstate=orange   androidboot.encryption_mode=fbe
+Booting Android with AVB verification...
+Moving Image from 0x80000 to 0x200000, end=0x2a70000
+## Flattened Device Tree blob at 3f722370
+   Booting using the fdt blob at 0x3f722370
+Working FDT set to 3f722370
+   Loading Ramdisk to 1febc000, end 1ffffc17 ... OK
+   Loading Device Tree to 000000001fea5000, end 000000001febba01 ... OK
+Working FDT set to 1fea5000
+
+Starting kernel ...
+
+[    0.704508][    T1] bcm7271-uart 107d50c000.serial: error -EINVAL: unable to register 8250 port
+[    0.713252][    T1] bcm7271-uart 107d50c000.serial: probe with driver bcm7271-uart failed with error -22
+[    1.630978][    T1] init: Do not have permissions to set 'ro.boot.audio.tinyalsa.simulate_input' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    1.647070][    T1] init: Do not have permissions to set 'persist.bluetooth.a2dp_aac.vbr_supported' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    2.128615][   T31] brcmfmac: brcmf_sdio_htclk: HT Avail timeout (1000000): clkctl 0x50
+[   52.783768][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   53.721693][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   53.783857][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   54.721992][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   54.783987][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   55.722307][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   55.784138][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   56.722619][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   56.784396][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   57.722938][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   58.723210][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   58.784641][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   59.723548][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   59.784809][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   60.723885][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   60.784943][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   61.724187][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   61.785083][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   62.724680][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   62.785374][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   63.785560][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   64.725334][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   64.785673][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   65.725633][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   65.785841][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   66.725971][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   66.785986][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   67.726277][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   67.786125][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   68.726584][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   69.726902][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   69.786474][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   70.727226][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   70.786635][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   71.727525][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   71.786911][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   72.727878][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   72.787013][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   73.728164][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   73.787241][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   74.787428][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   75.728773][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   75.787539][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   76.729084][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   76.787684][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   77.729394][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   77.787909][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   78.729707][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   78.788019][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   79.730013][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   80.730321][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   80.788406][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   81.730645][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   81.788535][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   82.731088][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   82.788931][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   83.731413][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   83.789028][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   84.731726][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   84.789168][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   85.732030][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   85.789310][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   86.732334][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   86.789466][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   87.732655][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   87.789607][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   88.732959][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   88.789750][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   89.733277][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   89.789907][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   90.790136][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   91.733906][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   91.790254][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   92.734221][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   92.790401][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   93.734531][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   93.790539][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   94.734839][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   94.790771][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   95.735138][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   95.790895][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   96.735435][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   96.791077][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   97.735761][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   97.791192][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   98.736060][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   98.791341][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   99.736364][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   99.791478][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  100.736688][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  101.736999][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  101.791797][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  102.737521][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  102.792061][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  103.737867][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  103.792224][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  104.738190][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  104.792495][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  105.738520][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  105.792598][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  106.738855][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  106.792770][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  107.739194][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  107.792942][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  108.739508][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  108.793127][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  109.739816][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  109.793253][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  110.740114][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  110.793403][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  111.793631][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  112.740728][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  112.793744][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  113.741016][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  113.793891][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  114.741359][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  114.794160][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  115.741666][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  115.794269][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  116.741999][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  117.742294][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  117.794689][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  118.742671][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  118.794839][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  119.742932][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  119.794981][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  120.743231][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  120.795134][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  121.743533][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  121.795276][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  122.743887][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  122.795592][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  123.744244][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  123.795733][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  124.744677][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  124.796005][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  125.745002][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  125.796130][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  126.745306][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  126.796296][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  127.796532][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  128.745957][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  128.796749][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  129.746257][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  129.796975][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  130.746598][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  130.797197][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  131.746924][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  131.797402][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  132.747242][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  133.747572][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  133.797834][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  134.747906][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  134.798069][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  135.748229][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  135.798306][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  136.748558][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  136.798504][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  137.748877][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  137.798757][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  138.798986][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  139.749509][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  139.799196][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  140.749834][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  140.799326][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  141.750127][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  141.799496][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  142.750474][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  142.799730][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  143.750833][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  144.751148][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  144.800080][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  145.751521][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  145.800243][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  146.751852][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  146.800404][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  147.752153][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  147.800573][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  148.752484][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  148.800732][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  149.800973][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  150.753130][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  150.801118][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  151.753457][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  151.801275][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  152.753786][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  152.801433][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  153.754090][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  153.801592][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  154.754431][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  155.754790][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  155.801914][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  156.755085][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  156.802075][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  157.755399][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  157.802229][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  158.755725][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  158.802393][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  159.756025][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  159.802557][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  160.802802][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  161.756683][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  161.802937][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  162.757117][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  162.803223][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  163.757412][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  163.803350][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  164.757744][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  164.803514][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  165.758050][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  166.758392][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  166.803931][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  167.758713][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  167.804162][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  168.759021][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  168.804299][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  169.759338][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  169.804466][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  170.759670][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  170.804623][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  171.759984][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  171.804792][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  172.760294][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  172.804949][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  173.760614][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  173.805108][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  174.760925][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  174.805268][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  175.761246][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  175.805521][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  176.805744][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  177.761915][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  177.806006][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  178.762262][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  178.806133][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  179.762568][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  179.806290][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  180.762893][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  180.806459][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  181.763199][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  181.806709][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  182.763534][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  182.806907][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  183.763852][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  183.807093][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  184.764169][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  184.807248][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  185.764496][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  185.807514][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  186.764819][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  187.765130][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  187.807886][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  188.765450][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  188.808012][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  189.765753][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  189.808179][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  190.766073][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  190.808339][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  191.766398][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  191.808501][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  192.766725][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  192.808670][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  193.767067][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  193.808822][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  194.767377][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  194.808985][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  195.767681][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  195.809144][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  196.768014][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  196.809301][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  197.809540][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  198.768642][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  198.809670][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  199.768958][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  199.809823][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  200.769283][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  200.809979][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  201.769609][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  201.810142][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  202.770006][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  203.770362][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  203.810542][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  204.770674][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  204.810791][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  205.770991][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  205.810937][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  206.771336][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  206.811110][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  207.771640][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  207.811278][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  208.771956][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  208.811563][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  209.772287][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  209.811690][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  210.772582][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  210.811847][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  211.772898][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  211.812015][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  212.773218][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  212.812177][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  213.812413][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  214.773840][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  214.812544][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  215.774152][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  215.812694][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  216.774469][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  216.812887][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  217.774798][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  217.813084][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  218.775132][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  219.775430][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  219.813400][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  220.775755][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  220.813554][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  221.776065][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  221.813731][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  222.776455][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  222.813948][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  223.776754][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  223.814114][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  224.814343][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  225.777402][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  225.814476][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  226.777734][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  226.814645][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  227.778051][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  227.814844][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  228.778384][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  228.815001][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  229.778688][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  229.815162][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  230.779013][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  230.815321][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  231.779299][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  231.815483][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  232.779641][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  232.815642][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  233.779970][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  233.815806][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  234.780292][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  235.780606][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  235.816123][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  236.780937][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  236.816318][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  237.781237][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  237.816478][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  238.781559][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  238.816649][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  239.781883][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  239.816831][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  240.817068][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  241.782505][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  241.817203][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  242.782923][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  242.817424][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  243.783224][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  243.817598][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  244.783546][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  244.817766][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  245.783866][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  246.784313][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  246.818215][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  247.784581][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  247.818360][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  248.784884][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  248.818520][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  249.785194][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  249.818716][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  250.785511][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  250.818956][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  251.819165][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  252.786125][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  252.819303][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  253.786441][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  253.819479][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  254.786792][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  254.819661][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  255.787125][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  255.819818][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  256.787432][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  257.787762][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  257.820145][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  258.788076][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  258.820394][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  259.788385][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  259.820537][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  260.788718][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  260.820685][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  261.789020][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  261.820846][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  262.821075][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  263.789738][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  263.821236][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  264.790057][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  264.821406][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  265.790377][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  265.821609][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  266.790718][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  266.821749][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  267.791032][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  268.791349][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  268.822081][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  269.791693][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  269.822267][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  270.791998][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  270.822476][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  271.792324][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  271.822627][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  272.792644][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  272.822774][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  273.823020][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  274.793282][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  274.823198][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  275.793619][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  275.823351][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  276.793929][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  276.823521][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  277.794239][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  277.823680][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  278.794594][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  279.794897][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  279.824026][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[  280.795223][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[  280.824218][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330

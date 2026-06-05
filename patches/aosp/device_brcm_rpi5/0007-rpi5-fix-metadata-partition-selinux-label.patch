@@ -1,0 +1,41 @@
+From 768ce1d56635cb6875a5a962a9a893e713c145c4 Mon Sep 17 00:00:00 2001
+From: Ganesh Halthota <ganesh.rvec@gmail.com>
+Date: Thu, 21 May 2026 22:52:07 +0530
+Subject: [PATCH] rpi5: fix metadata partition SELinux label on first boot
+
+The sdcard image builder formats the metadata partition with plain
+mkfs.ext4, which leaves the filesystem root with an 'unlabeled'
+SELinux context (no xattr). With SELinux enforcing, vold is denied
+write access to /metadata on first access, causing:
+  vold: Failed to create /metadata/vold: Permission denied
+  vold: read_key failed in mountFstab
+  vdc: cryptfs init_user0 Failed
+This triggers a reboot loop because /data cannot be mounted via FBE.
+
+Add an 'on post-fs' action that runs restorecon_recursive /metadata
+before vold accesses the partition. The plat_file_contexts already
+defines /metadata(/.*)? -> u:object_r:metadata_file:s0 and
+/metadata/vold(/.*)? -> u:object_r:vold_metadata_file:s0, so
+restorecon resolves the correct labels without any policy changes.
+---
+ ramdisk/init.rpi5.rc | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/ramdisk/init.rpi5.rc b/ramdisk/init.rpi5.rc
+index e5e239b..ba620a4 100644
+--- a/ramdisk/init.rpi5.rc
++++ b/ramdisk/init.rpi5.rc
+@@ -6,6 +6,10 @@ on init
+ on fs
+     mount_all /vendor/etc/fstab.${ro.hardware} --early
+ 
++on post-fs
++    # metadata ext4 is formatted without xattrs by the sdcard builder; label it before vold access
++    restorecon_recursive /metadata
++
+ on late-fs
+     mount_all /vendor/etc/fstab.${ro.hardware} --late
+ 
+-- 
+2.43.0
+

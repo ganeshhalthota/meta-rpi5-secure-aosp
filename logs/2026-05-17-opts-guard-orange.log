@@ -1,0 +1,17 @@
+[0;32m[INFO][0m Using existing docker image: rpi5-890928526d36
+[0;32m[INFO][0m Starting container: rpi_build
+[0;32m[INFO][0m   Workspace: /local/mnt/workspace/ghalthot/32-rpi/rpi5_aosp_car/meta-rpi5-secure-aosp/work
+[0;32m[INFO][0m   User: ghalthot (UID=4186280, GID=200)
+[0;32m[INFO][0m   SSH keys: /usr2/ghalthot/.ssh (read-only)
+[0;32m[INFO][0m   pip config: /usr2/ghalthot/.pip (read-only)
+[0;32m[INFO][0m Executing python builder application with args: --config config/rpi5_uboot_aosp_signed.yaml --stage sdcard --boot-state-override orange
+useradd warning: ghalthot's uid 4186280 outside of the UID_MIN 1000 and UID_MAX 60000 range.
+useradd: warning: the home directory /home/ghalthot already exists.
+useradd: Not copying any file from skel directory into it.
+Resolving dependencies...
+Installing dependencies from lock file
+
+No dependencies to install or update
+
+Installing the current project: meta-rpi5-secure-aosp (0.1.0)
+Error: boot.state_override='orange' is insecure. Pass --allow-insecure-boot-state for test-only runs.

@@ -1,0 +1,225 @@
+[0;32m[INFO][0m Using existing docker image: rpi5-890928526d36
+[0;32m[INFO][0m Starting container: rpi_build
+[0;32m[INFO][0m   Workspace: /local/mnt/workspace/ghalthot/32-rpi/rpi5_aosp_car/meta-rpi5-secure-aosp/work
+[0;32m[INFO][0m   User: ghalthot (UID=4186280, GID=200)
+[0;32m[INFO][0m   SSH keys: /usr2/ghalthot/.ssh (read-only)
+[0;32m[INFO][0m   pip config: /usr2/ghalthot/.pip (read-only)
+[0;32m[INFO][0m Executing python builder application with args: --config config/rpi5_uboot_aosp.yaml --stage sdcard
+useradd warning: ghalthot's uid 4186280 outside of the UID_MIN 1000 and UID_MAX 60000 range.
+useradd: warning: the home directory /home/ghalthot already exists.
+useradd: Not copying any file from skel directory into it.
+Resolving dependencies...
+Installing dependencies from lock file
+
+No dependencies to install or update
+
+Installing the current project: meta-rpi5-secure-aosp (0.1.0)
+╭─────────────────────────────────────────────────────╮
+│ RPi5 Secure AOSP Builder                            │
+│ Workspace : /app/work                               │
+│ Stage     : sdcard                                  │
+│ Code      : all -> Kernel=Yes, U-Boot=Yes, AOSP=Yes │
+│ Config    : config/rpi5_uboot_aosp.yaml             │
+│ U-Boot Dir: /app/work/u-boot-rpi5                   │
+│ AOSP Tag  : android-16.0.0_r4                       │
+│ AVB Key   : /app/config/avb/avb_private_key.pem     │
+│ AVB PubKey: from config                             │
+│ SD Card   : config/sdcard/uboot_aosp.yaml           │
+│ Signing   : Disabled                                │
+│ Variant   : eng                                     │
+│ SELinux   : permissive                              │
+│ Boot State: orange                                  │
+│ AVB Policy: fail_open                               │
+│ Profile   : debug                                   │
+│ Encryption: disabled                                │
+│ Actions   : SD Card                                 │
+╰─────────────────────────────────────────────────────╯
+Stage: Generating sdcard image
+
+Welcome to fdisk (util-linux 2.39.3).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+Created a new DOS (MBR) disklabel with disk identifier 0x21d4142d.
+
+Command (m for help): Created a new DOS (MBR) disklabel with disk identifier 0x9dd5409f.
+
+Command (m for help): Partition type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions)
+Select (default p): Partition number (1-4, default 1): First sector (2048-29999103, default 2048): Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-29999103, default 29999103): 
+Created a new partition 1 of type 'Linux' and of size 128 MiB.
+
+Command (m for help): Partition type
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended (container for logical partitions)
+Select (default p): Partition number (2-4, default 2): First sector (264192-29999103, default 264192): Last sector, +/-sectors or +/-size{K,M,G,T,P} (264192-29999103, default 29999103): 
+Created a new partition 2 of type 'Extended' and of size 3.4 GiB.
+
+Command (m for help): Partition type
+   p   primary (1 primary, 1 extended, 2 free)
+   l   logical (numbered from 5)
+Select (default p): 
+Adding logical partition 5
+First sector (266240-7383039, default 266240): Last sector, +/-sectors or +/-size{K,M,G,T,P} (266240-7383039, default 7383039): 
+Created a new partition 5 of type 'Linux' and of size 3 GiB.
+
+Command (m for help): Partition type
+   p   primary (1 primary, 1 extended, 2 free)
+   l   logical (numbered from 5)
+Select (default p): 
+Adding logical partition 6
+First sector (6559744-7383039, default 6559744): Last sector, +/-sectors or +/-size{K,M,G,T,P} (6559744-7383039, default 7383039): 
+Created a new partition 6 of type 'Linux' and of size 384 MiB.
+
+Command (m for help): Partition type
+   p   primary (1 primary, 1 extended, 2 free)
+   l   logical (numbered from 5)
+Select (default p): 
+Adding logical partition 7
+First sector (7348224-7383039, default 7348224): Last sector, +/-sectors or +/-size{K,M,G,T,P} (7348224-7383039, default 7383039): 
+Created a new partition 7 of type 'Linux' and of size 16 MiB.
+
+Command (m for help): Partition type
+   p   primary (1 primary, 1 extended, 2 free)
+   l   logical (numbered from 5)
+Select (default p): Partition number (3,4, default 3): First sector (7383040-29999103, default 7383040): Last sector, +/-sectors or +/-size{K,M,G,T,P} (7383040-29999103, default 29999103): 
+Created a new partition 3 of type 'Linux' and of size 10.8 GiB.
+
+Command (m for help): Partition number (1-3,5-7, default 7): Hex code or alias (type L to list all): 
+Changed type of partition 'Linux' to 'W95 FAT32 (LBA)'.
+
+Command (m for help): Partition number (1-3,5-7, default 7): 
+The bootable flag on partition 1 is enabled now.
+
+Command (m for help): The partition table has been altered.
+Syncing disks.
+
+128+0 records in
+128+0 records out
+134217728 bytes (134 MB, 128 MiB) copied, 0.174149 s, 771 MB/s
+mke2fs 1.47.0 (5-Feb-2023)
+Discarding device blocks:       0/2827008               done                            
+Creating filesystem with 2827008 4k blocks and 707136 inodes
+Filesystem UUID: 04b23112-4d73-4def-8afa-fd4ba565e00b
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208
+
+Allocating group tables:  0/87     done                            
+Writing inode tables:  0/87     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/87     done
+
+3072+0 records in
+3072+0 records out
+3221225472 bytes (3.2 GB, 3.0 GiB) copied, 2.3105 s, 1.4 GB/s
+384+0 records in
+384+0 records out
+402653184 bytes (403 MB, 384 MiB) copied, 0.448016 s, 899 MB/s
+mke2fs 1.47.0 (5-Feb-2023)
+Discarding device blocks:    0/4096         done                            
+Creating filesystem with 4096 4k blocks and 4096 inodes
+
+Allocating group tables: 0/1   done                            
+Writing inode tables: 0/1   done                            
+Creating journal (1024 blocks): done
+Writing superblocks and filesystem accounting information: 0/1   done
+
+Creating image file /app/work/sdcard/rpi5-uboot-aosp-eng-202605171730.img...
+Running: sudo fallocate -l 15359541248 /app/work/sdcard/rpi5-uboot-aosp-eng-202605171730.img
+Running: sync
+Creating MBR partition table using fdisk...
+fdisk input:
+o
+n
+p
+1
+
++128M
+n
+e
+2
+
++3476M
+n
+l
+
++3072M
+n
+l
+
++384M
+n
+l
+
++16M
+n
+p
+3
+
+
+t
+1
+c
+a
+1
+w
+
+Running: sync
+Mapping loop device...
+  Attached /app/work/sdcard/rpi5-uboot-aosp-eng-202605171730.img to /dev/loop0
+  Mapping partitions with kpartx...
+  kpartx output:
+add map loop0p1 (252:6): 0 262144 linear 7:0 2048
+add map loop0p2 (252:7): 0 2 linear 7:0 264192
+add map loop0p3 (252:8): 0 22616064 linear 7:0 7383040
+add map loop0p5 (252:9): 0 6291456 linear 7:0 266240
+add map loop0p6 (252:10): 0 786432 linear 7:0 6559744
+add map loop0p7 (252:11): 0 32768 linear 7:0 7348224
+
+  Partitions mapped as /dev/mapper/loop0pX
+Copying /app/work/rpi5-aosp/out/target/product/rpi5/boot.img to p1...
+  Source image size: 128.00 MiB
+Running: sudo dd if=/app/work/rpi5-aosp/out/target/product/rpi5/boot.img of=/dev/mapper/loop0p1 bs=1M conv=notrunc
+Copying extra files to partition 1...
+  Created temporary mount point: /tmp/tmp15paj9gk
+Running: sudo mount /dev/mapper/loop0p1 /tmp/tmp15paj9gk
+  Copying /app/work/u-boot-rpi5/u-boot.bin to /tmp/tmp15paj9gk/u-boot.bin
+Running: sudo cp /app/work/u-boot-rpi5/u-boot.bin /tmp/tmp15paj9gk/u-boot.bin
+  Copying /app/work/u-boot-rpi5/boot.scr to /tmp/tmp15paj9gk/boot.scr
+Running: sudo cp /app/work/u-boot-rpi5/boot.scr /tmp/tmp15paj9gk/boot.scr
+  Copying /app/config/uboot/config.txt to /tmp/tmp15paj9gk/config.txt
+Running: sudo cp /app/config/uboot/config.txt /tmp/tmp15paj9gk/config.txt
+Running: sudo sync
+Running: sudo umount /tmp/tmp15paj9gk
+  Removed temporary mount point
+Creating filesystem on p3 with label userdata...
+Running: sudo mkfs.ext4 /dev/mapper/loop0p3 -I 512 -L userdata
+Copying /app/work/rpi5-aosp/out/target/product/rpi5/system.img to p5...
+  Source image size: 3072.00 MiB
+Running: sudo dd if=/app/work/rpi5-aosp/out/target/product/rpi5/system.img of=/dev/mapper/loop0p5 bs=1M conv=notrunc
+Copying /app/work/rpi5-aosp/out/target/product/rpi5/vendor.img to p6...
+  Source image size: 384.00 MiB
+Running: sudo dd if=/app/work/rpi5-aosp/out/target/product/rpi5/vendor.img of=/dev/mapper/loop0p6 bs=1M conv=notrunc
+Creating filesystem on p7 with label metadata...
+Running: sudo mkfs.ext4 /dev/mapper/loop0p7 -I 512 -L metadata
+Cleaning up loop device...
+Running: sudo kpartx -d /dev/loop0
+Running: sudo losetup -d /dev/loop0
+  Changing ownership of /app/work/sdcard/rpi5-uboot-aosp-eng-202605171730.img...
+Running: sudo chown ghalthot:ghalthot /app/work/sdcard/rpi5-uboot-aosp-eng-202605171730.img
+  Changed ownership to ghalthot:ghalthot
+  Cleanup completed successfully!
+Image ready in: /app/work/sdcard/rpi5-uboot-aosp-eng-202605171730.img
+
+Compressing image to tar.gz (split by 0.5 GiB)...
+Compressing rpi5-uboot-aosp-eng-202605171730.img to tar.gz split by 0.50 GiB ...
+Created 2 archive part(s):
+  /app/work/sdcard/rpi5-uboot-aosp-eng-202605171730.img.tar.gz.aa  (512.0 MiB)
+  /app/work/sdcard/rpi5-uboot-aosp-eng-202605171730.img.tar.gz.ab  (393.0 MiB)
+2 archive part(s) created in: /app/work/sdcard
+
+To reassemble:  cat *.img.tar.gz.* | tar -xzf -
+
+All requested stages completed successfully!

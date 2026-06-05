@@ -1,0 +1,180 @@
+[0;32m[INFO][0m Using existing docker image: rpi5-890928526d36
+[0;32m[INFO][0m Starting container: rpi_build
+[0;32m[INFO][0m   Workspace: /local/mnt/workspace/ghalthot/32-rpi/rpi5_aosp_car/meta-rpi5-secure-aosp/work
+[0;32m[INFO][0m   User: ghalthot (UID=4186280, GID=200)
+[0;32m[INFO][0m   SSH keys: /usr2/ghalthot/.ssh (read-only)
+[0;32m[INFO][0m   pip config: /usr2/ghalthot/.pip (read-only)
+[0;32m[INFO][0m Executing python builder application with args: --config config/rpi5_uboot_aosp.yaml --stage build --code aosp --boot-state-override green
+useradd warning: ghalthot's uid 4186280 outside of the UID_MIN 1000 and UID_MAX 60000 range.
+useradd: warning: the home directory /home/ghalthot already exists.
+useradd: Not copying any file from skel directory into it.
+Resolving dependencies...
+Installing dependencies from lock file
+
+No dependencies to install or update
+
+Installing the current project: meta-rpi5-secure-aosp (0.1.0)
+╭────────────────────────────────────────────────────╮
+│ RPi5 Secure AOSP Builder                           │
+│ Workspace : /app/work                              │
+│ Stage     : build                                  │
+│ Code      : aosp -> Kernel=No, U-Boot=No, AOSP=Yes │
+│ Config    : config/rpi5_uboot_aosp.yaml            │
+│ U-Boot Dir: /app/work/u-boot-rpi5                  │
+│ AOSP Tag  : android-16.0.0_r4                      │
+│ AVB Key   : /app/config/avb/avb_private_key.pem    │
+│ AVB PubKey: from config                            │
+│ SD Card   : config/sdcard/uboot_aosp.yaml          │
+│ Signing   : Disabled                               │
+│ Variant   : eng                                    │
+│ SELinux   : permissive                             │
+│ Boot State: green                                  │
+│ AVB Policy: fail_open                              │
+│ Profile   : debug                                  │
+│ Encryption: disabled                               │
+│ Actions   : Build,                                 │
+╰────────────────────────────────────────────────────╯
+Stage: Build
+-> Building AOSP
+   Using lunch target: aosp_rpi5_car-bp4a-eng
+[16:55:06] +$ rpi5-aosp bash -c 'source build/envsetup.sh && lunch   main.py:404
+           aosp_rpi5_car-bp4a-eng && make bootimage systemimage                 
+           vendorimage -j $(nproc)'                                             
+16:55:08 Build sandboxing disabled due to nsjail error.
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=16
+TARGET_PRODUCT=aosp_rpi5_car
+TARGET_BUILD_VARIANT=eng
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=cortex-a76
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-6.8.0-90-generic-x86_64-Ubuntu-24.04.4-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=BP4A.251205.006
+OUT_DIR=out
+SOONG_ONLY=false
+============================================
+16:55:09 Build sandboxing disabled due to nsjail error.
+Running product configuration...
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=16
+TARGET_PRODUCT=aosp_rpi5_car
+TARGET_BUILD_VARIANT=eng
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=cortex-a76
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-6.8.0-90-generic-x86_64-Ubuntu-24.04.4-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=BP4A.251205.006
+OUT_DIR=out
+SOONG_ONLY=false
+============================================
+[100% 1/1] bootstrap blueprint
+Running globs...
+ninja: no work to do.
+No need to regenerate ninja file
+No need to regenerate ninja file
+No need to regenerate ninja file
+Starting ninja...
+[  2% 2/80 15s remaining] //build/soong:odm_dlkm-build.prop generating build.prop
+[  3% 3/80 15s remaining] //build/soong:odm-build.prop generating build.prop
+[  5% 4/80 15s remaining] //build/soong:product-build.prop generating build.prop
+[  6% 5/80 15s remaining] //build/soong:system_dlkm-build.prop generating build.prop
+[  7% 6/80 15s remaining] Install: out/target/product/rpi5/vendor/odm/etc/build.prop
+[  8% 7/80 15s remaining] Install: out/target/product/rpi5/vendor/odm_dlkm/etc/build.prop
+[ 10% 8/80 15s remaining] //build/soong:vendor_dlkm-build.prop generating build.prop
+[ 11% 9/80 15s remaining] //build/soong:system_ext-build.prop generating build.prop
+[ 12% 10/80 15s remaining] Install: out/target/product/rpi5/system/product/etc/build.prop
+[ 13% 11/80 15s remaining] Install: out/target/product/rpi5/system/system_dlkm/etc/build.prop
+[ 15% 12/80 15s remaining] //build/soong:system-build.prop generating build.prop
+[ 16% 13/80 15s remaining] Install: out/target/product/rpi5/vendor/vendor_dlkm/etc/build.prop
+[ 17% 14/80 15s remaining] Install: out/target/product/rpi5/system/system_ext/etc/build.prop
+[ 18% 15/80 15s remaining] Install: out/target/product/rpi5/system/build.prop
+[ 20% 16/80 15s remaining] build out/target/product/rpi5/rpiboot
+ninja: Missing `restat`? An output file is older than the most recent input:
+ output: out/target/product/rpi5/rpiboot
+  input: out/target/product/rpi5/ramdisk.img
+ninja: outputs should be files, not directories: out/target/product/rpi5/rpiboot
+[ 21% 17/80 15s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_build_prop_gen_arm64 generate build.prop.out
+[ 22% 18/80 15s remaining] cp out/soong/.intermediates/packages/modules/Virtualization/build/microdroid/microdroid_build_prop/android_arm64_armv8-a_cortex-a76/build.prop
+[ 23% 19/80 15s remaining] Creating linker config: out/target/product/rpi5/vendor/etc/linker.config.pb
+[ 25% 20/80 15s remaining] Installed file list: out/target/product/rpi5/installed-files-vendor.txt
+[ 26% 21/80 15s remaining] Target boot image: out/target/product/rpi5/boot.img
+128+0 records in
+128+0 records out
+134217728 bytes (128 M) copied, 0.039 s, 3.2 G/s
+mkfs.fat: Warning: lowercase labels might not work properly on some systems
+mkfs.fat 4.2 (2021-01-31)
+[ 27% 22/80 15s remaining] //packages/modules/Virtualization/build/microdroid:microdroid Assemble filesystem staging dir microdroid
+[ 28% 23/80 15s remaining] Target vendor fs image: out/target/product/rpi5/vendor.img
+WARNING: out/target/product/rpi5/vendor.img+ approaching size limit (402653184 now; limit 402653184)
+[ 30% 24/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid Creating filesystem microdroid
+[ 31% 25/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_vbmeta vbmeta microdroid_vbmeta
+[ 32% 26/80 14s remaining] Install: out/target/product/rpi5/apex/com.android.virt/etc/fs/microdroid_vbmeta.img
+[ 33% 27/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_super Creating microdroid_super
+05-17 16:55:15.351  1556  1556 I lpmake  : builder.cpp:1027 [liblp] Partition system_a will resize from 0 bytes to 49782784 bytes
+[ 35% 28/80 14s remaining] Install: out/target/product/rpi5/apex/com.android.virt/etc/fs/microdroid_super.img
+[ 36% 29/80 14s remaining] //packages/modules/Virtualization/build/microdroid/initrd:microdroid_vbmeta_bootconfig_gen generate bootconfig_microdroid_vbmeta
+[ 37% 30/80 14s remaining] //packages/modules/Virtualization/build/microdroid/initrd:microdroid_gki-android15-6.6_initrd_normal_arm64 generate microdroid_gki-android15-6.6_initrd_normal_arm64
+[ 38% 31/80 14s remaining] //packages/modules/Virtualization/build/microdroid/initrd:microdroid_initrd_debuggable_arm64 generate microdroid_initrd_debuggable_arm64
+[ 40% 32/80 14s remaining] //packages/modules/Virtualization/build/microdroid/initrd:microdroid_gki-android16-6.12_initrd_normal_arm64 generate microdroid_gki-android16-6.12_initrd_normal_arm64
+[ 41% 33/80 14s remaining] //packages/modules/Virtualization/build/microdroid/initrd:microdroid_gki-android15-6.6_initrd_debuggable_arm64 generate microdroid_gki-android15-6.6_initrd_debuggable_arm64
+[ 42% 34/80 14s remaining] //packages/modules/Virtualization/build/microdroid/initrd:microdroid_initrd_normal_arm64 generate microdroid_initrd_normal_arm64
+[ 43% 35/80 14s remaining] //packages/modules/Virtualization/build/microdroid/initrd:microdroid_gki-android16-6.12_initrd_debuggable_arm64 generate microdroid_gki-android16-6.12_initrd_debuggable_arm64
+[ 45% 36/80 14s remaining] cp out/soong/.intermediates/packages/modules/Virtualization/build/microdroid/initrd/microdroid_initrd_debuggable/android_arm64_armv8-a_cortex-a76/microdroid_initrd_debuggable.img
+[ 46% 37/80 14s remaining] cp out/soong/.intermediates/packages/modules/Virtualization/build/microdroid/initrd/microdroid_gki-android15-6.6_initrd_normal/android_arm64_armv8-a_cortex-a76/microdroid_gki-android15-6.6_initrd_normal.img
+[ 47% 38/80 14s remaining] cp out/soong/.intermediates/packages/modules/Virtualization/build/microdroid/initrd/microdroid_gki-android16-6.12_initrd_normal/android_arm64_armv8-a_cortex-a76/microdroid_gki-android16-6.12_initrd_normal.img
+[ 48% 39/80 14s remaining] cp out/soong/.intermediates/packages/modules/Virtualization/build/microdroid/initrd/microdroid_gki-android15-6.6_initrd_debuggable/android_arm64_armv8-a_cortex-a76/microdroid_gki-android15-6.6_initrd_debuggable.img
+[ 50% 40/80 14s remaining] cp out/soong/.intermediates/packages/modules/Virtualization/build/microdroid/initrd/microdroid_initrd_normal/android_arm64_armv8-a_cortex-a76/microdroid_initrd_normal.img
+[ 51% 41/80 14s remaining] cp out/soong/.intermediates/packages/modules/Virtualization/build/microdroid/initrd/microdroid_gki-android16-6.12_initrd_debuggable/android_arm64_armv8-a_cortex-a76/microdroid_gki-android16-6.12_initrd_debuggable.img
+[ 52% 42/80 14s remaining] Install: out/target/product/rpi5/apex/com.android.virt/etc/microdroid_initrd_debuggable.img
+[ 53% 43/80 14s remaining] Install: out/target/product/rpi5/apex/com.android.virt/etc/microdroid_initrd_normal.img
+[ 55% 44/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_gki-android16-6.12_initrd_debug_hashdesc avbGenVbmetaImage microdroid_gki-android16-6.12_initrd_debug_hashdesc
+[ 56% 45/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_gki-android15-6.6_initrd_normal_hashdesc avbGenVbmetaImage microdroid_gki-android15-6.6_initrd_normal_hashdesc
+[ 57% 46/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_initrd_debug_hashdesc avbGenVbmetaImage microdroid_initrd_debug_hashdesc
+[ 58% 47/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_gki-android15-6.6_initrd_debug_hashdesc avbGenVbmetaImage microdroid_gki-android15-6.6_initrd_debug_hashdesc
+[ 60% 48/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_gki-android16-6.12_initrd_normal_hashdesc avbGenVbmetaImage microdroid_gki-android16-6.12_initrd_normal_hashdesc
+[ 61% 49/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_initrd_normal_hashdesc avbGenVbmetaImage microdroid_initrd_normal_hashdesc
+[ 62% 50/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_kernel_signed avbAddHashFooter microdroid_kernel_signed
+[ 63% 51/80 14s remaining] cp out/soong/.intermediates/packages/modules/Virtualization/build/microdroid/microdroid_kernel/android_arm64_armv8-a_cortex-a76/microdroid_kernel
+[ 65% 52/80 14s remaining] Install: out/target/product/rpi5/apex/com.android.virt/etc/fs/microdroid_kernel
+[ 66% 53/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_gki-android15-6.6_kernel_signed avbAddHashFooter microdroid_gki-android15-6.6_kernel_signed
+[ 67% 54/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_gki-android16-6.12_kernel_signed avbAddHashFooter microdroid_gki-android16-6.12_kernel_signed
+[ 68% 55/80 14s remaining] //packages/modules/Virtualization/build/microdroid:microdroid_kernel_hashes_rs generate lib.rs
+[ 70% 56/80 14s remaining] //packages/modules/Virtualization/build/microdroid:libmicrodroid_kernel_hashes cp out
+[ 71% 57/80 14s remaining] //packages/modules/Virtualization/build/microdroid:libmicrodroid_kernel_hashes clippy lib.rs
+[ 72% 58/80 14s remaining] //packages/modules/Virtualization/build/microdroid:libmicrodroid_kernel_hashes rustc lib.rs
+[ 73% 59/80 13s remaining] //packages/modules/Virtualization/guest/service_vm/requests:libservice_vm_requests_nostd clippy src/lib.rs
+[ 75% 60/80 12s remaining] //packages/modules/Virtualization/guest/service_vm/requests:libservice_vm_requests_nostd rustc src/lib.rs
+[ 76% 61/80 12s remaining] //packages/modules/Virtualization/guest/service_vm:libservice_vm clippy src/main.rs
+[ 77% 62/80 11s remaining] //packages/modules/Virtualization/guest/service_vm:libservice_vm rustc src/main.rs
+[ 78% 63/80 10s remaining] //packages/modules/Virtualization/guest/service_vm:service_vm_elf rustc generated_rust_staticlib/librustlibs.rs
+[ 80% 64/80 10s remaining] //packages/modules/Virtualization/guest/service_vm:service_vm_elf link service_vm
+[ 81% 65/80 10s remaining] //packages/modules/Virtualization/guest/service_vm:service_vm_elf strip service_vm
+[ 82% 66/80 10s remaining] //packages/modules/Virtualization/guest/service_vm:service_vm_unsigned raw binary service_vm_unsigned.bin
+[ 83% 67/80 10s remaining] //packages/modules/Virtualization/guest/service_vm:service_vm_signed avbAddHashFooter service_vm_signed
+[ 85% 68/80 10s remaining] cp out/soong/.intermediates/packages/modules/Virtualization/guest/service_vm/service_vm_bin/android_arm64_armv8-a_cortex-a76/service_vm.bin
+[ 86% 69/80 10s remaining] Install: out/target/product/rpi5/apex/com.android.virt/etc/service_vm.bin
+[ 87% 70/80 9s remaining] //packages/modules/Virtualization/build/apex:com.android.virt apex
+[ 88% 71/80 9s remaining] run apex_linkerconfig_validation
+[ 90% 72/80 8s remaining] //packages/modules/Virtualization/build/apex:com.android.virt signapk
+[ 91% 73/80 8s remaining] Install: out/target/product/rpi5/system/apex/com.android.virt.apex
+[ 92% 74/80 8s remaining] run host_apex_verifier
+[ 93% 75/80 8s remaining] run apex_elf_checker --unwanted
+[ 95% 76/80 8s remaining] Creating linker config: out/target/product/rpi5/system/etc/linker.config.pb
+[ 96% 77/80 8s remaining] run apex_sepolicy_tests
+[ 97% 78/80 8s remaining] Installed file list: out/target/product/rpi5/installed-files.txt
+[ 98% 79/80 1s remaining] Target system fs image: out/target/product/rpi5/obj/PACKAGING/system_intermediates/system.img
+[100% 80/80 0s remaining] Install system fs image: out/target/product/rpi5/system.img
+WARNING: out/target/product/rpi5/system.img approaching size limit (3221225472 now; limit 3221225472)
+
+#### build completed successfully (21 seconds) ####
+
+Build completed
+
+All requested stages completed successfully!
