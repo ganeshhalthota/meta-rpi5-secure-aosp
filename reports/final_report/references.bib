@@ -1,0 +1,310 @@
+% BibTeX references
+
+% ── Automotive Cybersecurity / TARA (accessed May 2026) ─────────
+
+@misc{iso_sae_21434,
+  author       = {{ISO/SAE}},
+  title        = {{ISO/SAE 21434:2021 --- Road vehicles --- Cybersecurity engineering}},
+  howpublished = {\url{https://www.iso.org/standard/70918.html}},
+  year         = {2021},
+  note         = {Defines TARA methodology, SFOP impact categories (Safety, Financial,
+                  Operational, Privacy), and attack potential feasibility attributes for
+                  automotive cybersecurity. Clause~15 governs the Risk Assessment phase.
+                  Accessed: May 2026}
+}
+
+@misc{stride_microsoft,
+  author       = {{Microsoft Security Engineering}},
+  title        = {{Threat Modeling Tool Threats --- STRIDE}},
+  howpublished = {\url{https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats}},
+  year         = {2024},
+  note         = {STRIDE threat category definitions: Spoofing, Tampering, Repudiation,
+                  Information Disclosure, Denial of Service, Elevation of Privilege.
+                  Accessed: May 2026}
+}
+
+@misc{optee_project,
+  author       = {{Linaro / OP-TEE Project}},
+  title        = {{Open Portable Trusted Execution Environment (OP-TEE)}},
+  howpublished = {\url{https://optee.readthedocs.io/en/latest/}},
+  year         = {2024},
+  note         = {Reference TEE implementation for ARM TrustZone platforms; provides
+                  hardware-backed key storage for FBE master keys. Accessed: May 2026}
+}
+
+@misc{rpi5_eeprom_secure_boot,
+  author       = {{Raspberry Pi Foundation}},
+  title        = {{Raspberry Pi 5 Secure Boot (EEPROM Configuration)}},
+  howpublished = {\url{https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#secure-boot}},
+  year         = {2024},
+  note         = {Describes RPi5 EEPROM-based secure boot: OTP key provisioning and
+                  signed FIT image verification at firmware load time. The mitigation path
+                  for extending the trust chain below U-Boot. Accessed: May 2026}
+}
+
+@misc{uboot_avb2_docs,
+  author       = {{U-Boot Project}},
+  title        = {{Android Verified Boot 2.0 in U-Boot}},
+  howpublished = {\url{https://docs.u-boot.org/en/latest/android/avb2.html}},
+  year         = {2024},
+  note         = {U-Boot AVB command implementation, required Kconfig symbols
+                  (\texttt{CONFIG\_CMD\_AVB}, \texttt{CONFIG\_AVB\_VERIFY},
+                  \texttt{CONFIG\_LIBAVB}), and integration sequence. Accessed: May 2026}
+}
+
+@misc{android_keystore_hw,
+  author       = {{Android Open Source Project}},
+  title        = {{Android Keystore --- Hardware-backed key storage}},
+  howpublished = {\url{https://source.android.com/docs/security/features/keystore}},
+  year         = {2024},
+  note         = {Hardware-backed key storage via Keymaster/KeyMint; TEE-bound key material
+                  cannot be extracted even on a rooted device. Production alternative to
+                  software-only FBE master key protection. Accessed: May 2026}
+}
+
+
+
+% ── U-Boot / RPi5 bring-up (accessed October 2025) ──────────────
+
+@misc{uboot_rpi5_forum,
+  author       = {AlenHazard and others},
+  title        = {{U-Boot for Raspberry Pi 5}},
+  howpublished = {Raspberry Pi Forums, \url{https://forums.raspberrypi.com/viewtopic.php?t=369150}},
+  year         = {2024},
+  note         = {Thread initiated April 16, 2024. Discusses U-Boot v2024.04 initial RPi5 support,
+                  PCIe limitations, and serial console bring-up. Accessed: October 2025}
+}
+
+@misc{uboot_build_gcc,
+  author       = {{U-Boot Project}},
+  title        = {{U-Boot: Building with GCC}},
+  howpublished = {\url{https://docs.u-boot.org/en/latest/build/gcc.html}},
+  year         = {2024},
+  note         = {Covers cross-compilation setup, defconfig selection, and
+                  \texttt{CROSS\_COMPILE} usage. Accessed: October 2025}
+}
+
+@misc{buildroot_uboot_rpi,
+  author       = {{casan.se}},
+  title        = {{Buildroot and U-Boot on Raspberry Pi}},
+  howpublished = {\url{https://casan.se/blog/linux/buildroot-and-u-boot-on-raspberry-pi/}},
+  year         = {2024},
+  note         = {Guide for integrating U-Boot into a Buildroot image for RPi4;
+                  covers SD card and TFTP network boot, \texttt{saveenv} usage.
+                  Accessed: October 2025}
+}
+
+@misc{rpi5_uboot_boot_issues,
+  author       = {{Raspberry Pi Forums users}},
+  title        = {{Raspberry Pi 5 U-Boot Boot Issues (Splash Screen Hang)}},
+  howpublished = {Raspberry Pi Forums, \url{https://forums.raspberrypi.com/viewtopic.php?t=387528}},
+  year         = {2024},
+  note         = {Documents \texttt{CONFIG\_BOOTDELAY=-2} fix for RPi5 U-Boot hang;
+                  recommends \texttt{bcm2711\_defconfig} over \texttt{bcm2712\_defconfig}.
+                  Accessed: October 2025}
+}
+
+@misc{rpi_secure_boot_forum,
+  author       = {syedelec and cleverca22},
+  title        = {{Understanding Secure Boot on RPi 4 Model B}},
+  howpublished = {Raspberry Pi Forums, \url{https://forums.raspberrypi.com/viewtopic.php?t=344770}},
+  year         = {2022},
+  note         = {Q\&A on OTP-based secure boot for BCM2711; covers RSA key revocation,
+                  \texttt{recovery.bin} flow, and GPIO numbering. Accessed: October 2025}
+}
+
+@misc{aosp_rpi_forum,
+  author       = {Konsta},
+  title        = {{AOSP Android 15 for Raspberry Pi 4 and Pi 5}},
+  howpublished = {Raspberry Pi Forums, \url{https://forums.raspberrypi.com/viewtopic.php?t=376222}},
+  year         = {2024},
+  note         = {Community build thread; tracks Android 15 QPR2 and kernel 6.12 on RPi4/5.
+                  HWC3/AIDL HAL, Automotive variant. Accessed: October 2025}
+}
+
+@misc{rpi_hardware_docs,
+  author       = {{Raspberry Pi Ltd}},
+  title        = {{Raspberry Pi Hardware Documentation}},
+  howpublished = {\url{https://www.raspberrypi.com/documentation/computers/raspberry-pi.html}},
+  year         = {2024},
+  note         = {Official hardware reference for RPi product line including BCM2712-based
+                  Raspberry Pi 5 specifications. Accessed: October 2025}
+}
+
+@misc{rpi_uart_pinout,
+  author       = {{pinout.xyz}},
+  title        = {{Raspberry Pi UART Pinout}},
+  howpublished = {\url{https://pinout.xyz/pinout/uart}},
+  year         = {2024},
+  note         = {GPIO 14 (TX) and GPIO 15 (RX) on the 40-pin header; 115200 baud default.
+                  Accessed: October 2025}
+}
+
+@misc{android_local_manifest,
+  author       = {Halthota, Ganesh},
+  title        = {{Android Local Manifest for Raspberry Pi (AOSP 16)}},
+  howpublished = {\url{https://github.com/ganeshhalthota/android_local_manifest}},
+  year         = {2024},
+  note         = {Device manifest for building AOSP Android 16 on RPi4/RPi5.
+                  Includes Automotive, Tablet, and TV build targets. Accessed: October 2025}
+}
+
+@misc{aosp_requirements,
+  author       = {{Android Open Source Project}},
+  title        = {{Set Up for AOSP Development}},
+  howpublished = {\url{https://source.android.com/docs/setup/start/requirements}},
+  year         = {2024},
+  note         = {Hardware and OS prerequisites for building AOSP 9.0+; 64 GB RAM,
+                  400 GB disk, Ubuntu 18.04+. Accessed: October 2025}
+}
+
+% ── ARM PL011 UART patch references (accessed October 2025) ──────
+
+@techreport{arm_pl011_trm,
+  author      = {{ARM Limited}},
+  title       = {{ARM PrimeCell UART (PL011) Technical Reference Manual}},
+  institution = {ARM Limited},
+  number      = {DDI0183G},
+  year        = {2011},
+  note        = {\url{https://developer.arm.com/documentation/ddi0183/g}.
+                 Defines the PL011 UART register map, compatible hardware
+                 variants, and AXI bus interface. Accessed: October 2025}
+}
+
+@misc{uboot_serial_pl01x,
+  author       = {{U-Boot Project}},
+  title        = {{U-Boot Serial PL01x Driver} (\texttt{drivers/serial/serial\_pl01x.c})},
+  howpublished = {\url{https://source.denx.de/u-boot/u-boot/-/blob/master/drivers/serial/serial_pl01x.c}},
+  year         = {2024},
+  note         = {Driver implementing DM serial ops for ARM PL010/PL011 UARTs.
+                  The \texttt{udevice\_id} match table maps compatible strings to
+                  \texttt{TYPE\_PL011}. Accessed: October 2025}
+}
+
+@misc{dt_spec_chosen,
+  author       = {{Devicetree.org}},
+  title        = {{Devicetree Specification --- Chapter 3: Device Node Requirements,
+                  \texttt{/chosen} Node}},
+  howpublished = {\url{https://devicetree-specification.readthedocs.io/en/latest/chapter3-devicenodes.html}},
+  year         = {2023},
+  note         = {Defines the \texttt{stdout-path} property used by RPi5 firmware DT
+                  to designate \texttt{serial10} as the boot console. Accessed: October 2025}
+}
+
+% ── SELinux (accessed January 2026) ─────────────────────────────
+
+@misc{selinux_build_precompiled,
+  author       = {{Android Open Source Project}},
+  title        = {{Build SELinux Policy --- Precompiled Policy}},
+  howpublished = {\url{https://source.android.com/docs/security/features/selinux/build#precompiled-policy}},
+  year         = {2024},
+  note         = {Describes Android 8.0+ split policy architecture and precompiled
+                  policy loading via SHA256 hash comparison in \texttt{init}.
+                  Accessed: January 2026}
+}
+
+@misc{selinux_device_policy,
+  author       = {{Android Open Source Project}},
+  title        = {{Write SELinux Device Policy}},
+  howpublished = {\url{https://source.android.com/docs/security/features/selinux/device-policy}},
+  year         = {2024},
+  note         = {Best practices for device bring-up SELinux policy; permissive-first
+                  workflow, service domain templates, policy size guidelines.
+                  Accessed: January 2026}
+}
+
+% ── AVB / Trusty (accessed February 2026) ───────────────────────
+
+@misc{avb2_readme,
+  author       = {{Android Open Source Project}},
+  title        = {{Android Verified Boot 2.0 --- Official README (android16-release)}},
+  howpublished = {\url{https://android.googlesource.com/platform/external/avb/+/android16-release/README.md}},
+  year         = {2024},
+  note         = {Canonical reference for AVB2 VBMeta structure, rollback protection,
+                  A/B support, and \texttt{BOARD\_AVB\_ENABLE} build integration.
+                  Accessed: February 2026}
+}
+
+@misc{avbtool_github,
+  author       = {jcrutchvt10},
+  title        = {{AVBTOOL --- Android Verified Boot Tool (GitHub Mirror)}},
+  howpublished = {\url{https://github.com/jcrutchvt10/AVBTOOL}},
+  year         = {2024},
+  note         = {Mirror of AOSP \texttt{platform/external/avb}; includes \texttt{avbtool},
+                  \texttt{libavb}, and \texttt{libavb\_ab}. MIT licence.
+                  Accessed: February 2026}
+}
+
+@misc{trusty_download_build,
+  author       = {{Android Open Source Project}},
+  title        = {{Download and Build Trusty TEE for Android}},
+  howpublished = {\url{https://source.android.com/docs/security/features/trusty/download-and-build}},
+  year         = {2024},
+  note         = {Steps for building the Trusty TEE (\texttt{lk.bin}) for ARM64;
+                  QEMU test environment included. Accessed: February 2026}
+}
+
+% ── AAOS / dm-verity / FBE (official docs, accessed February--April 2026) ───
+
+@misc{aaos_overview,
+  author       = {{Android Open Source Project}},
+  title        = {{What is Android Automotive?}},
+  howpublished = {\url{https://source.android.com/docs/automotive/start/what_automotive}},
+  year         = {2024},
+  note         = {Overview of Android Automotive OS (AAOS): IVI platform, AOSP-based,
+                  distinct from Android Auto. Accessed: February 2026}
+}
+
+@misc{android_dm_verity,
+  author       = {{Android Open Source Project}},
+  title        = {{Implement dm-verity}},
+  howpublished = {\url{https://source.android.com/docs/security/features/verifiedboot/dm-verity}},
+  year         = {2024},
+  note         = {SHA-256 hash tree construction, forward error correction (FEC),
+                  and verity mapping table. Android 7.0+ includes Reed-Solomon FEC.
+                  Accessed: February 2026}
+}
+
+@misc{android_fbe,
+  author       = {{Android Open Source Project}},
+  title        = {{File-Based Encryption}},
+  howpublished = {\url{https://source.android.com/docs/security/features/encryption/file-based}},
+  year         = {2024},
+  note         = {Per-file encryption with independent keys; DE and CE storage areas;
+                  \texttt{fscrypt} integration. Mandatory from Android 10+.
+                  Accessed: March 2026}
+}
+
+@misc{android_fde,
+  author       = {{Android Open Source Project}},
+  title        = {{Full-Disk Encryption}},
+  howpublished = {\url{https://source.android.com/docs/security/features/encryption/full-disk}},
+  year         = {2024},
+  note         = {Legacy block-level encryption using \texttt{dm-crypt} (128-bit AES-CBC /
+                  ESSIV:SHA256); deprecated from Android 10, removed in Android 13;
+                  seven-step key derivation chain involving scrypt and TEE-bound keys.
+                  Accessed: May 2026}
+}
+
+@misc{android_security_features,
+  author       = {{Android Open Source Project}},
+  title        = {{Android Security Features}},
+  howpublished = {\url{https://source.android.com/docs/security/features}},
+  year         = {2024},
+  note         = {Overview of Android's multi-layered security model: application sandbox,
+                  Android Keystore, Trusty TEE, Gatekeeper/Weaver authentication,
+                  verified boot, SELinux, app signing, and encryption frameworks.
+                  Accessed: May 2026}
+}
+
+% ── FBE / Android Encryption (accessed March--April 2026) ────────
+
+@misc{android_data_encryption,
+  author       = {{Quarkslab}},
+  title        = {{Android Data Encryption in Depth}},
+  howpublished = {\url{https://blog.quarkslab.com/android-data-encryption-in-depth.html}},
+  year         = {2023},
+  note         = {In-depth analysis of Android FBE, CE/DE key derivation via Gatekeeper
+                  and Weaver, and PoC exploits on MediaTek and Titan M.
+                  Accessed: March--April 2026}
+}

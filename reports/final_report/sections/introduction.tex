@@ -1,0 +1,61 @@
+% ----------------------------------------------------------------
+% Section: Introduction
+% ----------------------------------------------------------------
+\chapter{Introduction}
+\label{ch:introduction}
+
+\section{Motivation}
+
+The automotive industry is undergoing a significant transformation driven by the rise of Software-Defined Vehicles (SDVs). Modern vehicles increasingly rely on complex in-vehicle infotainment (IVI) and instrument cluster systems that require secure, updatable, and open software platforms. Android Automotive OS (AAOS) has emerged as a leading choice for automotive-grade IVI systems, offering a well-established ecosystem, rich driver and middleware support, and a structured security model built around Android's verified boot and encryption framework \cite{aaos_overview}.
+
+The deployment of AAOS on custom embedded hardware introduces significant engineering challenges. The standard AOSP build system and security infrastructure are optimised for certified SoCs with dedicated secure enclaves, re-provisioned fusing, and hardware-backed key storage. Bringing these capabilities to a commodity single-board computer --- specifically the Raspberry Pi~5 (RPi5) --- requires careful adaptation of the boot chain, partition layout, and security policy.
+
+It also presents us with the engineering challenges of a security-critical embedded system demands i.e. structured security analysis. ISO/SAE~21434 \cite{iso_sae_21434} is the automotive cybersecurity engineering standard that mandates Threat Analysis and Risk Assessment (TARA) as a design artifact: identifying assets, applying the STRIDE(Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege) threat model, scoring risks using Safety/Financial/Operational/Privacy (SFOP) impact categories, and explicitly documenting accepted residual risks. The conducting of TARA alongside implementation revealed where software-level security protections are sufficient and where they are inherently bounded by hardware constraints.
+
+\section{Problem Statement}
+
+The Raspberry Pi~5, based on the Broadcom BCM2712 SoC (quad-core ARM Cortex-A76, AArch64), is a powerful and affordable development platform, but it wasn't designed with Android Automotive in mind. Several technical gaps must be bridged:
+
+\begin{itemize}
+    \item \textbf{Bootloader}: The RPi5 firmware boots directly into the Linux kernel by default. Inserting U-Boot into this chain and enabling Android Verified Boot (AVB2) requires custom U-Boot patches and a signed boot script.
+    \item \textbf{AVB integration}: The AVB2 signing pipeline must be performed externally (not via \texttt{BOARD\_AVB\_ENABLE}) because the AOSP build system doesn't natively support the RPi5 target. This requires a custom sign stage that instruments \texttt{avbtool} directly.
+    \item \textbf{Encryption}: File-Based Encryption (FBE) relies on kernel \texttt{fscrypt} support, a correctly formed \texttt{fstab}, and a dedicated metadata partition. These are not part of the upstream RPi5 AOSP device tree.
+    \item \textbf{SELinux}: Upstream RPi5 AOSP device trees ship with SELinux in Permissive mode, which silently allows all policy violations and provides no runtime enforcement. Enabling Enforcing mode requires a correctly scoped policy and validation that no critical services are denied.
+    \item \textbf{Observability}: Diagnosing the multi-layer boot chain across RPi firmware, U-Boot, the Android kernel, and Android init requires instrumentation at each layer. This is absent in the stock sources.
+\end{itemize}
+
+\section{Objectives}
+
+The goal of this project was to evaluate the feasibility and correctness of running a security-hardened Android Automotive OS on commodity Raspberry Pi~5 hardware, by enabling and assessing three Android security subsystems: Android Verified Boot~2.0 (AVB2), SELinux Enforcing mode, and File-Based Encryption~2.0 (FBE). To support reproducible evaluation, a build pipeline --- \texttt{meta-rpi5-secure-aosp} --- was developed. The specific objectives were:
+
+\begin{enumerate}
+    \item \textbf{AVB~2.0 evaluation}: Enable a verified boot chain from U-Boot through to Android userspace using AVB2 (SHA-256/RSA-4096 partition signing covering \texttt{system} and \texttt{vendor}, fail-closed policy), and assess its correctness on RPi5 hardware via per-boot UART diagnostics.
+    \item \textbf{SELinux evaluation}: Enable SELinux Enforcing mode within the AAOS environment on RPi5 and assess policy enforcement behaviour and its impact on system operation.
+    \item \textbf{FBE~2.0 evaluation}: Enable File-Based Encryption (AES-256-XTS on \texttt{userdata}, metadata encryption on the \texttt{metadata} partition) and validate it functions correctly on the platform.
+    \item \textbf{Reproducible pipeline}: Deliver a structured, automated build pipeline (\texttt{sync} $\to$ \texttt{patch} $\to$ \texttt{build} $\to$ \texttt{sign} $\to$ \texttt{sdcard}) with per-stage and per-component granularity, so that the security configurations above can be reliably reproduced and re-evaluated.
+    \item \textbf{Threat analysis (TARA)}: Conduct an ISO/SAE~21434-aligned Threat Analysis and Risk Assessment covering the full boot chain, all attack surfaces, and explicitly documenting accepted residual risks \cite{iso_sae_21434}.
+\end{enumerate}
+
+\section{Contributions}
+
+The main contributions of this work are:
+
+\begin{itemize}
+    \item A U-Boot patch (\texttt{serial: pl01x: add arm,pl011-axi compatible}) enabling console output on the RPi5's default UART path.
+    \item A set of AOSP device-tree patches adding AVB-aware \texttt{fstab} selection, FBE configuration, SELinux Enforcing mode, and boot diagnostics.
+    \item A kernel patch adding four boot-layer diagnostic markers to \texttt{init/main.c}.
+    \item An ISO/SAE~21434-aligned TARA producing a risk register of 23 threat scenarios (9~Critical, 6~High, 8~Medium, 1~Low), a mitigation mapping for all High/Critical risks, and an explicit residual risk register of 10 accepted risks \cite{iso_sae_21434}.
+    \item Validation of the full pipeline on real RPi5 hardware at 115200~baud via UART.
+    \item A Python orchestration CLI (\texttt{rpi5-build}) with a \texttt{BuildContext} shared state model, modular stage implementations, and a comprehensive set of configurable security options --- developed as a reproducibility artefact to support the above evaluation.
+\end{itemize}
+
+\section{Report Structure}
+
+The rest of this report is structured as follows.
+Chapter~\ref{ch:background} provides background on the key technologies.
+Chapter~\ref{ch:architecture} describes the overall system architecture and design decisions.
+Chapter~\ref{ch:implementation} details the implementation of each component.
+Chapter~\ref{ch:results} presents the evaluation results.
+Chapter~\ref{ch:tara} presents the Threat Analysis and Risk Assessment (TARA) including
+the risk register, mitigation mapping, and accepted residual risks.
+Chapter~\ref{ch:conclusion} concludes with a summary and directions for future work.

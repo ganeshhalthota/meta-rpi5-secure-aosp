@@ -1,0 +1,112 @@
+% ----------------------------------------------------------------
+% Section: Conclusion
+% ----------------------------------------------------------------
+\chapter{Conclusion}
+\label{ch:conclusion}
+
+\section{Summary}
+
+This project evaluated the feasibility of running a security-hardened Android Automotive OS on commodity Raspberry Pi~5 hardware by enabling and assessing three Android security subsystems: Android Verified Boot~2.0 (AVB2), SELinux, and File-Based Encryption~2.0 (FBE). To support reproducible evaluation, the \texttt{meta-rpi5-secure-aosp} framework as developed, integrating U-Boot, the AVB signing pipeline, FBE, and per-boot security diagnostics into a single orchestrated build pipeline.
+
+The key engineering contributions are:
+
+\begin{enumerate}
+    \item \textbf{U-Boot PL011-AXI patch}: Resolved the fundamental serial console bring-up issue on RPi5 by adding the \texttt{"arm,pl011-axi"} compatible string to the PL011 driver match table, enabling all subsequent UART-based debugging \cite{arm_pl011_trm, uboot_serial_pl01x}.
+
+    \item \textbf{External AVB signing pipeline}: Implemented a clean separation between the AOSP build and the signing step, preserving private key secrecy and allowing the same images to be signed with different keys without rebuilding \cite{avb2_readme}.
+
+    \item \textbf{FBE on RPi5}: Implemented file-based encryption configuration on \texttt{userdata} (AES-256-XTS) with metadata encryption (\texttt{/metadata}), building on a three-way fstab selection mechanism that preserves backward compatibility with unsigned builds \cite{android_fbe}. End-to-end operation could not be confirmed on hardware within the project timeline (Section~\ref{sec:impl_fbe_selinux}).
+
+    \item \textbf{FBE SELinux bring-up fix}: Identified and resolved the concurrent SELinux enforcing behaviour and unlabelled metadata partition root inode that caused a reboot loop, by replacing \texttt{mkfs.ext4} with \texttt{e2fsdroid} in the SD card stage (Section~\ref{sec:impl_fbe_selinux}).
+
+    \item \textbf{Boot diagnostics}: Provided a lightweight, ADB-free mechanism for verifying the security state of the device at every boot via both kernel-level diagnostic markers and a post-boot diagnostic shell script.
+
+    \item \textbf{Build orchestrator}: Delivered a well-structured Python CLI with a shared context model, idempotent patch application, and guards that reject non-safe boot-state and AVB policy combinations unless explicitly overridden.
+
+    \item \textbf{TARA (ISO/SAE~21434)}: Conducted a full Threat Analysis and Risk Assessment over the platform, producing a risk register of 23 threat scenarios (9~Critical, 6~High, 8~Medium, 1~Low), a mitigation mapping for all High and Critical risks, and an explicit residual risk register of 10 accepted risks with rationale and production hardening paths (Chapter~\ref{ch:tara}) \cite{iso_sae_21434}.
+\end{enumerate}
+
+Evaluation on real RPi5 hardware confirmed that the AVB objective was met: vbmeta verification passes (\texttt{verifiedbootstate=orange}, \texttt{veritymode=enforcing}), and the fail-closed AVB policy correctly halts the device when images are tampered with. SELinux evaluation revealed that Android~16 enforces Enforcing mode unconditionally; the resulting boot loop was diagnosed and resolved, though a full device-specific policy audit remains as future work. FBE was configured and the boot loop root cause was identified and fixed, but end-to-end FBE operation could not be confirmed on hardware within the project timeline. The TARA quantifies the residual security posture and identifies the hardware prerequisites for production deployment.
+
+\textbf{Note on verified boot state:} The reported \texttt{verifiedbootstate=orange} reflects that the \texttt{vbmeta.img} signature is cryptographically valid and \texttt{system}/\texttt{vendor} hashtrees pass dm-verity, but the bootloader is in unlocked state because the RPi5 has no OEM fuse-locked key store. This is the expected outcome for this platform. Additionally, the current implementation does \emph{not} include \texttt{boot.img} in the \texttt{vbmeta} descriptor chain --- the boot partition is loaded directly via \texttt{fatload} without hash verification. A truly complete verified boot chain requires partition re-architecture to bring \texttt{boot.img} into the AVB chain (Section~\ref{sec:conclusion_future}).
+
+\section{Security Posture Assessment}
+
+The TARA (Chapter~\ref{ch:tara}) reveals that the platform's security ceiling is set by two structural constraints of the RPi5:
+
+\begin{enumerate}
+    \item \textbf{Physical SD card access:} All partitions reside on a removable medium with no hardware write protection. Software-enforced controls (AVB, dm-verity, fail-closed policy) detect tampering once U-Boot executes, but cannot prevent an attacker from bypassing U-Boot itself by replacing the firmware or the boot script before it runs.
+
+    \item \textbf{Absent hardware TEE:} FBE master keys are protected in software only. Hardware-backed key storage via a TEE (Keymaster/KeyMint \cite{android_keystore_hw}) would prevent key extraction even from a fully compromised running system.
+\end{enumerate}
+
+The four deferred residual risks (RR-002, RR-003, RR-004, RR-010) are addressable within the RPi5 platform by locking the U-Boot console, signing the boot script with FIT image verification, disabling fastboot, and setting \texttt{CONFIG\_ENV\_IS\_NOWHERE}. These represent planned production hardening steps that were deferred to preserve development convenience.
+
+\section{Technical Reasoning}
+
+\subsection{Causal Chain}
+
+The absence of \texttt{"arm,pl011-axi"} in U-Boot's DM match table is the root cause of the serial console failure \cite{dt_spec_chosen}. The causal chain is: BCM2712 firmware DT $\to$ \texttt{stdout-path = serial10} $\to$ \texttt{compatible = arm,pl011-axi} $\to$ U-Boot DM bind failure $\to$ no UART output. All downstream debugging and AVB bring-up depended on resolving this single compatibility gap first.
+
+The FBE boot loop root cause is a cross-layer failure: a MAC policy enforcement decision (SELinux enforcing despite cmdline permissive) combined with a toolchain gap (bare \texttt{mkfs.ext4} not applying SELinux labels) produced a failure in the encryption subsystem (\texttt{vold} key initialisation). Debugging required correlating evidence from all three layers simultaneously.
+
+\subsection{Alternatives Considered}
+
+An alternative to patching U-Boot would have been to use a Device Tree overlay to replace \texttt{"arm,pl011-axi"} with \texttt{"arm,pl011"} in the firmware DT. This was rejected because: (a) the RPi firmware DT isn't easily overridden at U-Boot load time without additional scripts; and (b) modifying the upstream DT obscures the actual hardware description. The driver-side fix is the correct and upstreamable approach.
+
+For the signing pipeline, an alternative was to use \texttt{BOARD\_AVB\_ENABLE} inside the AOSP build. This was rejected because it requires the private key to be accessible within the build environment, which contradicts the security separation goal and the standard automotive production signing workflow.
+
+\subsection{Risk and Tradeoffs}
+
+The primary security limitation is the lack of hardware-backed key storage. On a production vehicle IVI, FBE keys would be anchored in a TEE (ex:, Trusty \cite{trusty_download_build}) or a dedicated security chip (ex:, Titan M). On the RPi5, the key material is software-protected by the Android Keystore, which provides meaningful protection against offline attacks but is weaker against a fully privileged attacker with physical access to the device \cite{android_data_encryption}.
+
+The permissive SELinux mode was intended as a deliberate tradeoff for the current research stage. In practice, Android~16 transitions SELinux to enforcing at policy load time regardless of the command-line flag (Section~\ref{sec:impl_fbe_selinux}), which exposed the metadata partition labelling gap. While the boot loop was resolved, a complete device-specific policy audit is required to confirm no residual AVC denials remain in steady state \cite{selinux_device_policy}.
+
+\section{Future Work}
+\label{sec:conclusion_future}
+
+\begin{itemize}
+    \item \textbf{Boot partition AVB integration (partition re-architecture):}
+    The current implementation loads \texttt{boot.img} via \texttt{fatload} without hash verification; \texttt{vbmeta.img} contains no descriptor for \texttt{boot.img}. Achieving a fully verified boot chain requires: (1)~adding an AVB hash footer to \texttt{boot.img} at sign time (\texttt{avbtool add\_hash\_footer}), (2)~including a hash descriptor for \texttt{boot.img} in \texttt{vbmeta.img}, and (3)~loading the boot partition via the U-Boot AVB command (\texttt{avb read\_rollback} / \texttt{avbloadpart}) rather than directly via \texttt{fatload}. This change requires the kernel and ramdisk to reside on a raw GPT partition rather than a FAT32 file, which in turn requires a boot partition layout change and U-Boot boot script update.
+
+    \item \textbf{Signed boot script (RR-003):} Wrap \texttt{boot\_avb.scr} in a U-Boot FIT image with a verified FIT signature, extending the AVB chain to cover the boot script.
+
+    \item \textbf{U-Boot console lockdown (RR-002, RR-010):} Implement a production U-Boot config variant with \texttt{CONFIG\_BOOTDELAY=0}, \texttt{CONFIG\_DISABLE\_CONSOLE}, and \texttt{CONFIG\_ENV\_IS\_NOWHERE}.
+
+    \item \textbf{Fastboot disable (RR-004):} Create a production defconfig that removes \texttt{CONFIG\_CMD\_FASTBOOT} and \texttt{CONFIG\_USB\_GADGET}.
+
+    \item \textbf{SELinux policy audit:} Android~16 already runs SELinux in Enforcing mode unconditionally (Section~\ref{sec:impl_fbe_selinux}). A device-specific file-context and service-context audit is required to confirm that no residual AVC denials affect steady-state operation \cite{selinux_device_policy}.
+
+    \item \textbf{RPi5 EEPROM secure boot (RR-001, RR-008):} Investigate OTP key provisioning and signed FIT image boot to extend the trust chain below U-Boot \cite{rpi5_eeprom_secure_boot}.
+
+    \item \textbf{TEE integration (RR-007):} Explore deploying OP-TEE \cite{optee_project} on the RPi5 to provide hardware-backed key storage for FBE master keys.
+
+    \item \textbf{A/B OTA updates (RR-006):} Extend the partition layout to support A/B system partitions and integrate \texttt{update\_engine} for over-the-air updates.
+
+    \item \textbf{FBE hardware validation:} Confirm \texttt{ro.crypto.state=encrypted} across multiple boot cycles and validate file accessibility per DE/CE class (test cases TC-FBE-001, TC-FBE-002), updating RR-007 with measured evidence.
+
+    \item \textbf{Rollback protection:} Explore software-emulated rollback index storage in a tamper-evident partition as an intermediate measure before TEE availability.
+
+    \item \textbf{U-Boot upstream contribution:} Submit the \texttt{arm,pl011-axi} patch to the U-Boot mailing list for the benefit of the broader RPi5 developer community.
+\end{itemize}
+
+\section{External References}
+
+The following are authoritative public sources directly relevant to the technical claims in this report:
+
+\begin{itemize}
+    \item Android Verified Boot 2.0 specification and \texttt{avbtool} documentation \cite{avb2_readme}.
+    \item Android File-Based Encryption design \cite{android_fbe}.
+    \item dm-verity implementation in Android \cite{android_dm_verity}.
+    \item Android Automotive OS platform overview \cite{aaos_overview}.
+    \item ARM PrimeCell UART PL011 Technical Reference Manual (DDI0183G) \cite{arm_pl011_trm}.
+    \item Devicetree Specification, \texttt{/chosen} node and \texttt{stdout-path} \cite{dt_spec_chosen}.
+    \item Android SELinux device policy development \cite{selinux_device_policy}.
+    \item ISO/SAE~21434 cybersecurity engineering standard (TARA methodology) \cite{iso_sae_21434}.
+    \item STRIDE threat modelling \cite{stride_microsoft}.
+    \item OP-TEE hardware TEE integration \cite{optee_project}.
+    \item Android hardware-backed Keystore \cite{android_keystore_hw}.
+    \item RPi5 EEPROM secure boot \cite{rpi5_eeprom_secure_boot}.
+    \item Trusty TEE download and build guide \cite{trusty_download_build}.
+    \item Quarkslab deep-dive on Android FBE and key derivation \cite{android_data_encryption}.
+\end{itemize}

@@ -1,0 +1,22 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces SFOP Impact Scale (ISO/SAE 21434 Clause 15)}}{15}{table.caption.10}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces GPT Partition Layout (signed build, 14.6~GB SD card)}}{19}{table.caption.12}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces RPi5 ARM64 U-Boot load addresses vs.\ AVB buffer placement}}{22}{table.caption.13}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Kernel boot-layer diagnostic markers}}{24}{table.caption.14}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Evaluation against project objectives}}{34}{table.caption.17}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces Asset inventory summary by category (24 assets total)}}{37}{table.caption.18}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Threat scenarios (23 total)}}{37}{table.6.2}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Risk register: Boot chain threats (T-001 to T-008)}}{39}{table.caption.19}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Risk register: Build pipeline threats (T-009 to T-013)}}{40}{table.caption.20}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces Risk register: Runtime interface threats (T-014 to T-017)}}{40}{table.caption.21}%
+\contentsline {table}{\numberline {6.9}{\ignorespaces Mitigation mapping for Critical and High risks}}{40}{table.6.9}%
+\contentsline {table}{\numberline {6.6}{\ignorespaces Risk register: Data confidentiality threats (T-018 to T-020)}}{43}{table.caption.22}%
+\contentsline {table}{\numberline {6.7}{\ignorespaces Risk register: Configuration and policy threats (T-021 to T-023)}}{43}{table.caption.23}%
+\contentsline {table}{\numberline {6.8}{\ignorespaces Risk level summary across all 23 threat scenarios}}{44}{table.caption.24}%
+\contentsline {table}{\numberline {6.10}{\ignorespaces Residual risk register (10 accepted risks)}}{45}{table.caption.25}%
+\addvspace {10\p@ }

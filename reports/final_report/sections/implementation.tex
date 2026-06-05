@@ -1,0 +1,278 @@
+% ----------------------------------------------------------------
+% Section: Implementation
+% ----------------------------------------------------------------
+\chapter{Implementation}
+\label{ch:implementation}
+
+This chapter describes the implementation of each component in detail, organized by the build pipeline stage in which it is introduced.
+
+\section{U-Boot Patch: PL011-AXI Serial Driver}
+\label{sec:impl_uboot_patch}
+
+\subsection{Problem}
+
+The RPi5 firmware Device Tree declares \texttt{serial10} (the default \texttt{stdout-path} target) with \texttt{compatible = "arm,pl011-axi"} \cite{dt_spec_chosen}. U-Boot's PL011 driver (\texttt{drivers/serial/serial\_pl01x.c}) did not include this string in its \texttt{udevice\_id} match table \cite{uboot_serial_pl01x}. As a result, U-Boot couldn't bind the UART node and produced no serial output, making all subsequent debugging impossible.
+
+\subsection{Solution}
+
+Patch \texttt{0001-serial-pl01x-add-arm-pl011-axi-compatible-for-RPi5.patch} adds the \texttt{"arm,pl011-axi"} entry to \texttt{pl01x\_serial\_id[]} with \texttt{TYPE\_PL011}:
+
+\begin{lstlisting}[language=C, caption={Addition to pl01x\_serial\_id[] in serial\_pl01x.c}]
+/* RPi5 firmware DT uses "arm,pl011-axi" for serial10 (stdout-path). */
+{.compatible = "arm,pl011-axi", .data = TYPE_PL011},
+{.compatible = "arm,pl011",     .data = TYPE_PL011},
+{.compatible = "arm,pl010",     .data = TYPE_PL010},
+\end{lstlisting}
+
+The ARM PL011 TRM (DDI0183G) defines the AXI variant as register-compatible with the standard PL011 \cite{arm_pl011_trm}, making the \texttt{TYPE\_PL011} assignment correct.
+
+\subsection{Risk Assessment}
+
+\textbf{Low risk.} The change only adds a new entry to the match table; existing \texttt{"arm,pl011"} bindings are unaffected. Boards that do not use \texttt{"arm,pl011-axi"} in their Device Tree will not be matched by this entry.
+
+\section{U-Boot AVB Kconfig Configuration}
+\label{sec:impl_uboot_avb_kconfig}
+
+Enabling U-Boot AVB requires a specific set of Kconfig symbols. The build stage automates this via \texttt{scripts/config}:
+
+\begin{lstlisting}[language=bash, caption={Kconfig symbols enabled for AVB}]
+./scripts/config --enable CONFIG_ANDROID_BOOT_IMAGE
+./scripts/config --enable CONFIG_UDP_FUNCTION_FASTBOOT  # selects hidden CONFIG_FASTBOOT
+./scripts/config --enable CONFIG_LIBAVB
+./scripts/config --enable CONFIG_AVB_VERIFY
+./scripts/config --enable CONFIG_CMD_AVB
+./scripts/config --set-val CONFIG_FASTBOOT_BUF_ADDR 0x10000000
+./scripts/config --set-val CONFIG_AVB_BUF_ADDR 0x10000000
+\end{lstlisting}
+
+The buffer address \texttt{0x10000000} (256~MiB) is set explicitly because neither symbol has a default in the upstream \texttt{rpi\_arm64\_defconfig}. The value is chosen to sit above all standard ARM64 boot-image load regions defined in \texttt{board/raspberrypi/rpi/rpi.env}:
+
+\begin{table}[h]
+\centering
+\caption{RPi5 ARM64 U-Boot load addresses vs.\ AVB buffer placement}
+\label{tab:uboot_mem}
+\small
+\begin{tabular}{llr}
+\toprule
+\textbf{Region} & \textbf{Symbol / use} & \textbf{Address} \\
+\midrule
+Kernel Image       & \texttt{kernel\_addr\_r}       & \texttt{0x00080000} \\
+Decompression area & \texttt{kernel\_comp\_addr\_r} & \texttt{0x02000000} \\
+Device Tree Blob   & \texttt{fdt\_addr\_r}          & \texttt{0x05600000} \\
+Ramdisk            & \texttt{ramdisk\_addr\_r}      & \texttt{0x05700000} \\
+Ramdisk end (est.) & $\sim$50~MiB max               & \texttt{$\sim$0x08900000} \\
+\midrule
+\textbf{AVB / Fastboot buffer} & \texttt{CONFIG\_AVB\_BUF\_ADDR} & \textbf{\texttt{0x10000000}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The 119~MiB gap between the estimated ramdisk end and the buffer start ensures no overlap under any realistic ramdisk size. The 112~MiB buffer (\texttt{CONFIG\_AVB\_BUF\_SIZE = 0x7000000}) is the U-Boot default and is sufficient to hold any Android partition image presented to the AVB verification command.
+
+After setting these symbols, \texttt{make olddefconfig} resolves the full dependency graph. The build stage then verifies that all required symbols are present in \texttt{.config} before proceeding; missing symbols raise a descriptive error.
+
+\subsection{Public Key Injection}
+
+The AVB root public key (\texttt{avb\_public\_key.bin}, in AVB packed format) is read and embedded as a C array in \texttt{common/avb\_verify.c}. The build stage uses a regular expression to locate and replace the existing \texttt{avb\_root\_pub[]} array in-place, making the operation idempotent. A warning is printed if signing is enabled but U-Boot isn't being rebuilt, reminding the operator to rebuild U-Boot after any key rotation.
+
+\section{U-Boot Boot Script}
+\label{sec:impl_boot_script}
+
+The AVB boot script (\texttt{config/uboot/boot\_avb.cmd}) implements the following sequence:
+
+\begin{enumerate}
+    \item Resolve \texttt{avb\_fail\_policy} (default injected at build time via the template placeholder \texttt{\_\_AVB\_FAIL\_POLICY\_\_}).
+    \item \texttt{avb init 0} --- attach the AVB device on MMC~0.
+    \item \texttt{avb verify} --- verify all descriptors in \texttt{vbmeta.img}. On failure: either reset (fail\_closed) or continue with orange boot state (fail\_open).
+    \item \texttt{fatload mmc 0:1} --- load kernel \texttt{Image} and \texttt{ramdisk.img}.
+    \item Construct \texttt{bootargs}: append \texttt{avb\_bootargs} (populated by \texttt{avb verify}), SELinux mode, encryption mode, and optional cmdline profile.
+    \item \texttt{booti} --- hand off to the Android kernel.
+\end{enumerate}
+
+The script is compiled to binary by \texttt{mkimage}:
+\begin{lstlisting}[language=bash]
+mkimage -C none -A arm64 -T script -d boot_avb.cmd boot_avb.scr
+\end{lstlisting}
+
+Template placeholders (\texttt{\_\_SELINUX\_MODE\_\_}, \texttt{\_\_ENCRYPTION\_ARGS\_\_}, \texttt{\_\_CMDLINE\_PROFILE\_ARGS\_\_}) are resolved at build time before \texttt{mkimage} is invoked, keeping the configuration model in the YAML layer rather than hardcoded in the script.
+
+\section{Kernel Patch: Boot-Layer Diagnostic Markers}
+\label{sec:impl_kernel_patch}
+
+To measure and verify the progression through the kernel boot sequence, four \texttt{pr\_notice()} markers are injected into \texttt{init/main.c}:
+
+\begin{table}[h]
+\centering
+\caption{Kernel boot-layer diagnostic markers}
+\label{tab:kernel_diag}
+\begin{tabular}{cll}
+\toprule
+\textbf{Layer} & \textbf{Location in init/main.c} & \textbf{Message (prefix: RPi5-DIAG)} \\
+\midrule
+1 & Entry of \texttt{start\_kernel()} & Layer 1 start\_kernel entry \\
+2 & After \texttt{console\_init()} & Layer 2 console\_init complete \\
+3 & Before \texttt{do\_initcalls()} & Layer 3 do\_initcalls entry \\
+4 & Before \texttt{run\_init\_process()} & Layer 4 kernel\_init userspace exec \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\texttt{pr\_notice} (priority~5) is visible at the default kernel loglevel and guaranteed to be present in the serial console output. The \texttt{RPi5-DIAG:} prefix makes the markers \texttt{grep}-able in captured logs.
+
+\section{AOSP Patch: AVB-Aware fstab Selection}
+\label{sec:impl_avb_fstab}
+
+The upstream RPi5 device tree does not provide an AVB-aware \texttt{fstab}. Patch \texttt{0001-rpi5-add-avb-aware-fstab-selection.patch} adds:
+
+\begin{itemize}
+    \item \texttt{RPI5\_ENABLE\_AVB} build toggle in \texttt{BoardConfig.mk}.
+    \item \texttt{androidboot.vbmeta.device=/dev/block/by-name/vbmeta} kernel command line argument, so first-stage init can locate the VBMeta partition by GPT label.
+    \item \texttt{ramdisk/fstab.rpi5.avb}: AVB-aware fstab with \texttt{avb=vbmeta} on both \texttt{/system} and \texttt{/vendor}.
+    \item Conditional selection in \texttt{device.mk}: when \texttt{RPI5\_ENABLE\_AVB=true}, the AVB fstab is used in both ramdisk and vendor partitions.
+\end{itemize}
+
+\begin{lstlisting}[caption={fstab.rpi5.avb --- system and vendor entries}]
+/dev/block/by-name/system  /system  ext4  ro,barrier=1
+    wait,avb=vbmeta,first_stage_mount
+/dev/block/by-name/vendor  /vendor  ext4  ro,barrier=1
+    wait,avb=vbmeta,first_stage_mount
+\end{lstlisting}
+
+The \texttt{avb=vbmeta} flag instructs first-stage init to look up the VBMeta descriptor for each partition before mounting it.
+
+\section{AOSP Patch: File-Based Encryption}
+\label{sec:impl_fbe}
+
+Patch \texttt{0002-rpi5-add-fbe-file-based-encryption.patch} enables FBE on \texttt{userdata} \cite{android_fbe}:
+
+\begin{itemize}
+    \item \texttt{RPI5\_ENABLE\_FBE} toggle extends the three-way fstab selection: FBE $>$ AVB-only $>$ base.
+    \item \texttt{ramdisk/fstab.rpi5.fbe}: extends the AVB fstab with FBE flags on \texttt{/data} and a \texttt{/metadata} entry.
+    \item \texttt{ro.crypto.type=file} product property signals the crypto stack.
+    \item \texttt{androidboot.encryption\_mode=fbe} is appended to the kernel command line.
+\end{itemize}
+
+The critical \texttt{fstab} entry for \texttt{userdata}:
+
+\begin{lstlisting}[caption={fstab.rpi5.fbe --- userdata entry (FBE + metadata encryption)}]
+/dev/block/by-name/userdata  /data  ext4
+    nodev,noatime,nosuid,errors=panic
+    wait,check,formattable,quota,
+    fileencryption=aes-256-xts:aes-256-cts:v2,
+    keydirectory=/metadata/vold/metadata_encryption
+\end{lstlisting}
+
+The \texttt{fileencryption=aes-256-xts:aes-256-cts:v2} flag selects AES-256-XTS for file content and AES-256-CTS for filenames at policy version~2. The \texttt{keydirectory=} flag activates metadata encryption: \texttt{vold} stores the wrapped key in the \texttt{/metadata} partition, which is itself not encrypted, ensuring key material survives a factory reset without persisting in \texttt{/data} \cite{android_data_encryption}.
+
+\section{FBE Bring-up: Metadata Partition SELinux Boot Loop}
+\label{sec:impl_fbe_selinux}
+
+\subsection{Symptom}
+
+After flashing a signed SD card image with FBE enabled, the device entered a repeating reboot loop. Each cycle completed in approximately 9--10 seconds, with AVB verification passing on every cycle:
+
+\begin{lstlisting}[caption={Reboot loop symptom on UART console}]
+AVB: Verification PASSED
+...
+[2.8s] vold: Failed to create /metadata/vold: Permission denied
+[2.8s] vold: read_key failed in mountFstab
+[9.4s] reboot: Restarting system with command 'bootloader'
+\end{lstlisting}
+
+Because AVB verification passed, the signing pipeline was confirmed correct. The failure was inside the FBE initialization path.
+
+\subsection{Diagnosis: Two Concurrent Root Causes}
+
+Full debug visibility was obtained by rebuilding \texttt{boot\_avb.scr} with \texttt{--cmdline-profile debug} (\texttt{ignore\_loglevel loglevel=7 initcall\_debug}), which exposed the complete init sequence on the serial console.
+
+\subsubsection{Root Cause A --- SELinux Enforcing Despite Permissive Kernel Argument}
+
+The bootargs carried \texttt{androidboot.selinux=permissive}, but the serial log showed:
+
+\begin{lstlisting}
+audit: enforcing=1 old_enforcing=0
+\end{lstlisting}
+
+All subsequent AVC denials showed \texttt{permissive=0} (enforced). In Android~16 (\texttt{android-16.0.0\_r4}), init's \texttt{IsEnforcing()} function ignores the command-line permissive flag under this build configuration --- SELinux transitions to enforcing unconditionally at policy load time.
+
+\subsubsection{Root Cause B --- Metadata Partition Root Inode is \texttt{unlabeled}}
+
+The SD card build stage created the \texttt{metadata} filesystem with bare \texttt{mkfs.ext4}, which produces a filesystem with no SELinux extended attributes. The partition root directory inode therefore carried the default context \texttt{u:object\_r:unlabeled:s0}.
+
+The compiled \texttt{plat\_file\_contexts} already contained the correct mapping:
+
+\begin{lstlisting}
+/metadata(/.*)?       u:object_r:metadata_file:s0
+/metadata/vold(/.*)?  u:object_r:vold_metadata_file:s0
+\end{lstlisting}
+
+The label was simply never applied to the inode. When vold (context \texttt{u:r:vold:s0}) attempted to create \texttt{/metadata/vold/}, SELinux denied it:
+
+\begin{lstlisting}
+avc: denied { write } for comm="binder:344_2" name="/"
+    scontext=u:r:vold:s0 tcontext=u:object_r:unlabeled:s0
+    tclass=dir permissive=0
+\end{lstlisting}
+
+Without \texttt{/metadata/vold/}, \texttt{vold} couldn't store the FBE master key, which is required by the \texttt{keydirectory=} fstab flag before \texttt{/data} can be mounted.
+
+\subsection{Fix: Replace \texttt{mkfs.ext4} with \texttt{e2fsdroid}}
+
+The fix replaced the bare \texttt{mkfs.ext4} call in the SD card stage with \texttt{e2fsdroid}, the AOSP-provided tool that creates ext4 filesystems with SELinux extended attributes pre-populated from the compiled \texttt{file\_contexts} map:
+
+\begin{lstlisting}[language=bash, caption={e2fsdroid invocation for labelled metadata partition}]
+e2fsdroid -e -T 0 \
+    -S ${SELINUX_FC}  \   # compiled file_contexts
+    -L /metadata       \   # mount point label root
+    ${METADATA_IMAGE}
+\end{lstlisting}
+
+With \texttt{e2fsdroid}, the metadata partition root inode is created with \texttt{u:object\_r:metadata\_file:s0}, vold can create \texttt{/metadata/vold/}, and FBE initialisation succeeds.
+
+\subsection{Security Significance}
+
+This incident demonstrates the interdependency between the MAC layer (SELinux) and the encryption layer (FBE): a correct FBE \texttt{fstab} configuration fails silently if the partition on which the key material must be stored lacks the correct SELinux label. The root cause was not a security vulnerability but a toolchain gap --- \texttt{mkfs.ext4} does not apply SELinux labels, while \texttt{e2fsdroid} does. For a verified boot stack, where every layer must be correctly labelled for the MAC policy to permit operations, using the AOSP-provided image creation tools is mandatory.
+
+\section{AOSP Patch: Boot Diagnostics Service}
+\label{sec:impl_diagnostics}
+Patch \texttt{0003-rpi5-add-boot-diagnostics.patch} adds a post-boot diagnostic service:
+
+\begin{description}
+    \item[\texttt{init.rpi5.diag.rc}] Defines a \texttt{oneshot} service triggered by \texttt{on property:sys.boot\_completed=1}. The \texttt{console} keyword routes \texttt{stdout} to \texttt{/dev/console}, making output appear on the UART without ADB.
+    \item[\texttt{rpi5\_boot\_diag.sh}] Collects and prints: build info, AVB verified boot state (\texttt{ro.boot.verifiedbootstate}), VBMeta digest, crypto state (\texttt{ro.crypto.state}, \texttt{ro.crypto.type}), FBE properties, \texttt{vold} status, \texttt{fstab}, mount table, \texttt{dm-*} block devices, and SELinux enforce mode. Output is simultaneously written to \texttt{/data/local/tmp/rpi5\_boot\_diag.log}.
+\end{description}
+
+This service provides an unambiguous, per-boot record of the security state of the device without requiring ADB connectivity, which is particularly useful during bring-up when network and USB may not yet be functional.
+
+\section{AVB Signing Stage}
+\label{sec:impl_sign}
+
+The sign stage (\texttt{src/meta\_rpi5\_secure\_aosp/stages/sign.py}) performs:
+
+\begin{enumerate}
+    \item For each of \texttt{system.img} and \texttt{vendor.img}:
+    \begin{enumerate}
+        \item Copy to \texttt{.signed.img}.
+        \item Calculate the maximum payload size for an AVB hashtree footer via \texttt{avbtool calculate\_max\_image\_size}.
+        \item If the image exceeds this size: \texttt{e2fsck -fy} $\to$ \texttt{resize2fs} $\to$ \texttt{truncate} to the target size.
+        \item Append the AVB hashtree footer via \texttt{avbtool add\_hashtree\_footer} (algorithm: SHA256/RSA-4096, key: \texttt{avb\_private\_key.pem}).
+    \end{enumerate}
+    \item Generate \texttt{vbmeta.img} via \texttt{avbtool make\_vbmeta\_image}, referencing the signed \texttt{system.signed.img} and \texttt{vendor.signed.img}
+    \cite{avb2_readme, avbtool_github}.
+\end{enumerate}
+
+The \texttt{AvbTool} wrapper class in \texttt{utils/avb.py} abstracts the \texttt{avbtool} invocations and resolves the tool path from the AOSP source tree.
+
+\section{Build Orchestrator CLI}
+\label{sec:impl_cli}
+
+The \texttt{rpi5-build} CLI (\texttt{src/meta\_rpi5\_secure\_aosp/main.py}) provides:
+
+\begin{itemize}
+    \item Stage selection: \texttt{--stage \{all|sync|patch|build|sdcard\}}
+    \item Component selection: \texttt{--code \{all|kernel|uboot|aosp\}}
+    \item Per-run security overrides: \texttt{--build-variant}, \texttt{--selinux-mode}, \texttt{--boot-state-override}, \texttt{--avb-fail-policy}, \texttt{--encryption-mode}
+    \item An explicit \texttt{--allow-insecure-boot-state} guard that must be provided before any insecure option (orange state, fail\_open) is accepted.
+\end{itemize}
+
+The \texttt{BuildContext} dataclass is the single shared state object threaded through all stage modules, eliminating global state and making each stage independently testable.

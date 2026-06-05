@@ -1,0 +1,224 @@
+% ----------------------------------------------------------------
+% Section: System Architecture
+% ----------------------------------------------------------------
+\chapter{System Architecture}
+\label{ch:architecture}
+
+\section{Overview}
+
+The \texttt{meta-rpi5-secure-aosp} project delivers a complete, reproducible pipeline for building and deploying a security-hardened Android Automotive OS image onto a Raspberry Pi~5. The system has two primary concerns: a \textit{build-time pipeline} that produces a signed, encrypted SD card image, and a \textit{runtime boot chain} that verifies and mounts partitions before handing off to Android userspace.
+
+\section{Boot Chain}
+\label{sec:arch_bootchain}
+
+The secure boot chain consists of five layers, each responsible for initializing and handing off to the next:
+
+\begin{enumerate}
+    \item \textbf{RPi Firmware} (VideoCore, closed-source): Powers on, initializes DRAM and PCIe, reads \texttt{config.txt} from the FAT32 boot partition, and loads \texttt{u-boot.bin}. The firmware also provides the Device Tree blob to U-Boot via the ARM64 boot protocol \cite{rpi_hardware_docs}.
+
+    \item \textbf{U-Boot}: Runs the compiled boot script (\texttt{boot\_avb.scr}). Invokes \texttt{avb init} and \texttt{avb verify} to check the VBMeta structure against the compiled-in root public key. On success, loads the Android kernel \texttt{Image} and \texttt{ramdisk.img} from the FAT32 partition and calls \texttt{booti} \cite{uboot_build_gcc, uboot_rpi5_forum}.
+
+    \item \textbf{Android Kernel} (Linux 6.12, \texttt{android\_rpi5\_defconfig}): Decompresses and initializes hardware. Diagnostic markers (\texttt{RPi5-DIAG:}) are emitted via \texttt{pr\_notice()} at four boundaries: \texttt{start\_kernel} entry, after \texttt{console\_init}, at \texttt{do\_initcalls}, and before \texttt{run\_init\_process}.
+
+    \item \textbf{Android Init (first-stage)}: Mounts \texttt{/system} and \texttt{/vendor} using the \texttt{fstab} embedded in the ramdisk. The \texttt{avb=vbmeta} flag triggers dm-verity verification of both partitions via the \texttt{vbmeta} partition \cite{android_dm_verity}.
+
+    \item \textbf{Android Init (second-stage)} and userspace: Loads SELinux policy, starts \texttt{vold} (which activates FBE on \texttt{/data}), and launches the Android Automotive framework \cite{android_fbe}.
+\end{enumerate}
+
+Figure~\ref{fig:boot_chain} illustrates the complete boot flow across the five coloured layers described above. Each layer either advances control along the green \textit{Yes} path or routes to a device reboot along the red \textit{No} path. The three diamond-shaped decision nodes represent the cryptographic verification gates: the AVB signature check performed by U-Boot against its compiled-in root public key; the dm-verity block-integrity check applied to \texttt{/system} and \texttt{/vendor} at kernel mount time; and the FBE key-derivation check performed by \texttt{vold} before \texttt{/data} becomes accessible. All three failure paths converge on a single \textit{Boot Failure / Reboot} terminal, enforcing a fail-closed policy with no degraded-mode fallback.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    node distance=0.5cm,
+    startstop/.style={
+        rounded rectangle,
+        draw=black!70, fill=green!25,
+        minimum width=3.4cm, minimum height=0.65cm,
+        align=center, font=\small\bfseries
+    },
+    process/.style={
+        rectangle,
+        draw=black!70, fill=blue!10,
+        minimum width=3.4cm, minimum height=0.65cm,
+        align=center, font=\small
+    },
+    decision/.style={
+        diamond,
+        draw=black!70, fill=orange!20, aspect=2.5,
+        align=center, font=\small
+    },
+    failnode/.style={
+        rounded rectangle,
+        draw=red!80!black, fill=red!15,
+        minimum width=3.2cm, minimum height=0.65cm,
+        align=center, font=\small\bfseries
+    },
+    arrow/.style={->, >=Stealth, thick},
+    failarrow/.style={->, >=Stealth, thick, draw=red!70!black}
+]
+
+%% Main vertical flow
+\node[startstop]                     (A)  {Start};
+\node[process,   below=0.40cm of A]  (B)  {ROM Boot};
+\node[process,   below=0.25cm of B]  (C)  {Secondary Bootloader};
+
+\node[process,   below=0.80cm of C]  (D)  {U-Boot Loaded};
+\node[process,   below=0.25cm of D]  (E)  {AVB Validation};
+\node[decision,  below=0.45cm of E]  (F)  {AVB Valid?};
+
+\node[process,   below=0.55cm of F]  (G)  {Kernel Loaded};
+\node[process,   below=0.25cm of G]  (H)  {dm-verity};
+\node[decision,  below=0.45cm of H]  (I)  {dm-verity Pass?};
+
+\node[process,   below=0.55cm of I]  (J)  {Early AOSP Init};
+\node[process,   below=0.25cm of J]  (K)  {FBE Validation};
+\node[decision,  below=0.45cm of K]  (L)  {/data Mounted?};
+\node[startstop, below=0.55cm of L]  (M)  {AOSP Running};
+
+%% Failure node (right of kernel layer)
+\node[failnode, right=4.2cm of I]    (FAIL) {Boot Failure\\/ Reboot};
+
+%% Layer background boxes
+\begin{scope}[on background layer]
+    \node[draw=gray!50,   fill=gray!8,   rounded corners=4pt, inner sep=5pt,
+          fit={(A)(B)(C)}]        (bg_hw)   {};
+    \node[draw=blue!50,   fill=blue!5,   rounded corners=4pt, inner sep=5pt,
+          fit={(D)(E)(F)}]        (bg_ub)   {};
+    \node[draw=cyan!60,   fill=cyan!5,   rounded corners=4pt, inner sep=5pt,
+          fit={(G)(H)(I)}]        (bg_kn)   {};
+    \node[draw=purple!40, fill=purple!4, rounded corners=4pt, inner sep=5pt,
+          fit={(J)(K)(L)(M)}]     (bg_ao)   {};
+    \node[draw=red!40,    fill=red!5,    rounded corners=4pt, inner sep=5pt,
+          fit={(FAIL)}]           (bg_fail) {};
+\end{scope}
+
+%% Layer labels (right of each background box at the north edge)
+\node[font=\scriptsize\itshape, anchor=west, text=gray!60!black]
+    at ($(bg_hw.north east)+(0.12,0)$)   {Hardware / Firmware};
+\node[font=\scriptsize\itshape, anchor=west, text=blue!70!black]
+    at ($(bg_ub.north east)+(0.12,0)$)   {Bootloader (U-Boot)};
+\node[font=\scriptsize\itshape, anchor=west, text=cyan!70!black]
+    at ($(bg_kn.north east)+(0.12,0)$)   {Kernel};
+\node[font=\scriptsize\itshape, anchor=west, text=purple!60!black]
+    at ($(bg_ao.north east)+(0.12,0)$)   {Android Userspace (AOSP)};
+\node[font=\scriptsize\itshape, anchor=south, text=red!70!black]
+    at ($(bg_fail.north)+(0,0.10)$)      {Failure Handling};
+
+%% Main flow arrows
+\draw[arrow] (A) -- (B);
+\draw[arrow] (B) -- (C);
+\draw[arrow] (C) -- (D);
+\draw[arrow] (D) -- (E);
+\draw[arrow] (E) -- (F);
+\draw[arrow] (F) -- node[right, font=\scriptsize] {Yes} (G);
+\draw[arrow] (G) -- (H);
+\draw[arrow] (H) -- (I);
+\draw[arrow] (I) -- node[right, font=\scriptsize] {Yes} (J);
+\draw[arrow] (J) -- (K);
+\draw[arrow] (K) -- (L);
+\draw[arrow] (L) -- node[right, font=\scriptsize] {Yes} (M);
+
+%% No-branch arrows to FAIL
+%% F (above FAIL): go right, then route down to FAIL.north
+\draw[failarrow] (F.east)
+    -- node[above, font=\scriptsize] {No}
+    ++(0.55,0) coordinate (fR)
+    -- (fR |- FAIL.north) -- (FAIL.north);
+%% I (same level): direct right to FAIL
+\draw[failarrow] (I.east)
+    -- node[above, font=\scriptsize] {No}
+    (FAIL.west);
+%% L (below FAIL): go right, then route up to FAIL.south
+\draw[failarrow] (L.east)
+    -- node[above, font=\scriptsize] {No}
+    ++(0.55,0) coordinate (lR)
+    -- (lR |- FAIL.south) -- (FAIL.south);
+
+\end{tikzpicture}
+\caption{Secure boot chain on Raspberry Pi~5. Three verification gates (AVB, dm-verity, FBE) each enforce a fail-closed policy: any verification failure triggers a device reboot with no fallback to a degraded boot state.}
+\label{fig:boot_chain}
+\end{figure}
+
+\section{Partition Layout}
+\label{sec:arch_partitions}
+
+The GPT-partitioned SD card is defined in \texttt{config/sdcard/uboot\_aosp\_signed.yaml}. The Table~\ref{tab:partitions} describes the layout.
+
+\begin{table}[h]
+\centering
+\caption{GPT Partition Layout (signed build, 14.6~GB SD card)}
+\label{tab:partitions}
+\begin{tabular}{cllrl}
+\toprule
+\textbf{No.} & \textbf{Name} & \textbf{Format} & \textbf{Size (MB)} & \textbf{Contents} \\
+\midrule
+p1 & \texttt{boot}     & FAT32 & 128    & RPi firmware, U-Boot, kernel, ramdisk, \texttt{boot.scr} \\
+p3 & \texttt{userdata} & ext4  & (fill) & \texttt{/data} --- FBE-encrypted user data \\
+p5 & \texttt{system}   & ext4  & 3072   & \texttt{/system} --- AVB hashtree signed \\
+p6 & \texttt{vendor}   & ext4  & 384    & \texttt{/vendor} --- AVB hashtree signed \\
+p7 & \texttt{metadata} & ext4  & 16     & \texttt{/metadata} --- FBE key material \\
+p8 & \texttt{vbmeta}   & raw   & 4      & AVB top-level VBMeta image \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The non-contiguous partition numbers (p1, p3, p5--p8) are intentional: p2 and p4 are reserved for alternative configurations without breaking existing \texttt{fstab} or U-Boot environment references.
+
+\section{Build Pipeline}
+\label{sec:arch_pipeline}
+
+The build pipeline is orchestrated by \texttt{rpi5-build}, a Python CLI implemented in \texttt{src/meta\_rpi5\_secure\_aosp/}. It is driven by a YAML configuration file (\texttt{config/rpi5\_uboot\_aosp\_signed.yaml}) and accepts per-run overrides via CLI flags.
+
+\subsection{Stages}
+
+\begin{description}
+    \item[\texttt{sync}] Clones U-Boot at a pinned commit, initializes the AOSP repo with the \texttt{android-16.0.0\_r4} manifest, and applies local manifest overlays from \texttt{ganeshhalthota/android\_local\_manifest} \cite{android_local_manifest}. Optionally clones the kernel source from \texttt{raspberry-vanilla/android\_kernel\_brcm\_rpi} at a pinned commit.
+
+    \item[\texttt{patch}] Applies \texttt{git format-patch} stacks from \texttt{patches/uboot/}, \texttt{patches/kernel/}, and \texttt{patches/aosp/device\_brcm\_rpi5/} using \texttt{git am --3way}. Idempotent: already-applied patches are detected via \texttt{git log --grep} on the commit subject, preventing double-application.
+
+    \item[\texttt{build}] Compiles U-Boot (\texttt{rpi\_arm64\_defconfig}), enables AVB Kconfig symbols (\texttt{CONFIG\_LIBAVB}, \texttt{CONFIG\_AVB\_VERIFY}, \texttt{CONFIG\_CMD\_AVB}), injects the AVB root public key into \texttt{avb\_verify.c}, compiles the boot script (\texttt{boot\_avb.scr}), and builds AOSP (\texttt{bootimage}, \texttt{systemimage}, \texttt{vendorimage}).
+
+    \item[\texttt{sign}] Signs \texttt{system.img} and \texttt{vendor.img} with AVB hashtree footers (SHA-256/RSA-4096), shrinks images if needed to fit within the predefined partition sizes, and generates the combined \texttt{vbmeta.img} \cite{avb2_readme}.
+
+    \item[\texttt{sdcard}] Assembles the signed images and supporting files into a flashable GPT image using the partition layout YAML.
+\end{description}
+
+\subsection{Configuration Model}
+
+The build is governed by a two-layer configuration model:
+
+\begin{itemize}
+    \item \textbf{rpi5 config YAML} (\texttt{config/rpi5\_uboot\_aosp\_signed.yaml}): Controls source tags, AVB key paths, signing behaviour, SELinux mode, encryption mode, cmdline profile, and boot state.
+    \item \textbf{sdcard config YAML} (\texttt{config/sdcard/uboot\_aosp\_signed.yaml}): Defines the GPT partition layout, sizes, image paths, and extra file mappings.
+\end{itemize}
+
+A \texttt{BuildContext} dataclass carries the resolved configuration across all stage modules, ensuring a single source of truth for all options. Security-sensitive options (\texttt{boot\_state\_override = orange}, \texttt{avb\_fail\_policy = fail\_open}) are blocked by default and require the explicit \texttt{--allow-insecure-boot-state} flag.
+
+\section{Security Design Decisions}
+\label{sec:arch_security}
+
+\subsection{External Signing Pipeline}
+
+The AVB signing is deliberately separated from the AOSP build
+(\texttt{BOARD\_AVB\_ENABLE = false}). This design:
+\begin{itemize}
+    \item Keeps the private key outside the AOSP build environment.
+    \item Allows the same AOSP images to be signed with different keys (development vs. production) without rebuilding.
+    \item Matches the typical automotive production workflow where signing is a separate,
+    audited step.
+\end{itemize}
+
+\subsection{Fail-Closed AVB Policy}
+
+The default \texttt{avb\_fail\_policy = fail\_closed} causes U-Boot to call \texttt{reset} if AVB initialization or verification fails. This prevents a compromised image from booting in a degraded state and is the recommended policy for production devices \cite{avb2_readme}.
+
+\subsection{FBE Dependency Chain}
+
+FBE requires a strict prerequisite chain enforced by the build tool at startup:
+\begin{enumerate}
+    \item \texttt{sdcard.enable\_signing = true} (AVB must be active).
+    \item \texttt{avb.uboot\_fail\_policy = fail\_closed}.
+    \item \texttt{userdata} and \texttt{metadata} partitions present in the sdcard config.
+\end{enumerate}
+If any prerequisite is missing, the build tool raises a descriptive error before any work is performed, preventing a partially-configured image from being produced.

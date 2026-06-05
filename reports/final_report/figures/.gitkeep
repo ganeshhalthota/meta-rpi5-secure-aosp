@@ -1,0 +1,2 @@
+# Place figures (PNG, PDF, SVG) here.
+# Referenced in LaTeX as: \includegraphics{figures/<filename>}

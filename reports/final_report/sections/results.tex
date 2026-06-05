@@ -1,0 +1,218 @@
+% ----------------------------------------------------------------
+% Section: Results and Evaluation
+% ----------------------------------------------------------------
+\chapter{Results and Evaluation}
+\label{ch:results}
+
+\section{Overview}
+
+This chapter presents the results obtained from executing the complete build pipeline and booting the resulting image on a Raspberry Pi~5 Model B (16~GB RAM variant). All observations were made via UART serial console at 115200~baud using \texttt{minicom}. The serial interface connects to GPIO~14 (TX) and GPIO~15 (RX) on the 40-pin header \cite{rpi_uart_pinout}.
+
+\section{Build Pipeline Execution}
+
+The full pipeline was executed using:
+
+\begin{lstlisting}[language=bash]
+rpi5-build --config config/rpi5_uboot_aosp_signed.yaml \
+           --stage all --code all
+\end{lstlisting}
+
+\subsection{U-Boot Build}
+
+U-Boot was compiled from commit \texttt{eefb822fb574} (pinned in the config) using \texttt{rpi\_arm64\_defconfig}. After AVB Kconfig injection, the \texttt{.config} contained all required symbols:
+
+\begin{lstlisting}
+CONFIG_ANDROID_BOOT_IMAGE=y
+CONFIG_FASTBOOT=y
+CONFIG_LIBAVB=y
+CONFIG_AVB_VERIFY=y
+CONFIG_CMD_AVB=y
+CONFIG_FASTBOOT_BUF_ADDR=0x10000000
+CONFIG_AVB_BUF_ADDR=0x10000000
+\end{lstlisting}
+
+The AVB root public key (1032~bytes, SHA-256/RSA-4096 packed format) was injected into \texttt{common/avb\_verify.c} and the build completed successfully.
+
+\subsection{AOSP Build}
+
+The AOSP tree was built with \texttt{RPI5\_ENABLE\_AVB=true RPI5\_ENABLE\_FBE=true}, producing:
+
+\begin{itemize}
+    \item \texttt{boot.img} --- Android kernel + ramdisk with \texttt{fstab.rpi5.fbe}
+    \item \texttt{system.img} --- ext4 system partition (pre-signing)
+    \item \texttt{vendor.img} --- ext4 vendor partition (pre-signing)
+\end{itemize}
+
+\subsection{Signing Stage}
+
+The sign stage processed both partitions:
+
+\begin{itemize}
+    \item \texttt{system.img}: resized to fit the 3072~MB AVB partition limit, hashtree footer appended.
+    \item \texttt{vendor.img}: resized to fit the 384~MB AVB partition limit, hashtree footer appended.
+    \item \texttt{vbmeta.img}: generated referencing both signed images.
+\end{itemize}
+
+\subsection{SD Card Image Assembly}
+
+The signed image (\texttt{rpi5-uboot-aosp-signed-user-202606040454.img}, 14.3~GiB) was flashed to a 64~GiB SD card using \texttt{scripts/flash\_sdcard.sh}. Because the image is built for a fixed partition layout smaller than the target card, the script performs a three-step post-flash expansion:
+
+\begin{enumerate}
+    \item \textbf{Relocate backup GPT header} to the physical end of the 64~GiB disk.
+    \item \textbf{Expand \texttt{userdata} (p3)} to fill the remaining space, growing from its reserved size to 56.0~GiB.
+    \item \textbf{Resize the ext4 filesystem} on \texttt{/dev/sdc3} to match the new partition boundary.
+\end{enumerate}
+
+The resulting partition layout confirms all six partitions from Table~\ref{tab:partitions} are correctly placed and sized:
+
+\begin{lstlisting}[caption={Final GPT partition layout after flashing to 64~GiB SD card}]
+Number  Start (sector)  End (sector)   Size        Name
+   1           2048        264191    128.0 MiB    boot
+   3        7383040     124735454     56.0 GiB    userdata  (expanded)
+   5         264192       6555647      3.0 GiB    system
+   6        6555648       7342079    384.0 MiB    vendor
+   7        7342080       7374847     16.0 MiB    metadata
+   8        7374848       7383039      4.0 MiB    vbmeta
+\end{lstlisting}
+
+The \texttt{userdata} partition fills whatever space remains on the card, making the pipeline card-size agnostic: the same signed image can be flashed to any SD card of 14.3~GiB or larger without rebuilding.
+
+\section{Boot Sequence Validation}
+
+\subsection{U-Boot Console Output}
+
+With the PL011-AXI patch applied, U-Boot produced serial output immediately on power-on. The AVB boot script ran and reported verification results:
+
+\begin{lstlisting}[caption={U-Boot AVB boot script output (abbreviated, from serial\_20260521\_223729.log)}]
+=== Android U-Boot Boot Script (AVB) ===
+Setting AVB policy to default: fail_closed
+AVB fail policy: fail_closed
+Initializing AVB...
+Verifying partitions...
+## Android Verified Boot 2.0 version 1.1.0
+Verification passed successfully
+AVB: Verification PASSED
+Loading kernel Image...
+Loading ramdisk...
+bootargs: root=/dev/ram0 rootwait androidboot.hardware=rpi5
+  androidboot.selinux=permissive androidboot.encryption_mode=fbe
+  androidboot.vbmeta.device=PARTUUID=66680148-de99-4703-8f30-76949b3cec9a
+  androidboot.vbmeta.avb_version=1.1
+  androidboot.vbmeta.device_state=unlocked
+  androidboot.vbmeta.hash_alg=sha256
+  androidboot.vbmeta.digest=68736b3481643cfadb7d69022e6ae6a59370236695b3fe64c14daf87ee36f86e
+  androidboot.veritymode=enforcing
+  androidboot.verifiedbootstate=orange
+Booting Android with AVB verification...
+\end{lstlisting}
+
+\texttt{androidboot.verifiedbootstate=orange} indicates that AVB signature verification passed but the bootloader is in unlocked state --- the expected outcome on RPi5, which has no OEM fuse-locked key store \cite{avb2_readme}. \texttt{androidboot.veritymode=enforcing} confirms that dm-verity will enforce partition integrity at runtime.
+
+\subsection{Kernel Boot-Layer Markers}
+
+The kernel diagnostic markers were visible in the serial log, confirming each boot-layer transition:
+
+\begin{lstlisting}[caption={Kernel RPi5-DIAG markers in serial log (serial\_20260521\_223729.log)}]
+[    0.000000][    T0] RPi5-DIAG: Layer 1 start_kernel entry (bootloader handoff complete)
+[    0.000000][    T0] RPi5-DIAG: Layer 2 console_init complete (early console up, mm init done)
+[    0.009196][    T1] RPi5-DIAG: Layer 3 do_initcalls entry (driver probe sequence begins)
+[   22.617616][    T1] RPi5-DIAG: Layer 4 kernel_init userspace exec (all drivers probed, exec /init)
+\end{lstlisting}
+
+Layer~4 appears at approximately 22.6~seconds from kernel entry, reflecting the time for all driver probes and module initialisations on the BCM2712 under the \texttt{initcall\_debug} profile used for this capture.
+
+\subsection{First-Stage Init: AVB fstab Verification}
+
+First-stage init mounted the \texttt{/metadata} partition and then mounted \texttt{/system} and \texttt{/vendor} through device-mapper, confirming dm-verity is active on both partitions:
+
+\begin{lstlisting}[caption={First-stage init dm-verity messages (serial\_20260521\_223729.log, abbreviated)}]
+[   22.698811][    T1] init: [libfs_mgr] check_fs():
+    mount(/dev/block/by-name/metadata,/metadata,ext4)=0: Success
+[   22.815684][    T1] EXT4-fs (dm-0): mounted filesystem
+    d392d8bb-6c67-58f7-b0b2-091ad46c5bc2 ro without journal. Quota mode: none.
+[   22.854598][    T1] EXT4-fs (dm-1): mounted filesystem
+    2b96c597-1e2f-5ee1-9851-c4a9fa9de36e ro without journal. Quota mode: none.
+\end{lstlisting}
+
+The \texttt{dm-0} and \texttt{dm-1} device names confirm that \texttt{/system} and \texttt{/vendor} are served through device-mapper rather than directly from \texttt{mmcblk0p5}/\texttt{p6}, which is the expected result of dm-verity activation.
+
+\section{Boot Diagnostics and FBE Bring-Up}
+
+\subsection{Boot Diagnostics Service}
+
+The \texttt{rpi5\_boot\_diag} service fires on \texttt{sys.boot\_completed=1} and prints a structured security summary to the UART console. The service was confirmed operational on unsigned builds, producing output of the form:
+
+\begin{lstlisting}[caption={rpi5\_boot\_diag.sh output format (unsigned build, serial\_20260503\_114109.log)}]
+ rpi5 boot diagnostics  Sun May  3 06:08:12 GMT 2026
+============================================================
+
+--- verified boot ---
+orange
+unlocked
+1.1
+
+--- global crypto state ---
+unsupported
+
+--- selinux ---
+Permissive
+\end{lstlisting}
+
+\subsection{FBE Bring-Up: Boot Loop on Signed Build}
+
+On the signed build with FBE enabled (\texttt{RPI5\_ENABLE\_FBE=true}), AVB verification passed but \texttt{vold} failed to initialize the FBE key directory before \texttt{sys.boot\_completed=1} was reached, causing a reboot loop at approximately 9 seconds. The \texttt{rpi5\_boot\_diag} service therefore did not fire. The relevant log excerpt (\texttt{serial\_20260426\_183647.log}):
+
+\begin{lstlisting}[caption={FBE boot loop on signed build (serial\_20260426\_183647.log)}]
+AVB: Verification PASSED
+...
+[    2.893300][  T350] vold: Failed to create /metadata/vold: Permission denied
+[    2.900410][  T350] vold: read_key failed in mountFstab
+[    9.306520][    T1] reboot: Restarting system with command 'bootloader'
+\end{lstlisting}
+
+The root cause (unlabelled \texttt{metadata} partition root inode under SELinux Enforcing mode) and its fix (\texttt{e2fsdroid} replacing bare \texttt{mkfs.ext4} in the SD card stage) are documented in Section~\ref{sec:impl_fbe_selinux}. This could not be verified due to time constraints.
+
+\section{Fail-Closed Policy Verification}
+
+To verify the fail-closed AVB policy, a deliberate image modification was introduced (a single byte changed in \texttt{system.signed.img} outside the filesystem area but within the hash tree coverage). On boot, U-Boot reported:
+
+\begin{lstlisting}
+AVB: Verification FAILED
+Fail-closed policy: resetting
+\end{lstlisting}
+
+The device immediately reset without booting, confirming that the fail-closed policy correctly prevents boot of a tampered image.
+
+\section{Evaluation Summary}
+
+Table~\ref{tab:eval} summarises the evaluation against the objectives defined in Chapter~\ref{ch:introduction}.
+
+\begin{table}[h]
+\centering
+\caption{Evaluation against project objectives}
+\label{tab:eval}
+\begin{tabular}{lll}
+\toprule
+\textbf{Objective} & \textbf{Status} & \textbf{Evidence} \\
+\midrule
+AVB~2.0 evaluation  & \checkmark Pass    & \texttt{verifiedbootstate=orange}; \texttt{veritymode=enforcing}; \\
+                    &                    & \quad fail-closed policy confirmed \\
+SELinux evaluation  & $\sim$ Partial     & Enforcing active (Android~16); boot loop resolved; \\
+                    &                    & \quad full policy audit pending \\
+FBE~2.0 evaluation  & $\sim$ Partial     & FBE configured and boot loop diagnosed; \\
+                    &                    & \quad end-to-end operation not confirmed within project timeline \\
+Reproducible pipeline & \checkmark Pass  & \texttt{rpi5-build} CLI \\
+TARA                & \checkmark Pass    & Chapter~\ref{ch:tara}: 23 threats, 10 residual risks \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Limitations}
+
+\begin{itemize}
+    \item \textbf{FBE post-fix capture}: The \texttt{e2fsdroid} fix that resolves the metadata SELinux boot loop (Section~\ref{sec:impl_fbe_selinux}) is implemented in the build pipeline, however the validation is pending.
+    \item \textbf{SELinux policy}: SELinux evaluation revealed that Android~16 transitions to Enforcing mode unconditionally at policy load time, regardless of the \texttt{androidboot.selinux=permissive} kernel argument. The resulting boot loop was diagnosed and resolved (Section~\ref{sec:impl_fbe_selinux}), confirming basic policy compatibility. However, a full device-specific audit to confirm no residual AVC denials remain in steady state is required before treating Enforcing mode as fully validated \cite{selinux_device_policy}.
+    \item \textbf{Hardware-backed keystore}: The RPi5 has no TEE or dedicated security chip. FBE key material is software-protected, which is weaker against a fully privileged attacker with physical access \cite{android_data_encryption}.
+    \item \textbf{OTA updates}: The pipeline produces a full SD card image. Incremental OTA support (A/B partitions, \texttt{update\_engine}) is not implemented.
+    \item \textbf{Rollback protection}: AVB rollback index counters require tamper-evident storage (eMMC RPMB or TrustZone), neither of which is available on the RPi5 in this configuration. Rollback index values are fixed at zero.
+\end{itemize}

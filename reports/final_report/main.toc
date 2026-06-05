@@ -1,0 +1,99 @@
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Problem Statement}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Objectives}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Contributions}{3}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Report Structure}{3}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Background}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Android Automotive OS}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Android Security Architecture}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Raspberry Pi 5 Hardware}{6}{section.2.3}%
+\contentsline {section}{\numberline {2.4}U-Boot Bootloader}{7}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}U-Boot AVB Integration}{7}{subsection.2.4.1}%
+\contentsline {section}{\numberline {2.5}Android Verified Boot 2.0 (AVB)}{7}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}VBMeta Descriptors}{8}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Rollback Protection}{9}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Device States and Boot Colour Model}{9}{subsection.2.5.3}%
+\contentsline {subsection}{\numberline {2.5.4}A/B Slot Support}{10}{subsection.2.5.4}%
+\contentsline {subsection}{\numberline {2.5.5}libavb and avbtool}{10}{subsection.2.5.5}%
+\contentsline {section}{\numberline {2.6}dm-verity}{11}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Full-Disk Encryption (FDE)}{11}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Key Derivation Chain}{12}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}Boot Flow and Service Classes}{12}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}Limitations and Deprecation Rationale}{13}{subsection.2.7.3}%
+\contentsline {section}{\numberline {2.8}File-Based Encryption (FBE)}{13}{section.2.8}%
+\contentsline {section}{\numberline {2.9}SELinux on Android}{13}{section.2.9}%
+\contentsline {section}{\numberline {2.10}Android Init System}{14}{section.2.10}%
+\contentsline {section}{\numberline {2.11}ISO/SAE 21434 and Threat Analysis and Risk Assessment (TARA)}{14}{section.2.11}%
+\contentsline {subsection}{\numberline {2.11.1}Asset Identification}{14}{subsection.2.11.1}%
+\contentsline {subsection}{\numberline {2.11.2}STRIDE Threat Modelling}{14}{subsection.2.11.2}%
+\contentsline {subsection}{\numberline {2.11.3}Risk Scoring}{15}{subsection.2.11.3}%
+\contentsline {subsection}{\numberline {2.11.4}Risk Treatment and Residual Risk}{15}{subsection.2.11.4}%
+\contentsline {chapter}{\numberline {3}System Architecture}{16}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Overview}{16}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Boot Chain}{16}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Partition Layout}{18}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Build Pipeline}{19}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Stages}{19}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Configuration Model}{19}{subsection.3.4.2}%
+\contentsline {section}{\numberline {3.5}Security Design Decisions}{20}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}External Signing Pipeline}{20}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Fail-Closed AVB Policy}{20}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}FBE Dependency Chain}{20}{subsection.3.5.3}%
+\contentsline {chapter}{\numberline {4}Implementation}{21}{chapter.4}%
+\contentsline {section}{\numberline {4.1}U-Boot Patch: PL011-AXI Serial Driver}{21}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Problem}{21}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Solution}{21}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Risk Assessment}{22}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}U-Boot AVB Kconfig Configuration}{22}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Public Key Injection}{23}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.3}U-Boot Boot Script}{23}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Kernel Patch: Boot-Layer Diagnostic Markers}{23}{section.4.4}%
+\contentsline {section}{\numberline {4.5}AOSP Patch: AVB-Aware fstab Selection}{24}{section.4.5}%
+\contentsline {section}{\numberline {4.6}AOSP Patch: File-Based Encryption}{24}{section.4.6}%
+\contentsline {section}{\numberline {4.7}FBE Bring-up: Metadata Partition SELinux Boot Loop}{25}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Symptom}{25}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Diagnosis: Two Concurrent Root Causes}{25}{subsection.4.7.2}%
+\contentsline {subsubsection}{Root Cause A --- SELinux Enforcing Despite Permissive Kernel Argument}{26}{section*.15}%
+\contentsline {subsubsection}{Root Cause B --- Metadata Partition Root Inode is \texttt {unlabeled}}{26}{section*.16}%
+\contentsline {subsection}{\numberline {4.7.3}Fix: Replace \texttt {mkfs.ext4} with \texttt {e2fsdroid}}{26}{subsection.4.7.3}%
+\contentsline {subsection}{\numberline {4.7.4}Security Significance}{27}{subsection.4.7.4}%
+\contentsline {section}{\numberline {4.8}AOSP Patch: Boot Diagnostics Service}{27}{section.4.8}%
+\contentsline {section}{\numberline {4.9}AVB Signing Stage}{27}{section.4.9}%
+\contentsline {section}{\numberline {4.10}Build Orchestrator CLI}{28}{section.4.10}%
+\contentsline {chapter}{\numberline {5}Results and Evaluation}{29}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Overview}{29}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Build Pipeline Execution}{29}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}U-Boot Build}{29}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}AOSP Build}{30}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Signing Stage}{30}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}SD Card Image Assembly}{30}{subsection.5.2.4}%
+\contentsline {section}{\numberline {5.3}Boot Sequence Validation}{31}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}U-Boot Console Output}{31}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Kernel Boot-Layer Markers}{32}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}First-Stage Init: AVB fstab Verification}{32}{subsection.5.3.3}%
+\contentsline {section}{\numberline {5.4}Boot Diagnostics and FBE Bring-Up}{32}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Boot Diagnostics Service}{32}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}FBE Bring-Up: Boot Loop on Signed Build}{33}{subsection.5.4.2}%
+\contentsline {section}{\numberline {5.5}Fail-Closed Policy Verification}{33}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Evaluation Summary}{34}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Limitations}{34}{section.5.7}%
+\contentsline {chapter}{\numberline {6}Threat Analysis and Risk Assessment}{36}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Overview}{36}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Asset Inventory}{36}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Threat Scenarios}{37}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Risk Register}{39}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Mitigation Mapping}{40}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Residual Risk Register}{42}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Discussion: Software Security Ceiling on RPi5}{42}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Technical Reasoning}{43}{section.6.8}%
+\contentsline {section}{\numberline {6.9}External References}{44}{section.6.9}%
+\contentsline {chapter}{\numberline {7}Conclusion}{46}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Summary}{46}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Security Posture Assessment}{47}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Technical Reasoning}{48}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Causal Chain}{48}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Alternatives Considered}{48}{subsection.7.3.2}%
+\contentsline {subsection}{\numberline {7.3.3}Risk and Tradeoffs}{48}{subsection.7.3.3}%
+\contentsline {section}{\numberline {7.4}Future Work}{49}{section.7.4}%
+\contentsline {section}{\numberline {7.5}External References}{50}{section.7.5}%

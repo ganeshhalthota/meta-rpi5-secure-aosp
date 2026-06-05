@@ -1,0 +1,85 @@
+\documentclass[12pt,a4paper]{report}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{cite}
+\usepackage{acronym}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,shapes.misc,arrows.meta,fit,backgrounds,positioning,calc}
+\usepackage{float}
+
+% Hyperlink setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+% Code listing style
+\lstdefinestyle{codestyle}{
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red!70!black},
+    backgroundcolor=\color{gray!5}
+}
+\lstset{style=codestyle}
+
+% Header / footer
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\rhead{\leftmark}
+\lhead{meta-rpi5-secure-aosp}
+\cfoot{\thepage}
+
+\onehalfspacing
+
+% ----------------------------------------------------------------
+\begin{document}
+
+\input{sections/titlepage}
+
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+
+\pagenumbering{arabic}
+
+\input{sections/introduction}
+\input{sections/background}
+\input{sections/architecture}
+\input{sections/implementation}
+\input{sections/results}
+\input{sections/tara}
+\input{sections/conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}
