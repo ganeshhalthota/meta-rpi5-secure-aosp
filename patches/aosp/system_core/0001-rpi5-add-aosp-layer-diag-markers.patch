@@ -1,0 +1,75 @@
+From 1defcc96eb14d88bd5c0d788b89980eea66ecd3b Mon Sep 17 00:00:00 2001
+From: Ganesh Halthota <ganesh.rvec@gmail.com>
+Date: Sun, 7 Jun 2026 13:53:21 +0530
+Subject: [PATCH] init: add RPi5-DIAG boot layer boundary markers
+
+Add LOG(ERROR) markers at the four AOSP boot-layer boundaries so that
+layer transitions are visible in the serial console log under any
+loglevel. All messages use the RPi5-DIAG: prefix to make them
+grep-able in captured logs.
+
+Change-Id: I8776ed6bc9d15edea5ccd05a114afeef31e909b0
+---
+ init/first_stage_init.cpp | 2 ++
+ init/init.cpp             | 2 ++
+ init/property_service.cpp | 4 ++++
+ init/selinux.cpp          | 2 ++
+ 4 files changed, 10 insertions(+)
+
+diff --git a/init/first_stage_init.cpp b/init/first_stage_init.cpp
+index 3070fae..fd8aa4f 100644
+--- a/init/first_stage_init.cpp
++++ b/init/first_stage_init.cpp
+@@ -335,6 +335,8 @@ int FirstStageMain(int argc, char** argv) {
+         InstallRebootSignalHandlers();
+     }
+ 
++    LOG(ERROR) << "RPi5-DIAG: AOSP Stage 1 FirstStageMain entry (Mounting partitions)";
++
+     boot_clock::time_point start_time = boot_clock::now();
+ 
+     std::vector<std::pair<std::string, int>> errors;
+diff --git a/init/init.cpp b/init/init.cpp
+index 08e7c66..4cf377a 100644
+--- a/init/init.cpp
++++ b/init/init.cpp
+@@ -1050,6 +1050,8 @@ int SecondStageMain(int argc, char** argv) {
+         InstallRebootSignalHandlers();
+     }
+ 
++    LOG(ERROR) << "RPi5-DIAG: AOSP Stage 3 SecondStageMain entry (Starting properties & property service)";
++
+     // No threads should be spin up until signalfd
+     // is registered. If the threads are indeed required,
+     // each of these threads _should_ make sure SIGCHLD signal
+diff --git a/init/property_service.cpp b/init/property_service.cpp
+index 7a137f0..d62deed 100644
+--- a/init/property_service.cpp
++++ b/init/property_service.cpp
+@@ -572,6 +572,10 @@ std::optional<uint32_t> HandlePropertySet(const std::string& name, const std::st
+         return {PROP_SUCCESS};
+     }
+ 
++    if (name == "sys.boot_completed" && value == "1") {
++        LOG(ERROR) << "RPi5-DIAG: AOSP Stage 4 Boot Complete (sys.boot_completed=1)";
++    }
++
+     return PropertySet(name, value, socket, error);
+ }
+ 
+diff --git a/init/selinux.cpp b/init/selinux.cpp
+index 93f6312..6764395 100644
+--- a/init/selinux.cpp
++++ b/init/selinux.cpp
+@@ -785,6 +785,8 @@ int SetupSelinux(char** argv) {
+         InstallRebootSignalHandlers();
+     }
+ 
++    LOG(ERROR) << "RPi5-DIAG: AOSP Stage 2 SetupSelinux entry (Initializing SELinux)";
++
+     boot_clock::time_point start_time = boot_clock::now();
+ 
+     SelinuxSetupKernelLogging();
+-- 
+2.47.3
+

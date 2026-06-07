@@ -23,8 +23,8 @@ grep-able in captured logs.
             in kernel_init(); marks end of in-kernel init and
             the hand-off to /init.
 
-Markers use pr_notice (level 5) so they appear at the default
-loglevel=4 when ignore_loglevel is set in the debug cmdline profile.
+Markers use pr_err (level 3) so they appear even at the default
+loglevel=4 without needing ignore_loglevel.
 No security-sensitive values are emitted.
 ---
  init/main.c | 7 +++++++
@@ -38,7 +38,7 @@ index 1b4c90e0a56f..2889f863d379 100644
  	char *command_line;
  	char *after_dashes;
  
-+	pr_notice("RPi5-DIAG: Layer 1 start_kernel entry (bootloader handoff complete)\n");
++	pr_err("RPi5-DIAG: Layer 1 start_kernel entry (bootloader handoff complete)\n");
 +
  	set_task_stack_end_magic(&init_task);
  	smp_setup_processor_id();
@@ -47,7 +47,7 @@ index 1b4c90e0a56f..2889f863d379 100644
  		panic("Too many boot %s vars at `%s'", panic_later,
  		      panic_param);
  
-+	pr_notice("RPi5-DIAG: Layer 2 console_init complete (early console up, mm init done)\n");
++	pr_err("RPi5-DIAG: Layer 2 console_init complete (early console up, mm init done)\n");
 +
  	lockdep_init();
  
@@ -56,7 +56,7 @@ index 1b4c90e0a56f..2889f863d379 100644
  	driver_init();
  	init_irq_proc();
  	do_ctors();
-+	pr_notice("RPi5-DIAG: Layer 3 do_initcalls entry (driver probe sequence begins)\n");
++	pr_err("RPi5-DIAG: Layer 3 do_initcalls entry (driver probe sequence begins)\n");
  	do_initcalls();
  }
  
@@ -64,7 +64,7 @@ index 1b4c90e0a56f..2889f863d379 100644
  
  	do_sysctl_args();
  
-+	pr_notice("RPi5-DIAG: Layer 4 kernel_init userspace exec (all drivers probed, exec /init)\n");
++	pr_err("RPi5-DIAG: Layer 4 kernel_init userspace exec (all drivers probed, exec /init)\n");
 +
  	if (ramdisk_execute_command) {
  		ret = run_init_process(ramdisk_execute_command);

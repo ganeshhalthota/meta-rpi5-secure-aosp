@@ -1,0 +1,238 @@
+
+  0.40 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  0.44 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 944872
+  0.54 AON_RESET: 00000003 PM_RSTS 00001000
+  0.58 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  0.68 RP1_BOOT chip ID: 0x20001927
+  0.73 PCIEx1: PWR 0 DET_WAKE 0
+  0.73 part 00000000 reset_info 00000000
+  0.77 PMIC reset-event 00000000 rtc 00000000 alarm 00000000 enabled 0
+  0.83 uSD voltage 3.3V
+  0.89 SDRAM_CONFIG: 1b
+  0.89 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  0.95 DDR 4267 1 1 128 152 BL:1
+  2.27 OTP boardrev e04171 bootrom a a
+  2.28 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.36 VC-JTAG unlocked
+  2.58 RP1_BOOT chip ID: 0x20001927
+
+  3.94 RP1_BOOT chip ID: 0x20001927
+  3.94 RP1_BOOT: fw size 46888
+  4.32 PCI2 init
+  4.32 PCI2 reset
+  4.77 PCIe scan 00001de4:00000001
+  4.77 RP1_CHIP_INFO 20001927
+
+  4.80 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.87 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4087276
+  4.97 PCIEx1: PWR 0 DET_WAKE 0
+  4.00 M.2 PCIe HAT not detected.
+  4.24 usb_pd_init status 3
+  4.24 USB_PD CONFIG 0 41
+  4.04 XHCI-STOP
+  4.04 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.08 USBSTS 1
+  4.11 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.16 xHC0 ports 3 slots 64 intrs 4
+  4.28 XHCI-STOP
+  4.28 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.32 USBSTS 1
+  4.35 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.40 xHC1 ports 3 slots 64 intrs 4
+  4.47 USB-PD: src-cap PDO object1 0x0a0191f4
+  4.49 Current 5000 mA
+  4.51 Voltage 5000 mV
+  4.53 USB-PD: src-cap PDO object2 0x0002d12c
+  4.57 Current 3000 mA
+  4.59 Voltage 9000 mV
+  4.61 USB-PD: src-cap PDO object3 0x0003c0e1
+  4.65 Current 2250 mA
+  4.67 Voltage 12000 mV
+  4.70 USB-PD: src-cap PDO object4 0x0004b0b4
+  4.74 Current 1800 mA
+  4.76 Voltage 15000 mV
+  4.78 Boot mode: SD (01) order f4
+  8.40 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  8.51 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  9.89 OCR c0ff8000 [202]
+CID: 000353444a554c494580fa91d30f0128
+CSD: 400e00325b590000edc87f800a404000
+  9.96 SD: bus-width: 4 spec: 2 SCR: 0x02358043 0x00000000
+  9.05 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  9.17 MBR: 0x00000800,  262144 type: 0x0c
+  9.18 MBR: 0x00040800, 7118848 type: 0x05
+  9.22 MBR: 0x0070a800,22616064 type: 0x83
+  9.26 MBR: 0x00000000,       0 type: 0x00
+  9.30 Trying partition: 0
+  9.80 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.83 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.92 FAT32 clusters 258078
+  9.95 [sdcard] autoboot.txt not found
+  9.96 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  9.03 Trying partition: 1
+  9.07 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.11 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.20 FAT32 clusters 258078
+  9.25 Read config.txt bytes      642 hnd 0x15cf0
+  9.27 [sdcard] pieeprom.upd not found
+  9.30 usb_max_current_enable default 0 max-current 5000
+  9.43 Read bcm2712-rpi-5-b.dtb bytes    78768 hnd 0x13da0
+  9.45 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  9.52 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  9.65 Read /config.txt bytes      642 hnd 0x15cf0
+  9.70 Read /config.txt bytes      642 hnd 0x15cf0
+  9.75 MESS:00:00:09.275744:0: Initial voltage 800000 temp 30136
+  9.76 MESS:00:00:09.476177:0: avs_2712: AVS pred 8613 861300 temp 30136
+  9.79 MESS:00:00:09.479783:0: vpred 861 mV +0
+ 10.08 MESS:00:00:10.108034:0: FB framebuffer_swap 1
+ 10.09 MESS:00:00:10.109905:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+ 10.16 MESS:00:00:10.116794:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+ 10.36 MESS:00:00:10.136188:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+ 10.38 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+ 10.52 Read bcm2712-rpi-5-b.dtb bytes    78768 hnd 0x13da0
+ 10.92 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x144b6
+ 10.21 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x14adb
+ 10.44 MESS:00:00:10.244533:0: Loaded overlay 'bcm2712d0'
+ 10.08 PCIEx1: PWR 0 DET_WAKE 0
+ 10.25 Read /config.txt bytes      642 hnd 0x15cf0
+ 10.37 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x1474f
+ 10.84 MESS:00:00:10.384366:0: Loaded overlay 'vc4-kms-v3d-pi5'
+ 10.00 Read /overlays/cma.dtbo bytes      964 hnd 0x14a30
+ 10.09 MESS:00:00:10.509084:0: Loaded overlay 'cma'
+ 10.10 MESS:00:00:10.510859:0: dtparam: cma-320=true
+ 10.27 Read /overlays/dwc2.dtbo bytes      801 hnd 0x1430e
+ 10.39 MESS:00:00:10.539441:0: Loaded overlay 'dwc2'
+ 10.41 MESS:00:00:10.541309:0: dtparam: dr_mode=peripheral
+ 10.29 Read /cmdline.txt bytes       81 hnd 0x141de
+ 10.66 BMD "armstub8-2712.bin" not found
+ 10.67 fs_open: 'armstub8-2712.bin' 
+ 10.70 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+ 10.11 Read u-boot.bin bytes   708720 hnd 0x15784
+ 10.13 PCI1 reset
+ 10.25 PCI2 reset
+ 10.35 set_reboot_order 0
+ 10.35 set_reboot_arg1 0
+ 10.36 USB-OTG disconnect
+ 10.78 MESS:00:00:10.978608:0: BSC_A no ACK
+ 10.79 MESS:00:00:10.979841:0: BSC_A no ACK
+ 10.83 MESS:00:00:10.983767:0: BSC_A no ACK
+ 11.07 MESS:00:00:11.007701:0: BSC_B no ACK
+ 11.08 MESS:00:00:11.008927:0: BSC_B no ACK
+ 11.12 MESS:00:00:11.012863:0: BSC_B no ACK
+ 11.36 MESS:00:00:11.036628:0: Starting OS 11036 ms
+ 11.42 MESS:00:00:11.042241:0: 00000040: -> 00000480
+ 11.44 MESS:00:00:11.044094:0: 00000030: -> 00100080
+ 11.48 MESS:00:00:11.048807:0: 00000034: -> 00100080
+ 11.53 MESS:00:00:11.053519:0: 00000038: -> 00100080
+ 11.58 MESS:00:00:11.058233:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-gfb1f4c17d8fa (Jun 07 2026 - 11:09:43 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+USB DWC2
+Bus usb@480000: 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 1Hit any key to stop autoboot: 0
+Cannot persist EFI variables without system partition
+** Booting bootflow '<NULL>' with efi_mgr
+Loading Boot0000 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14)
+** Booting bootflow 'mmc@fff000.bootdev.part_1' with script
+=== Android U-Boot Boot Script ===
+Loading kernel Image...
+41630208 bytes read in 1767 ms (22.5 MiB/s)
+Loading ramdisk...
+1544605 bytes read in 68 ms (21.7 MiB/s)
+Booting Android...
+Moving Image from 0x80000 to 0x200000, end=0x2a70000
+## Flattened Device Tree blob at 3f7303d0
+   Booting using the fdt blob at 0x3f7303d0
+Working FDT set to 3f7303d0
+   Loading Ramdisk to 1fe86000, end 1ffff19d ... OK
+   Loading Device Tree to 000000001fe6f000, end 000000001fe859ad ... OK
+Working FDT set to 1fe6f000
+
+Starting kernel ...
+
+[    0.000000][    T0] RPi5-DIAG: Layer 1 start_kernel entry (bootloader handoff complete)
+[    0.000115][    T0] RPi5-DIAG: Layer 2 console_init complete (early console up, mm init done)
+[    0.008972][    T1] RPi5-DIAG: Layer 3 do_initcalls entry (driver probe sequence begins)
+[    0.729656][    T1] bcm7271-uart 107d50c000.serial: error -EINVAL: unable to register 8250 port
+[    0.738412][    T1] bcm7271-uart 107d50c000.serial: probe with driver bcm7271-uart failed with error -22
+[    1.119393][    T1] RPi5-DIAG: Layer 4 kernel_init userspace exec (all drivers probed, exec /init)
+[    1.130779][    T1] init: Failed to read vbmeta partitions.
+[    1.348826][    T1] init: RPi5-DIAG: AOSP Stage 2 SetupSelinux entry (Initializing SELinux)
+[    2.154233][  T132] brcmfmac: brcmf_sdio_htclk: HT Avail timeout (1000000): clkctl 0x50
+console:/ $ [    3.481627][  T320] logd: Cannot read /data/misc/logd/event-log-tags
+[    3.488712][  T320] logd: FrameworkListener: read() failed (Connection reset by peer)
+[    5.631548][  T600] WARNING: Unprivileged eBPF is enabled, data leaks possible via Spectre v2 BHB attacks!
+[    7.743454][  T328] logd: HexToBytes: Invalid characters: ", /
+[    7.749459][  T328] logd: HexToBytes: Invalid characters: ", /
+[    7.755414][  T328] logd: HexToBytes: Invalid characters: ", /
+[   12.317600][    T1] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 309 (/system/bin/servicemanager)
+[   13.318246][    T1] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 309 (/system/bin/servicemanager)
+[   14.318304][    T1] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 309 (/system/bin/servicemanager)
+[   15.319657][    T1] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 309 (/system/bin/servicemanager)
+[   16.319631][    T1] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 309 (/system/bin/servicemanager)
+[   17.319846][    T1] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 309 (/system/bin/servicemanager)
+[   18.320237][    T1] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 309 (/system/bin/servicemanager)
+[   19.320765][    T1] init: Control message: Could not find 'aidl/activity' for ctl.interface_start from pid: 309 (/system/bin/servicemanager)
+[   19.555611][    T1] init: [libfstab] Error updating for slotselect
+[   19.561840][    T1] init: [libfstab] ReadFstabFromFileCommon(): failed to load fstab from : '/system/etc/fstab.postinstall'
+[   22.579736][    T1] init: Control message: Could not find 'aidl/sensor_privacy' for ctl.interface_start from pid: 309 (/system/bin/servicemanager)
+[   27.498382][  T328] logd: HexToBytes: Invalid size: 81
+[   28.801793][  T328] logd: HexToBytes: Invalid size: 55
+[   28.807031][  T328] logd: HexToBytes: Invalid size: 55
+[   28.812226][  T328] logd: HexToBytes: Invalid size: 55
+[   29.372525][  T309] SELinux: avc:  denied  { find } for pid=821 uid=1000 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:system_server:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=1
+[   30.419465][  T309] SELinux: avc:  denied  { find } for pid=1101 uid=1000 name=legacy_permission scontext=u:r:carservice_app:s0 tcontext=u:object_r:legacy_permission_service:s0 tclass=service_manager permissive=1
+[   33.466294][  T328] logd: HexToBytes: Invalid size: 55
+[   33.474385][  T328] logd: HexToBytes: Invalid size: 55
+[   33.481038][  T328] logd: HexToBytes: Invalid size: 55
+[   36.284975][  T328] logd: HexToBytes: Invalid size: 55
+[   39.034204][  T328] logd: HexToBytes: Invalid size: 55
+[   39.040673][  T328] logd: HexToBytes: Invalid size: 55
+[   39.047058][  T328] logd: HexToBytes: Invalid size: 55
+[   40.992774][  T328] logd: HexToBytes: Invalid size: 41
+[   43.527402][  T144] init: RPi5-DIAG: AOSP Stage 4 Boot Complete (sys.boot_completed=1)
+[   44.276376][  T328] logd: HexToBytes: Invalid size: 55
+[   44.282280][  T328] logd: HexToBytes: Invalid size: 55
+[   44.289180][  T328] logd: HexToBytes: Invalid size: 55
+[   44.743939][  T328] logd: HexToBytes: Invalid characters: ", /
+[   45.125343][  T309] SELinux: avc:  denied  { find } for pid=1971 uid=10110 name=android.hardware.media.c2.IComponentStore/ffmpeg scontext=u:r:mediaprovider_app:s0:c110,c256,c512,c768 tcontext=u:object_r:default_android_service:s0 tclass=service_manager permissive=1
+[   45.731579][ T2107] audit: rate limit exceeded
+[   47.366772][ T2347] audit: rate limit exceeded
+[   50.448424][    T1] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1000/pid_716/cgroup.kill: No such file or directory
+[   50.460883][    T1] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_1000/pid_716/cgroup.procs: No such file or directory
+[   51.616184][  T328] logd: HexToBytes: Invalid size: 41
+[   51.621587][  T328] logd: HexToBytes: Invalid size: 41
+[   51.626966][  T328] logd: HexToBytes: Invalid size: 41
+[   51.632132][ T2781] audit: rate limit exceeded
+[   51.636771][  T328] logd: HexToBytes: Invalid characters: ", /
+[   64.891957][    T1] libprocessgroup: Failed to write 1 to /sys/fs/cgroup/system/uid_1000/pid_3003/cgroup.kill: No such file or directory
+[   64.904597][    T1] libprocessgroup: Failed to open /sys/fs/cgroup/system/uid_1000/pid_3003/cgroup.procs: No such file or directory
+[   71.328203][  T328] logd: HexToBytes: Invalid size: 41
+[   71.333359][ T3331] audit: rate limit exceeded
+[   71.337852][  T328] logd: HexToBytes: Invalid size: 41
+[   71.343067][  T328] logd: HexToBytes: Invalid size: 41
+
+console:/ $ 
+console:/ $ 
+console:/ $ 

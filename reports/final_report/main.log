@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.6.5)  5 JUN 2026 19:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.6.7)  7 JUN 2026 17:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1048,13 +1048,13 @@ Overfull \hbox (19.92967pt too wide) in paragraph at lines 102--103
 dbootstate\T1/lmr/m/n/12 ) to be integrity-protected. 
  []
 
-<figures/avb_basic_partitions.png, id=668, 709.65125pt x 165.61874pt>
+<figures/avb_basic_partitions.png, id=670, 709.65125pt x 165.61874pt>
 File: figures/avb_basic_partitions.png Graphic file (type png)
 <use figures/avb_basic_partitions.png>
 Package pdftex.def Info: figures/avb_basic_partitions.png  used on input line 1
 13.
 (pdftex.def)             Requested size: 455.24411pt x 106.24834pt.
-<figures/avb_chained_partition.png, id=673, 814.04124pt x 166.6225pt>
+<figures/avb_chained_partition.png, id=675, 814.04124pt x 166.6225pt>
 File: figures/avb_chained_partition.png Graphic file (type png)
 <use figures/avb_chained_partition.png>
 Package pdftex.def Info: figures/avb_chained_partition.png  used on input line 
@@ -1066,13 +1066,13 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 [8 <./figures/avb_basic_partitions.png>]
-<figures/avb_rollback_indexes.png, id=685, 812.03375pt x 168.63pt>
+<figures/avb_rollback_indexes.png, id=687, 812.03375pt x 168.63pt>
 File: figures/avb_rollback_indexes.png Graphic file (type png)
 <use figures/avb_rollback_indexes.png>
 Package pdftex.def Info: figures/avb_rollback_indexes.png  used on input line 1
 36.
 (pdftex.def)             Requested size: 386.96027pt x 80.35738pt.
-<figures/avb_stored_rollback_indexes.png, id=688, 157.58875pt x 146.5475pt>
+<figures/avb_stored_rollback_indexes.png, id=690, 157.58875pt x 146.5475pt>
 File: figures/avb_stored_rollback_indexes.png Graphic file (type png)
 <use figures/avb_stored_rollback_indexes.png>
 Package pdftex.def Info: figures/avb_stored_rollback_indexes.png  used on input
@@ -1091,7 +1091,7 @@ oidboot.verifiedbootstate \T1/lmr/m/n/12 are: \T1/lmtt/m/n/12 green
 
 
 [9 <./figures/avb_chained_partition.png> <./figures/avb_rollback_indexes.png>]
-<figures/avb_ab_partitions.png, id=700, 890.32625pt x 131.49126pt>
+<figures/avb_ab_partitions.png, id=702, 890.32625pt x 131.49126pt>
 File: figures/avb_ab_partitions.png Graphic file (type png)
 <use figures/avb_ab_partitions.png>
 Package pdftex.def Info: figures/avb_ab_partitions.png  used on input line 168.
@@ -1103,7 +1103,7 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
 
 [10 <./figures/avb_stored_rollback_indexes.png> <./figures/avb_ab_partitions.pn
 g>]
-<figures/avb_boot_flow.png, id=715, 1208.515pt x 616.3025pt>
+<figures/avb_boot_flow.png, id=717, 1208.515pt x 616.3025pt>
 File: figures/avb_boot_flow.png Graphic file (type png)
 <use figures/avb_boot_flow.png>
 Package pdftex.def Info: figures/avb_boot_flow.png  used on input line 191.
@@ -1354,7 +1354,7 @@ from se-
 [31]
 
 [32]
-Underfull \hbox (badness 10000) in paragraph at lines 145--145
+Underfull \hbox (badness 10000) in paragraph at lines 173--173
 []\T1/lmr/m/n/12 Listing 5.5: |rpi5_boot_diag.sh out-put for-mat (un-signed bui
 ld, se-
  []
@@ -1362,12 +1362,15 @@ ld, se-
 
 
 [33]
-Overfull \hbox (56.49544pt too wide) in paragraph at lines 194--208
+Overfull \hbox (56.49544pt too wide) in paragraph at lines 222--236
  [][] 
  []
 
 
-Overfull \hbox (92.68988pt too wide) in paragraph at lines 214--215
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (92.68988pt too wide) in paragraph at lines 242--243
 \T1/lmr/m/n/12 forc-ing mode un-con-di-tion-ally at pol-icy load time, re-gard-
 less of the \T1/lmtt/m/n/12 androidboot.selinux=permissive
  []
@@ -2403,13 +2406,13 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 1D5271036536AE4572B75193FD523232;16475.
+(rerunfilecheck)             Checksum: 5CCEE519148F56ED548BE6D8FDD41391;16559.
  ) 
 Here is how much of TeX's memory you used:
- 28511 strings out of 475178
- 516862 string characters out of 5766540
- 1227048 words of memory out of 5000000
- 50617 multiletter control sequences out of 15000+600000
+ 28513 strings out of 475178
+ 516894 string characters out of 5766540
+ 1196115 words of memory out of 5000000
+ 50618 multiletter control sequences out of 15000+600000
  636233 words of font info for 84 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  84i,12n,87p,841b,1272s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2423,10 +2426,10 @@ nts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtk10.p
 fb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/t
 ype1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/symbols/msam10.pfb>
-Output written on main.pdf (60 pages, 793395 bytes).
+Output written on main.pdf (60 pages, 796173 bytes).
 PDF statistics:
- 1389 PDF objects out of 1440 (max. 8388607)
- 1266 compressed objects within 13 object streams
- 380 named destinations out of 1000 (max. 500000)
+ 1393 PDF objects out of 1440 (max. 8388607)
+ 1270 compressed objects within 13 object streams
+ 381 named destinations out of 1000 (max. 500000)
  819 words of extra memory for PDF output out of 10000 (max. 10000000)
 

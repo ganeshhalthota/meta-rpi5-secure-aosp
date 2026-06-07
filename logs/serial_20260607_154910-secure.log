@@ -1,0 +1,471 @@
+
+  1.13 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  1.17 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 1117347
+  1.27 AON_RESET: 00000003 PM_RSTS 00001000
+  1.31 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 1
+  1.41 RP1_BOOT chip ID: 0x20001927
+  1.45 PCIEx1: PWR 0 DET_WAKE 0
+  1.46 part 00000000 reset_info 00000000
+  1.49 PMIC reset-event 00000000 rtc 00000001 alarm 00000000 enabled 0
+  1.55 uSD voltage 3.3V
+  1.62 SDRAM_CONFIG: 1b
+  1.62 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  1.68 DDR 4267 1 1 128 152 BL:1
+  2.01 OTP boardrev e04171 bootrom a a
+  2.03 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.10 VC-JTAG unlocked
+  2.33 RP1_BOOT chip ID: 0x20001927
+
+  3.68 RP1_BOOT chip ID: 0x20001927
+  3.68 RP1_BOOT: fw size 46888
+  4.06 PCI2 init
+  4.06 PCI2 reset
+  4.51 PCIe scan 00001de4:00000001
+  4.52 RP1_CHIP_INFO 20001927
+
+  4.54 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.61 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4261740
+  4.71 PCIEx1: PWR 0 DET_WAKE 0
+  4.74 M.2 PCIe HAT not detected.
+  4.98 usb_pd_init status 3
+  4.99 USB_PD CONFIG 0 41
+  4.78 XHCI-STOP
+  4.78 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.83 USBSTS 1
+  4.85 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.90 xHC0 ports 3 slots 64 intrs 4
+  4.02 XHCI-STOP
+  4.02 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.07 USBSTS 1
+  4.09 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.14 xHC1 ports 3 slots 64 intrs 4
+  4.22 USB-PD: src-cap PDO object1 0x0a0191f4
+  4.23 Current 5000 mA
+  4.25 Voltage 5000 mV
+  4.27 USB-PD: src-cap PDO object2 0x0002d12c
+  4.32 Current 3000 mA
+  4.34 Voltage 9000 mV
+  4.36 USB-PD: src-cap PDO object3 0x0003c0e1
+  4.40 Current 2250 mA
+  4.42 Voltage 12000 mV
+  4.44 USB-PD: src-cap PDO object4 0x0004b0b4
+  4.48 Current 1800 mA
+  4.50 Voltage 15000 mV
+  4.53 Boot mode: SD (01) order f4
+  9.15 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  9.26 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  9.53 OCR c0ff8000 [343]
+CID: 00035344534c3634478095513d200108
+CSD: 400e00325b590001dbd37f800a404000
+  9.63 SD: bus-width: 4 spec: 2 SCR: 0x02458003 0x00000000
+  9.71 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  9.84 MBR: 0x00000001,124735487 type: 0xee
+  9.85 MBR: 0x00000000,       0 type: 0x00
+  9.89 MBR: 0x00000000,       0 type: 0x00
+  9.93 MBR: 0x00000000,       0 type: 0x00
+  9.97 Trying partition: 0
+  9.47 GPT de47d6c9ba04044a85c265cec751a2fc 000000001 0076f4fff num-partitions 128 entry-size 128 pentry 2 first 0
+  9.58 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  9.62 Matched GUID bootable-part-idx 0 want partition 0
+  9.70 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.74 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.83 FAT32 clusters 258078
+  9.87 [sdcard] autoboot.txt not found
+  9.87 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  9.94 Trying partition: 1
+  9.00 GPT de47d6c9ba04044a85c265cec751a2fc 000000001 0076f4fff num-partitions 128 entry-size 128 pentry 2 first 0
+  9.10 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  9.15 Matched GUID bootable-part-idx 0 want partition 0
+  9.23 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  9.27 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  9.36 FAT32 clusters 258078
+  9.42 Read config.txt bytes      642 hnd 0x15bc0
+  9.45 [sdcard] pieeprom.upd not found
+  9.47 usb_max_current_enable default 0 max-current 5000
+  9.58 Read bcm2712-rpi-5-b.dtb bytes    78768 hnd 0x13da0
+  9.60 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  9.67 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  9.82 Read /config.txt bytes      642 hnd 0x15bc0
+  9.88 Read /config.txt bytes      642 hnd 0x15bc0
+  9.93 MESS:00:00:09.593402:0: Initial voltage 800000 temp 40028
+  9.93 MESS:00:00:09.793835:0: avs_2712: AVS pred 8624 862400 temp 41127
+  9.97 MESS:00:00:09.797442:0: vpred 862 mV +0
+ 10.25 MESS:00:00:10.425719:0: FB framebuffer_swap 1
+ 10.27 MESS:00:00:10.427590:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+ 10.34 MESS:00:00:10.434479:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+ 10.55 MESS:00:00:10.455188:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+ 10.57 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+ 10.72 Read bcm2712-rpi-5-b.dtb bytes    78768 hnd 0x13da0
+ 10.15 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x144b6
+ 10.47 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x14adb
+ 10.70 MESS:00:00:10.570729:0: Loaded overlay 'bcm2712d0'
+ 10.34 PCIEx1: PWR 0 DET_WAKE 0
+ 10.52 Read /config.txt bytes      642 hnd 0x15bc0
+ 10.66 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x1474f
+ 10.13 MESS:00:00:10.713236:0: Loaded overlay 'vc4-kms-v3d-pi5'
+ 10.31 Read /overlays/cma.dtbo bytes      964 hnd 0x14a30
+ 10.39 MESS:00:00:10.839760:0: Loaded overlay 'cma'
+ 10.41 MESS:00:00:10.841534:0: dtparam: cma-320=true
+ 10.59 Read /overlays/dwc2.dtbo bytes      801 hnd 0x1430e
+ 10.71 MESS:00:00:10.871676:0: Loaded overlay 'dwc2'
+ 10.73 MESS:00:00:10.873544:0: dtparam: dr_mode=peripheral
+ 10.63 Read /cmdline.txt bytes      165 hnd 0x141de
+ 11.01 BMD "armstub8-2712.bin" not found
+ 11.01 fs_open: 'armstub8-2712.bin' 
+ 11.05 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+ 11.50 Read u-boot.bin bytes   769928 hnd 0x155d9
+ 11.53 PCI1 reset
+ 11.64 PCI2 reset
+ 11.74 set_reboot_order 0
+ 11.74 set_reboot_arg1 0
+ 11.76 USB-OTG disconnect
+ 11.17 MESS:00:00:11.317843:0: BSC_A no ACK
+ 11.19 MESS:00:00:11.319076:0: BSC_A no ACK
+ 11.23 MESS:00:00:11.323001:0: BSC_A no ACK
+ 11.46 MESS:00:00:11.346935:0: BSC_B no ACK
+ 11.48 MESS:00:00:11.348162:0: BSC_B no ACK
+ 11.52 MESS:00:00:11.352097:0: BSC_B no ACK
+ 11.75 MESS:00:00:11.375864:0: Starting OS 11375 ms
+ 11.81 MESS:00:00:11.381476:0: 00000040: -> 00000480
+ 11.83 MESS:00:00:11.383330:0: 00000030: -> 00100080
+ 11.88 MESS:00:00:11.388043:0: 00000034: -> 00100080
+ 11.92 MESS:00:00:11.392755:0: 00000038: -> 00100080
+ 11.97 MESS:00:00:11.397468:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-g341f09c126aa-dirty (Jun 07 2026 - 08:44:07 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+USB DWC2
+Bus usb@480000: 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 1Hit any key to stop autoboot: 0
+No EFI variables loaded
+** Booting bootflow '<NULL>' with efi_mgr
+Loading Boot0000 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14)
+** Booting bootflow 'mmc@fff000.bootdev.part_1' with script
+=== Android U-Boot Boot Script (AVB) ===
+Setting AVB policy to default: fail_closed
+AVB fail policy: fail_closed
+Initializing AVB...
+Verifying partitions...
+## Android Verified Boot 2.0 version 1.1.0
+Verification passed successfully
+AVB: Verification PASSED
+Loading kernel Image...
+41630208 bytes read in 1795 ms (22.1 MiB/s)
+Loading ramdisk...
+1325953 bytes read in 59 ms (21.4 MiB/s)
+bootargs:  root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive quiet loglevel=4 androidboot.boot_part_uuid=cd81f349-4f0a-4a17-ba5e-f843f83ff9b6 androidboot.vbmeta.device=PARTUUID=f709ef30-2f2b-4c02-87b5-94c0a277f5df androidboot.vbmeta.avb_version=1.1 androidboot.vbmeta.device_state=unlocked androidboot.vbmeta.hash_alg=sha256 androidboot.vbmeta.size=2432 androidboot.vbmeta.digest=3529943eceb86a311348d3663ecc93f2348a24c10689995fc43c5a7b802d63b0 androidboot.vbmeta.invalidate_on_error=yes androidboot.veritymode=enforcing androidboot.verifiedbootstate=orange   androidboot.encryption_mode=fbe
+Booting Android with AVB verification...
+Moving Image from 0x80000 to 0x200000, end=0x2a70000
+## Flattened Device Tree blob at 3f722370
+   Booting using the fdt blob at 0x3f722370
+Working FDT set to 3f722370
+   Loading Ramdisk to 1febc000, end 1ffffb81 ... OK
+   Loading Device Tree to 000000001fea5000, end 000000001febba01 ... OK
+Working FDT set to 1fea5000
+
+Starting kernel ...
+
+[    0.000000][    T0] RPi5-DIAG: Layer 1 start_kernel entry (bootloader handoff complete)
+[    0.000117][    T0] RPi5-DIAG: Layer 2 console_init complete (early console up, mm init done)
+[    0.009055][    T1] RPi5-DIAG: Layer 3 do_initcalls entry (driver probe sequence begins)
+[    0.729278][    T1] bcm7271-uart 107d50c000.serial: error -EINVAL: unable to register 8250 port
+[    0.738032][    T1] bcm7271-uart 107d50c000.serial: probe with driver bcm7271-uart failed with error -22
+[    1.127833][    T1] RPi5-DIAG: Layer 4 kernel_init userspace exec (all drivers probed, exec /init)
+[    1.439713][    T1] init: RPi5-DIAG: AOSP Stage 2 SetupSelinux entry (Initializing SELinux)
+[    1.540387][    T1] init: Do not have permissions to set 'ro.boot.audio.tinyalsa.simulate_input' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    1.556403][    T1] init: Do not have permissions to set 'persist.bluetooth.a2dp_aac.vbr_supported' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    2.167924][   T76] brcmfmac: brcmf_sdio_htclk: HT Avail timeout (1000000): clkctl 0x50
+[    3.640937][  T342] vold: Failed to create /metadata/vold: Permission denied
+[    3.648051][  T342] vold: read_key failed in mountFstab
+[    3.653371][  T372] vdc: Command: cryptfs encryptFstab /dev/block/by-name/userdata /data false ext4 false 0   Failed: Status(-8, EX_SERVICE_SPECIFIC): '0: '
+[    4.699882][  T342] vold: keystore2 Communication with Keystore earlyBootEnded failed error: -129
+[    7.398761][    T1] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 330 (/system/bin/servicemanager)
+[    8.399181][    T1] init: Control message: Could not find 'aidl/SurfaceFlingerAIDL' for ctl.interface_start from pid: 330 (/system/bin/servicemanager)
+[   10.366512][  T342] cutils: Failed to mkdir(/data/misc/vold/user_keys): No such file or directory
+[   10.375505][  T342] vold: Failed to prepare /data/misc/vold/user_keys: No such file or directory
+[   10.384427][  T631] vdc: Command: cryptfs init_user0 Failed: Status(-8, EX_SERVICE_SPECIFIC): '0: '
+[   10.418458][    T1] reboot: Restarting system with command 'bootloader'
+
+  1.59 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  1.63 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 1063163
+  1.73 AON_RESET: 00000003 PM_RSTS 00001020
+  1.77 POWER_OFF_ON_HALT: 0 WAIT_FOR_POWER_BUTTON 0 power-on-reset 0
+  1.86 RP1_BOOT chip ID: 0x20001927
+  1.91 PCIEx1: PWR 0 DET_WAKE 0
+  1.91 part 00000000 reset_info 00000000
+  1.95 PMIC reset-event 00000000 rtc 0000001e alarm 00000000 enabled 0
+  1.01 uSD voltage 3.3V
+  1.08 SDRAM_CONFIG: 1b
+  1.08 Initialising SDRAM rank 2 total-size: 128 Gbit 4267 (0x1b 0x1b)
+  1.13 DDR 4267 1 1 128 152 BL:1
+  2.45 OTP boardrev e04171 bootrom a a
+  2.46 Customer key hash 0000000000000000000000000000000000000000000000000000000000000000
+  2.53 VC-JTAG unlocked
+  2.76 RP1_BOOT chip ID: 0x20001927
+
+  3.11 RP1_BOOT chip ID: 0x20001927
+  3.11 RP1_BOOT: fw size 46888
+  4.49 PCI2 init
+  4.49 PCI2 reset
+  4.94 PCIe scan 00001de4:00000001
+  4.95 RP1_CHIP_INFO 20001927
+
+  4.97 RPi: BOOTLOADER release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
+  4.04 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 4204818
+  4.14 PCIEx1: PWR 0 DET_WAKE 0
+  4.17 M.2 PCIe HAT not detected.
+  4.41 usb_pd_init status 3
+  4.42 USB_PD CONFIG 0 43
+  4.52 XHCI-STOP
+  4.52 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.64 USBSTS 1
+  4.65 xHC0 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.70 xHC0 ports 3 slots 64 intrs 4
+  4.82 XHCI-STOP
+  4.82 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.87 USBSTS 1
+  4.89 xHC1 ver: 272 HCS: 03000440 140000f1 07ff000a HCC: 0240fe6d
+  4.94 xHC1 ports 3 slots 64 intrs 4
+  4.02 USB-PD: src-cap PDO object1 0x0a0191f4
+  4.03 Current 5000 mA
+  4.05 Voltage 5000 mV
+  4.07 USB-PD: src-cap PDO object2 0x0002d12c
+  4.11 Current 3000 mA
+  4.14 Voltage 9000 mV
+  4.16 USB-PD: src-cap PDO object3 0x0003c0e1
+  4.20 Current 2250 mA
+  4.22 Voltage 12000 mV
+  4.24 USB-PD: src-cap PDO object4 0x0004b0b4
+  4.28 Current 1800 mA
+  4.30 Voltage 15000 mV
+  4.32 Boot mode: SD (01) order f4
+  4.50 SD HOST: 200000000 CTL0: 0x00800000 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  4.61 SD HOST: 200000000 CTL0: 0x00800f00 BUS: 400000 Hz actual: 390625 HZ div: 512 (256) status: 0x1fff0000 delay: 276
+  5.82 OCR c0ff8000 [334]
+CID: 00035344534c3634478095513d200108
+CSD: 400e00325b590001dbd37f800a404000
+  5.90 SD: bus-width: 4 spec: 2 SCR: 0x02458003 0x00000000
+  5.99 SD HOST: 200000000 CTL0: 0x00800f04 BUS: 50000000 Hz actual: 50000000 HZ div: 4 (2) status: 0x1fff0000 delay: 2
+  5.13 MBR: 0x00000001,124735487 type: 0xee
+  5.14 MBR: 0x00000000,       0 type: 0x00
+  5.17 MBR: 0x00000000,       0 type: 0x00
+  5.21 MBR: 0x00000000,       0 type: 0x00
+  5.25 Trying partition: 0
+  5.30 GPT de47d6c9ba04044a85c265cec751a2fc 000000001 0076f4fff num-partitions 128 entry-size 128 pentry 2 first 0
+  5.41 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  5.45 Matched GUID bootable-part-idx 0 want partition 0
+  5.53 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  5.56 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  5.66 FAT32 clusters 258078
+  5.71 [sdcard] autoboot.txt not found
+  5.71 Select partition rsts 0 C(boot_partition) 0 EEPROM config 0 result 1
+  5.78 Trying partition: 1
+  5.84 GPT de47d6c9ba04044a85c265cec751a2fc 000000001 0076f4fff num-partitions 128 entry-size 128 pentry 2 first 0
+  5.94 GPT partition: 0 c12a7328-f81f-11d2-ba4b-00a0c93ec93b 000000800..0000407ff
+  5.99 Matched GUID bootable-part-idx 0 want partition 0
+  5.07 type: 32 lba: 2048 'mkfs.fat' ' boot       ' clusters 258078 (1)
+  5.11 rsc 32 fat-sectors 2017 root dir cluster 2 sectors 0 entries 0
+  5.20 FAT32 clusters 258078
+  5.26 Read config.txt bytes      642 hnd 0x15bc0
+  5.29 [sdcard] pieeprom.upd not found
+  5.31 usb_max_current_enable default 0 max-current 5000
+  5.43 Read bcm2712-rpi-5-b.dtb bytes    78768 hnd 0x13da0
+  5.45 dt-match: compatible: raspberrypi,5-model-b match: brcm,bcm2712
+  5.51 dt-match: compatible: brcm,bcm2712 match: brcm,bcm2712
+  5.67 Read /config.txt bytes      642 hnd 0x15bc0
+  5.74 Read /config.txt bytes      642 hnd 0x15bc0
+  5.79 MESS:00:00:05.279480:0: Initial voltage 800000 temp 40577
+  5.79 MESS:00:00:05.479911:0: avs_2712: AVS pred 8636 863600 temp 41676
+  5.83 MESS:00:00:05.483519:0: vpred 863 mV +0
+  6.11 MESS:00:00:06.111792:0: FB framebuffer_swap 1
+  6.31 MESS:00:00:06.131230:0: Select resolution HDMI0/2 hotplug 0 max_mode 2
+  6.35 MESS:00:00:06.135282:0: Select resolution HDMI1/2 hotplug 0 max_mode 2
+  6.55 MESS:00:00:06.155877:0: dtb_file 'bcm2712-rpi-5-b.dtb'
+  6.58 Loading 'bcm2712-rpi-5-b.dtb' to 0x00000000 offset 0x100
+  6.74 Read bcm2712-rpi-5-b.dtb bytes    78768 hnd 0x13da0
+  6.17 Read /overlays/overlay_map.dtb bytes     5971 hnd 0x144b6
+  6.54 Read /overlays/bcm2712d0.dtbo bytes     1363 hnd 0x14adb
+  6.77 MESS:00:00:06.277326:0: Loaded overlay 'bcm2712d0'
+  6.41 PCIEx1: PWR 0 DET_WAKE 0
+  6.60 Read /config.txt bytes      642 hnd 0x15bc0
+  6.73 Read /overlays/vc4-kms-v3d-pi5.dtbo bytes     3306 hnd 0x1474f
+  6.20 MESS:00:00:06.420537:0: Loaded overlay 'vc4-kms-v3d-pi5'
+  6.38 Read /overlays/cma.dtbo bytes      964 hnd 0x14a30
+  6.47 MESS:00:00:06.547018:0: Loaded overlay 'cma'
+  6.48 MESS:00:00:06.548794:0: dtparam: cma-320=true
+  6.67 Read /overlays/dwc2.dtbo bytes      801 hnd 0x1430e
+  6.79 MESS:00:00:06.579504:0: Loaded overlay 'dwc2'
+  6.81 MESS:00:00:06.581371:0: dtparam: dr_mode=peripheral
+  6.70 Read /cmdline.txt bytes      165 hnd 0x141de
+  6.08 BMD "armstub8-2712.bin" not found
+  6.09 fs_open: 'armstub8-2712.bin' 
+  6.12 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
+  6.58 Read u-boot.bin bytes   769928 hnd 0x155d9
+  6.60 PCI1 reset
+  6.71 PCI2 reset
+  6.81 set_reboot_order 0
+  6.81 set_reboot_arg1 0
+  6.83 USB-OTG disconnect
+  7.25 MESS:00:00:07.025101:0: Starting OS 7025 ms
+  7.30 MESS:00:00:07.030628:0: 00000040: -> 00000480
+  7.32 MESS:00:00:07.032478:0: 00000030: -> 00100080
+  7.37 MESS:00:00:07.037191:0: 00000034: -> 00100080
+  7.41 MESS:00:00:07.041904:0: 00000038: -> 00100080
+  7.46 MESS:00:00:07.046617:0: 0000003c: -> 00100080
+
+NOTICE:  BL31: v2.6(release):v2.6-240-gfc45bc492
+NOTICE:  BL31: Built : 12:55:13, Dec  4 2024
+
+
+U-Boot 2026.04-rc4-00007-g341f09c126aa-dirty (Jun 07 2026 - 08:44:07 +0000)
+
+DRAM:  16 GiB
+RPI 5 Model B (0xe04171)
+Core:  25 devices, 11 uclasses, devicetree: board
+MMC:   mmc@fff000: 0, mmc@1100000: 1
+Loading Environment from FAT... fs uses incompatible features: 00020000, ignoring
+Unable to read "uboot.env" from mmc0:1... 
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+mbox: Header response code invalid
+bcm2835: Could not query MAC address
+Net:   No ethernet found.
+
+starting USB...
+USB DWC2
+Bus usb@480000: 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot: 2Hit any key to stop autoboot: 1Hit any key to stop autoboot: 0
+** Booting bootflow '<NULL>' with efi_mgr
+fs uses incompatible features: 00020000, ignoring
+fs uses incompatible features: 00020000, ignoring
+Loading Boot0000 'mmc 0' failed
+EFI boot manager: Cannot load any image
+Boot failed (err=-14)
+** Booting bootflow 'mmc@fff000.bootdev.part_1' with script
+=== Android U-Boot Boot Script (AVB) ===
+Setting AVB policy to default: fail_closed
+AVB fail policy: fail_closed
+Initializing AVB...
+Verifying partitions...
+## Android Verified Boot 2.0 version 1.1.0
+Verification passed successfully
+AVB: Verification PASSED
+Loading kernel Image...
+41630208 bytes read in 1777 ms (22.3 MiB/s)
+Loading ramdisk...
+1325953 bytes read in 60 ms (21.1 MiB/s)
+bootargs:  root=/dev/ram0 rootwait androidboot.hardware=rpi5 androidboot.selinux=permissive quiet loglevel=4 androidboot.boot_part_uuid=cd81f349-4f0a-4a17-ba5e-f843f83ff9b6 androidboot.vbmeta.device=PARTUUID=f709ef30-2f2b-4c02-87b5-94c0a277f5df androidboot.vbmeta.avb_version=1.1 androidboot.vbmeta.device_state=unlocked androidboot.vbmeta.hash_alg=sha256 androidboot.vbmeta.size=2432 androidboot.vbmeta.digest=3529943eceb86a311348d3663ecc93f2348a24c10689995fc43c5a7b802d63b0 androidboot.vbmeta.invalidate_on_error=yes androidboot.veritymode=enforcing androidboot.verifiedbootstate=orange   androidboot.encryption_mode=fbe
+Booting Android with AVB verification...
+Moving Image from 0x80000 to 0x200000, end=0x2a70000
+## Flattened Device Tree blob at 3f722370
+   Booting using the fdt blob at 0x3f722370
+Working FDT set to 3f722370
+   Loading Ramdisk to 1febc000, end 1ffffb81 ... OK
+   Loading Device Tree to 000000001fea5000, end 000000001febba01 ... OK
+Working FDT set to 1fea5000
+
+Starting kernel ...
+
+[    0.000000][    T0] RPi5-DIAG: Layer 1 start_kernel entry (bootloader handoff complete)
+[    0.000118][    T0] RPi5-DIAG: Layer 2 console_init complete (early console up, mm init done)
+[    0.009093][    T1] RPi5-DIAG: Layer 3 do_initcalls entry (driver probe sequence begins)
+[    0.730402][    T1] bcm7271-uart 107d50c000.serial: error -EINVAL: unable to register 8250 port
+[    0.739150][    T1] bcm7271-uart 107d50c000.serial: probe with driver bcm7271-uart failed with error -22
+[    1.115687][    T1] RPi5-DIAG: Layer 4 kernel_init userspace exec (all drivers probed, exec /init)
+[    1.609619][    T1] init: RPi5-DIAG: AOSP Stage 2 SetupSelinux entry (Initializing SELinux)
+[    1.711582][    T1] init: Do not have permissions to set 'ro.boot.audio.tinyalsa.simulate_input' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    1.727596][    T1] init: Do not have permissions to set 'persist.bluetooth.a2dp_aac.vbr_supported' to 'true' in property file '/vendor/build.prop': SELinux permission check failed
+[    2.147917][   T78] brcmfmac: brcmf_sdio_htclk: HT Avail timeout (1000000): clkctl 0x50
+[   52.951785][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   53.893389][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   53.951907][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   54.893698][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   54.952044][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   55.893995][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   55.952227][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   56.894305][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   56.952404][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   57.894647][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   57.952558][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   58.894951][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   58.952699][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   59.895265][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   59.952863][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   60.895577][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   60.953016][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   61.895940][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   61.953201][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   62.896393][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   63.896734][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   63.953613][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   64.897061][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   64.953779][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   65.897394][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   65.954054][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   66.897736][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   66.954202][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   67.898045][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   67.954364][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   68.954609][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   69.898714][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   69.954739][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   70.899034][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   70.954901][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   71.899370][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   71.955153][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   72.899745][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   72.955283][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   73.900104][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   74.900428][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   74.955609][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   75.900757][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   75.955765][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   76.901121][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   76.956022][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   77.901447][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   77.956166][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   78.901786][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   78.956390][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   79.956611][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   80.902440][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   80.956777][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   81.902793][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   81.956939][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   82.903163][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   82.957243][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   83.903557][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   83.957404][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   84.903885][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   85.904242][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   85.957755][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   86.904579][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   86.957894][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   87.904919][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   87.958051][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   88.905236][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   88.958206][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   89.905560][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/android.system.keystore2.IKeystoreService/default' from pid: 330
+[   89.958371][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
+[   90.958632][  T147] init: Too many pending control messages, dropped 'interface_start' for 'aidl/SurfaceFlingerAIDL' from pid: 330
