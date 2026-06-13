@@ -21,6 +21,8 @@
 \usepackage{longtable}
 \usepackage{colortbl}
 \usepackage{array}
+\usepackage{tabularx}
+\usepackage{ltablex}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric,shapes.misc,arrows.meta,fit,backgrounds,positioning,calc}
 \usepackage{float}
@@ -62,11 +64,20 @@
 \begin{document}
 
 \input{sections/titlepage}
+\input{sections/certificate}
 
 \pagenumbering{roman}
+\input{sections/acknowledgements}
+\newpage
+\input{sections/abstract}
+\newpage
 \tableofcontents
-\listoffigures
+\addcontentsline{toc}{chapter}{LIST OF TABLES}
 \listoftables
+\addcontentsline{toc}{chapter}{LIST OF FIGURES}
+\listoffigures
+\newpage
+\input{sections/abbreviations}
 \newpage
 
 \pagenumbering{arabic}

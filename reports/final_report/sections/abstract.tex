@@ -1,0 +1,15 @@
+\chapter*{ABSTRACT}
+\addcontentsline{toc}{chapter}{ABSTRACT}
+
+\vspace{1.5em}
+\noindent \textbf{Keywords:} Android Automotive OS, Raspberry Pi~5, Android Verified Boot, SELinux, File-Based Encryption, TARA, ISO/SAE~21434, U-Boot, Secure Boot
+
+\vspace{1em}
+
+The automotive industry's shift towards Software-Defined Vehicles has elevated Android Automotive OS (AAOS) as a leading in-vehicle infotainment platform. However, deploying a security-hardened AAOS on commodity single-board computers — specifically the Raspberry Pi~5 (BCM2712, quad-core ARM Cortex-A76, AArch64) — introduces significant engineering challenges: the platform lacks hardware-backed security enclaves, native AVB support, and Android-aware firmware.
+
+This project evaluates the feasibility and correctness of running a security-hardened AAOS on RPi5 hardware by enabling and assessing three Android security subsystems: Android Verified Boot~2.0 (AVB2), SELinux Enforcing mode, and File-Based Encryption~2.0 (FBE). A reproducible build pipeline, \texttt{meta-rpi5-secure-aosp}, was developed to automate the full workflow — \texttt{sync} $\to$ \texttt{patch} $\to$ \texttt{build} $\to$ \texttt{sign} $\to$ \texttt{sdcard} — with per-stage and per-component granularity.
+
+AVB2 was enabled through custom U-Boot patches and an external signing stage using \texttt{avbtool}, covering \texttt{system} and \texttt{vendor} partitions with SHA-256/RSA-4096 and a fail-closed policy. SELinux Enforcing mode was validated with a correctly scoped policy. FBE~2.0 was enabled using AES-256-XTS on \texttt{userdata} and metadata encryption, supported by a dedicated \texttt{metadata} partition. The full pipeline was validated on real RPi5 hardware via UART at 115200~baud.
+
+A formal Threat Analysis and Risk Assessment (TARA) aligned with ISO/SAE~21434 was conducted, covering the full boot chain and all attack surfaces. The risk register comprises 23 threat scenarios — 9~Critical, 6~High, 8~Medium, 1~Low — with a mitigation mapping for all High/Critical risks and an explicit residual risk register of 10 accepted risks, bounded by the hardware constraints of a commodity development platform.

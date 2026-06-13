@@ -1,7 +1,7 @@
 % ----------------------------------------------------------------
 % Chapter: Threat Analysis and Risk Assessment (TARA)
 % ----------------------------------------------------------------
-\chapter{Threat Analysis and Risk Assessment}
+\chapter{THREAT ANALYSIS AND RISK ASSESSMENT}
 \label{ch:tara}
 
 \section{Overview}
@@ -23,7 +23,7 @@ Table~\ref{tab:asset_summary} provides the category summary.
 \centering
 \caption{Asset inventory summary by category (24 assets total)}
 \label{tab:asset_summary}
-\begin{tabular}{clcp{6.5cm}}
+\begin{tabularx}{\textwidth}{c l c >{\raggedright\arraybackslash}X}
 \toprule
 \textbf{Category} & \textbf{Name} & \textbf{Count} & \textbf{Representative assets} \\
 \midrule
@@ -34,7 +34,7 @@ IFACE   & Interfaces     & 4 & UART console, USB/fastboot, U-Boot interactive co
 BUILD   & Build pipeline & 4 & Build orchestrator, patch stack, build host, \texttt{avbtool} \\
 DATA    & Runtime data   & 3 & \texttt{/data} (userdata), \texttt{/metadata}, U-Boot env vars \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 The most security-sensitive assets are:
@@ -49,7 +49,7 @@ The most security-sensitive assets are:
 
 The STRIDE model \cite{stride_microsoft} was applied to each asset category. Table~\ref{tab:threats} lists all 23 threat scenarios with their STRIDE category, affected asset, and attack vector.
 
-\begin{longtable}{p{0.7cm} p{0.8cm} p{5.2cm} p{2.5cm} p{2.3cm}}
+\begin{tabularx}{\textwidth}{p{0.8cm} p{1.5cm} X p{3.2cm} p{2.8cm}}
 \caption{Threat scenarios (23 total)}
 \label{tab:threats} \\
 \toprule
@@ -91,7 +91,7 @@ T-020 & D & Corrupt \texttt{/metadata} partition --- FBE failure or factory rese
 T-021 & T & Modify build config YAML to silently disable signing or set fail-open & A-CFG-004 & Build pipeline \\
 T-022 & T & Remove FBE flags from \texttt{fstab} --- silent encryption disable & A-CFG-003 & Build pipeline \\
 T-023 & E & Overwrite U-Boot environment variables to redirect boot & A-DATA-003 & Physical (SD card) \\
-\end{longtable}
+\end{tabularx}
 
 % ----------------------------------------------------------------
 \section{Risk Register}
@@ -105,7 +105,7 @@ Risk Level $=$ Impact $\times$ Feasibility, classified as: Low (1--4), Medium (5
 \caption{Risk register: Boot chain threats (T-001 to T-008)}
 \label{tab:risk_boot}
 \small
-\begin{tabular}{p{0.7cm} p{4.8cm} p{1.2cm} p{1.2cm} c c}
+\begin{tabularx}{\textwidth}{p{0.8cm} >{\raggedright\arraybackslash}X p{1.5cm} p{1.5cm} c c}
 \toprule
 \textbf{ID} & \textbf{Threat summary} & \textbf{Impact} & \textbf{Feasibility} & \textbf{Score} & \textbf{Level} \\
 \midrule
@@ -118,7 +118,7 @@ T-006 & Full spoofing (vbmeta + U-Boot)    & O:4 & 2 &  8 & Medium \\
 T-007 & U-Boot console access via UART     & O:4 & 4 & 16 & \textbf{Critical} \\
 T-008 & Replace \texttt{boot\_avb.scr}     & O:4 & 4 & 16 & \textbf{Critical} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 % ---- Build pipeline ----
@@ -127,7 +127,7 @@ T-008 & Replace \texttt{boot\_avb.scr}     & O:4 & 4 & 16 & \textbf{Critical} \\
 \caption{Risk register: Build pipeline threats (T-009 to T-013)}
 \label{tab:risk_build}
 \small
-\begin{tabular}{p{0.7cm} p{4.8cm} p{1.2cm} p{1.2cm} c c}
+\begin{tabularx}{\textwidth}{p{0.8cm} >{\raggedright\arraybackslash}X p{1.5cm} p{1.5cm} c c}
 \toprule
 \textbf{ID} & \textbf{Threat summary} & \textbf{Impact} & \textbf{Feasibility} & \textbf{Score} & \textbf{Level} \\
 \midrule
@@ -137,7 +137,7 @@ T-011 & Replace \texttt{avbtool}    & O:4 & 2 & 8 & Medium \\
 T-012 & Read AVB private key        & P:3 & 3 & 9 & \textbf{High} \\
 T-013 & No signing audit trail      & O:2 & 4 & 8 & Medium \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 % ---- Runtime interfaces ----
@@ -146,7 +146,7 @@ T-013 & No signing audit trail      & O:2 & 4 & 8 & Medium \\
 \caption{Risk register: Runtime interface threats (T-014 to T-017)}
 \label{tab:risk_iface}
 \small
-\begin{tabular}{p{0.7cm} p{4.8cm} p{1.2cm} p{1.2cm} c c}
+\begin{tabularx}{\textwidth}{p{0.8cm} >{\raggedright\arraybackslash}X p{1.5cm} p{1.5cm} c c}
 \toprule
 \textbf{ID} & \textbf{Threat summary} & \textbf{Impact} & \textbf{Feasibility} & \textbf{Score} & \textbf{Level} \\
 \midrule
@@ -155,7 +155,7 @@ T-015 & USB fastboot without OEM lock     & O:4 & 4 & 16 & \textbf{Critical} \\
 T-016 & Physical SD card removal (DoS)    & O:4 & 4 & 16 & \textbf{Critical} \\
 T-017 & Corrupt vbmeta --- fail-closed DoS & O:4 & 4 & 16 & \textbf{Critical} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 % ---- Data confidentiality ----
@@ -164,7 +164,7 @@ T-017 & Corrupt vbmeta --- fail-closed DoS & O:4 & 4 & 16 & \textbf{Critical} \\
 \caption{Risk register: Data confidentiality threats (T-018 to T-020)}
 \label{tab:risk_data}
 \small
-\begin{tabular}{p{0.7cm} p{4.8cm} p{1.2cm} p{1.2cm} c c}
+\begin{tabularx}{\textwidth}{p{0.8cm} >{\raggedright\arraybackslash}X p{1.5cm} p{1.5cm} c c}
 \toprule
 \textbf{ID} & \textbf{Threat summary} & \textbf{Impact} & \textbf{Feasibility} & \textbf{Score} & \textbf{Level} \\
 \midrule
@@ -172,7 +172,7 @@ T-018 & Read plaintext userdata from SD card          & P:4 & 4 & 16 & \textbf{C
 T-019 & Extract FBE keys from kernel memory (runtime) & P:4 & 1 &  4 & Low \\
 T-020 & Corrupt \texttt{/metadata} --- FBE failure    & O:3 & 4 & 12 & \textbf{High} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 % ---- Configuration / policy ----
@@ -181,7 +181,7 @@ T-020 & Corrupt \texttt{/metadata} --- FBE failure    & O:3 & 4 & 12 & \textbf{H
 \caption{Risk register: Configuration and policy threats (T-021 to T-023)}
 \label{tab:risk_config}
 \small
-\begin{tabular}{p{0.7cm} p{4.8cm} p{1.2cm} p{1.2cm} c c}
+\begin{tabularx}{\textwidth}{p{0.8cm} >{\raggedright\arraybackslash}X p{1.5cm} p{1.5cm} c c}
 \toprule
 \textbf{ID} & \textbf{Threat summary} & \textbf{Impact} & \textbf{Feasibility} & \textbf{Score} & \textbf{Level} \\
 \midrule
@@ -189,14 +189,14 @@ T-021 & Modify build YAML to disable signing & O:3 & 2 & 6 & Medium \\
 T-022 & Remove FBE flags from fstab          & P:3 & 2 & 6 & Medium \\
 T-023 & Overwrite U-Boot environment vars    & O:4 & 3 & 12 & \textbf{High} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \begin{table}[h]
 \centering
 \caption{Risk level summary across all 23 threat scenarios}
 \label{tab:risk_summary}
-\begin{tabular}{lcl}
+\begin{tabularx}{\textwidth}{l c >{\raggedright\arraybackslash}X}
 \toprule
 \textbf{Risk Level} & \textbf{Count} & \textbf{Threat IDs} \\
 \midrule
@@ -205,7 +205,7 @@ High     (9--12)  & 6  & T-002, T-004, T-005, T-012, T-020, T-023 \\
 Medium   (5--8)   & 7  & T-006, T-009, T-010, T-011, T-013, T-014, T-021, T-022 \\
 Low      (1--4)   & 1  & T-019 \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 The concentration of Critical risks in the boot chain and physical interface categories reflects the dominant exposure of the platform: all security-critical content resides on a removable SD card with no hardware write protection, accessible to any attacker with physical access and standard PC tools. T-019 scores~4 (Low) because extracting FBE keys from a running kernel requires prior kernel code execution --- an extreme prerequisite.
@@ -218,7 +218,7 @@ Table~\ref{tab:mitigations} maps every Critical and High risk to its countermeas
 \textbf{Planned} = identified in the backlog, not yet implemented;
 \textbf{Not Started} = no countermeasure exists.
 
-\begin{longtable}{p{0.7cm} p{4.0cm} p{5.0cm} p{1.5cm}}
+\begin{tabularx}{\textwidth}{p{0.8cm} p{4.5cm} X p{1.5cm}}
 \caption{Mitigation mapping for Critical and High risks}
 \label{tab:mitigations} \\
 \toprule
@@ -246,7 +246,7 @@ T-017 & A/B slot fallback (OTA workstream); re-flash recovery & Planned (P3 OTA 
 T-018 & FBE (fscrypt v2, AES-256-XTS); metadata encryption & \texttt{fstab.rpi5.fbe}; \texttt{stages/sdcard.py} & Partial \\
 T-020 & \texttt{e2fsdroid} SELinux labelling ensures vold can access \texttt{/metadata} & \texttt{stages/sdcard.py}; Section~\ref{sec:impl_fbe_selinux} & Impl. \\
 T-023 & \texttt{CONFIG\_ENV\_IS\_NOWHERE} for production builds & Planned production U-Boot config & Planned \\
-\end{longtable}
+\end{tabularx}
 
 % ----------------------------------------------------------------
 \section{Residual Risk Register}
@@ -254,12 +254,13 @@ T-023 & \texttt{CONFIG\_ENV\_IS\_NOWHERE} for production builds & Planned produc
 
 Ten risks remain after mitigation. Table~\ref{tab:residual} records the residual risk level, acceptance category, and follow-up actions for each. The acceptance categories are: \textit{Platform Constraint} (inherent hardware limitation, cannot be resolved without a different SoC); \textit{Deferred} (mitigatable but not yet implemented); \textit{Operational} (mitigated by physical or process controls outside the software scope); \textit{Research} (acceptable for a research device, not for production).
 
-\begin{table}[h]
+\clearpage
+\begin{table}[h!]
 \centering
 \caption{Residual risk register (10 accepted risks)}
 \label{tab:residual}
 \small
-\begin{tabular}{p{0.6cm} p{4.5cm} p{1.5cm} p{2.5cm} p{2.5cm}}
+\begin{tabularx}{\textwidth}{p{0.7cm} >{\raggedright\arraybackslash}X p{1.5cm} p{2.7cm} p{3.5cm}}
 \toprule
 \textbf{ID} & \textbf{Residual risk statement} & \textbf{Level} & \textbf{Category} & \textbf{Production mitigation path} \\
 \midrule
@@ -274,7 +275,7 @@ RR-008 & U-Boot binary itself not verified by a higher authority & High & Platfo
 RR-009 & AVB private key on build host filesystem (dev key) & Medium & Research & HSM or secrets management service \\
 RR-010 & U-Boot environment variables writable from SD card & High & Deferred & \texttt{CONFIG\_ENV\_IS\_NOWHERE} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 The six ``Platform Constraint'' and ``Platform Constraint / Deferred'' residual risks (RR-001, RR-005, RR-007, RR-008) are not implementation failures --- they reflect the security ceiling of the RPi5 hardware as used in this project. The remaining four (RR-002, RR-003, RR-004, RR-010) are deferred gaps that are addressable within the current platform.
@@ -283,11 +284,13 @@ The six ``Platform Constraint'' and ``Platform Constraint / Deferred'' residual 
 \section{Discussion: Software Security Ceiling on RPi5}
 \label{sec:tara_discussion}
 
+\begin{sloppypar}
 The risk profile reveals that the dominant structural exposure is physical access to an unprotected removable SD card. This single attack surface accounts for the majority of Critical-rated threats. Software controls --- AVB signatures, dm-verity, FBE, fail-closed policy --- detect or prevent tampering once U-Boot is executing, but they cannot prevent a physical attacker from bypassing U-Boot itself (RR-001, RR-008) or from replacing the unsigned boot script before U-Boot runs (RR-003).
 
 A second structural limit is the absence of a hardware TEE. FBE provides meaningful protection against offline SD card reads (T-018 is partially mitigated) but does not protect against an attacker who can execute code in kernel context on a running device. Production deployments would require a platform that exposes TrustZone to software (via OP-TEE \cite{optee_project}) so that FBE master keys are hardware-bound and non-extractable, and a hardware keystore (Keymaster/KeyMint \cite{android_keystore_hw}) to wrap keys under TEE-held material.
 
 Comparing the platform's posture to a production automotive ECU: a production device would additionally carry RPi5 EEPROM secure boot (or equivalent SoC-level root of trust), a hardware TEE with Keymaster, signed boot scripts, locked U-Boot console, disabled fastboot, eMMC storage (non-removable), and A/B OTA update support. Each of these mitigates one or more residual risks from Table~\ref{tab:residual}.
+\end{sloppypar}
 
 % ----------------------------------------------------------------
 \section{Technical Reasoning}

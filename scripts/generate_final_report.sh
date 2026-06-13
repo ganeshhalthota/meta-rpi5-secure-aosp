@@ -14,7 +14,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC_DIR="${REPO_ROOT}/reports/final_report"
 OUT_DIR="${REPO_ROOT}/reports"
 MAIN="main"
-OUTPUT_PDF="${OUT_DIR}/final_report.pdf"
+OUTPUT_PDF="${OUT_DIR}/CS23M510_Final_Thesis.pdf"
 
 GREEN="\033[0;32m"
 YELLOW="\033[1;33m"

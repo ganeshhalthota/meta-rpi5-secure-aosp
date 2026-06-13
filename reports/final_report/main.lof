@@ -1,13 +1,14 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces AVB with \texttt {boot}, \texttt {system}, and \texttt {vendor} partitions. The \texttt {vbmeta} partition holds signed descriptors for all three. Source: \cite {avb2_readme}.}}{8}{figure.caption.4}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces AVB with a chained partition: the top-level \texttt {vbmeta} embeds the public key used to verify an independently signed partition's own VBMeta image. Source: \cite {avb2_readme}.}}{9}{figure.caption.5}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces AVB rollback index values embedded in \texttt {vbmeta} and partition images. Source: \cite {avb2_readme}.}}{9}{figure.caption.6}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Device-stored rollback index locations. Values must be $\geq $ those in the signed metadata for boot to proceed. Source: \cite {avb2_readme}.}}{10}{figure.caption.7}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces AVB with A/B partitions: both \texttt {\_a} and \texttt {\_b} slot images are independently signed; the bootloader selects and verifies the active slot. Source: \cite {avb2_readme}.}}{10}{figure.caption.8}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Recommended AVB boot flow: the bootloader verifies the VBMeta signature, checks rollback indices, validates partition hashes/hashtrees, and passes the verified boot state to the kernel via the commandline. Source: \cite {avb2_readme}.}}{11}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces AAOS system architecture. Six layers from Linux Kernel (bottom) to Applications (top), with automotive-specific components (Vehicle HAL, Car Service, EVS) and security modules highlighted at each layer. Source: \cite {android_architecture_overview, android_security_features, aaos_overview}.}}{6}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces AVB with \texttt {boot}, \texttt {system}, and \texttt {vendor} partitions. The \texttt {vbmeta} partition holds signed descriptors for all three. Source: \cite {avb2_readme}.}}{9}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces AVB with a chained partition: the top-level \texttt {vbmeta} embeds the public key used to verify an independently signed partition's own VBMeta image. Source: \cite {avb2_readme}.}}{10}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces AVB rollback index values embedded in \texttt {vbmeta} and partition images. Source: \cite {avb2_readme}.}}{10}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Device-stored rollback index locations. Values must be $\geq $ those in the signed metadata for boot to proceed. Source: \cite {avb2_readme}.}}{11}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces AVB with A/B partitions: both \texttt {\_a} and \texttt {\_b} slot images are independently signed; the bootloader selects and verifies the active slot. Source: \cite {avb2_readme}.}}{11}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Recommended AVB boot flow: the bootloader verifies the VBMeta signature, checks rollback indices, validates partition hashes/hashtrees, and passes the verified boot state to the kernel via the commandline. Source: \cite {avb2_readme}.}}{12}{figure.caption.14}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Secure boot chain on Raspberry Pi~5. Three verification gates (AVB, dm-verity, FBE) each enforce a fail-closed policy: any verification failure triggers a device reboot with no fallback to a degraded boot state.}}{18}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Secure boot chain on Raspberry Pi~5. Three verification gates (AVB, dm-verity, FBE) each enforce a fail-closed policy: any verification failure triggers a device reboot with no fallback to a degraded boot state.}}{19}{figure.caption.16}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

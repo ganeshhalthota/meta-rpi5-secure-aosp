@@ -193,6 +193,16 @@
 
 % ── SELinux (accessed January 2026) ─────────────────────────────
 
+@misc{selinux_android_overview,
+  author       = {{Android Open Source Project}},
+  title        = {{Security-Enhanced Linux in Android}},
+  howpublished = {\url{https://source.android.com/docs/security/features/selinux}},
+  year         = {2024},
+  note         = {Overview of Android's SELinux implementation: MAC enforcement over all
+                  processes, policy architecture, permissive vs.\ enforcing modes, and
+                  integration with the Android init system. Accessed: June 2026}
+}
+
 @misc{selinux_build_precompiled,
   author       = {{Android Open Source Project}},
   title        = {{Build SELinux Policy --- Precompiled Policy}},
@@ -214,6 +224,26 @@
 }
 
 % ── AVB / Trusty (accessed February 2026) ───────────────────────
+
+@misc{android_verified_boot,
+  author       = {{Android Open Source Project}},
+  title        = {{Verified Boot}},
+  howpublished = {\url{https://source.android.com/docs/security/features/verifiedboot}},
+  year         = {2024},
+  note         = {Overview of Android Verified Boot: chain of trust from hardware root,
+                  device states (green/yellow/orange/red), rollback protection, and
+                  integration with dm-verity. Accessed: June 2026}
+}
+
+@misc{android_runtime_art,
+  author       = {{Android Open Source Project}},
+  title        = {{Android Runtime and Dalvik}},
+  howpublished = {\url{https://source.android.com/docs/core/runtime}},
+  year         = {2024},
+  note         = {ART and its predecessor Dalvik: AOT compilation, DEX bytecode execution,
+                  garbage collection, and debugging. ART replaced Dalvik from Android 5.0.
+                  Accessed: June 2026}
+}
 
 @misc{avb2_readme,
   author       = {{Android Open Source Project}},
@@ -246,6 +276,26 @@
 
 % ── AAOS / dm-verity / FBE (official docs, accessed February--April 2026) ───
 
+@misc{aaos_automotive_docs,
+  author       = {{Android Open Source Project}},
+  title        = {{Automotive | Android Open Source Project}},
+  howpublished = {\url{https://source.android.com/docs/automotive}},
+  year         = {2026},
+  note         = {Top-level AAOS documentation: Vehicle HAL, Car Service, Car Audio,
+                  EVS camera, Instrument Cluster API, and OEM customisation guidance.
+                  Accessed: June 2026}
+}
+
+@misc{aaos_camera_hal,
+  author       = {{Android Open Source Project}},
+  title        = {{Vehicle Camera HAL}},
+  howpublished = {\url{https://source.android.com/docs/automotive/camera-hal}},
+  year         = {2026},
+  note         = {Exterior View System (EVS) architecture: EVS app, EVS Manager, HIDL
+                  HAL interfaces (\texttt{IEvsEnumerator}, \texttt{IEvsCamera}), and
+                  rearview/surround-view camera support in AAOS. Accessed: June 2026}
+}
+
 @misc{aaos_overview,
   author       = {{Android Open Source Project}},
   title        = {{What is Android Automotive?}},
@@ -253,6 +303,16 @@
   year         = {2024},
   note         = {Overview of Android Automotive OS (AAOS): IVI platform, AOSP-based,
                   distinct from Android Auto. Accessed: February 2026}
+}
+
+@misc{android_architecture_overview,
+  author       = {{Android Open Source Project}},
+  title        = {{Architecture Overview}},
+  howpublished = {\url{https://source.android.com/docs/core/architecture}},
+  year         = {2026},
+  note         = {Official AOSP software stack: Applications, Application Framework,
+                  System Services, Android Runtime, HAL, Native Daemons, and Linux
+                  Kernel layers. Accessed: June 2026}
 }
 
 @misc{android_dm_verity,

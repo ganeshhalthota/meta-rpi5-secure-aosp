@@ -1,14 +1,16 @@
 % ----------------------------------------------------------------
 % Section: Results and Evaluation
 % ----------------------------------------------------------------
-\chapter{Results and Evaluation}
+\chapter{RESULTS AND EVALUATION}
 \label{ch:results}
 
 \section{Overview}
 
 This chapter presents the results obtained from executing the complete build pipeline and booting the resulting image on a Raspberry Pi~5 Model B (16~GB RAM variant). All observations were made via UART serial console at 115200~baud using \texttt{minicom}. The serial interface connects to GPIO~14 (TX) and GPIO~15 (RX) on the 40-pin header \cite{rpi_uart_pinout}.
 
+% ----------------------------------------------------------------
 \section{Build Pipeline Execution}
+% ----------------------------------------------------------------
 
 The full pipeline was executed using:
 
@@ -19,7 +21,7 @@ rpi5-build --config config/rpi5_uboot_aosp_signed.yaml \
 
 \subsection{U-Boot Build}
 
-U-Boot was compiled from commit \texttt{eefb822fb574} (pinned in the config) using \texttt{rpi\_arm64\_defconfig}. After AVB Kconfig injection, the \texttt{.config} contained all required symbols:
+U-Boot was compiled from commit \texttt{eefb822fb574} (pinned in the config) using \path{rpi_arm64_defconfig}. After AVB Kconfig injection, the \texttt{.config} contained all required symbols:
 
 \begin{lstlisting}
 CONFIG_ANDROID_BOOT_IMAGE=y
@@ -77,13 +79,108 @@ Number  Start (sector)  End (sector)   Size        Name
 
 The \texttt{userdata} partition fills whatever space remains on the card, making the pipeline card-size agnostic: the same signed image can be flashed to any SD card of 14.3~GiB or larger without rebuilding.
 
+% ----------------------------------------------------------------
 \section{Boot Sequence Validation}
+% ----------------------------------------------------------------
 
-\subsection{U-Boot Console Output}
+Boot validation was performed across two image variants: an unsigned \texttt{eng} build (no AVB, SELinux permissive, \texttt{fail\_open} policy) and a signed \texttt{user} build (AVB enabled, SELinux enforcing, \texttt{fail\_closed} policy). The unsigned build provides a functional baseline; the signed build validates the security stack. Negative test cases within each group confirm that the security mechanisms reject invalid inputs rather than silently accepting them.
 
-With the PL011-AXI patch applied, U-Boot produced serial output immediately on power-on. The AVB boot script ran and reported verification results:
+% ----------------------------------------------------------------
+\subsection{Unsigned Build Validation}
+% ----------------------------------------------------------------
 
-\begin{lstlisting}[caption={U-Boot AVB boot script output (abbreviated, from serial\_20260521\_223729.log)}]
+The unsigned build uses a plain U-Boot boot script without AVB commands, an MBR partition layout (no vbmeta partition), and \texttt{androidboot.selinux=permissive}. Five test cases validate its expected behaviour.
+
+\paragraph{TC-U-001 --- Unsigned image boots to Android.}
+U-Boot loaded the kernel and ramdisk from the FAT32 boot partition and transferred control to the kernel without invoking any AVB commands:
+
+\begin{lstlisting}[caption={TC-U-001: U-Boot output on unsigned image}]
+** Booting bootflow 'mmc@fff000.bootdev.part_1' with script
+=== Android U-Boot Boot Script ===
+Loading kernel Image...
+37157376 bytes read in 1577 ms (22.5 MiB/s)
+Loading ramdisk...
+1544522 bytes read in 68 ms (21.7 MiB/s)
+Booting Android...
+\end{lstlisting}
+
+Android completed initialisation and the serial console became responsive, confirming a full unsigned boot.
+
+\paragraph{TC-U-002 --- Boot partition contains correct files for unsigned image.}
+The FAT32 boot partition (p1) was inspected on the host before flashing. The plain (non-AVB) boot script was present and \texttt{boot\_avb.scr} was absent, confirming the unsigned pipeline produced the correct boot artefacts:
+
+\begin{lstlisting}[caption={TC-U-002: Boot partition file listing --- unsigned image}]
+-rwxr-xr-x  boot.scr       1,499  (non-AVB variant)
+-rwxr-xr-x  cmdline.txt      124
+-rwxr-xr-x  config.txt       642
+-rwxr-xr-x  Image         37,157,376
+-rwxr-xr-x  ramdisk.img    1,544,522
+-rwxr-xr-x  u-boot.bin       708,720
+\end{lstlisting}
+
+The \texttt{boot.scr} size (1\,499~bytes) and \texttt{u-boot.bin} size (708\,720~bytes) are characteristic of the non-AVB variants; both are smaller than their signed counterparts (see TC-S-002), as neither the AVB boot script nor \texttt{libavb} are compiled in.
+
+\paragraph{TC-U-003 --- AVB verification absent from unsigned boot path.}
+The U-Boot serial output in TC-U-001 contains no occurrences of \texttt{avb init}, \texttt{avb verify}, \texttt{Initializing AVB}, \texttt{Verifying partitions}, or \texttt{AVB:}.  Execution proceeds directly from \texttt{Loading kernel Image\ldots} to \texttt{Booting Android\ldots} to \texttt{booti}, confirming that the unsigned image never invokes the AVB verification path and provides no cryptographic boot-integrity check.
+
+\paragraph{TC-U-004 --- First-stage init reports absent vbmeta partition (negative).}
+The unsigned image uses an MBR partition layout with no p8 (vbmeta) partition.  Android's first-stage init attempted to locate vbmeta and reported its absence:
+
+\begin{lstlisting}[caption={TC-U-004: First-stage init reporting absent vbmeta partition}]
+[    4.126439] init: Failed to read vbmeta partitions.
+\end{lstlisting}
+
+This confirms that first-stage init correctly identifies the absence of vbmeta and that the unsigned image carries no AVB integrity guarantees.
+
+\paragraph{TC-U-005 --- Boot diagnostics service reports unsigned security state.}
+The \texttt{rpi5\_boot\_diag} service fires on \texttt{sys.boot\_completed=1} and prints a structured security summary to the UART console.  On the unsigned build it produced:
+
+\begin{lstlisting}[caption={TC-U-005: rpi5\_boot\_diag.sh output --- unsigned build}]
+ rpi5 boot diagnostics  Sun May  3 06:08:12 GMT 2026
+============================================================
+
+--- verified boot ---
+orange
+unlocked
+1.1
+
+--- global crypto state ---
+unsupported
+
+--- selinux ---
+Permissive
+\end{lstlisting}
+
+The state \texttt{orange}/\texttt{unlocked} is the expected verified boot state for a build without a locked bootloader.  \texttt{crypto state: unsupported} confirms no FDE/FBE is active.  \texttt{SELinux: Permissive} matches the unsigned build configuration.
+
+% ---- Unsigned summary table ----
+\begin{table}[h]
+\centering
+\caption{Unsigned build validation results}
+\label{tab:tc_unsigned}
+\begin{tabular}{p{2.2cm}p{2.0cm}p{7.8cm}p{1.4cm}}
+\toprule
+\textbf{TC ID} & \textbf{Type} & \textbf{Description} & \textbf{Result} \\
+\midrule
+TC-U-001 & Functional & Unsigned image boots to Android without AVB & \checkmark Pass \\
+TC-U-002 & Functional & Boot partition contains correct files (non-AVB variants) & \checkmark Pass \\
+TC-U-003 & Security   & No AVB commands present on unsigned boot path & \checkmark Pass \\
+TC-U-004 & Security   & First-stage init reports absent vbmeta partition & \checkmark Pass \\
+TC-U-005 & Functional & Boot diagnostics confirms unsigned security state & \checkmark Pass \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ----------------------------------------------------------------
+\subsection{Signed Build Validation}
+% ----------------------------------------------------------------
+
+The signed build uses an AVB-enabled U-Boot, a GPT partition layout with a dedicated vbmeta partition (p8), \texttt{fail\_closed} policy, and \texttt{androidboot.selinux=enforcing}.  Seven test cases validate its security behaviour, including two negative cases that confirm fail-closed rejection.
+
+\paragraph{TC-S-001 --- Signed image boots with AVB verification passed.}
+With the PL011-AXI patch applied, U-Boot produced serial output on power-on.  The AVB boot script ran, verified the vbmeta signature, and transferred control to Android:
+
+\begin{lstlisting}[caption={TC-S-001: U-Boot AVB boot script output --- signed build (abbreviated)}]
 === Android U-Boot Boot Script (AVB) ===
 Setting AVB policy to default: fail_closed
 AVB fail policy: fail_closed
@@ -106,54 +203,38 @@ bootargs: root=/dev/ram0 rootwait androidboot.hardware=rpi5
 Booting Android with AVB verification...
 \end{lstlisting}
 
-\texttt{androidboot.verifiedbootstate=orange} indicates that AVB signature verification passed but the bootloader is in unlocked state --- the expected outcome on RPi5, which has no OEM fuse-locked key store \cite{avb2_readme}. \texttt{androidboot.veritymode=enforcing} confirms that dm-verity will enforce partition integrity at runtime.
+\texttt{androidboot.verifiedbootstate=orange} indicates that AVB signature verification passed but the bootloader is in unlocked state --- the expected outcome on RPi5, which has no OEM fuse-locked key store \cite{avb2_readme}.  \texttt{androidboot.veritymode=enforcing} confirms that dm-verity will enforce partition integrity at runtime.
 
-\subsection{Boot Stage Markers and Overhead Analysis}
+\paragraph{TC-S-002 --- Boot partition contains correct files for signed image.}
+The FAT32 boot partition (p1) of the signed image was inspected on the host.  The AVB boot script was present and both \texttt{boot.scr} and \texttt{u-boot.bin} were larger than their unsigned counterparts, reflecting the AVB commands and embedded \texttt{libavb} respectively:
 
-Diagnostic markers (\texttt{RPi5-DIAG}) were introduced into both the kernel and AOSP \texttt{init} to measure the performance overhead of Android Verified Boot. The kernel diagnostic markers were visible in the serial log, confirming each boot-layer transition:
+\begin{lstlisting}[caption={TC-S-002: Boot partition file listing --- signed image}]
+-rwxr-xr-x  boot.scr       3,289  (AVB variant -- larger than unsigned 1,499)
+-rwxr-xr-x  cmdline.txt      176
+-rwxr-xr-x  config.txt       642
+-rwxr-xr-x  Image         37,157,376
+-rwxr-xr-x  ramdisk.img    1,326,049
+-rwxr-xr-x  u-boot.bin       769,928  (AVB-enabled -- larger than unsigned 708,720)
+\end{lstlisting}
 
-\begin{lstlisting}[caption={Kernel RPi5-DIAG markers in serial log (serial\_20260521\_223729.log)}]
+The size increase in \texttt{u-boot.bin} (769\,928 vs 708\,720~bytes) reflects the inclusion of \texttt{libavb} and the embedded RSA-4096 public key.  The size increase in \texttt{boot.scr} (3\,289 vs 1\,499~bytes) reflects the AVB \texttt{avb init}/\texttt{avb verify} command sequence.
+
+\paragraph{TC-S-003 --- Kernel boot-layer markers confirm full boot chain.}
+Four custom diagnostic markers were visible in the serial log, confirming each stage of the boot chain from kernel entry to userspace handoff:
+
+\begin{lstlisting}[caption={TC-S-003: Kernel RPi5-DIAG boot-layer markers (abbreviated)}]
 [    0.000000][    T0] RPi5-DIAG: Layer 1 start_kernel entry (bootloader handoff complete)
 [    0.000000][    T0] RPi5-DIAG: Layer 2 console_init complete (early console up, mm init done)
 [    0.009196][    T1] RPi5-DIAG: Layer 3 do_initcalls entry (driver probe sequence begins)
 [   22.617616][    T1] RPi5-DIAG: Layer 4 kernel_init userspace exec (all drivers probed, exec /init)
 \end{lstlisting}
 
-Table~\ref{tab:boot_times} compares the boot progression of a standard non-secure image against a securely signed image. An initial non-secure build was captured using the verbose \texttt{initcall\_debug} profile to demonstrate the UART bottleneck.
+Layer~4 appears at approximately 22.6~seconds from kernel entry, reflecting the time for all driver probes and module initialisations on the BCM2712.
 
-\begin{table}[htpb]
-\centering
-\caption{Boot Time \& Stage Delta Comparison}
-\label{tab:boot_times}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{llrr}
-\toprule
-\textbf{Boot Stage} & \textbf{Non-Secure (Verbose)} & \textbf{Non-Secure (Standard)} & \textbf{Secure Boot*} \\
-\midrule
-\textbf{Layer 1} (\texttt{start\_kernel}) & \texttt{0.000 s} & \texttt{0.000 s} & \texttt{0.000 s} \\
-\textbf{Layer 2} (\texttt{console\_init}) & \texttt{0.000 s} (+0 ms) & \texttt{0.000 s} (+0 ms) & \texttt{0.000 s} (+0 ms) \\
-\textbf{Layer 3} (\texttt{do\_initcalls}) & \texttt{0.009 s} (+9 ms) & \texttt{0.008 s} (+8 ms) & \texttt{0.009 s} (+9 ms) \\
-\textbf{Layer 4} (\texttt{kernel\_init}) & \texttt{22.675 s} (+22.666 s) & \texttt{1.119 s} (+1.111 s) & \texttt{1.115 s} (+1.106 s) \\
-\textbf{AOSP Stage 2} (\texttt{SetupSelinux}) & \texttt{23.072 s} (+397 ms) & \texttt{1.348 s} (+229 ms) & \texttt{1.609 s} (+494 ms) \\
-\textbf{AOSP Stage 4} (\texttt{Boot Complete}) & \texttt{67.677 s} (+44.605 s) & \texttt{43.527 s} (+42.179 s) & \textbf{DNF} (Crash Loop) \\
-\bottomrule
-\multicolumn{4}{l}{\footnotesize *Note: The secure log represents a boot attempt that fails to start the UI framework.}
-\end{tabular}%
-}
-\end{table}
+\paragraph{TC-S-004 --- dm-verity active on system and vendor partitions.}
+First-stage init mounted \texttt{/system} and \texttt{/vendor} through device-mapper rather than directly from the raw block devices, confirming dm-verity is active on both partitions:
 
-\textbf{Key Findings:}
-\begin{itemize}
-    \item \textbf{UART Logging Bottleneck (Layer 3 $\rightarrow$ 4):} The verbose kernel driver probes delayed the handoff to AOSP by over 21~seconds. Disabling the debug profile normalises the driver probe phase to $\sim$1.11~seconds for both builds.
-    \item \textbf{AVB Verification Overhead (Layer 4 $\rightarrow$ AOSP Stage 2):} This phase involves Android's \texttt{FirstStageMain} mounting and verifying the early partitions. The clean non-secure build mounts them in 229~ms, while the secure build takes 494~ms. The 265~ms difference reflects the exact computational cost of validating \texttt{vbmeta} signatures and initializing \texttt{dm-verity} hashtrees on the RPi5.
-    \item \textbf{Framework Boot (AOSP Stage 2 $\rightarrow$ 4):} The non-secure framework successfully boots in 42.1~seconds. The secure build fails to complete this phase due to a crash loop (investigated further in Section~\ref{sec:impl_fbe_selinux}).
-\end{itemize}
-
-\subsection{First-Stage Init: AVB fstab Verification}
-
-First-stage init mounted the \texttt{/metadata} partition and then mounted \texttt{/system} and \texttt{/vendor} through device-mapper, confirming dm-verity is active on both partitions:
-
-\begin{lstlisting}[caption={First-stage init dm-verity messages (serial\_20260521\_223729.log, abbreviated)}]
+\begin{lstlisting}[caption={TC-S-004: First-stage init dm-verity mount messages (abbreviated)}]
 [   22.698811][    T1] init: [libfs_mgr] check_fs():
     mount(/dev/block/by-name/metadata,/metadata,ext4)=0: Success
 [   22.815684][    T1] EXT4-fs (dm-0): mounted filesystem
@@ -162,35 +243,12 @@ First-stage init mounted the \texttt{/metadata} partition and then mounted \text
     2b96c597-1e2f-5ee1-9851-c4a9fa9de36e ro without journal. Quota mode: none.
 \end{lstlisting}
 
-The \texttt{dm-0} and \texttt{dm-1} device names confirm that \texttt{/system} and \texttt{/vendor} are served through device-mapper rather than directly from \texttt{mmcblk0p5}/\texttt{p6}, which is the expected result of dm-verity activation.
+The \texttt{dm-0} and \texttt{dm-1} device names confirm that \texttt{/system} and \texttt{/vendor} are served through device-mapper rather than directly from \texttt{mmcblk0p5}/\texttt{p6}.
 
-\section{Boot Diagnostics and FBE Bring-Up}
+\paragraph{TC-S-005 --- FBE initialisation on signed build (partial).}
+On the signed build with FBE enabled (\texttt{RPI5\_ENABLE\_FBE=true}), AVB verification passed but \texttt{vold} failed to initialise the FBE key directory before \texttt{sys.boot\_completed=1} was reached, causing a reboot loop at approximately 9~seconds:
 
-\subsection{Boot Diagnostics Service}
-
-The \texttt{rpi5\_boot\_diag} service fires on \texttt{sys.boot\_completed=1} and prints a structured security summary to the UART console. The service was confirmed operational on unsigned builds, producing output of the form:
-
-\begin{lstlisting}[caption={rpi5\_boot\_diag.sh output format (unsigned build, serial\_20260503\_114109.log)}]
- rpi5 boot diagnostics  Sun May  3 06:08:12 GMT 2026
-============================================================
-
---- verified boot ---
-orange
-unlocked
-1.1
-
---- global crypto state ---
-unsupported
-
---- selinux ---
-Permissive
-\end{lstlisting}
-
-\subsection{FBE Bring-Up: Boot Loop on Signed Build}
-
-On the signed build with FBE enabled (\texttt{RPI5\_ENABLE\_FBE=true}), AVB verification passed but \texttt{vold} failed to initialize the FBE key directory before \texttt{sys.boot\_completed=1} was reached, causing a reboot loop at approximately 9 seconds. The \texttt{rpi5\_boot\_diag} service therefore did not fire. The relevant log excerpt (\texttt{serial\_20260426\_183647.log}):
-
-\begin{lstlisting}[caption={FBE boot loop on signed build (serial\_20260426\_183647.log)}]
+\begin{lstlisting}[caption={TC-S-005: FBE boot loop on signed build}]
 AVB: Verification PASSED
 ...
 [    2.893300][  T350] vold: Failed to create /metadata/vold: Permission denied
@@ -198,20 +256,58 @@ AVB: Verification PASSED
 [    9.306520][    T1] reboot: Restarting system with command 'bootloader'
 \end{lstlisting}
 
-The root cause (unlabelled \texttt{metadata} partition root inode under SELinux Enforcing mode) and its fix (\texttt{e2fsdroid} replacing bare \texttt{mkfs.ext4} in the SD card stage) are documented in Section~\ref{sec:impl_fbe_selinux}. This could not be verified due to time constraints.
+The root cause (unlabelled \texttt{metadata} partition root inode under SELinux Enforcing mode) and its fix (\texttt{e2fsdroid} replacing bare \texttt{mkfs.ext4} in the SD card stage) are documented in Section~\ref{sec:impl_fbe_selinux}.  End-to-end FBE validation could not be completed within the project timeline.
 
-\section{Fail-Closed Policy Verification}
+\paragraph{TC-S-006 --- Wrong public key rejected by fail-closed policy (negative).}
+A U-Boot binary compiled with a different AVB root public key was placed on a signed SD card, with the signed vbmeta and partition images left unchanged.  This scenario simulates a firmware-substitution attack.  \texttt{libavb} detected the key mismatch and U-Boot reported:
 
-To verify the fail-closed AVB policy, a deliberate image modification was introduced (a single byte changed in \texttt{system.signed.img} outside the filesystem area but within the hash tree coverage). On boot, U-Boot reported:
-
-\begin{lstlisting}
+\begin{lstlisting}[caption={TC-S-006: U-Boot wrong-key rejection}]
+avb_slot_verify.c:837: ERROR: vbmeta: Public key used to sign data rejected.
+Verification failed, reason: Public keys are not accepted
 AVB: Verification FAILED
 Fail-closed policy: resetting
+resetting ...
 \end{lstlisting}
 
-The device immediately reset without booting, confirming that the fail-closed policy correctly prevents boot of a tampered image.
+The device reset immediately without loading the kernel, confirming that the fail-closed policy prevents boot when the trust anchor does not match.
 
+\paragraph{TC-S-007 --- Corrupt vbmeta header rejected by fail-closed policy (negative).}
+The first 256~bytes of the vbmeta partition (p8) were zeroed, destroying the \texttt{AVB0} magic.  The rejection occurred at the header-parse stage, earlier in the verification flow than the key-check rejection in TC-S-006.  U-Boot reported:
+
+\begin{lstlisting}[caption={TC-S-007: U-Boot vbmeta header rejection}]
+avb_vbmeta_image.c:46: ERROR: Magic is incorrect.
+avb_slot_verify.c:745: ERROR: vbmeta: Error verifying vbmeta image: invalid vbmeta header
+Verification failed, reason: Metadata is invalid or inconsistent
+AVB: Verification FAILED
+Fail-closed policy: resetting
+resetting ...
+\end{lstlisting}
+
+The device reset immediately without loading the kernel, confirming that vbmeta integrity is enforced before any signature or key check is reached.
+
+% ---- Signed summary table ----
+\begin{table}[h]
+\centering
+\caption{Signed build validation results}
+\label{tab:tc_signed}
+\begin{tabular}{p{2.2cm}p{2.0cm}p{7.4cm}p{1.8cm}}
+\toprule
+\textbf{TC ID} & \textbf{Type} & \textbf{Description} & \textbf{Result} \\
+\midrule
+TC-S-001 & Functional & Signed image boots with AVB verification passed & \checkmark Pass \\
+TC-S-002 & Functional & Boot partition contains correct files (AVB variants) & \checkmark Pass \\
+TC-S-003 & Functional & Kernel boot-layer markers confirm full boot chain & \checkmark Pass \\
+TC-S-004 & Security   & dm-verity active on system and vendor partitions & \checkmark Pass \\
+TC-S-005 & Security   & FBE initialisation on signed build & $\sim$ Partial \\
+TC-S-006 & Security   & Wrong public key rejected by fail-closed policy & \checkmark Pass \\
+TC-S-007 & Security   & Corrupt vbmeta header rejected by fail-closed policy & \checkmark Pass \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ----------------------------------------------------------------
 \section{Evaluation Summary}
+% ----------------------------------------------------------------
 
 Table~\ref{tab:eval} summarises the evaluation against the objectives defined in Chapter~\ref{ch:introduction}.
 
@@ -224,10 +320,10 @@ Table~\ref{tab:eval} summarises the evaluation against the objectives defined in
 \textbf{Objective} & \textbf{Status} & \textbf{Evidence} \\
 \midrule
 AVB~2.0 evaluation  & \checkmark Pass    & \texttt{verifiedbootstate=orange}; \texttt{veritymode=enforcing}; \\
-                    &                    & \quad fail-closed policy confirmed \\
+                    &                    & \quad fail-closed policy confirmed (TC-S-006, TC-S-007) \\
 SELinux evaluation  & $\sim$ Partial     & Enforcing active (Android~16); boot loop resolved; \\
                     &                    & \quad full policy audit pending \\
-FBE~2.0 evaluation  & $\sim$ Partial     & FBE configured and boot loop diagnosed; \\
+FBE~2.0 evaluation  & $\sim$ Partial     & FBE configured and boot loop diagnosed (TC-S-005); \\
                     &                    & \quad end-to-end operation not confirmed within project timeline \\
 Reproducible pipeline & \checkmark Pass  & \texttt{rpi5-build} CLI \\
 TARA                & \checkmark Pass    & Chapter~\ref{ch:tara}: 23 threats, 10 residual risks \\
@@ -235,11 +331,13 @@ TARA                & \checkmark Pass    & Chapter~\ref{ch:tara}: 23 threats, 10
 \end{tabular}
 \end{table}
 
+% ----------------------------------------------------------------
 \section{Limitations}
+% ----------------------------------------------------------------
 
 \begin{itemize}
     \item \textbf{FBE post-fix capture}: The \texttt{e2fsdroid} fix that resolves the metadata SELinux boot loop (Section~\ref{sec:impl_fbe_selinux}) is implemented in the build pipeline, however the validation is pending.
-    \item \textbf{SELinux policy}: SELinux evaluation revealed that Android~16 transitions to Enforcing mode unconditionally at policy load time, regardless of the \texttt{androidboot.selinux=permissive} kernel argument. The resulting boot loop was diagnosed and resolved (Section~\ref{sec:impl_fbe_selinux}), confirming basic policy compatibility. However, a full device-specific audit to confirm no residual AVC denials remain in steady state is required before treating Enforcing mode as fully validated \cite{selinux_device_policy}.
+    \item \textbf{SELinux policy}: SELinux evaluation revealed that Android~16 transitions to Enforcing mode unconditionally at policy load time, regardless of the \path{androidboot.selinux=permissive} kernel argument. The resulting boot loop was diagnosed and resolved (Section~\ref{sec:impl_fbe_selinux}), confirming basic policy compatibility. However, a full device-specific audit to confirm no residual AVC denials remain in steady state is required before treating Enforcing mode as fully validated \cite{selinux_device_policy}.
     \item \textbf{Hardware-backed keystore}: The RPi5 has no TEE or dedicated security chip. FBE key material is software-protected, which is weaker against a fully privileged attacker with physical access \cite{android_data_encryption}.
     \item \textbf{OTA updates}: The pipeline produces a full SD card image. Incremental OTA support (A/B partitions, \texttt{update\_engine}) is not implemented.
     \item \textbf{Rollback protection}: AVB rollback index counters require tamper-evident storage (eMMC RPMB or TrustZone), neither of which is available on the RPi5 in this configuration. Rollback index values are fixed at zero.

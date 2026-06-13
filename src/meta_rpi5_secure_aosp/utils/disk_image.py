@@ -69,6 +69,18 @@ class DiskImage:
                     self._copy_partition(loopdev, partition_dev, partition_info["img"])
                 elif partition_info["format"] in ("ext4", "ext3", "ext2"):
                     self._create_filesystem(loopdev, partition_dev, part_name)
+                    if "selinux_context" in partition_info:
+                        if ("e2fsdroid" in self._image_data
+                                and "selinux_file_contexts" in self._image_data):
+                            self._apply_selinux_context_e2fsdroid(
+                                loopdev, partition_number, part_name,
+                                self._image_data["e2fsdroid"],
+                                self._image_data["selinux_file_contexts"],
+                            )
+                        else:
+                            self._apply_selinux_root_context(
+                                loopdev, partition_number, partition_info["selinux_context"]
+                            )
                 elif partition_info["format"] == "fat32":
                     self._run_cmd([
                         "sudo", "mkfs.vfat", "-F", "32",
@@ -431,6 +443,65 @@ class DiskImage:
     def _create_filesystem(self, loopdev: str, partition: str, label: str) -> None:
         print(f"Creating filesystem on {partition} with label {label}...")
         self._run_cmd(["sudo", "mkfs.ext4", f"/dev/mapper/{loopdev}{partition}", "-I", "512", "-L", label])
+
+    def _apply_selinux_context_e2fsdroid(
+        self, loopdev: str, partition_number: int, part_name: str,
+        e2fsdroid_bin: str, file_contexts: str
+    ) -> None:
+        partition_device = f"/dev/mapper/{loopdev}p{partition_number}"
+        mount_point_path = f"/{part_name}"
+        print(f"Applying SELinux context via e2fsdroid to p{partition_number} ({mount_point_path})...")
+
+        # Without -e, e2fsdroid uses sparse_io_manager which expects Android sparse
+        # image format and fails with EINVAL on plain ext4 from mkfs.ext4. The -e flag
+        # switches to unix_io_manager for regular ext4 images.
+        # Shadow-copy through a plain file because sparse_io_manager also fails on
+        # /dev/mapper block devices.
+        with tempfile.NamedTemporaryFile(suffix=f"_{part_name}.img", delete=False) as tmp:
+            tmp_path = tmp.name
+        try:
+            self._run_cmd(["sudo", "dd", f"if={partition_device}", f"of={tmp_path}", "bs=1M"])
+            # -e: use unix_io_manager (regular ext4); default is sparse_io_manager
+            # which only opens Android sparse images and fails (EINVAL) on plain ext4.
+            self._run_cmd([
+                "sudo", e2fsdroid_bin,
+                "-e",
+                "-S", file_contexts,
+                "-a", mount_point_path,
+                tmp_path,
+            ])
+            self._run_cmd(["sudo", "dd", f"if={tmp_path}", f"of={partition_device}", "bs=1M", "conv=notrunc"])
+            print(f"  e2fsdroid SELinux context applied for {mount_point_path}")
+        finally:
+            try:
+                os.unlink(tmp_path)
+            except OSError:
+                pass
+
+    def _apply_selinux_root_context(self, loopdev: str, partition_number: int, context: str) -> None:
+        print(f"Applying SELinux root context '{context}' to partition p{partition_number}...")
+        mount_point = tempfile.mkdtemp()
+        try:
+            self._run_cmd(["sudo", "mount", f"/dev/mapper/{loopdev}p{partition_number}", mount_point])
+            # Set null-terminated security.selinux xattr on the root inode so
+            # Android's first-stage vold can access the partition before any
+            # restorecon runs in second-stage init.
+            value = (context + "\x00").encode("ascii")
+            subprocess.run(
+                ["sudo", "python3", "-c",
+                 f"import os; os.setxattr({mount_point!r}, b'security.selinux', {value!r})"],
+                check=True,
+            )
+            print(f"  SELinux context set: {context}")
+        finally:
+            try:
+                subprocess.run(["sudo", "umount", mount_point], check=False)
+            except Exception:
+                pass
+            try:
+                os.rmdir(mount_point)
+            except OSError:
+                pass
 
     def _cleanup(self, loopdev: str) -> None:
         print("Cleaning up loop device...")

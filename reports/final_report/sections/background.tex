@@ -1,7 +1,7 @@
 % ----------------------------------------------------------------
 % Section: Background
 % ----------------------------------------------------------------
-\chapter{Background}
+\chapter{BACKGROUND}
 \label{ch:background}
 
 This section deals with survey of the key technologies and concepts underpinning the project.
@@ -12,6 +12,38 @@ This section deals with survey of the key technologies and concepts underpinning
 Android Automotive OS (AAOS) is a full-stack in-vehicle operating system derived from AOSP. Unlike Android Auto --- which mirrors a phone onto a head unit --- AAOS runs directly on the vehicle's IVI hardware \cite{aaos_overview}. It exposes automotive-specific APIs (vehicle properties, HVAC, driving state restrictions) while retaining the full Android framework, making it suitable for both OEM-integrated experiences and third-party application deployment.
 
 AAOS uses the same build system and security primitives as standard AOSP: the \texttt{lunch} target, Soong/Make hybrid build rules, and the Android security model (SELinux, AVB, encryption). This project targets the \texttt{aosp\_rpi5\_car-bp4a} lunch target, producing a Bluetooth-primary Automotive variant.
+
+Figure~\ref{fig:aaos_arch} shows the full AAOS system architecture across six layers. Security-relevant components are present at every layer --- from kernel-level SELinux and dm-verity, through HAL-level KeyMint and DRM, to framework and application-level permission and certificate management.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/aaos_system_architecture.png}
+\caption{AAOS system architecture. Six layers from Linux Kernel (bottom) to Applications (top), with automotive-specific components (Vehicle HAL, Car Service, EVS) and security modules highlighted at each layer. Source: \cite{android_architecture_overview, android_security_features, aaos_overview}.}
+\label{fig:aaos_arch}
+\end{figure}
+
+Not all security blocks in Figure~\ref{fig:aaos_arch} are within this project's scope.
+Table~\ref{tab:arch_scope} identifies the subset that this project directly configures or
+enables, distinguishing them from components that are either provided by base AOSP unchanged
+or absent on the RPi~5 hardware (for example, no Biometric HAL or DRM Widevine is required
+for a development automotive target).
+
+\begin{table}[h]
+\centering
+\caption{Project-scope security blocks within the AAOS architecture}
+\label{tab:arch_scope}
+\begin{tabular}{llp{6.5cm}}
+\toprule
+\textbf{Layer} & \textbf{Block} & \textbf{Project action} \\
+\midrule
+Linux Kernel & SELinux LSM      & Enforcing mode enabled; policy validated at runtime \\
+Linux Kernel & dm-verity        & AVB2 hashtree applied to \texttt{system} and \texttt{vendor} partitions \\
+Linux Kernel & fscrypt          & File-Based Encryption activated on \texttt{/data} \\
+HAL          & KeyMint HAL      & Used for AVB root-key storage and FBE key wrapping \\
+HAL          & Vehicle HAL      & Required AAOS component; present via RPi5 device tree \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Android Security Architecture}
 \label{sec:bg_android_security}
@@ -256,12 +288,12 @@ Android's File-Based Encryption (FBE), introduced in Android 7.0 and mandatory f
     \item[Credential Encrypted (CE)] Locked until the user provides credentials (PIN, password, or biometric).
 \end{description}
 
-Encryption is configured via \texttt{fstab} flags on the \texttt{userdata} partition: \texttt{fileencryption=aes-256-xts:aes-256-cts:v2}. A dedicated \texttt{/metadata} partition stores the key wrapping material managed by \texttt{vold} using the \texttt{keydirectory=} flag \cite{android_fbe, android_data_encryption}.
+Encryption is configured via \texttt{fstab} flags on the \texttt{userdata} partition: \path{fileencryption=aes-256-xts:aes-256-cts:v2}. A dedicated \texttt{/metadata} partition stores the key wrapping material managed by \texttt{vold} using the \texttt{keydirectory=} flag \cite{android_fbe, android_data_encryption}.
 
 \section{SELinux on Android}
 \label{sec:bg_selinux}
 
-Android enforces Mandatory Access Control (MAC) through SELinux. From Android 8.0 onward, platform and vendor policies are built and versioned independently \cite{selinux_build_precompiled}. Device bring-up typically begins in \textit{permissive} mode (denials logged but not enforced), transitioning to \textit{enforcing} mode as policy matures \cite{selinux_device_policy}. Policy is precompiled at build time into \texttt{/vendor/etc/selinux/precompiled\_sepolicy}; at boot, \texttt{init} validates it against SHA-256 hashes before loading.
+Android enforces Mandatory Access Control (MAC) through SELinux. From Android 8.0 onward, platform and vendor policies are built and versioned independently \cite{selinux_build_precompiled}. Device bring-up typically begins in \textit{permissive} mode (denials logged but not enforced), transitioning to \textit{enforcing} mode as policy matures \cite{selinux_device_policy}. Policy is precompiled at build time into \path{/vendor/etc/selinux/precompiled_sepolicy}; at boot, \texttt{init} validates it against SHA-256 hashes before loading.
 
 \section{Android Init System}
 \label{sec:bg_init}

@@ -1,5 +1,30 @@
 \begin{thebibliography}{10}
 
+\bibitem{android_architecture_overview}
+{Android Open Source Project}.
+\newblock {Architecture Overview}.
+\newblock \url{https://source.android.com/docs/core/architecture}, 2026.
+\newblock Official AOSP software stack: Applications, Application Framework,
+  System Services, Android Runtime, HAL, Native Daemons, and Linux Kernel
+  layers. Accessed: June 2026.
+
+\bibitem{android_security_features}
+{Android Open Source Project}.
+\newblock {Android Security Features}.
+\newblock \url{https://source.android.com/docs/security/features}, 2024.
+\newblock Overview of Android's multi-layered security model: application
+  sandbox, Android Keystore, Trusty TEE, Gatekeeper/Weaver authentication,
+  verified boot, SELinux, app signing, and encryption frameworks. Accessed: May
+  2026.
+
+\bibitem{aaos_overview}
+{Android Open Source Project}.
+\newblock {What is Android Automotive?}
+\newblock
+  \url{https://source.android.com/docs/automotive/start/what_automotive}, 2024.
+\newblock Overview of Android Automotive OS (AAOS): IVI platform, AOSP-based,
+  distinct from Android Auto. Accessed: February 2026.
+
 \bibitem{avb2_readme}
 {Android Open Source Project}.
 \newblock {Android Verified Boot 2.0 --- Official README (android16-release)}.
@@ -10,14 +35,6 @@
   A/B support, and \texttt{BOARD\_AVB\_ENABLE} build integration. Accessed:
   February 2026.
 
-\bibitem{aaos_overview}
-{Android Open Source Project}.
-\newblock {What is Android Automotive?}
-\newblock
-  \url{https://source.android.com/docs/automotive/start/what_automotive}, 2024.
-\newblock Overview of Android Automotive OS (AAOS): IVI platform, AOSP-based,
-  distinct from Android Auto. Accessed: February 2026.
-
 \bibitem{iso_sae_21434}
 {ISO/SAE}.
 \newblock {ISO/SAE 21434:2021 --- Road vehicles --- Cybersecurity engineering}.
@@ -26,15 +43,6 @@
   Operational, Privacy), and attack potential feasibility attributes for
   automotive cybersecurity. Clause~15 governs the Risk Assessment phase.
   Accessed: May 2026.
-
-\bibitem{android_security_features}
-{Android Open Source Project}.
-\newblock {Android Security Features}.
-\newblock \url{https://source.android.com/docs/security/features}, 2024.
-\newblock Overview of Android's multi-layered security model: application
-  sandbox, Android Keystore, Trusty TEE, Gatekeeper/Weaver authentication,
-  verified boot, SELinux, app signing, and encryption frameworks. Accessed: May
-  2026.
 
 \bibitem{rpi_uart_pinout}
 {pinout.xyz}.

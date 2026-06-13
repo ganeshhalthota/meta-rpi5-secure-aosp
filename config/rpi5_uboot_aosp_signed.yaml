@@ -39,7 +39,7 @@ avb:
 boot:
   # Secure/prod profile: enforcing SELinux.
   # Options: permissive | enforcing
-  selinux_mode: permissive
+  selinux_mode: enforcing
   # Secure/prod profile: do not force insecure boot state; keep AVB-driven state.
   # Options: none | green | orange
   state_override: none
@@ -53,7 +53,7 @@ boot:
 encryption:
   # Options: disabled | fde | fbe
   # fbe requires signing enabled + fail_closed AVB + metadata partition.
-  mode: fbe
+  mode: disabled
 
 sdcard:
   config: sdcard/uboot_aosp.yaml
