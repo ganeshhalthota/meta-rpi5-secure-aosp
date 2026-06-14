@@ -1,4 +1,3 @@
-
   1.21 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
   1.25 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 1025243
   1.35 AON_RESET: 00000003 PM_RSTS 00001000
@@ -111,7 +110,7 @@ CSD: 400e00325b590000edc87f800a404000
  10.52 MESS:00:00:10.652447:0: dtparam: dr_mode=peripheral
  10.41 Read /cmdline.txt bytes      124 hnd 0x11fbe
  10.77 BMD "armstub8-2712.bin" not found
- 10.78 fs_open: 'armstub8-2712.bin' 
+ 10.78 fs_open: 'armstub8-2712.bin'
  10.81 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
  11.22 Read u-boot.bin bytes   708736 hnd 0x13562
  11.25 PCI1 reset
@@ -142,7 +141,7 @@ DRAM:  16 GiB
 RPI 5 Model B (0xe04171)
 Core:  25 devices, 11 uclasses, devicetree: board
 MMC:   mmc@fff000: 0, mmc@1100000: 1
-Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... 
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1...
 In:    serial,usbkbd
 Out:   serial,vidconsole
 Err:   serial,vidconsole
@@ -168,7 +167,7 @@ Unknown command 'avb' - try 'help'
 AVB: Initialization FAILED
 Fail-closed policy: resetting
 resetting ...
-Õ
+
   0.57 RPi: BOOTSYS release VERSION:2bb2ae64 DATE: 2025/03/10 TIME: 17:10:37
   0.61 BOOTMODE: 0x06 partition 0 build-ts BUILD_TIMESTAMP=1741626637 serial 06956aab boardrev e04171 stc 861707
   0.71 AON_RESET: 00000003 PM_RSTS 00001020
@@ -281,7 +280,7 @@ CSD: 400e00325b590000edc87f800a404000
   6.54 MESS:00:00:06.254844:0: dtparam: dr_mode=peripheral
   6.43 Read /cmdline.txt bytes      124 hnd 0x11fbe
   6.80 BMD "armstub8-2712.bin" not found
-  6.81 fs_open: 'armstub8-2712.bin' 
+  6.81 fs_open: 'armstub8-2712.bin'
   6.84 Loading 'u-boot.bin' to 0x00000000 offset 0x200000
   6.26 Read u-boot.bin bytes   708736 hnd 0x13562
   6.28 PCI1 reset
@@ -306,7 +305,7 @@ DRAM:  16 GiB
 RPI 5 Model B (0xe04171)
 Core:  25 devices, 11 uclasses, devicetree: board
 MMC:   mmc@fff000: 0, mmc@1100000: 1
-Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... 
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1...
 In:    serial,usbkbd
 Out:   serial,vidconsole
 Err:   serial,vidconsole
@@ -331,4 +330,3 @@ Unknown command 'avb' - try 'help'
 AVB: Initialization FAILED
 Fail-closed policy: resetting
 resetting ...
-Õ
