@@ -213,17 +213,76 @@ Last updated: 2026-04-04
     - successful build artifact (`.pdf`)
     - chapter-to-evidence mapping table
 
+## P2 (Advanced Security Testing & Fuzzing)
+
+- [ ] Implement AOSP Native Fuzzing (libFuzzer)
+  - Owner: Coding
+  - Scope:
+    - Create `cc_fuzz` modules in `Android.bp` for native daemons (e.g., `vold`, `keystore`, custom HALs).
+    - Leverage existing `fuzzer_mode.cc` build support.
+  - Validation tasks:
+    - [ ] Build fuzzer targets using AOSP build system.
+    - [ ] Run fuzzers against native targets and capture coverage/crash reports.
+  - Evidence to capture:
+    - Fuzzer harness code and execution logs.
+
+- [ ] Implement U-Boot parsing fuzzing (AFL++ / libFuzzer)
+  - Owner: Coding
+  - Scope:
+    - Fuzz U-Boot functions parsing untrusted input (`vbmeta`, GPT tables, `boot.scr`).
+    - Compile U-Boot in `sandbox` mode with instrumentation.
+  - Validation tasks:
+    - [ ] Create automated generation of fuzz targets (e.g., via QGenie `uboot-fuzz-generator` skill).
+    - [ ] Pass malformed structures to verify failure behavior without memory corruption.
+  - Evidence to capture:
+    - Fuzzing harness implementation and crash/hang logs in `notes/`.
+
+- [ ] Kernel Fuzzing evaluation (Syzkaller)
+  - Owner: Mixed
+  - Scope:
+    - Evaluate Syzkaller for testing RPi5 specific kernel drivers and syscalls.
+
+- [ ] Physical & Hardware Penetration Testing
+  - Owner: Mixed
+  - Scope:
+    - UART/Serial Exploitation: Test dropping to U-Boot prompt and console lockdown (`bootdelay=0`).
+    - Fault Injection/Glitching: Assess risk of voltage glitching during AVB signature verification.
+    - Cold Boot Attacks: Assess risk of memory extraction for FBE keys.
+  - Validation tasks:
+    - [ ] Document physical attack surface in TARA.
+    - [ ] Perform manual UART interruption tests.
+
+- [ ] OS-Level & Runtime Penetration Testing
+  - Owner: Mixed
+  - Scope:
+    - SELinux Bypass & Privilege Escalation (testing SUID binaries).
+    - Production ADB Auditing (ensure ADB is disabled/authenticated on `user` builds).
+    - Downgrade/Rollback Attack tests against Anti-Rollback Index.
+  - Validation tasks:
+    - [ ] Scan filesystem for vulnerable SUID binaries.
+    - [ ] Attempt flashing a legitimately signed but older/vulnerable OS image to verify rollback protection.
+
 ## P3 (Last / After Core Security Work)
 
-- [ ] OTA workstream (keep as final phase)
+- [ ] OTA & Background Updates (A/B Seamless Updates)
   - Owner: Mixed
-  - Candidate scope:
-    - Signed OTA payload generation and verification
-    - A/B update flow (if platform constraints allow)
-    - Update rollback and recovery scenarios
+  - Implementation tasks:
+    - [ ] **Partition Layout:** Define A/B slots (`boot_a`, `boot_b`, `system_a`, `system_b`, etc.) in SD card configs.
+    - [ ] **U-Boot Boot Control:** Implement U-Boot script logic to track active slots, boot attempts, and fallbacks (`boot_slot`, `slot_a_successful`).
+    - [ ] **AOSP Boot Control HAL:** Implement Android hardware abstraction layer for `update_engine` to mark slots successful and switch slots.
+    - [ ] **Update Engine:** Enable `AB_OTA_UPDATER := true` in AOSP build system and configure `update_engine` daemon.
+    - [ ] **Payload Generation:** Modify build pipeline to generate OTA payloads (`payload.bin`) rather than raw images.
   - Validation tasks:
-    - [ ] Successful signed OTA apply on known-good baseline.
-    - [ ] Negative test: tampered payload rejected.
-    - [ ] Recovery test: interrupted update recovers without bricking.
+    - [ ] Successfully download and apply a signed OTA payload in the background while Android is running.
+    - [ ] Verify device successfully boots into the new slot after a reboot.
+    - [ ] Negative test: Simulate a broken update (corrupt slot) and verify U-Boot automatically falls back to the old, working slot.
   - Evidence to capture:
-    - OTA logs, slot state transitions, and post-update boot verification
+    - OTA generation logs, `update_engine` logcat output, U-Boot slot transition logs.
+
+## Overarching 5-Year Vision (Project Goals)
+
+- **Zero-Touch Board Bring-up:** Abstract the manual process of configuring U-boot, aligning partitions, and AVB so that an AI can generate a secure BSP for any new hardware given just a device tree and schematic.
+- **Democratization of Secure Edge Hardware:** Empower individual developers/startups to build enterprise-grade, lock-down secure OS images for custom PCBs within hours (like a "Shopify for Secure Hardware").
+- **Self-Healing Boot Chains & OTA:** Autonomous pipelines where AI monitors for CVEs in the kernel/U-Boot, drafts patches, rebuilds AOSP, re-signs AVB, validates in a VM, and deploys updates without human intervention.
+- **Natural Language to Custom OS:** Transition embedded engineering interfaces to intent-based design (e.g., "Build an AOSP image for this hardware with a locked bootloader and strict SELinux, stripping all UI").
+- **Redefining the Engineering Benchmark:** Turn what is currently an advanced thesis-level project into standard abstraction, allowing future students and engineers to focus on novel OS/hardware architectures rather than secure boot boilerplate.

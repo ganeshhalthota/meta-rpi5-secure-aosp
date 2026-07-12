@@ -299,14 +299,14 @@ def run(ctx: BuildContext) -> None:
             ctx.run(
                 "bash -c 'source build/envsetup.sh && "
                 f"lunch {lunch_target} && "
-                f"{extra_flags} make bootimage systemimage vendorimage -j $(nproc)'",
+                f"{extra_flags} make bootimage systemimage vendorimage -j 6'",
                 cwd=ctx.aosp_dir,
             )
         else:
             ctx.run(
                 "bash -c 'source build/envsetup.sh && "
                 f"lunch {lunch_target} && "
-                "make bootimage systemimage vendorimage -j $(nproc)'",
+                "make bootimage systemimage vendorimage -j 6'",
                 cwd=ctx.aosp_dir,
             )
 

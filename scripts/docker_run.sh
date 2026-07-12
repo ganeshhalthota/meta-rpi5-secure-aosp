@@ -114,9 +114,9 @@ function start_container() {
         ${ssh_mount[@]} \
         ${pip_conf[@]} \
         -v ${PROJECT_DIR}:/app:rw \
-        -v /etc/gitconfig:/etc/gitconfig:ro \
         -v ${work_dir}:/app/work \
         -v ${work_dir}/.cache/tmp:/tmp \
+        -v /home/ganesh/ws/storage/aosp_mirror:/data/aosp_mirror:ro \
         --privileged \
         -e POETRY_CACHE_DIR=/app/work/.cache/pypoetry \
         -e PIP_CACHE_DIR=/app/work/.cache/pip \

@@ -2,7 +2,7 @@
 
 aosp:
   tag: android-16.0.0_r4
-  manifest_url: https://android.googlesource.com/platform/manifest
+  manifest_url: /data/aosp_mirror/platform/manifest.git
   # userdebug: keeps serial console shell for hardware validation;
   # switch to 'user' after all test cases are confirmed passing.
   build_variant: user

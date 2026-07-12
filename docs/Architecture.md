@@ -4,6 +4,23 @@
 
 This document describes the architecture of the `meta-rpi5-secure-aosp` project. This project provides a tool called `rpi5-build` to build a secure AOSP (Android Open Source Project) image for the Raspberry Pi 5. The tool is designed to be flexible and allows users to select which parts of the image to build and which stages to run.
 
+## Project Goals
+
+The overarching goal of the project is to replicate the commercial boot-up workflow and learn the essentials of a secure boot-up process. 
+
+Currently, the project implements the following boot chain:
+`RPi5 Bootloader -> U-Boot -> Kernel -> AOSP`
+
+### High-Level Future Goals
+1. **A/B Partition Scheme**: Implement an A/B partition scheme for all partitions apart from the boot partition to support seamless updates.
+2. **OP-TEE Integration**: Include OP-TEE (Open Portable Trusted Execution Environment) in the boot chain for advanced security features and trusted applications.
+3. **AOSP Security Features**: Enable and enforce AOSP security features.
+4. **Hardware & Boot-Level Security**: Integrate ARM Trusted Firmware-A (TF-A) (EL3), implement Anti-Rollback Protection, and explore Raspberry Pi's Hardware Root of Trust (OTP/eFuses).
+5. **Kernel-Level Security & Hardening**: Implement KASLR, Control Flow Integrity (CFI), and the Linux Lockdown LSM to protect kernel memory and execution flow.
+6. **File System & Storage Security**: Configure Android's `vold` for File-Based Encryption (FBE) backed by a Hardware Keystore.
+7. **AOSP System & HAL Security**: Develop Keymaster/KeyMint and Gatekeeper HALs that communicate securely with Trusted Applications (TAs) in OP-TEE.
+8. **User-Process Level Security**: Enforce strict SELinux policies (Enforcing Mode) and sandbox custom native services using Seccomp-BPF.
+
 ## Motivation
 
 The main motivation for this project is to provide a simple and automated way to build a secure AOSP image for the Raspberry Pi 5. Building AOSP for a new device can be a complex and time-consuming process. This project aims to simplify this process by providing a single tool that automates all the necessary steps, from syncing the source code to generating the final SD card image. The "secure" aspect comes from the integration of Android Verified Boot (AVB), which ensures the integrity of the software on the device.
